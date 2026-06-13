@@ -42,6 +42,19 @@ final class AppStore {
     /// Mocked for the prototype; swap for `RealScreenTimeFocusControlAdapter` in v2 (REAL-01).
     let focusAdapter: FocusControlAdapter
 
+    // MARK: - User Identity (Phase 2, ONB-04)
+    //
+    // Plain var — @Observable tracks these automatically.
+    // Do NOT use @AppStorage here: @Observable classes cannot hold property wrappers
+    // that are themselves observation-tracked (RESEARCH.md Pitfall 8).
+    // Do NOT log these values (T-02-05: identity data must not appear in captured logs).
+
+    /// The user's chosen avatar appearance. Defaults to `.default` if no persisted value.
+    var userCharacter: CharacterAppearance = .default
+
+    /// The user's chosen display name. Defaults to `""` until onboarding completes.
+    var displayName: String = ""
+
     // MARK: - Init
 
     /// Inject service implementations.
@@ -52,6 +65,12 @@ final class AppStore {
     ) {
         self.commitmentService = commitmentService
         self.focusAdapter = focusAdapter
+        // Restore persisted identity on start (ONB-04).
+        // Falls back to .default / "" if no data saved or data is corrupt (T-02-03).
+        if let saved = CharacterPersistence.load() {
+            self.userCharacter = saved.appearance
+            self.displayName   = saved.displayName
+        }
     }
 
     // MARK: - Wallet Balance (WR-01)
