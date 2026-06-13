@@ -36,14 +36,15 @@ struct MoneyLabel: View {
                 .font(Theme.TypeScale.money)
                 .foregroundStyle(Theme.Colour.moneyGreen)
 
-            // The TEST MODE marker — ALWAYS rendered.
-            // Gated on ENABLE_REAL_MONEY_STAKES being false (SAFE-02, FND-05):
-            // because the flag is false, this block always executes and the
-            // marker is always shown. If the flag were ever flipped true in
-            // a real-money build, the marker would be suppressed — this is
-            // how the flag is HONOURED at its boundary, not just declared.
+            // IN-01 fix: the else branch renders an explicit real-money badge rather
+            // than nothing. This ensures that flipping ENABLE_REAL_MONEY_STAKES to
+            // true never silently removes all money indicators — a distinct "LIVE"
+            // badge is shown instead, preserving the safety invariant that a £ figure
+            // is never rendered without a visible qualifier.
             if !FeatureFlags.ENABLE_REAL_MONEY_STAKES {
                 testModeStatement
+            } else {
+                realMoneyBadge
             }
         }
     }
@@ -56,9 +57,11 @@ struct MoneyLabel: View {
                 .font(Theme.TypeScale.headline)
                 .foregroundStyle(Theme.Colour.moneyGreen)
 
-            // Compact "TEST" pill — always rendered when flag is false (SAFE-02).
+            // IN-01 fix: show either test pill or real-money pill; never neither.
             if !FeatureFlags.ENABLE_REAL_MONEY_STAKES {
                 testPill
+            } else {
+                realMoneyPill
             }
         }
     }
@@ -75,6 +78,39 @@ struct MoneyLabel: View {
             .background(Theme.Colour.testBadgeBg)
             .clipShape(Capsule())
     }
+
+    // MARK: - REAL MONEY Components (IN-01)
+    // Rendered when ENABLE_REAL_MONEY_STAKES is true so £ figures are never
+    // displayed without a visible qualifier — even in a live-money build.
+
+    /// Compact inline "LIVE" pill for real-money builds.
+    private var realMoneyPill: some View {
+        Text("LIVE")
+            .font(Theme.TypeScale.captionBold)
+            .foregroundStyle(Theme.Colour.textOnAccent)
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.vertical, 2)
+            .background(Theme.Colour.forfeitRed)
+            .clipShape(Capsule())
+    }
+
+    /// Full "REAL MONEY — STAKES ACTIVE" statement for real-money builds.
+    private var realMoneyBadge: some View {
+        HStack(spacing: Theme.Spacing.xs) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(Theme.Colour.textOnAccent)
+            Text("REAL MONEY — STAKES ACTIVE")
+                .font(Theme.TypeScale.caption)
+                .foregroundStyle(Theme.Colour.textOnAccent)
+        }
+        .padding(.horizontal, Theme.Spacing.sm)
+        .padding(.vertical, Theme.Spacing.xs)
+        .background(Theme.Colour.forfeitRed)
+        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.sm))
+    }
+
+    // MARK: - TEST MODE Components
 
     /// Full "TEST MODE — NO REAL MONEY WILL MOVE" statement.
     private var testModeStatement: some View {

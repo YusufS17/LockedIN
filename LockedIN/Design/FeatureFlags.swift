@@ -17,6 +17,8 @@ enum FeatureFlags {
     /// Legally sensitive; deferred to v2 (STAKE-02).
     static let ENABLE_ROOM_PRIZE_POOL = false
 
-    /// When `true`: sponsored reward flow exists (flag present, flow not yet built).
-    static let ENABLE_SPONSORED_REWARDS = true
+    /// When `false` (prototype default): sponsored reward flow not yet built (IN-02).
+    /// Set to `true` only once the flow exists; a `true` flag for an unbuilt feature
+    /// is a footgun — the first reader will believe it is live.
+    static let ENABLE_SPONSORED_REWARDS = false
 }
