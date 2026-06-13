@@ -26,11 +26,11 @@ A `Pence` integer flows from the `@Observable` `AppStore` (injected at the `Wind
 
 ## Stack Touched in Phase 1
 
-- [ ] Project scaffold — hand-authored `LockedIN.xcodeproj`, iOS 17 target, Swift 5, zero deps, synchronized file group, Assets.xcassets (Plan 01-01 Task 1)
-- [ ] App entry + routing — `LockedINApp` (`@main`, `WindowGroup { RootView() }`) with `.environment(appStore)` (Plan 01-01 Task 3)
+- [x] Project scaffold — hand-authored `LockedIN.xcodeproj`, iOS 17 target, Swift 5, zero deps, synchronized file group, Assets.xcassets (Plan 01-01 Task 1) — commit 89cabba
+- [x] App entry + routing — `LockedINApp` (`@main`, `WindowGroup { RootView() }`) with `.environment(appStore)` (Plan 01-01 Task 3) — commit 4b9db22
 - [ ] "Data layer" (in-memory) — `MockCommitmentService` simulated wallet read/write (authoriseHold deducts, settle credits) seeded at 2000 pence (Plan 01-02 Task 2)
-- [ ] UI wired to the substrate — `RootView` reads `@Environment(AppStore.self)` and renders `MoneyLabel(appStore.walletBalancePence)` (Plan 01-01 Task 3)
-- [ ] Full-stack run — `xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -destination 'platform=iOS Simulator,name=iPhone 16' build CODE_SIGNING_ALLOWED=NO` exits 0; the root screen renders the seeded £20.00 with the TEST marker on the iOS 17 (run on 18.6 sim) target
+- [x] UI wired to the substrate — `RootView` reads `@Environment(AppStore.self)` and renders `MoneyLabel(appStore.walletBalancePence)` (Plan 01-01 Task 3) — commit 4b9db22
+- [x] Full-stack run — `xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -destination 'platform=iOS Simulator,name=iPhone 16' build CODE_SIGNING_ALLOWED=NO` exits 0; the root screen renders the seeded £20.00 with the TEST marker on the iOS 17 (run on 18.6 sim) target — confirmed BUILD SUCCEEDED
 
 > Executor: update these checkboxes to `[x]` as each is delivered.
 

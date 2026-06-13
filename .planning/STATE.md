@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 1 context gathered
-last_updated: "2026-06-13T12:14:06.409Z"
-last_activity: 2026-06-13 — Roadmap created; 44 requirements mapped across 6 phases
+last_updated: "2026-06-13T12:27:00.692Z"
+last_activity: 2026-06-13 -- Phase 01 execution started
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 2
+  completed_plans: 1
+  percent: 50
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-13)
 
 **Core value:** The commitment-to-consequence loop must feel real — frozen contract, genuine-feeling stake, honest pressure when you try to break it, satisfying reveal that returns or forfeits the money
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 01 — foundation
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation)
-Plan: 0 of TBD in current phase
-Status: Ready to execute
-Last activity: 2026-06-13 — Roadmap created; 44 requirements mapped across 6 phases
+Phase: 01 (foundation) — EXECUTING
+Plan: 2 of 2
+Status: Executing Phase 01
+Last activity: 2026-06-13 -- Plan 01-01 completed (Walking Skeleton, BUILD SUCCEEDED)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -53,6 +53,8 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 
+| Phase 01-foundation P01 | 20min | 3 tasks | 10 files |
+
 ## Accumulated Context
 
 ### Decisions
@@ -63,6 +65,9 @@ Recent decisions affecting current work:
 - Planning: Demo-spine-first sequencing — Phases 1–5 deliver a complete demoable commitment loop; Phase 6 (world/social) is the ambitious back half that can be cut without breaking the demo
 - Planning: 6 phases chosen at standard granularity — natural delivery boundaries at foundation / lobby+contract / session engine / interruption shield / results+settlement / rewards+world
 - Planning: `typealias Pence = Int` and `TestModeBadge` must ship in Phase 1 before any money-displaying screen is built — retroactive changes are the highest-recovery-cost failure mode
+- Phase 01-01: PBXFileSystemSynchronizedRootGroup used for zero-pbxproj-surgery file addition across all future plans
+- Phase 01-01: MoneyLabel reads ENABLE_REAL_MONEY_STAKES at render boundary — flag honoured structurally, making money-without-TEST-marker impossible by construction
+- Phase 01-01: formatPence() uses integer arithmetic (not NumberFormatter) for guaranteed 2dp with zero floating-point involvement
 
 ### Pending Todos
 
@@ -82,6 +87,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-13T11:56:06.914Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-foundation/01-CONTEXT.md
+Last session: 2026-06-13T12:37:00Z
+Stopped at: Completed 01-01-PLAN.md — Walking Skeleton built and verified BUILD SUCCEEDED
+Resume file: .planning/phases/01-foundation/01-02-PLAN.md

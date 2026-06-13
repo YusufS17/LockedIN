@@ -39,7 +39,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plansPlans:
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — Walking Skeleton: buildable iOS 17 app, Pence type + single 2dp formatter, MoneyLabel (structural TEST marker), 4 feature flags, design tokens, @Observable AppStore via .environment()
+- [x] 01-01-PLAN.md — Walking Skeleton: buildable iOS 17 app, Pence type + single 2dp formatter, MoneyLabel (structural TEST marker), 4 feature flags, design tokens, @Observable AppStore via .environment()
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -135,7 +135,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Planned | - |
+| 1. Foundation | 1/2 | In Progress|  |
 | 2. Room & Contract | 0/TBD | Not started | - |
 | 3. Session Engine & Tracking | 0/TBD | Not started | - |
 | 4. Screen Shield & Interruption | 0/TBD | Not started | - |

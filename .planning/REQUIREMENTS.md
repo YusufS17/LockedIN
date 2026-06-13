@@ -9,11 +9,11 @@ Requirements for the hackathon prototype. Each maps to a roadmap phase. Scope is
 
 ### Foundation & Architecture
 
-- [ ] **FND-01**: All monetary values are stored as integer minor units (pence); never floating point
+- [x] **FND-01**: All monetary values are stored as integer minor units (pence); never floating point
 - [ ] **FND-02**: Payment/settlement logic lives behind a `CommitmentService` protocol (with a `MockCommitmentService` implementation); no payment calls appear in UI or session code
 - [ ] **FND-03**: Focus tracking goes through a `FocusControlAdapter` protocol (with a `MockFocusControlAdapter` implementation) so a real Screen Time adapter can slot in later
 - [ ] **FND-04**: Settlement has explicit, enumerated states (e.g. not_required, awaiting_authorisation, authorised, held, passed, refunded, failed, forfeited) modelled as a type
-- [ ] **FND-05**: Feature flags exist and are honoured: `ENABLE_REAL_MONEY_STAKES=false`, `ENABLE_TEST_STAKES=true`, `ENABLE_ROOM_PRIZE_POOL=false`, `ENABLE_SPONSORED_REWARDS=true`
+- [x] **FND-05**: Feature flags exist and are honoured: `ENABLE_REAL_MONEY_STAKES=false`, `ENABLE_TEST_STAKES=true`, `ENABLE_ROOM_PRIZE_POOL=false`, `ENABLE_SPONSORED_REWARDS=true`
 
 ### Room & Contract
 
@@ -73,10 +73,10 @@ Requirements for the hackathon prototype. Each maps to a roadmap phase. Scope is
 
 ### Safety & Integrity
 
-- [ ] **SAFE-01**: A persistent "TEST MODE — NO REAL MONEY WILL MOVE" label appears on every screen that shows a £ amount
-- [ ] **SAFE-02**: The app never exposes which specific apps were blocked/opened, browsing history, messages, contacts, or notification contents — only aggregate metrics
-- [ ] **SAFE-03**: Tracking is labelled best-effort; no invented data is presented as real measurement
-- [ ] **SAFE-04**: Commitment £ and LockedIN coins are never conflated on screen
+- [x] **SAFE-01**: A persistent "TEST MODE — NO REAL MONEY WILL MOVE" label appears on every screen that shows a £ amount
+- [x] **SAFE-02**: The app never exposes which specific apps were blocked/opened, browsing history, messages, contacts, or notification contents — only aggregate metrics
+- [x] **SAFE-03**: Tracking is labelled best-effort; no invented data is presented as real measurement
+- [x] **SAFE-04**: Commitment £ and LockedIN coins are never conflated on screen
 
 ## v2 Requirements
 
@@ -132,15 +132,15 @@ Populated during roadmap creation by the roadmapper. Each requirement maps to ex
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FND-01 | Phase 1 | Pending |
+| FND-01 | Phase 1 | Complete |
 | FND-02 | Phase 1 | Pending |
 | FND-03 | Phase 1 | Pending |
 | FND-04 | Phase 1 | Pending |
-| FND-05 | Phase 1 | Pending |
-| SAFE-01 | Phase 1 | Pending |
-| SAFE-02 | Phase 1 | Pending |
-| SAFE-03 | Phase 1 | Pending |
-| SAFE-04 | Phase 1 | Pending |
+| FND-05 | Phase 1 | Complete |
+| SAFE-01 | Phase 1 | Complete |
+| SAFE-02 | Phase 1 | Complete |
+| SAFE-03 | Phase 1 | Complete |
+| SAFE-04 | Phase 1 | Complete |
 | CTR-01 | Phase 2 | Pending |
 | CTR-02 | Phase 2 | Pending |
 | CTR-03 | Phase 2 | Pending |
@@ -178,6 +178,7 @@ Populated during roadmap creation by the roadmapper. Each requirement maps to ex
 | WLD-06 | Phase 6 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 44 total
 - Mapped to phases: 44 (Phase 1: 9, Phase 2: 9, Phase 3: 5, Phase 4: 5, Phase 5: 6, Phase 6: 10)
 - Unmapped: 0 ✓
