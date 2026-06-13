@@ -28,11 +28,11 @@ struct RootView: View {
     // MARK: - Body
 
     var body: some View {
-        if hasCompletedOnboarding {
-            HomeView()
-        } else {
-            OnboardingView()
-        }
+        // DEMO MODE: clickable static prototype of the full approved design
+        // (Demo01…Demo10). Tap anywhere to advance through the whole flow.
+        // The functional onboarding/home/loop remain in the codebase
+        // (OnboardingView / HomeView / RoomFlowView) for post-demo work.
+        DemoFlowView()
     }
 }
 
