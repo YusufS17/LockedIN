@@ -1,0 +1,64 @@
+import Foundation
+
+// MARK: - Money Types
+
+/// The canonical money type for LockedIN.
+/// All monetary fields use `Pence` (Int) — 500 == £5.00.
+/// FORBIDDEN: Double, Float, Decimal for any money storage or computation.
+typealias Pence = Int
+
+/// Alias of Pence; both names exist because ROADMAP/CONTEXT use both.
+typealias MinorUnits = Int
+
+// MARK: - Settlement State
+
+/// The 8 canonical participant settlement states (D-11, FND-04).
+/// These are EXACTLY the 8 states from ROADMAP success criterion #3 — non-negotiable.
+enum ParticipantSettlementState {
+    /// Stake not required (e.g. host-only participant, no monetary agreement).
+    case notRequired
+    /// Awaiting authorisation from the payment provider.
+    case awaitingAuthorisation
+    /// Stake held/authorised; session in progress.
+    case held
+    /// Stake authorised for return (participant passed).
+    case authorisedForReturn
+    /// Stake authorised for forfeit (participant failed).
+    case authorisedForForfeit
+    /// Stake successfully returned to participant.
+    case returned
+    /// Stake successfully forfeited.
+    case forfeited
+    /// An error occurred during settlement.
+    case settlementError
+}
+
+// MARK: - Display-Boundary Formatter
+
+/// The SINGLE display-boundary function that converts a `Pence` value to a
+/// formatted currency string. This is the ONLY place `Pence -> String`
+/// conversion happens (D-08). MoneyLabel is the exclusive consumer.
+///
+/// Examples:
+/// - `formatPence(500)` → `"£5.00"`
+/// - `formatPence(50)`  → `"£0.50"`
+/// - `formatPence(2000)` → `"£20.00"`
+/// - `formatPence(1500)` → `"£15.00"`
+func formatPence(_ amount: Pence, currencyCode: String = "GBP") -> String {
+    // Use integer arithmetic to guarantee exact 2 decimal places.
+    // Never trim whole-pound amounts (D-07).
+    let pounds = abs(amount) / 100
+    let pence = abs(amount) % 100
+    let sign = amount < 0 ? "-" : ""
+
+    // Determine symbol from currency code.
+    let symbol: String
+    switch currencyCode {
+    case "GBP": symbol = "£"
+    case "USD": symbol = "$"
+    case "EUR": symbol = "€"
+    default:    symbol = currencyCode + " "
+    }
+
+    return String(format: "\(sign)\(symbol)%d.%02d", pounds, pence)
+}
