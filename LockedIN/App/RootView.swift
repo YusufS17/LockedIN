@@ -12,6 +12,12 @@ struct RootView: View {
     // Demo stake sample: £5.00 (500 pence)
     private let stakeSamplePence: Pence = 500
 
+    // WR-01: Wallet balance is now derived from CommitmentService (single source of truth).
+    // For this walking-skeleton screen, which has no real participant UUID, we show the
+    // seeded starting balance as a display constant. Phase 2+ views will call
+    // appStore.currentBalance(for: participantID) with a real UUID inside .task {}.
+    @State private var displayBalancePence: Pence = MockCommitmentService.startingBalance
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -70,7 +76,7 @@ struct RootView: View {
 
             surfaceCard {
                 VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    MoneyLabel(appStore.walletBalancePence)
+                    MoneyLabel(displayBalancePence)
                 }
             }
         }

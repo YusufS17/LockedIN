@@ -21,7 +21,8 @@ final class MockCommitmentService: CommitmentService {
     static let startingBalance: MinorUnits = 2000
 
     /// Named charity where forfeited stakes are donated in test mode (D-10).
-    let forfeitDestination: String = "British Red Cross"
+    /// Derived from `ForfeitConfig.destination` — single source of truth (WR-02).
+    let forfeitDestination: String = ForfeitConfig.destination
 
     // MARK: - In-Memory State
 
@@ -89,7 +90,10 @@ final class MockCommitmentService: CommitmentService {
             // Return the full stake to the participant's balance.
             returnedMinorUnits = held
             forfeitedMinorUnits = 0
-            balances[holdRef.participantID, default: 0] += held
+            // WR-06 fix: use Self.startingBalance as the default, consistent with
+            // authoriseHold and walletBalance seeding. `default: 0` was inconsistent
+            // and would silently lose the £20 seed in any out-of-order edge call.
+            balances[holdRef.participantID, default: Self.startingBalance] += held
 
         case .failed:
             // Forfeit the full stake to the forfeit destination; balance unchanged.

@@ -1,3 +1,4 @@
+import Foundation
 import Observation
 
 // MARK: - AppStore (CLAUDE.md: single @Observable root store)
@@ -8,19 +9,24 @@ import Observation
 // Will later hold SessionStore, WalletStore, and RoomStore as child stores.
 // FORBIDDEN: ObservableObject, @Published, @StateObject, Combine (CLAUDE.md).
 
+// MARK: - Forfeit Config (D-10, WR-02)
+
+/// Single source of truth for the forfeit destination name (D-10).
+/// Referenced by both `AppStore` and `MockCommitmentService` to prevent silent divergence (WR-02).
+enum ForfeitConfig {
+    static let destination = "British Red Cross"
+}
+
+// MARK: - AppStore
+
 @Observable
 final class AppStore {
-
-    // MARK: - Wallet Seed (D-09)
-
-    /// Simulated wallet balance in Pence (D-09: starts at £20.00 = 2000 pence).
-    /// All monetary values are `Pence = Int` — never Double/Float/Decimal (FND-01, SAFE-03).
-    var walletBalancePence: Pence = 2000
 
     // MARK: - Forfeit Destination (D-10)
 
     /// The named charity where forfeited stakes are donated in test mode (D-10).
-    let forfeitDestination: String = "British Red Cross"
+    /// Derived from `ForfeitConfig.destination` — single source of truth (WR-02).
+    let forfeitDestination: String = ForfeitConfig.destination
 
     // MARK: - Service Boundaries (FND-02, FND-03, SAFE-04, T-01-08)
 
@@ -46,5 +52,18 @@ final class AppStore {
     ) {
         self.commitmentService = commitmentService
         self.focusAdapter = focusAdapter
+    }
+
+    // MARK: - Wallet Balance (WR-01)
+
+    /// Returns the current wallet balance in pence for the given participant.
+    ///
+    /// Derives directly from `commitmentService` — the single source of truth for
+    /// wallet state. This avoids the stale-copy hazard of a stored `walletBalancePence`
+    /// property in `AppStore` that would diverge after `authoriseHold`/`settle` (WR-01).
+    ///
+    /// All monetary values are `Pence = Int` — never Double/Float/Decimal (FND-01, SAFE-03).
+    func currentBalance(for participantID: UUID) async -> Pence {
+        await commitmentService.walletBalance(participantID: participantID)
     }
 }
