@@ -11,27 +11,35 @@ enum Theme {
     // MARK: - Colour Palette
 
     enum Colour {
-        // Backgrounds — warm dark-academia study-room feel
-        static let background = Color(red: 0.118, green: 0.098, blue: 0.078)   // #1E190F deep warm brown
-        static let surface    = Color(red: 0.196, green: 0.165, blue: 0.129)   // #322A21 warm surface
-        static let surfaceMid = Color(red: 0.259, green: 0.220, blue: 0.169)   // #42382B card surface
+        // Backgrounds — warm CREAM "Version B" direction (mockup-matched).
+        // Modern cream product layer that frames the pixel game layer.
+        static let background = Color(red: 0.957, green: 0.922, blue: 0.847)   // #F4EBD8 warm cream parchment
+        static let surface    = Color(red: 0.984, green: 0.961, blue: 0.910)   // #FBF5E8 lighter cream card
+        static let surfaceMid = Color(red: 0.929, green: 0.886, blue: 0.796)   // #EDE2CB deeper cream / nested
 
-        // Accent — warm amber/gold (study lamp, honest & energetic)
+        // App shell + dark controls — charcoal near-black frame & primary pill buttons
+        static let appShell   = Color(red: 0.122, green: 0.106, blue: 0.086)   // #1F1B16 charcoal shell/border
+        static let buttonFill = Color(red: 0.137, green: 0.118, blue: 0.094)   // #231E18 dark pill button
+        static let buttonText = Color(red: 0.965, green: 0.937, blue: 0.871)   // #F6EFDE cream text on dark pill
+        static let cardBorder = Color(red: 0.835, green: 0.769, blue: 0.643)   // #D5C4A4 soft tan card border
+        static let sparkle    = Color(red: 1.000, green: 0.839, blue: 0.510)   // #FFD682 reveal-moment glow
+
+        // Accent — warm amber/gold (study lamp, reveal/CTA energy)
         static let accent     = Color(red: 1.000, green: 0.714, blue: 0.149)   // #FFB626 amber gold
         static let accentSoft = Color(red: 1.000, green: 0.839, blue: 0.510)   // #FFD682 soft amber
 
         // Semantic — commitment money (not coins; the two economies must stay distinct)
-        static let moneyGreen = Color(red: 0.220, green: 0.780, blue: 0.435)   // #38C76F return/success
-        static let forfeitRed = Color(red: 0.929, green: 0.278, blue: 0.278)   // #ED4747 forfeit/warning
+        static let moneyGreen = Color(red: 0.157, green: 0.620, blue: 0.345)   // #289E58 return/success (darker for cream)
+        static let forfeitRed = Color(red: 0.804, green: 0.224, blue: 0.224)   // #CD3939 forfeit/warning (darker for cream)
 
-        // Text
-        static let textPrimary   = Color(red: 0.949, green: 0.914, blue: 0.851) // #F2E9D9 warm cream
-        static let textSecondary = Color(red: 0.671, green: 0.620, blue: 0.545) // #AB9E8B muted sand
-        static let textOnAccent  = Color(red: 0.118, green: 0.098, blue: 0.078) // dark on bright accent
+        // Text — dark on cream
+        static let textPrimary   = Color(red: 0.169, green: 0.149, blue: 0.125) // #2B2620 charcoal ink
+        static let textSecondary = Color(red: 0.478, green: 0.431, blue: 0.361) // #7A6E5C muted warm brown
+        static let textOnAccent  = Color(red: 0.169, green: 0.149, blue: 0.125) // dark text on gold/cream
 
-        // TEST MODE pill — visually distinct amber-on-dark, never hiding what it is
-        static let testBadgeBg   = Color(red: 1.000, green: 0.714, blue: 0.149).opacity(0.20)
-        static let testBadgeFg   = Color(red: 1.000, green: 0.839, blue: 0.510)
+        // TEST MODE pill — dark amber on cream, never hiding what it is
+        static let testBadgeBg   = Color(red: 1.000, green: 0.714, blue: 0.149).opacity(0.28)
+        static let testBadgeFg   = Color(red: 0.420, green: 0.302, blue: 0.071) // #6B4D12 dark amber ink
 
         // Skin tones (avatar layer fills, D-21b)
         static let skinLight  = Color(red: 0.992, green: 0.859, blue: 0.706)   // #FDDBB4 warm pale
