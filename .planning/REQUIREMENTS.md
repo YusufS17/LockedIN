@@ -18,8 +18,8 @@ Requirements for the hackathon prototype. Each maps to a roadmap phase. Scope is
 ### Onboarding & Character
 
 - [x] **ONB-01**: First launch shows a polished, skippable onboarding sequence that introduces the LockedIN commitment concept with smooth animation (not static text screens)
-- [ ] **ONB-02**: User creates/customises a pixel-art character from preset options (e.g. body, hair, outfit, colour variants) with a live preview that updates as choices change
-- [ ] **ONB-03**: A reusable avatar-rendering component represents a participant and is structured to support later session states (idle now; focused / deep-focus / break / distracted / finished), using non-colour-only status cues for accessibility
+- [x] **ONB-02**: User creates/customises a pixel-art character from preset options (e.g. body, hair, outfit, colour variants) with a live preview that updates as choices change
+- [x] **ONB-03**: A reusable avatar-rendering component represents a participant and is structured to support later session states (idle now; focused / deep-focus / break / distracted / finished), using non-colour-only status cues for accessibility
 - [x] **ONB-04**: The chosen avatar is the user's representation across the app (home, room roster, session room) and persists across app relaunch on the device
 - [x] **ONB-05**: A reusable cozy isometric study-room view is established (warm dark-academia pixel-art per the mockup) so rooms look polished from this phase onward; onboarding ends with the user's avatar shown in their room
 
@@ -150,8 +150,8 @@ Populated during roadmap creation by the roadmapper. Each requirement maps to ex
 | SAFE-03 | Phase 1 | Complete |
 | SAFE-04 | Phase 1 | Complete |
 | ONB-01 | Phase 2 | Complete |
-| ONB-02 | Phase 2 | Pending |
-| ONB-03 | Phase 2 | Pending |
+| ONB-02 | Phase 2 | Complete |
+| ONB-03 | Phase 2 | Complete |
 | ONB-04 | Phase 2 | Complete |
 | ONB-05 | Phase 2 | Complete |
 | CTR-01 | Phase 3 | Pending |
