@@ -34,24 +34,14 @@ struct HomeView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            // Full-bleed room background
-            IsometricRoomView()
-                .ignoresSafeArea()
+            // Cream backdrop + cozy room mockup image (design-matched)
+            Theme.Colour.background.ignoresSafeArea()
 
-            // Avatar at desk slot (~50%, 58%) — opacity-only fade-in on appear
-            // This is already Reduce Motion-safe (opacity only, no scale/slide)
-            GeometryReader { geo in
-                AvatarView(
-                    appearance: appStore.userCharacter,
-                    status: .idle,
-                    size: 80
-                )
-                .position(
-                    x: geo.size.width  * 0.50,
-                    y: geo.size.height * 0.58
-                )
+            Image("Onboard6")
+                .resizable()
+                .scaledToFit()
+                .padding(.horizontal, Theme.Spacing.md)
                 .opacity(avatarOpacity)
-            }
 
             // Foreground VStack: top greeting + bottom action card
             VStack(spacing: 0) {
@@ -101,13 +91,11 @@ struct HomeView: View {
 
     private var bottomActionCard: some View {
         VStack(spacing: Theme.Spacing.md) {
-            // Avatar + name + status row
+            // name + status row
             HStack(spacing: Theme.Spacing.sm) {
-                AvatarView(
-                    appearance: appStore.userCharacter,
-                    status: .idle,
-                    size: 48
-                )
+                Image(systemName: "person.crop.circle.fill")
+                    .font(.system(size: 40))
+                    .foregroundStyle(Theme.Colour.accent)
 
                 VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
                     Text(name)
