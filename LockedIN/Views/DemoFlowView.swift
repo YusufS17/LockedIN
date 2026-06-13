@@ -16,13 +16,17 @@ import SwiftUI
 
 struct DemoFlowView: View {
 
+    private let welcomeIndex = 1                 // Demo02 (Welcome) → real character creator
+    private let firstRoomIndex = 5              // Demo06 (First room) — resume here after creation
     private let homeIndex = 6                     // Demo07 (Home)
     private let setLockInIndex = 7               // Demo08 (Set your lock-in)
     private let resultsIndex = 9                 // Demo10 (Room complete)
     private let screens = (1...10).map { String(format: "Demo%02d", $0) }
 
+    @Environment(AppStore.self) private var appStore
     @State private var index = 0
     @State private var showSession = false
+    @State private var showCreator = false
 
     var body: some View {
         TabView(selection: $index) {
@@ -53,10 +57,23 @@ struct DemoFlowView: View {
                 },
                 onCancel: { showSession = false } // backed out → stay on Set your lock-in
             )
+            .environment(appStore)
+        }
+        .fullScreenCover(isPresented: $showCreator) {
+            CharacterCreationFlow(onDone: {       // created + named → resume at first room
+                showCreator = false
+                withAnimation(.easeInOut(duration: 0.35)) { index = firstRoomIndex }
+            })
+            .environment(appStore)
         }
     }
 
     private func advance() {
+        // The "Welcome" screen launches the REAL character creator.
+        if index == welcomeIndex {
+            showCreator = true
+            return
+        }
         // The "Set your lock-in" screen launches the real working session.
         if index == setLockInIndex {
             showSession = true
