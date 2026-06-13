@@ -25,6 +25,10 @@ struct ScriptedFocusEvent {
 ///
 /// NOT ObservableObject — plain class per CLAUDE.md.
 /// Task.sleep(for:) (Duration API, Swift 5.7+, iOS 16+) drives timing.
+///
+/// Thread-safety: `activeTasks` is guarded by `lock` (CR-01).
+/// Task-ordering: any prior task for a participant is cancelled before a new one
+/// is registered, preventing orphaned tasks and duplicate emissions (CR-02).
 final class MockFocusControlAdapter: FocusControlAdapter {
 
     // MARK: - Script Storage
@@ -35,7 +39,11 @@ final class MockFocusControlAdapter: FocusControlAdapter {
 
     /// Active monitoring tasks, keyed by participant UUID.
     /// Stored so `stopMonitoring` can cancel them.
+    /// ALL accesses (read and write) must be guarded by `lock` (CR-01).
     private var activeTasks: [UUID: Task<Void, Never>] = [:]
+
+    /// Serial lock protecting `activeTasks` from concurrent reads/writes (CR-01).
+    private let lock = NSLock()
 
     // MARK: - Init
 
@@ -46,12 +54,40 @@ final class MockFocusControlAdapter: FocusControlAdapter {
         self.scripts = scripts
     }
 
+    // MARK: - Lock-Guarded Task Helpers (CR-01)
+
+    /// Store (or remove, if nil) a task for a participant, guarded by `lock`.
+    private func setTask(_ task: Task<Void, Never>?, for id: UUID) {
+        lock.lock()
+        defer { lock.unlock() }
+        if let task {
+            activeTasks[id] = task
+        } else {
+            activeTasks.removeValue(forKey: id)
+        }
+    }
+
+    /// Cancel and remove the task for a participant, guarded by `lock`.
+    private func cancelTask(for id: UUID) {
+        lock.lock()
+        let task = activeTasks.removeValue(forKey: id)
+        lock.unlock()
+        task?.cancel()
+    }
+
     // MARK: - FocusControlAdapter
 
     func startMonitoring(participantID: UUID) -> AsyncStream<FocusEvent> {
+        // CR-02 fix: cancel any prior task for this participant BEFORE creating the new
+        // one, so we never orphan a running task or emit ghost events for old sessions.
+        stopMonitoring(participantID: participantID)
+
         let script = scripts[participantID] ?? []
 
-        let stream = AsyncStream<FocusEvent> { continuation in
+        return AsyncStream { continuation in
+            // CR-02 fix: create the Task and register it in `activeTasks` before the
+            // Task body can observe `onTermination`, eliminating the storage-vs-
+            // termination race. We create the Task but guard registration under lock.
             let task = Task {
                 // Emit scripted events in chronological order.
                 // Each event fires after `offsetSeconds` from startMonitoring call.
@@ -77,21 +113,20 @@ final class MockFocusControlAdapter: FocusControlAdapter {
                 continuation.finish()
             }
 
-            // Store task so stopMonitoring can cancel it.
-            activeTasks[participantID] = task
+            // CR-01 fix: store task under lock so concurrent startMonitoring /
+            // stopMonitoring / onTermination calls cannot race on the dictionary.
+            setTask(task, for: participantID)
 
             // When the stream consumer cancels, also cancel the task.
+            // cancelTask is lock-guarded and idempotent (CR-01).
             continuation.onTermination = { [weak self] _ in
-                self?.activeTasks[participantID]?.cancel()
-                self?.activeTasks.removeValue(forKey: participantID)
+                self?.cancelTask(for: participantID)
             }
         }
-
-        return stream
     }
 
     func stopMonitoring(participantID: UUID) {
-        activeTasks[participantID]?.cancel()
-        activeTasks.removeValue(forKey: participantID)
+        // cancelTask is lock-guarded and idempotent (CR-01).
+        cancelTask(for: participantID)
     }
 }
