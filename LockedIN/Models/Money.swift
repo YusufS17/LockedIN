@@ -10,29 +10,6 @@ typealias Pence = Int
 /// Alias of Pence; both names exist because ROADMAP/CONTEXT use both.
 typealias MinorUnits = Int
 
-// MARK: - Settlement State
-
-/// The 8 canonical participant settlement states (D-11, FND-04).
-/// These are EXACTLY the 8 states from ROADMAP success criterion #3 — non-negotiable.
-enum ParticipantSettlementState {
-    /// Stake not required (e.g. host-only participant, no monetary agreement).
-    case notRequired
-    /// Awaiting authorisation from the payment provider.
-    case awaitingAuthorisation
-    /// Stake held/authorised; session in progress.
-    case held
-    /// Stake authorised for return (participant passed).
-    case authorisedForReturn
-    /// Stake authorised for forfeit (participant failed).
-    case authorisedForForfeit
-    /// Stake successfully returned to participant.
-    case returned
-    /// Stake successfully forfeited.
-    case forfeited
-    /// An error occurred during settlement.
-    case settlementError
-}
-
 // MARK: - Display-Boundary Formatter
 
 /// The SINGLE display-boundary function that converts a `Pence` value to a
