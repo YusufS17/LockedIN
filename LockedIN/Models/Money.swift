@@ -37,5 +37,9 @@ func formatPence(_ amount: Pence, currencyCode: String = "GBP") -> String {
     default:    symbol = currencyCode + " "
     }
 
-    return String(format: "\(sign)\(symbol)%d.%02d", pounds, pence)
+    // WR-05 fix: keep dynamic values (sign, symbol) out of the format string.
+    // Interpolating them into the format string would allow any `%` in a currency
+    // symbol/code to be mis-interpreted as a conversion specifier by String(format:).
+    let amountString = String(format: "%d.%02d", pounds, pence)
+    return sign + symbol + amountString
 }
