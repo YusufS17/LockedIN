@@ -2,7 +2,7 @@
 
 ## Overview
 
-Six phases deliver the section-13 demo spine first, then layer the world/social system on top. Phases 1–5 build a fully demoable commitment loop — preset room creation, frozen contract acceptance, a live session with scripted bots, an Opal-style interruption shield, and a competitive results reveal with real wallet settlement. Phase 6 adds the ambitious back half: idle coin rewards, a personal world that grows from focused study, and locally-persisted neighbour worlds for Minecraft-esque comparison. If time runs short, cut Phase 6 — Phases 1–5 always produce a working, submittable demo.
+Seven phases deliver the section-13 demo spine first, then layer the world/social system on top. Phase 1 lays the money-correct foundation. Phase 2 establishes the polished character-onboarding flow and the reusable pixel-art avatar + cozy isometric room rendering that every later screen reuses (the user's flagged top priority: rooms + character onboarding must feel nice). Phases 3–6 build the fully demoable commitment loop — preset room creation, frozen contract acceptance, a live session with scripted bots, an Opal-style interruption shield, and a competitive results reveal with real wallet settlement. Phase 7 adds the ambitious back half: idle coin rewards, a personal world that grows from focused study, and locally-persisted neighbour worlds for Minecraft-esque comparison. If time runs short, cut Phase 7 — Phases 1–6 always produce a working, submittable demo. The full Squad / District / build-voting world system is captured as a separate future milestone (v2 "World", see `.planning/reference/world-layer-prompt.md`).
 
 ## Phases
 
@@ -14,11 +14,12 @@ Six phases deliver the section-13 demo spine first, then layer the world/social 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Core data types, service protocols, mock implementations, and the TEST MODE design system (completed 2026-06-13)
-- [ ] **Phase 2: Room & Contract** - Lobby UI, preset room creation, contract review, per-participant acceptance, and contract freeze
-- [ ] **Phase 3: Session Engine & Tracking** - SessionCoordinator, scripted bots, countdown timer, metrics accumulation, and deterministic pass/fail rules
-- [ ] **Phase 4: Screen Shield & Interruption** - Full-screen Opal-style block overlay, hold-to-confirm forfeit gate, and honest emergency exit
-- [ ] **Phase 5: Results & Settlement** - Wallet settlement state machine, sequenced competitive reveal, and room totals
-- [ ] **Phase 6: Rewards, Coins & World** - Idle coin earning, personal world growth, shared world contribution, neighbour browsing, and local persistence
+- [ ] **Phase 2: Character & Onboarding** - First-launch onboarding animation, pixel-art character creator, and the reusable avatar + cozy isometric room rendering system
+- [ ] **Phase 3: Room & Contract** - Lobby UI, preset room creation, contract review, per-participant acceptance, and contract freeze
+- [ ] **Phase 4: Session Engine & Tracking** - SessionCoordinator, scripted bots, countdown timer, metrics accumulation, and deterministic pass/fail rules
+- [ ] **Phase 5: Screen Shield & Interruption** - Full-screen Opal-style block overlay, hold-to-confirm forfeit gate, and honest emergency exit
+- [ ] **Phase 6: Results & Settlement** - Wallet settlement state machine, sequenced competitive reveal, and room totals
+- [ ] **Phase 7: Rewards, Coins & World** - Idle coin earning, personal world growth, shared world contribution, neighbour browsing, and local persistence
 
 ## Phase Details
 
@@ -45,11 +46,28 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] 01-02-PLAN.md — 8-state ParticipantSettlementState enum, CommitmentService/FocusControlAdapter protocols + money-conserving mocks (wallet seed £20.00 / "British Red Cross"), wired into AppStore
 
-### Phase 2: Room & Contract
+### Phase 2: Character & Onboarding
+
+**Goal**: A first-time user is welcomed by a polished onboarding sequence, creates and customises a pixel-art character with live preview, and lands in the app — with their avatar and a reusable cozy isometric room + avatar rendering system established for every later screen
+**Mode:** mvp
+**Depends on**: Phase 1
+**Requirements**: ONB-01, ONB-02, ONB-03, ONB-04, ONB-05
+**Success Criteria** (what must be TRUE):
+
+  1. On first launch, a polished, skippable onboarding sequence introduces the LockedIN commitment concept with smooth animation (not static text screens)
+  2. The user creates/customises a pixel-art character from preset options (e.g. body, hair, outfit, colour variants) with a live preview that updates as choices change
+  3. A reusable avatar-rendering component displays a character and is structured to support later participant states (idle now; focused / deep-focus / break / distracted / finished hooks in place), using non-colour-only status cues for accessibility
+  4. The chosen avatar becomes the user's representation across the app (home, and later the room roster + session room) and persists across app relaunch on the device
+  5. A reusable cozy isometric study-room view is established (warm dark-academia pixel-art per the mockup) and onboarding ends with the user's avatar shown in that room — so rooms look polished from this phase onward
+
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 3: Room & Contract
 
 **Goal**: A user can launch a preset £5 room, review the full contract with explicit pass/fail terms, accept and stake £5, watch three scripted bots do the same, and see the contract lock visibly with £20 at stake before the session starts
 **Mode:** mvp
-**Depends on**: Phase 1
+**Depends on**: Phase 2
 **Requirements**: CTR-01, CTR-02, CTR-03, CTR-04, CTR-05, CTR-06, STK-01, STK-04, STK-05
 **Success Criteria** (what must be TRUE):
 
@@ -62,11 +80,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 3: Session Engine & Tracking
+### Phase 4: Session Engine & Tracking
 
 **Goal**: A live session runs: the countdown ticks, scripted bot events fire on a deterministic timeline, per-participant focus metrics accumulate, and pass/fail is decided by pure contract rules with no randomness
 **Mode:** mvp
-**Depends on**: Phase 2
+**Depends on**: Phase 3
 **Requirements**: SES-01, SES-02, SES-03, SES-04, SES-05
 **Success Criteria** (what must be TRUE):
 
@@ -78,11 +96,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Plans**: TBD
 
-### Phase 4: Screen Shield & Interruption
+### Phase 5: Screen Shield & Interruption
 
 **Goal**: When a blocked app is "opened" during a session, a full-screen LockedIN overlay fires and gives the participant honest, pressure-appropriate choices — and a clearly labelled forfeit exit is always reachable
 **Mode:** mvp
-**Depends on**: Phase 3
+**Depends on**: Phase 4
 **Requirements**: SHD-01, SHD-02, SHD-03, SHD-04, SHD-05
 **Success Criteria** (what must be TRUE):
 
@@ -95,11 +113,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 5: Results & Settlement
+### Phase 6: Results & Settlement
 
 **Goal**: When the session ends, each participant's stake settles through the explicit state machine, and a sequenced reveal shows room totals then individual competitive titles with the numbers behind them
 **Mode:** mvp
-**Depends on**: Phase 4
+**Depends on**: Phase 5
 **Requirements**: STK-02, STK-03, RES-01, RES-02, RES-03, RES-04
 **Success Criteria** (what must be TRUE):
 
@@ -111,11 +129,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 6: Rewards, Coins & World
+### Phase 7: Rewards, Coins & World
 
 **Goal**: Focused participants visibly earn LockedIN coins during the session, those coins build a personal world that grows and persists, users can see neighbours' pre-seeded worlds, and the coin economy stays visually and conceptually distinct from commitment £ at all times
 **Mode:** mvp
-**Depends on**: Phase 5
+**Depends on**: Phase 6
 **Requirements**: RWD-01, RWD-02, RWD-03, RWD-04, WLD-01, WLD-02, WLD-03, WLD-04, WLD-05, WLD-06
 **Success Criteria** (what must be TRUE):
 
@@ -128,16 +146,21 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: TBD
 **UI hint**: yes
 
+## Future Milestones
+
+- **v2 "World"** — the full persistent world-building layer (Personal Room → Squad Study Room → Shared District), Focus XP economy, fixed-slot room customisation, the 8-building district, and milestone build-voting (Squad Council / World Path). Captured from an inbound product spec in `.planning/reference/world-layer-prompt.md`. Built as its own milestone AFTER the v1.0 commitment demo ships; Phase 7 above is the v1.0 local personal-world seed it grows from. Create via `/gsd-new-milestone` when v1.0 is complete.
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/2 | Complete    | 2026-06-13 |
-| 2. Room & Contract | 0/TBD | Not started | - |
-| 3. Session Engine & Tracking | 0/TBD | Not started | - |
-| 4. Screen Shield & Interruption | 0/TBD | Not started | - |
-| 5. Results & Settlement | 0/TBD | Not started | - |
-| 6. Rewards, Coins & World | 0/TBD | Not started | - |
+| 1. Foundation | 2/2 | Complete | 2026-06-13 |
+| 2. Character & Onboarding | 0/TBD | Not started | - |
+| 3. Room & Contract | 0/TBD | Not started | - |
+| 4. Session Engine & Tracking | 0/TBD | Not started | - |
+| 5. Screen Shield & Interruption | 0/TBD | Not started | - |
+| 6. Results & Settlement | 0/TBD | Not started | - |
+| 7. Rewards, Coins & World | 0/TBD | Not started | - |

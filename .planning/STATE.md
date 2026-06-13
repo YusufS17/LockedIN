@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 2 context gathered
+status: planning
+stopped_at: Roadmap restructured — Phase 2 (Character & Onboarding) inserted; Phase 3 (Room & Contract) context ready
 last_updated: "2026-06-13T13:07:29.874Z"
 last_activity: 2026-06-13
 progress:
-  total_phases: 6
+  total_phases: 7
   completed_phases: 1
   total_plans: 2
   completed_plans: 2
-  percent: 17
+  percent: 14
 ---
 
 # Project State
@@ -21,16 +21,18 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-13)
 
 **Core value:** The commitment-to-consequence loop must feel real — frozen contract, genuine-feeling stake, honest pressure when you try to break it, satisfying reveal that returns or forfeits the money
-**Current focus:** Phase 01 — foundation
+**Current focus:** Phase 2 — Character & Onboarding (newly inserted; not started)
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 2 of 7 (Character & Onboarding)
+Plan: Not started — needs discuss/plan
+Status: Phase 1 complete & verified; roadmap restructured to 7 phases
 Last activity: 2026-06-13
 
-Progress: [█████░░░░░] 50%
+Progress: [█░░░░░░░░░] 14% (1 of 7 phases)
+
+Note: Phase 3 (Room & Contract) already has CONTEXT.md from an earlier discuss session.
 
 ## Performance Metrics
 
@@ -90,5 +92,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-06-13T13:07:29.845Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-room-contract/02-CONTEXT.md
+Stopped at: Roadmap restructured — Phase 2 (Character & Onboarding) inserted; Phase 3 (Room & Contract) context ready
+Resume file: .planning/phases/03-room-contract/03-CONTEXT.md

@@ -1,10 +1,11 @@
-# Phase 2: Room & Contract - Discussion Log
+# Phase 3: Room & Contract - Discussion Log
 
 > **Audit trail only.** Do not use as input to planning, research, or execution agents.
 > Decisions are captured in CONTEXT.md — this log preserves the alternatives considered.
+> **Renumbered 2026-06-13:** drafted as Phase 2; now Phase 3 after Phase 2 (Character & Onboarding) was inserted.
 
 **Date:** 2026-06-13
-**Phase:** 2-room-contract
+**Phase:** 3-room-contract
 **Areas discussed:** Entry & 18+ gate flow, Contract screen layout, Bot join/accept choreography, Freeze moment + room visual
 
 ---

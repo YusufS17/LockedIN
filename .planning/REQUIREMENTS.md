@@ -15,6 +15,14 @@ Requirements for the hackathon prototype. Each maps to a roadmap phase. Scope is
 - [x] **FND-04**: Settlement has explicit, enumerated states (e.g. not_required, awaiting_authorisation, authorised, held, passed, refunded, failed, forfeited) modelled as a type
 - [x] **FND-05**: Feature flags exist and are honoured: `ENABLE_REAL_MONEY_STAKES=false`, `ENABLE_TEST_STAKES=true`, `ENABLE_ROOM_PRIZE_POOL=false`, `ENABLE_SPONSORED_REWARDS=true`
 
+### Onboarding & Character
+
+- [ ] **ONB-01**: First launch shows a polished, skippable onboarding sequence that introduces the LockedIN commitment concept with smooth animation (not static text screens)
+- [ ] **ONB-02**: User creates/customises a pixel-art character from preset options (e.g. body, hair, outfit, colour variants) with a live preview that updates as choices change
+- [ ] **ONB-03**: A reusable avatar-rendering component represents a participant and is structured to support later session states (idle now; focused / deep-focus / break / distracted / finished), using non-colour-only status cues for accessibility
+- [ ] **ONB-04**: The chosen avatar is the user's representation across the app (home, room roster, session room) and persists across app relaunch on the device
+- [ ] **ONB-05**: A reusable cozy isometric study-room view is established (warm dark-academia pixel-art per the mockup) so rooms look polished from this phase onward; onboarding ends with the user's avatar shown in their room
+
 ### Room & Contract
 
 - [ ] **CTR-01**: User can start a "£5 Serious Lock-In" room from a preset without filling out a custom-configuration form
@@ -141,48 +149,53 @@ Populated during roadmap creation by the roadmapper. Each requirement maps to ex
 | SAFE-02 | Phase 1 | Complete |
 | SAFE-03 | Phase 1 | Complete |
 | SAFE-04 | Phase 1 | Complete |
-| CTR-01 | Phase 2 | Pending |
-| CTR-02 | Phase 2 | Pending |
-| CTR-03 | Phase 2 | Pending |
-| CTR-04 | Phase 2 | Pending |
-| CTR-05 | Phase 2 | Pending |
-| CTR-06 | Phase 2 | Pending |
-| STK-01 | Phase 2 | Pending |
-| STK-04 | Phase 2 | Pending |
-| STK-05 | Phase 2 | Pending |
-| SES-01 | Phase 3 | Pending |
-| SES-02 | Phase 3 | Pending |
-| SES-03 | Phase 3 | Pending |
-| SES-04 | Phase 3 | Pending |
-| SES-05 | Phase 3 | Pending |
-| SHD-01 | Phase 4 | Pending |
-| SHD-02 | Phase 4 | Pending |
-| SHD-03 | Phase 4 | Pending |
-| SHD-04 | Phase 4 | Pending |
-| SHD-05 | Phase 4 | Pending |
-| STK-02 | Phase 5 | Pending |
-| STK-03 | Phase 5 | Pending |
-| RES-01 | Phase 5 | Pending |
-| RES-02 | Phase 5 | Pending |
-| RES-03 | Phase 5 | Pending |
-| RES-04 | Phase 5 | Pending |
-| RWD-01 | Phase 6 | Pending |
-| RWD-02 | Phase 6 | Pending |
-| RWD-03 | Phase 6 | Pending |
-| RWD-04 | Phase 6 | Pending |
-| WLD-01 | Phase 6 | Pending |
-| WLD-02 | Phase 6 | Pending |
-| WLD-03 | Phase 6 | Pending |
-| WLD-04 | Phase 6 | Pending |
-| WLD-05 | Phase 6 | Pending |
-| WLD-06 | Phase 6 | Pending |
+| ONB-01 | Phase 2 | Pending |
+| ONB-02 | Phase 2 | Pending |
+| ONB-03 | Phase 2 | Pending |
+| ONB-04 | Phase 2 | Pending |
+| ONB-05 | Phase 2 | Pending |
+| CTR-01 | Phase 3 | Pending |
+| CTR-02 | Phase 3 | Pending |
+| CTR-03 | Phase 3 | Pending |
+| CTR-04 | Phase 3 | Pending |
+| CTR-05 | Phase 3 | Pending |
+| CTR-06 | Phase 3 | Pending |
+| STK-01 | Phase 3 | Pending |
+| STK-04 | Phase 3 | Pending |
+| STK-05 | Phase 3 | Pending |
+| SES-01 | Phase 4 | Pending |
+| SES-02 | Phase 4 | Pending |
+| SES-03 | Phase 4 | Pending |
+| SES-04 | Phase 4 | Pending |
+| SES-05 | Phase 4 | Pending |
+| SHD-01 | Phase 5 | Pending |
+| SHD-02 | Phase 5 | Pending |
+| SHD-03 | Phase 5 | Pending |
+| SHD-04 | Phase 5 | Pending |
+| SHD-05 | Phase 5 | Pending |
+| STK-02 | Phase 6 | Pending |
+| STK-03 | Phase 6 | Pending |
+| RES-01 | Phase 6 | Pending |
+| RES-02 | Phase 6 | Pending |
+| RES-03 | Phase 6 | Pending |
+| RES-04 | Phase 6 | Pending |
+| RWD-01 | Phase 7 | Pending |
+| RWD-02 | Phase 7 | Pending |
+| RWD-03 | Phase 7 | Pending |
+| RWD-04 | Phase 7 | Pending |
+| WLD-01 | Phase 7 | Pending |
+| WLD-02 | Phase 7 | Pending |
+| WLD-03 | Phase 7 | Pending |
+| WLD-04 | Phase 7 | Pending |
+| WLD-05 | Phase 7 | Pending |
+| WLD-06 | Phase 7 | Pending |
 
 **Coverage:**
 
-- v1 requirements: 44 total
-- Mapped to phases: 44 (Phase 1: 9, Phase 2: 9, Phase 3: 5, Phase 4: 5, Phase 5: 6, Phase 6: 10)
+- v1 requirements: 49 total
+- Mapped to phases: 49 (Phase 1: 9, Phase 2: 5, Phase 3: 9, Phase 4: 5, Phase 5: 5, Phase 6: 6, Phase 7: 10)
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-06-13*
-*Last updated: 2026-06-13 — traceability filled; all 44 requirements mapped across 6 phases*
+*Last updated: 2026-06-13 — inserted Phase 2 (Character & Onboarding, ONB-01..05); renumbered Room&Contract→3 … Rewards/World→7; 49 requirements across 7 phases*

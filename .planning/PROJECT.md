@@ -22,6 +22,8 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 
 <!-- Current scope. Building toward these. The section-13 demo spine. -->
 
+- [ ] **Character onboarding (top priority):** first-launch animated onboarding + a pixel-art character creator with live preview; the avatar persists and represents the user everywhere
+- [ ] **Reusable room + avatar rendering:** a cozy isometric pixel-art study-room view and an avatar component (with later focused/break/distracted/finished states) established early and reused across room, session, and world — rooms must look polished throughout
 - [ ] User can start a £5 "Serious Lock-In" room from a preset (minimal config, not the full custom-contract form)
 - [ ] Each participant sees a clear contract with explicit pass/fail conditions and separately accepts via "Accept and stake £5"
 - [ ] Contract becomes immutable (frozen) once accepted — host cannot raise stake, cut breaks, or change thresholds
@@ -79,7 +81,9 @@ The mockup establishes the look and the core screen layout:
 - **Bottom action card:** the user's avatar + a "Focused" state pill, with in-session actions like "Take break" and "Stay focused" — the planned-break / focus controls.
 - **"Edit" affordance** (bottom-left): entry point for customising your room/world (Phase 6).
 
-This reference informs Phase 2 (room), Phases 3–4 (session UI/HUD + interruption), and Phase 6 (world + edit). The pixel-art room and the buildable world are the same visual surface — build the room view once, then let coins/treasure grow it.
+This reference informs **Phase 2** (character onboarding + the reusable avatar & isometric room view — built here per the user's top priority), Phase 3 (room & contract uses that room), Phases 4–5 (session UI/HUD + interruption), and Phase 7 (world + edit). The pixel-art room and the buildable world are the same visual surface — build the room view once in Phase 2, then let coins/treasure grow it.
+
+**Roadmap note (2026-06-13):** a new **Phase 2 — Character & Onboarding** was inserted before Room & Contract (now Phase 3); all subsequent phases shifted down by one (Session→4, Shield→5, Results→6, Rewards/World→7). The full Squad/District/build-voting world layer is a future milestone, **v2 "World"** (see `.planning/reference/world-layer-prompt.md`).
 
 ## Constraints
 
@@ -128,4 +132,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-13 after initialization (+ simulated app-shield, idle focus-reward, local persistent world/social features, and study-room visual reference)*
+*Last updated: 2026-06-13 — inserted Phase 2 (Character & Onboarding); renumbered phases 3–7; captured v2 "World" milestone (squad/district/build-voting) from inbound spec*
