@@ -32,6 +32,27 @@ enum Theme {
         // TEST MODE pill — visually distinct amber-on-dark, never hiding what it is
         static let testBadgeBg   = Color(red: 1.000, green: 0.714, blue: 0.149).opacity(0.20)
         static let testBadgeFg   = Color(red: 1.000, green: 0.839, blue: 0.510)
+
+        // Skin tones (avatar layer fills, D-21b)
+        static let skinLight  = Color(red: 0.992, green: 0.859, blue: 0.706)   // #FDDBB4 warm pale
+        static let skinMedium = Color(red: 0.831, green: 0.584, blue: 0.416)   // #D4956A warm golden
+        static let skinDark   = Color(red: 0.553, green: 0.333, blue: 0.141)   // #8D5524 deep warm brown
+        static let skinDeep   = Color(red: 0.290, green: 0.161, blue: 0.071)   // #4A2912 richest tone
+
+        // Hair colours (avatar layer fills, D-21b)
+        static let hairBlonde = Color(red: 0.910, green: 0.788, blue: 0.478)   // #E8C97A warm straw
+        static let hairBrown  = Color(red: 0.420, green: 0.227, blue: 0.165)   // #6B3A2A chestnut
+        static let hairBlack  = Color(red: 0.102, green: 0.071, blue: 0.063)   // #1A1210 near-black warm
+        static let hairSilver = Color(red: 0.627, green: 0.627, blue: 0.627)   // #A0A0A0 cool grey-silver
+
+        // Avatar accent colours (outfit tints — amber reuses Theme.Colour.accent)
+        static let accentTeal     = Color(red: 0.302, green: 0.722, blue: 0.643) // #4DB8A4 study-room teal
+        static let accentRose     = Color(red: 0.878, green: 0.420, blue: 0.545) // #E06B8B warm rose
+        static let accentLavender = Color(red: 0.608, green: 0.494, blue: 0.784) // #9B7EC8 muted lavender
+
+        // Room furniture colours (D-28, ONB-05)
+        static let plantGreen  = Color(red: 0.290, green: 0.486, blue: 0.349)   // #4A7C59 dark olive green
+        static let windowSlate = Color(red: 0.165, green: 0.227, blue: 0.322)   // #2A3A52 night window
     }
 
     // MARK: - Type Scale
@@ -40,11 +61,11 @@ enum Theme {
         static let largeTitle = Font.system(size: 34, weight: .bold,   design: .rounded)
         static let title      = Font.system(size: 28, weight: .bold,   design: .rounded)
         static let title2     = Font.system(size: 22, weight: .semibold, design: .rounded)
-        static let headline   = Font.system(size: 17, weight: .semibold, design: .rounded)
+        static let headline   = Font.system(size: 17, weight: .bold,     design: .rounded)
         static let body       = Font.system(size: 17, weight: .regular, design: .rounded)
         static let callout    = Font.system(size: 16, weight: .medium,  design: .rounded)
         static let caption    = Font.system(size: 13, weight: .regular, design: .rounded)
-        static let captionBold = Font.system(size: 13, weight: .semibold, design: .rounded)
+        static let captionBold = Font.system(size: 13, weight: .bold,   design: .rounded)
         static let money      = Font.system(size: 20, weight: .bold,   design: .monospaced)
     }
 
