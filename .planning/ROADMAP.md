@@ -60,7 +60,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. The chosen avatar becomes the user's representation across the app (home, and later the room roster + session room) and persists across app relaunch on the device
   5. A reusable cozy isometric study-room view is established (warm dark-academia pixel-art per the mockup) and onboarding ends with the user's avatar shown in that room — so rooms look polished from this phase onward
 
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Rendering foundation: CharacterAppearance + AvatarStatus models, Theme tokens/typography, code-drawn AvatarView (D-21a), static IsometricRoomView
+- [ ] 02-02-PLAN.md — Creator + persistence: CharacterPersistence (UserDefaults), AppStore identity props, live-preview CharacterCreatorView
+- [ ] 02-03-PLAN.md — Onboarding flow + routing: 3-beat OnboardingView, ConceptBeatView, PayoffBeatView (room reveal + name), HomeView, RootView first-launch gate
+
 **UI hint**: yes
 
 ### Phase 3: Room & Contract
