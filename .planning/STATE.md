@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Phase 2 UI-SPEC approved (6/6); ready for planner
-last_updated: "2026-06-13T14:15:57.243Z"
+stopped_at: Phase 2 planned (3 plans, plan-checker approved); ready to execute
+last_updated: "2026-06-13T14:32:35.245Z"
 last_activity: 2026-06-13
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 2
+  total_plans: 5
   completed_plans: 2
   percent: 14
 ---
@@ -91,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-13T14:15:57.214Z
-Stopped at: Phase 2 UI-SPEC approved (6/6); ready for planner
-Resume file: .planning/phases/02-character-onboarding/02-UI-SPEC.md
+Last session: 2026-06-13T14:32:35.193Z
+Stopped at: Phase 2 planned (3 plans, plan-checker approved); ready to execute
+Resume file: .planning/phases/02-character-onboarding/02-01-PLAN.md
