@@ -736,27 +736,33 @@ Image("avatar-outfit-casual")
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> All four resolved during planning (2026-06-13); each recommendation was adopted by a specific plan/task.
 
 1. **Display name input UX — sheet vs inline text field?**
    - What we know: the "Meet [name]" payoff is in the third beat; a display name must be captured before completion
    - What's unclear: whether the name field sits inline in `PayoffBeatView` or in a `.sheet()` presented from it
    - Recommendation: inline `TextField` in `PayoffBeatView` is simpler and avoids a modal-within-the-onboarding pattern
+   - **RESOLVED:** inline `TextField` in `PayoffBeatView` — adopted in plan 02-03 Task 2.
 
 2. **Avatar "skip" behaviour — show creator with default pre-selected or skip entire onboarding?**
    - What we know: D-27 says "provide a default character so skip still yields a valid avatar"; ONB-01 says onboarding is "skippable"
    - What's unclear: does "skip" skip the entire 3-beat flow (going straight to `HomeView` with `CharacterAppearance.default`) or just the creator beat (going straight to payoff)?
    - Recommendation: a "Skip" button on Beat 1 skips to `HomeView` directly using `CharacterAppearance.default`; this is the simplest implementation and respects the 5h constraint
+   - **RESOLVED:** skip the full flow to `HomeView` with `CharacterAppearance.default` — adopted in plan 02-03 Task 1 (`OnboardingView.skip()`).
 
 3. **Bot avatar appearances — seeded at app init or per-session?**
    - What we know: `Participant.swift` currently has no appearance; bots (Maya/Leo/Sam) need seeded appearances for Phase 3 roster
    - What's unclear: should seeded bot appearances live in `CharacterAppearance` static constants, or be generated from a deterministic hash of the bot's name?
    - Recommendation: static constants (`CharacterAppearance.maya`, `.leo`, `.sam`) in `CharacterAppearance.swift` — simple, deterministic, readable
+   - **RESOLVED:** static constants `CharacterAppearance.maya/.leo/.sam` — adopted in plan 02-01 Task 1.
 
 4. **`IsometricRoomView` parameterisation — how much configuration is needed for reuse in Phase 3/4?**
    - What we know: Phase 3 uses the room as a backdrop for the contract/roster; Phase 4 adds a session HUD overlay; Phase 7 grows the room
    - What's unclear: does the room need to accept a `[Participant]` argument now (for avatar placement), or should it be purely static until Phase 4?
    - Recommendation: keep it static for Phase 2 (just the room, no participant slots yet). Phase 4 adds the avatar-at-desk placement via a modifier or new parameter at that time.
+   - **RESOLVED:** static/parameterless `IsometricRoomView()` for Phase 2; Phase-4 seam documented as a doc comment — adopted in plan 02-01 Task 3.
 
 ---
 
