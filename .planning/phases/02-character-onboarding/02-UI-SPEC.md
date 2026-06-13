@@ -61,16 +61,29 @@ All fonts extend `Theme.TypeScale` from Phase 1. Do NOT redefine — reference t
 
 | Role | Theme token | Size | Weight | Line Height | Usage in this phase |
 |------|------------|------|--------|-------------|---------------------|
-| Display | `Theme.TypeScale.largeTitle` | 34pt | Bold, .rounded | 1.15 | Concept beat hero line: "Stake it." / "Lock in." / "Win it back." (one line at a time, animated) |
-| Title | `Theme.TypeScale.title` | 28pt | Bold, .rounded | 1.2 | "Meet [name]" payoff heading; creator beat section heading "Create your character" |
-| Headline | `Theme.TypeScale.headline` | 17pt | Semibold, .rounded | 1.3 | Selector row labels ("Hair", "Outfit", "Accent") |
-| Body | `Theme.TypeScale.body` | 17pt | Regular, .rounded | 1.5 | Concept beat supporting copy; display name input placeholder |
-| Caption | `Theme.TypeScale.caption` | 13pt | Regular, .rounded | 1.4 | Progress indicator "Step 1 of 3"; status badge label in `AvatarStatusOverlay` |
-| CaptionBold | `Theme.TypeScale.captionBold` | 13pt | Semibold, .rounded | 1.4 | Skip button label; avatar status badge label (active states — not idle) |
+| Display | `Theme.TypeScale.largeTitle` | 34pt | Bold (700), .rounded | 1.15 | Concept beat hero line: "Stake it." / "Lock in." / "Win it back." (one line at a time, animated) |
+| Title | `Theme.TypeScale.title` | 28pt | Bold (700), .rounded | 1.2 | "Meet [name]" payoff heading; creator beat section heading "Create your character" |
+| Headline | `Theme.TypeScale.headline` | 17pt | Bold (700), .rounded | 1.3 | Selector row labels ("Hair", "Outfit", "Accent") |
+| Body | `Theme.TypeScale.body` | 17pt | Regular (400), .rounded | 1.5 | Concept beat supporting copy; display name input placeholder |
+| Caption | `Theme.TypeScale.caption` | 13pt | Regular (400), .rounded | 1.4 | Progress indicator "Step 1 of 3"; status badge label in `AvatarStatusOverlay` |
+| CaptionBold | `Theme.TypeScale.captionBold` | 13pt | Bold (700), .rounded | 1.4 | Skip intro button label; avatar status badge label (active states — not idle) |
 
-**Rule:** Only two weights appear in non-money UI: Regular (400) and Bold (700) at semantic extremes; Semibold (600) for labels that need hierarchy without full bold. The `money` token (`Theme.TypeScale.money`, monospaced) is not used in Phase 2 — no money is displayed here.
+**Rule:** Exactly two weights are in use for Phase 2 screens: **Regular (400)** and **Bold (700)**. No Semibold, no Medium. Display, Title, Headline, and CaptionBold roles all use Bold (700); Body and Caption roles use Regular (400). The `money` token (`Theme.TypeScale.money`, monospaced) is not used in Phase 2 — no money is displayed here.
 
-**Source:** Theme.swift (verified), iOS HIG Dynamic Type recommendation (use `.rounded` design throughout for playful tone)
+**Theme.swift update required (executor must apply before building Phase 2 screens):**
+The existing `Theme.TypeScale.headline` is currently `.semibold` and `Theme.TypeScale.captionBold` is currently `.semibold`. Both are used by Phase 2 screens. The executor MUST update these two tokens:
+
+```swift
+// In Theme.TypeScale — change these two lines:
+static let headline    = Font.system(size: 17, weight: .bold,     design: .rounded)  // was .semibold
+static let captionBold = Font.system(size: 13, weight: .bold,     design: .rounded)  // was .semibold
+```
+
+After this change, `headline` and `captionBold` are Bold (700), consistent with the two-weight rule.
+
+**Tokens NOT used by any Phase 2 screen:** `Theme.TypeScale.title2` (.semibold) and `Theme.TypeScale.callout` (.medium) are intentionally left unchanged — they are not referenced in any Phase 2 view. They do not count as weights-in-use for this phase. Do not touch them.
+
+**Source:** Theme.swift (inspected — `headline` and `captionBold` confirmed .semibold, requiring update); iOS HIG Dynamic Type recommendation (use `.rounded` design throughout for playful tone)
 
 ---
 
@@ -140,7 +153,7 @@ These are the available skin-tone, hair-colour, and avatar accent-colour values.
 | Line 3 (animated, third) | "Win it back." | Appears after Line 2, accent gold — the payoff beat foreshadow |
 | Supporting body copy | "Study with real commitment. Your stake, your focus, your outcome." | Below the 3 lines, body weight, textSecondary |
 | Primary CTA | "Get started" | Amber-filled pill button; advances to Beat 2 |
-| Skip action | "Skip" | TextButton, textSecondary, captionBold; advances to HomeView with `CharacterAppearance.default` |
+| Skip action | "Skip intro" | TextButton, textSecondary, captionBold; advances to HomeView with `CharacterAppearance.default` |
 | Progress indicator | "1 of 3" | Caption, bottom of screen, textSecondary |
 
 ### Beat 2 — Character Creator
@@ -150,8 +163,8 @@ These are the available skin-tone, hair-colour, and avatar accent-colour values.
 | Screen heading | "Create your character" | Title scale, textPrimary |
 | Selector rows (4 rows) | "Skin · Hair · Outfit · Accent" | Headline scale; each row: label left, ◀ current-option ▶ right |
 | Selector value display | Current option name (e.g. "Medium", "Chestnut", "Casual", "Amber") | Body scale, textPrimary |
-| Primary CTA | "Looks good" | Amber pill button; advances to Beat 3 |
-| Skip action | "Skip" | Same treatment as Beat 1 |
+| Primary CTA | "That's me" | Amber pill button; advances to Beat 3 |
+| Skip action | "Skip intro" | Same treatment as Beat 1 |
 | Progress indicator | "2 of 3" | Caption, bottom, textSecondary |
 | Empty / default state | Creator always pre-loads `CharacterAppearance.default` — no empty state needed | Avatar preview never empty |
 
@@ -164,7 +177,7 @@ These are the available skin-tone, hair-colour, and avatar accent-colour values.
 | Display-name TextField label | (none — placeholder is sufficient) | — |
 | Post-name avatar entrance heading | "Meet [displayName]." | Title scale; displayName inserted live; period is intentional — declarative, not exclamatory |
 | Supporting body | "Ready to lock in." | Body scale, textSecondary; appears below heading after avatar settles |
-| Primary CTA | "Let's go" | Amber pill button; disabled until displayName.trimmingCharacters.count ≥ 1; completes onboarding |
+| Primary CTA | "Lock me in" | Amber pill button; disabled until displayName.trimmingCharacters.count ≥ 1; completes onboarding |
 | Progress indicator | "3 of 3" | Caption, bottom, textSecondary |
 
 ### Home Screen (post-onboarding landing)
@@ -203,9 +216,9 @@ These are the available skin-tone, hair-colour, and avatar accent-colour values.
 
 **Interactions:**
 - "Get started" pill button → `withAnimation(.spring(duration: 0.4, bounce: 0.2))` advances `beat` to `.create`; uses `.asymmetric` transition (slide trailing in, slide leading out).
-- "Skip" text button → sets `hasCompletedOnboarding = true` in `@AppStorage`, sets `AppStore.userCharacter = CharacterAppearance.default`, navigates to `HomeView`. No confirmation required — skip is honest and immediate.
+- "Skip intro" text button → sets `hasCompletedOnboarding = true` in `@AppStorage`, sets `AppStore.userCharacter = CharacterAppearance.default`, navigates to `HomeView`. No confirmation required — skip is honest and immediate.
 
-**Progress dots:** 3 dots, horizontal, bottom of screen above safe area. Active dot: 8×8 pt circle, `Theme.Colour.accent`. Inactive: 6×6 pt, `Theme.Colour.textSecondary` at 40% opacity.
+**Progress dots:** 3 dots, horizontal, bottom of screen above safe area. Active dot: 8×8 pt circle, `Theme.Colour.accent`. Inactive: 4×4 pt, `Theme.Colour.textSecondary` at 40% opacity.
 
 ---
 
@@ -237,9 +250,9 @@ Selector options (cycle wrapping — tapping ◀ on first item wraps to last):
 
 For Skin and Accent rows: show a 16×16 pt filled `Circle` swatch (skin tone colour / accent colour) to the left of the value label — non-colour-only identification (swatch + name).
 
-**CTA:** "Looks good" pill button, full-width with `Theme.Spacing.lg` horizontal inset, `Theme.Colour.accent` background, `Theme.Colour.textOnAccent` label. Always enabled (default pre-selected; never invalid).
+**CTA:** "That's me" pill button, full-width with `Theme.Spacing.lg` horizontal inset, `Theme.Colour.accent` background, `Theme.Colour.textOnAccent` label. Always enabled (default pre-selected; never invalid).
 
-**Skip:** Same as Beat 1. Positioned top-right as a secondary text button.
+**Skip:** "Skip intro" — same treatment as Beat 1. Positioned top-right as a secondary text button.
 
 **Progress dots:** Same treatment; 2nd dot active.
 
@@ -262,7 +275,7 @@ For Skin and Accent rows: show a 16×16 pt filled `Circle` swatch (skin tone col
 - Pre-name heading: "Almost there — what's your name?" (Title, textPrimary).
 - `TextField("Your name", text: $displayName)` — Body font, `Theme.Colour.textPrimary`, on a `Theme.Colour.surface` rounded background (`Theme.Radius.sm`), padding `Theme.Spacing.md` inset.
 - When displayName is non-empty: animate heading swap to "Meet [displayName]." with `.transition(.opacity)` cross-fade — no abrupt snap.
-- CTA "Let's go": disabled (opacity 0.4) until `displayName.trimmingCharacters(in: .whitespaces).count >= 1`. Enabled: amber fill, textOnAccent label.
+- CTA "Lock me in": disabled (opacity 0.4) until `displayName.trimmingCharacters(in: .whitespaces).count >= 1`. Enabled: amber fill, textOnAccent label.
 - Inline hint (empty submit): "Enter a name to continue" — caption, `Theme.Colour.accentSoft`, appears below TextField only after a failed CTA tap.
 
 **Completion action:** Call `AppStore.userCharacter = confirmed appearance`, `AppStore.displayName = displayName`, `CharacterPersistence.save(appearance)`, `PersistenceKeys.save(displayName)`, set `hasCompletedOnboarding = true`. Transition to `HomeView` with `.asymmetric` push (trailing insertion, no removal — the onboarding stack exits entirely).
@@ -421,7 +434,9 @@ Every animated view MUST read `@Environment(\.accessibilityReduceMotion) private
 | TextField keyboard handling | Set `.submitLabel(.done)` on display-name TextField; dismiss keyboard on submit |
 | VoiceOver labels | `AvatarView` exposes `.accessibilityLabel("Avatar: [appearance.description], status: [status.label]")` — implement `description` computed property on `CharacterAppearance` |
 | Avatar status badge | `.accessibilityHidden(true)` on badge image/colour; the parent `AvatarView` accessibility label already carries the status text |
-| Skip button | `.accessibilityLabel("Skip onboarding")` — explicit label, not just "Skip" |
+| Skip button | `.accessibilityLabel("Skip onboarding")` — explicit label, not just "Skip intro" (visible label is "Skip intro"; VoiceOver label is the fuller description) |
+| Stepper ◀ buttons (per row) | `.accessibilityLabel("Previous \(rowLabel)")` where `rowLabel` is the selector row name — "Previous Skin", "Previous Hair", "Previous Outfit", "Previous Accent" |
+| Stepper ▶ buttons (per row) | `.accessibilityLabel("Next \(rowLabel)")` where `rowLabel` is the selector row name — "Next Skin", "Next Hair", "Next Outfit", "Next Accent" |
 
 ---
 
