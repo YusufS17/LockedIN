@@ -34,6 +34,9 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 - [ ] Results reveal shows room totals, then individual titles (LockedIN Champion, Biggest Culprit, First to Fold) with the real stats behind each
 - [ ] Payment/settlement logic lives behind a `CommitmentService` (Mock) interface, fully separated from session and UI code
 - [ ] Money stored in minor currency units (£5.00 = 500), never floating point
+- [ ] **Opal-style app shield (simulated):** "opening" a blocked social/games app during a session triggers a full-screen LockedIN block overlay; driven by the `MockFocusControlAdapter`, it counts as a distraction/override event per contract rules and offers the honest "return / use break / continue and record" choices
+- [ ] **Idle focus rewards:** focused participants visibly "work" and accrue LockedIN coins/treasure on a timer (accelerated for the demo); earning pauses while a participant is distracted or has cracked — rewards genuinely staying in the room
+- [ ] Results screen tallies coins/treasure earned **separately** from the commitment £ (the two economies stay visually and conceptually distinct)
 
 ### Out of Scope
 
@@ -41,12 +44,12 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 
 - Real money / Stripe integration — `ENABLE_REAL_MONEY_STAKES=false`; simulated wallet only for the demo; legal + payment architecture not in scope
 - Real-time cross-device multiplayer — bots are scripted on one device; live state-sync is networking risk we can't afford in 5h
-- Real iOS Screen Time / FamilyControls tracking — OS limits make exact measurement unreliable; `MockFocusControlAdapter` drives the demo
+- Real OS-level app blocking + Screen Time / FamilyControls tracking — needs Apple's Family Controls entitlement + a physical device + provisioning; too risky for 5h. The **simulated shield** (above) delivers the Opal-style experience; real OS enforcement is the documented post-hackathon path
 - Full custom-contract create-room UI — preset path only; the full host configuration form is deferred
 - Room prize pool — `ENABLE_ROOM_PRIZE_POOL=false`; legally sensitive, adult-only, requires jurisdiction review
 - Sponsored rewards — flag exists (`ENABLE_SPONSORED_REWARDS`) but the flow isn't built for the prototype
 - Accountability-partner forfeit payouts — modelled as a stake type, settlement path not implemented
-- Cosmetic LockedIN-coin economy (avatars/room customisation) — separate economy, not part of the commitment demo
+- LockedIN-coin **spending** (avatar/room cosmetic shop) — coins are *earned and displayed* in the demo (see Active), but the shop/purchase side is deferred; coins remain non-withdrawable, non-transferable, and never convertible to commitment money
 - Underage onboarding flows — prototype gates cash-stake rooms behind an 18+ adult confirmation; no real age verification
 - Live-attribution visibility mode — default is "private until results"; live name-attribution path deferred
 
@@ -54,7 +57,8 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 
 - **Hackathon build**, brand-new empty repo (no prior code, spikes, or sketches).
 - Source spec: a detailed "High-Stakes Commitment System" amendment that explicitly *overrides* an earlier avatar-punishment concept. The behavioural mechanism is meaningful commitment and genuine stakes — never childish punishments (no random calls/messages, no secret posts, no harassment).
-- Two **separate economies** in the product vision: (A) commitment money (real or simulated, returned/forfeited per contract, never a cosmetic currency) and (B) LockedIN coins (earned, cosmetic-only, non-withdrawable). Only economy A is in the prototype.
+- Two **separate economies** in the product vision: (A) commitment money (real or simulated, returned/forfeited per contract, never a cosmetic currency) and (B) LockedIN coins (earned by focused time, cosmetic-only, non-withdrawable). Economy A is fully in the prototype; economy B is now **partially** in — coins are *earned and displayed* (the idle focus-reward mechanic), but *spending* them in a cosmetic shop is deferred. The two must never be conflated on screen.
+- **Opal-style blocking** is delivered as a *simulated shield overlay* for the hackathon: the experience of being blocked from a distracting app is reproduced in-app via the Mock adapter, without real OS-level enforcement (which needs the Family Controls entitlement). This keeps the demo honest — we never claim real enforcement we don't have.
 - Tracking is **best-effort by design** — the app must never invent data in production, must label tracking honestly, and must never expose which apps a participant blocked/opened, browsing, messages, contacts, or notification contents. Only aggregate metrics are shown.
 - The **reveal is the entertainment** — competitive/teasing tone is fine, abuse is not; supportive rooms can disable negative rankings; titles always show the numbers behind them.
 - Target demo is section 13 of the spec: £5 Serious Lock-In, three bots, Sam cracks, Sam = Biggest Culprit, £15 returned / £5 forfeited.
@@ -78,6 +82,9 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 | Preset £5 "Serious Lock-In" path only | Full custom-contract UI is too expensive for 5h; one polished vertical slice beats broad-but-shallow | — Pending |
 | Model the full data model + settlement states despite mocks | Cheap to add and makes the demo feel real/credible; keeps architecture honest | — Pending |
 | Test money looks like real £ (not fantasy coins) in commitment flow | Spec is explicit: the stake must feel meaningful; cosmetic coins stay a separate economy | — Pending |
+| Opal-style blocking is a simulated shield, not real OS enforcement | Family Controls entitlement + device provisioning can't be reliably done in 5h; sim delivers the same demo experience honestly | — Pending |
+| Idle coins earned by focused time only (not pure presence) | Rewards genuine focus and reinforces the core loop; pure-presence would reward sitting distracted | — Pending |
+| Coins earned + shown in demo, but coin shop/spending deferred | Earning/display is cheap and adds charm; the cosmetic purchase economy is out-of-spine for 5h | — Pending |
 
 ## Evolution
 
@@ -97,4 +104,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-13 after initialization*
+*Last updated: 2026-06-13 after initialization (+ simulated app-shield and idle focus-reward features)*
