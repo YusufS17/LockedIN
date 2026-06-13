@@ -1,147 +1,112 @@
 import SwiftUI
 
-// MARK: - HomeView (D-26, D-28, ONB-04) — Post-onboarding landing
+// MARK: - HomeView — post-onboarding landing
 //
-// Matches mockup 05-welcome-splash.png direction:
-//   IsometricRoomView fills the screen (the cozy room is the home).
-//   Top gradient overlay with greeting "Hi, [name]." / "Ready to lock in?".
-//   Avatar at desk slot (80pt).
-//   Bottom action card: mini avatar (48pt) + displayName + status "Idle" + "Start a room" CTA.
-//
-// Reads appStore.userCharacter + appStore.displayName.
-// Fallback: displayName.isEmpty → "You"; userCharacter → .default (already guaranteed by
-// CharacterPersistence.load() in AppStore.init and onboarding skip path).
-//
-// "Start a room" is a Phase 3 placeholder — no navigation yet; leave comment.
+// Clean cream home: greeting + the one preset room tile ("£5 Serious Lock-In") +
+// a primary "Start a room" CTA that launches the core loop (RoomFlowView).
+// Well-proportioned with spacers; no floating mockup imagery.
 
 struct HomeView: View {
 
-    // MARK: - Environment
-
     @Environment(AppStore.self) private var appStore
-
-    // MARK: - State
-
-    @State private var avatarOpacity: Double = 0
     @State private var showRoom = false
-
-    // MARK: - Computed
 
     private var name: String {
         appStore.displayName.isEmpty ? "You" : appStore.displayName
     }
 
-    // MARK: - Body
-
     var body: some View {
-        ZStack(alignment: .bottom) {
-            // Cream backdrop + cozy room mockup image (design-matched)
+        ZStack {
             Theme.Colour.background.ignoresSafeArea()
 
-            Image("Onboard6")
-                .resizable()
-                .scaledToFit()
-                .padding(.horizontal, Theme.Spacing.md)
-                .opacity(avatarOpacity)
+            VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
 
-            // Foreground VStack: top greeting + bottom action card
-            VStack(spacing: 0) {
-                topGreeting
-                Spacer()
-                bottomActionCard
-            }
-            .ignoresSafeArea(edges: .bottom)
-        }
-        .preferredColorScheme(.light)
-        .fullScreenCover(isPresented: $showRoom) {
-            RoomFlowView()
-                .environment(appStore)
-        }
-        .onAppear {
-            // Opacity-only fade-in — already Reduce Motion-safe
-            withAnimation(.easeIn(duration: 0.3)) {
-                avatarOpacity = 1
-            }
-        }
-    }
-
-    // MARK: - Top Greeting Overlay
-
-    private var topGreeting: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-            Text("Hi, \(name).")
-                .font(Theme.TypeScale.title)
-                .foregroundStyle(Theme.Colour.textPrimary)
-            Text("Ready to lock in?")
-                .font(Theme.TypeScale.body)
-                .foregroundStyle(Theme.Colour.textSecondary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, Theme.Spacing.lg)
-        .padding(.top, Theme.Spacing.lg)
-        .padding(.bottom, Theme.Spacing.xxl)
-        .background(
-            LinearGradient(
-                colors: [
-                    Theme.Colour.background.opacity(0.85),
-                    Theme.Colour.background.opacity(0)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
-    }
-
-    // MARK: - Bottom Action Card
-
-    private var bottomActionCard: some View {
-        VStack(spacing: Theme.Spacing.md) {
-            // name + status row
-            HStack(spacing: Theme.Spacing.sm) {
-                Image(systemName: "person.crop.circle.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(Theme.Colour.accent)
-
+                // Greeting
                 VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                    Text(name)
-                        .font(Theme.TypeScale.headline)
+                    Text("Hi, \(name).")
+                        .font(Theme.TypeScale.largeTitle)
                         .foregroundStyle(Theme.Colour.textPrimary)
-                    Text("Idle")
-                        .font(Theme.TypeScale.caption)
+                    Text("Ready to lock in?")
+                        .font(Theme.TypeScale.body)
                         .foregroundStyle(Theme.Colour.textSecondary)
+                }
+                .padding(.top, Theme.Spacing.md)
+
+                Spacer()
+
+                // Preset room tile
+                Button { showRoom = true } label: {
+                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                        HStack(spacing: Theme.Spacing.sm) {
+                            ZStack {
+                                Circle().fill(Theme.Colour.accent.opacity(0.25)).frame(width: 52, height: 52)
+                                Image(systemName: "lock.fill")
+                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundStyle(Theme.Colour.accent)
+                            }
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("£5 Serious Lock-In")
+                                    .font(Theme.TypeScale.title2)
+                                    .foregroundStyle(Theme.Colour.textPrimary)
+                                Text("25 min · 1 break · with Maya, Leo & Sam")
+                                    .font(Theme.TypeScale.caption)
+                                    .foregroundStyle(Theme.Colour.textSecondary)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Theme.Colour.textSecondary)
+                        }
+
+                        HStack(spacing: Theme.Spacing.sm) {
+                            Text("Stake")
+                                .font(Theme.TypeScale.caption)
+                                .foregroundStyle(Theme.Colour.textSecondary)
+                            MoneyLabel(500, compact: true)
+                            Spacer()
+                            Text("Forfeit → ❤️ British Red Cross")
+                                .font(Theme.TypeScale.caption)
+                                .foregroundStyle(Theme.Colour.textSecondary)
+                        }
+                    }
+                    .padding(Theme.Spacing.lg)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Theme.Colour.surface)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: Theme.Radius.lg)
+                            .strokeBorder(Theme.Colour.cardBorder, lineWidth: 1)
+                    )
+                }
+                .buttonStyle(.plain)
+
+                // Primary CTA
+                Button { showRoom = true } label: {
+                    Text("Start a room")
+                        .font(Theme.TypeScale.headline)
+                        .foregroundStyle(Theme.Colour.buttonText)
+                        .frame(maxWidth: .infinity)
+                        .padding(Theme.Spacing.md)
+                        .background(Theme.Colour.buttonFill)
+                        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
                 }
 
                 Spacer()
-            }
 
-            // "Start a room" — launches the core commit → session → reveal loop
-            Button {
-                showRoom = true
-            } label: {
-                Text("Start a room")
-                    .font(Theme.TypeScale.headline)
-                    .foregroundStyle(Theme.Colour.textOnAccent)
-                    .frame(maxWidth: .infinity)
-                    .padding(Theme.Spacing.md)
-                    .background(Theme.Colour.accent)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
+                Text("TEST MODE — NO REAL MONEY WILL MOVE")
+                    .font(Theme.TypeScale.caption)
+                    .foregroundStyle(Theme.Colour.testBadgeFg)
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
+            .padding(.horizontal, Theme.Spacing.lg)
+            .padding(.bottom, Theme.Spacing.xl)
         }
-        .padding(Theme.Spacing.md)
-        .background(Theme.Colour.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
-        .overlay(
-            RoundedRectangle(cornerRadius: Theme.Radius.lg)
-                .strokeBorder(Theme.Colour.cardBorder, lineWidth: 1)
-        )
-        .padding(.horizontal, Theme.Spacing.lg)
-        .padding(.bottom, Theme.Spacing.xxl)
+        .preferredColorScheme(.light)
+        .fullScreenCover(isPresented: $showRoom) {
+            RoomFlowView().environment(appStore)
+        }
     }
 }
 
-// MARK: - Preview
-
-#Preview("HomeView — default avatar") {
-    HomeView()
-        .environment(AppStore())
+#Preview("HomeView") {
+    HomeView().environment(AppStore())
 }
