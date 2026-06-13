@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 Plan 1 complete; ready to execute 02-02
-last_updated: "2026-06-13T14:47:27Z"
-last_activity: 2026-06-13 -- Phase 02 Plan 01 complete (rendering foundation)
+stopped_at: Phase 2 Plan 2 complete; ready to execute 02-03
+last_updated: "2026-06-13T15:07:12Z"
+last_activity: 2026-06-13 -- Phase 02 Plan 02 complete (creator + persistence slice)
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 12
-  completed_plans: 3
-  percent: 17
+  completed_plans: 4
+  percent: 22
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-06-13)
 ## Current Position
 
 Phase: 02 (character-onboarding) — EXECUTING
-Plan: 2 of 3 (next: 02-02)
+Plan: 3 of 3 (next: 02-03)
 Status: Executing Phase 02
-Last activity: 2026-06-13 -- Phase 02 Plan 01 complete (rendering foundation)
+Last activity: 2026-06-13 -- Phase 02 Plan 02 complete (creator + persistence slice)
 
 Progress: [█░░░░░░░░░] 14% (1 of 7 phases)
 
@@ -58,6 +58,7 @@ Note: Phase 3 (Room & Contract) already has CONTEXT.md from an earlier discuss s
 | Phase 01-foundation P01 | 20min | 3 tasks | 10 files |
 | Phase 01-foundation P02 | 15min | 2 tasks | 11 files |
 | Phase 02-character-onboarding P01 | 10min | 3 tasks | 5 files |
+| Phase 02-character-onboarding P02 | 20min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ Recent decisions affecting current work:
 - Phase 01-01: MoneyLabel reads ENABLE_REAL_MONEY_STAKES at render boundary — flag honoured structurally, making money-without-TEST-marker impossible by construction
 - Phase 01-01: formatPence() uses integer arithmetic (not NumberFormatter) for guaranteed 2dp with zero floating-point involvement
 - [Phase ?]: Phase 01-02: MockFocusControlAdapter accepts scripts at init (not hardcoded bot names) — Phase 3 injects Maya/Leo/Sam timelines; seam proven in Wave 2
+- Phase 02-02: CharacterPersistence uses try? on all JSONDecoder operations — nil is safe fallback, never crash (T-02-03 mitigated)
+- Phase 02-02: AppStore.userCharacter + displayName as plain @Observable vars, NOT @AppStorage — Pitfall 8 respected
+- Phase 02-02: CharacterCreatorView uses swatch grid (primary) + stepper cycling (secondary/accessibility) to match mockup palette grid
 
 ### Pending Todos
 
@@ -93,5 +97,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-06-13T14:47:27Z
-Stopped at: Phase 2 Plan 1 complete; ready to execute 02-02
-Resume file: .planning/phases/02-character-onboarding/02-02-PLAN.md
+Stopped at: Phase 2 Plan 2 complete; ready to execute 02-03
+Resume file: .planning/phases/02-character-onboarding/02-03-PLAN.md

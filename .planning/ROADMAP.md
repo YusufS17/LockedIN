@@ -64,7 +64,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 02-01-PLAN.md — Rendering foundation: CharacterAppearance + AvatarStatus models, Theme tokens/typography, code-drawn AvatarView (D-21a), static IsometricRoomView
-- [ ] 02-02-PLAN.md — Creator + persistence: CharacterPersistence (UserDefaults), AppStore identity props, live-preview CharacterCreatorView
+- [x] 02-02-PLAN.md — Creator + persistence: CharacterPersistence (UserDefaults), AppStore identity props, live-preview CharacterCreatorView
 - [ ] 02-03-PLAN.md — Onboarding flow + routing: 3-beat OnboardingView, ConceptBeatView, PayoffBeatView (room reveal + name), HomeView, RootView first-launch gate
 
 **UI hint**: yes
@@ -164,7 +164,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-06-13 |
-| 2. Character & Onboarding | 1/3 | In progress | - |
+| 2. Character & Onboarding | 2/3 | In progress | - |
 | 3. Room & Contract | 0/TBD | Not started | - |
 | 4. Session Engine & Tracking | 0/TBD | Not started | - |
 | 5. Screen Shield & Interruption | 0/TBD | Not started | - |
