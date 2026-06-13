@@ -37,6 +37,10 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 - [ ] **Opal-style app shield (simulated):** "opening" a blocked social/games app during a session triggers a full-screen LockedIN block overlay; driven by the `MockFocusControlAdapter`, it counts as a distraction/override event per contract rules and offers the honest "return / use break / continue and record" choices
 - [ ] **Idle focus rewards:** focused participants visibly "work" and accrue LockedIN coins/treasure on a timer (accelerated for the demo); earning pauses while a participant is distracted or has cracked — rewards genuinely staying in the room
 - [ ] Results screen tallies coins/treasure earned **separately** from the commitment £ (the two economies stay visually and conceptually distinct)
+- [ ] **Personal world:** each user has a world/room that visibly grows as they earn coins/treasure from focused study; study solo to build your own
+- [ ] **Shared world:** a user can join a group world and contribute alongside the room's participants (demo: aggregated locally from the room)
+- [ ] **View neighbours' worlds:** browse the bots'/neighbours' pre-seeded worlds for Minecraft-esque comparison and competition
+- [ ] **Local persistence:** world + coin/treasure progress is saved on-device and survives app relaunch (SwiftData/UserDefaults)
 
 ### Out of Scope
 
@@ -44,6 +48,7 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 
 - Real money / Stripe integration — `ENABLE_REAL_MONEY_STAKES=false`; simulated wallet only for the demo; legal + payment architecture not in scope
 - Real-time cross-device multiplayer — bots are scripted on one device; live state-sync is networking risk we can't afford in 5h
+- Networked worlds (real cross-device shared/joint world sync; browsing real strangers' worlds globally) — requires accounts + a backend; the in-build world system is local-only (your world + pre-seeded neighbour worlds). True multi-device worlds are the next milestone
 - Real OS-level app blocking + Screen Time / FamilyControls tracking — needs Apple's Family Controls entitlement + a physical device + provisioning; too risky for 5h. The **simulated shield** (above) delivers the Opal-style experience; real OS enforcement is the documented post-hackathon path
 - Full custom-contract create-room UI — preset path only; the full host configuration form is deferred
 - Room prize pool — `ENABLE_ROOM_PRIZE_POOL=false`; legally sensitive, adult-only, requires jurisdiction review
@@ -68,6 +73,8 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 - **Timeline**: ~5 hours total build budget — ruthless scope; nail the single section-13 demo spine, defer everything else. This is the dominant constraint.
 - **Tech stack**: Native iOS, SwiftUI — chosen over web/cross-platform despite the tighter hackathon timeline.
 - **Multiplayer**: Simulated participants (scripted bots) only — architecture models multiple participants, but no real networking.
+- **Persistence**: Local on-device only (SwiftData/UserDefaults) for world + coin progress. This intentionally overrides the research's "zero persistence" recommendation, but *only* for the world-save feature — the commitment session itself stays in-memory and deterministic. No cloud/backend persistence.
+- **World/social**: The world system ships local-only — your world grows from earned coins, neighbour worlds are pre-seeded mocks. Genuine networked/shared worlds are deferred (need a backend).
 - **Payments**: Simulated in-app wallet only — no Stripe, no real money; `CommitmentService` interface kept clean so a real implementation could slot in later.
 - **Data integrity**: Money in minor units, no floats; settlement states explicit; payment logic separated from UI/session (acceptance criterion #15).
 - **Safety/ethics**: No deceptive buttons, always an honest emergency exit, no exposure of private app/usage data, no harassment or chance-based financial outcomes.
@@ -85,6 +92,10 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 | Opal-style blocking is a simulated shield, not real OS enforcement | Family Controls entitlement + device provisioning can't be reliably done in 5h; sim delivers the same demo experience honestly | — Pending |
 | Idle coins earned by focused time only (not pure presence) | Rewards genuine focus and reinforces the core loop; pure-presence would reward sitting distracted | — Pending |
 | Coins earned + shown in demo, but coin shop/spending deferred | Earning/display is cheap and adds charm; the cosmetic purchase economy is out-of-spine for 5h | — Pending |
+| Coins/treasure build a persistent personal world (the coin sink) | Makes focus visibly rewarding (Forest/Minecraft-esque); turns the coin economy into a trophy | — Pending |
+| World system is local-only; networked/shared worlds deferred | Real cross-device shared worlds + browsing strangers need a backend — impossible in 5h | — Pending |
+| Add local persistence (SwiftData/UserDefaults) for world + coins only | "Progress is saved" must feel true on the demo device; session stays in-memory | — Pending |
+| Demo spine sequenced first, world/social as the ambitious back half | Guarantees a working commitment demo even if world build runs long | — Pending |
 
 ## Evolution
 
@@ -104,4 +115,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-13 after initialization (+ simulated app-shield and idle focus-reward features)*
+*Last updated: 2026-06-13 after initialization (+ simulated app-shield, idle focus-reward, and local persistent world/social features)*
