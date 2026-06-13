@@ -23,6 +23,7 @@ struct HomeView: View {
     // MARK: - State
 
     @State private var avatarOpacity: Double = 0
+    @State private var showRoom = false
 
     // MARK: - Computed
 
@@ -52,6 +53,10 @@ struct HomeView: View {
             .ignoresSafeArea(edges: .bottom)
         }
         .preferredColorScheme(.light)
+        .fullScreenCover(isPresented: $showRoom) {
+            RoomFlowView()
+                .environment(appStore)
+        }
         .onAppear {
             // Opacity-only fade-in — already Reduce Motion-safe
             withAnimation(.easeIn(duration: 0.3)) {
@@ -109,9 +114,9 @@ struct HomeView: View {
                 Spacer()
             }
 
-            // "Start a room" — amber pill; Phase 3 placeholder (no navigation yet)
+            // "Start a room" — launches the core commit → session → reveal loop
             Button {
-                // Phase 3 navigation — placeholder; RoomSetupView will be wired here
+                showRoom = true
             } label: {
                 Text("Start a room")
                     .font(Theme.TypeScale.headline)
