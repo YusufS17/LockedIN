@@ -10,9 +10,9 @@ Requirements for the hackathon prototype. Each maps to a roadmap phase. Scope is
 ### Foundation & Architecture
 
 - [x] **FND-01**: All monetary values are stored as integer minor units (pence); never floating point
-- [ ] **FND-02**: Payment/settlement logic lives behind a `CommitmentService` protocol (with a `MockCommitmentService` implementation); no payment calls appear in UI or session code
-- [ ] **FND-03**: Focus tracking goes through a `FocusControlAdapter` protocol (with a `MockFocusControlAdapter` implementation) so a real Screen Time adapter can slot in later
-- [ ] **FND-04**: Settlement has explicit, enumerated states (e.g. not_required, awaiting_authorisation, authorised, held, passed, refunded, failed, forfeited) modelled as a type
+- [x] **FND-02**: Payment/settlement logic lives behind a `CommitmentService` protocol (with a `MockCommitmentService` implementation); no payment calls appear in UI or session code
+- [x] **FND-03**: Focus tracking goes through a `FocusControlAdapter` protocol (with a `MockFocusControlAdapter` implementation) so a real Screen Time adapter can slot in later
+- [x] **FND-04**: Settlement has explicit, enumerated states (e.g. not_required, awaiting_authorisation, authorised, held, passed, refunded, failed, forfeited) modelled as a type
 - [x] **FND-05**: Feature flags exist and are honoured: `ENABLE_REAL_MONEY_STAKES=false`, `ENABLE_TEST_STAKES=true`, `ENABLE_ROOM_PRIZE_POOL=false`, `ENABLE_SPONSORED_REWARDS=true`
 
 ### Room & Contract
@@ -133,9 +133,9 @@ Populated during roadmap creation by the roadmapper. Each requirement maps to ex
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | FND-01 | Phase 1 | Complete |
-| FND-02 | Phase 1 | Pending |
-| FND-03 | Phase 1 | Pending |
-| FND-04 | Phase 1 | Pending |
+| FND-02 | Phase 1 | Complete |
+| FND-03 | Phase 1 | Complete |
+| FND-04 | Phase 1 | Complete |
 | FND-05 | Phase 1 | Complete |
 | SAFE-01 | Phase 1 | Complete |
 | SAFE-02 | Phase 1 | Complete |

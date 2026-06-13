@@ -13,7 +13,7 @@ Six phases deliver the section-13 demo spine first, then layer the world/social 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Core data types, service protocols, mock implementations, and the TEST MODE design system
+- [x] **Phase 1: Foundation** - Core data types, service protocols, mock implementations, and the TEST MODE design system (completed 2026-06-13)
 - [ ] **Phase 2: Room & Contract** - Lobby UI, preset room creation, contract review, per-participant acceptance, and contract freeze
 - [ ] **Phase 3: Session Engine & Tracking** - SessionCoordinator, scripted bots, countdown timer, metrics accumulation, and deterministic pass/fail rules
 - [ ] **Phase 4: Screen Shield & Interruption** - Full-screen Opal-style block overlay, hold-to-confirm forfeit gate, and honest emergency exit
@@ -43,7 +43,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — 8-state ParticipantSettlementState enum, CommitmentService/FocusControlAdapter protocols + money-conserving mocks (wallet seed £20.00 / "British Red Cross"), wired into AppStore
+- [x] 01-02-PLAN.md — 8-state ParticipantSettlementState enum, CommitmentService/FocusControlAdapter protocols + money-conserving mocks (wallet seed £20.00 / "British Red Cross"), wired into AppStore
 
 ### Phase 2: Room & Contract
 
@@ -135,7 +135,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/2 | In Progress|  |
+| 1. Foundation | 2/2 | Complete   | 2026-06-13 |
 | 2. Room & Contract | 0/TBD | Not started | - |
 | 3. Session Engine & Tracking | 0/TBD | Not started | - |
 | 4. Screen Shield & Interruption | 0/TBD | Not started | - |
