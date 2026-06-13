@@ -2,14 +2,18 @@ import SwiftUI
 
 // MARK: - HomeView — post-onboarding landing
 //
-// Clean cream home: greeting + the one preset room tile ("£5 Serious Lock-In") +
-// a primary "Start a room" CTA that launches the core loop (RoomFlowView).
-// Well-proportioned with spacers; no floating mockup imagery.
+// Offers the room choices: £5 Serious Lock-In (working staked loop), Study solo,
+// and Join a room (live group). Clean cream layout, proportioned with spacing.
 
 struct HomeView: View {
 
+    enum Destination: Identifiable {
+        case lockIn, solo, group
+        var id: Int { hashValue }
+    }
+
     @Environment(AppStore.self) private var appStore
-    @State private var showRoom = false
+    @State private var destination: Destination?
 
     private var name: String {
         appStore.displayName.isEmpty ? "You" : appStore.displayName
@@ -19,91 +23,116 @@ struct HomeView: View {
         ZStack {
             Theme.Colour.background.ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
 
-                // Greeting
-                VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                    Text("Hi, \(name).")
-                        .font(Theme.TypeScale.largeTitle)
-                        .foregroundStyle(Theme.Colour.textPrimary)
-                    Text("Ready to lock in?")
-                        .font(Theme.TypeScale.body)
-                        .foregroundStyle(Theme.Colour.textSecondary)
-                }
-                .padding(.top, Theme.Spacing.md)
-
-                Spacer()
-
-                // Preset room tile
-                Button { showRoom = true } label: {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                        HStack(spacing: Theme.Spacing.sm) {
-                            ZStack {
-                                Circle().fill(Theme.Colour.accent.opacity(0.25)).frame(width: 52, height: 52)
-                                Image(systemName: "lock.fill")
-                                    .font(.system(size: 22, weight: .bold))
-                                    .foregroundStyle(Theme.Colour.accent)
-                            }
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("£5 Serious Lock-In")
-                                    .font(Theme.TypeScale.title2)
-                                    .foregroundStyle(Theme.Colour.textPrimary)
-                                Text("25 min · 1 break · with Maya, Leo & Sam")
-                                    .font(Theme.TypeScale.caption)
-                                    .foregroundStyle(Theme.Colour.textSecondary)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(Theme.Colour.textSecondary)
-                        }
-
-                        HStack(spacing: Theme.Spacing.sm) {
-                            Text("Stake")
-                                .font(Theme.TypeScale.caption)
-                                .foregroundStyle(Theme.Colour.textSecondary)
-                            MoneyLabel(500, compact: true)
-                            Spacer()
-                            Text("Forfeit → ❤️ British Red Cross")
-                                .font(Theme.TypeScale.caption)
-                                .foregroundStyle(Theme.Colour.textSecondary)
-                        }
+                    // Greeting
+                    VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
+                        Text("Hi, \(name).")
+                            .font(Theme.TypeScale.largeTitle)
+                            .foregroundStyle(Theme.Colour.textPrimary)
+                        Text("How do you want to study?")
+                            .font(Theme.TypeScale.body)
+                            .foregroundStyle(Theme.Colour.textSecondary)
                     }
-                    .padding(Theme.Spacing.lg)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Theme.Colour.surface)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: Theme.Radius.lg)
-                            .strokeBorder(Theme.Colour.cardBorder, lineWidth: 1)
-                    )
+                    .padding(.top, Theme.Spacing.md)
+
+                    // Featured staked room (the working loop)
+                    Button { destination = .lockIn } label: {
+                        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                            HStack(spacing: Theme.Spacing.sm) {
+                                iconChip("lock.fill")
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("£5 Serious Lock-In")
+                                        .font(Theme.TypeScale.title2)
+                                        .foregroundStyle(Theme.Colour.textPrimary)
+                                    Text("Stake £5 · 25 min · with Maya, Leo & Sam")
+                                        .font(Theme.TypeScale.caption)
+                                        .foregroundStyle(Theme.Colour.textSecondary)
+                                }
+                                Spacer()
+                                chevron
+                            }
+                            HStack(spacing: Theme.Spacing.sm) {
+                                Text("Stake").font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                                MoneyLabel(500, compact: true)
+                                Spacer()
+                                Text("Forfeit → ❤️ British Red Cross")
+                                    .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                            }
+                        }
+                        .modifier(CardStyle())
+                    }
+                    .buttonStyle(.plain)
+
+                    Text("Or just study")
+                        .font(Theme.TypeScale.captionBold)
+                        .foregroundStyle(Theme.Colour.textSecondary)
+
+                    // Solo + Join row
+                    HStack(spacing: Theme.Spacing.md) {
+                        optionTile("Study solo", "Your own focus room", "person.fill") { destination = .solo }
+                        optionTile("Join a room", "Study with a squad", "person.3.fill") { destination = .group }
+                    }
+
+                    Spacer(minLength: Theme.Spacing.xl)
+
+                    Text("TEST MODE — NO REAL MONEY WILL MOVE")
+                        .font(Theme.TypeScale.caption)
+                        .foregroundStyle(Theme.Colour.testBadgeFg)
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .buttonStyle(.plain)
-
-                // Primary CTA
-                Button { showRoom = true } label: {
-                    Text("Start a room")
-                        .font(Theme.TypeScale.headline)
-                        .foregroundStyle(Theme.Colour.buttonText)
-                        .frame(maxWidth: .infinity)
-                        .padding(Theme.Spacing.md)
-                        .background(Theme.Colour.buttonFill)
-                        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
-                }
-
-                Spacer()
-
-                Text("TEST MODE — NO REAL MONEY WILL MOVE")
-                    .font(Theme.TypeScale.caption)
-                    .foregroundStyle(Theme.Colour.testBadgeFg)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.horizontal, Theme.Spacing.lg)
+                .padding(.bottom, Theme.Spacing.xl)
             }
-            .padding(.horizontal, Theme.Spacing.lg)
-            .padding(.bottom, Theme.Spacing.xl)
         }
         .preferredColorScheme(.light)
-        .fullScreenCover(isPresented: $showRoom) {
-            RoomFlowView().environment(appStore)
+        .fullScreenCover(item: $destination) { dest in
+            switch dest {
+            case .lockIn: RoomFlowView().environment(appStore)
+            case .solo:   StaticRoomScreen(imageName: "SoloRoom")
+            case .group:  StaticRoomScreen(imageName: "GroupRoom")
+            }
         }
+    }
+
+    // MARK: - Bits
+
+    private func iconChip(_ symbol: String) -> some View {
+        ZStack {
+            Circle().fill(Theme.Colour.accent.opacity(0.25)).frame(width: 52, height: 52)
+            Image(systemName: symbol).font(.system(size: 22, weight: .bold)).foregroundStyle(Theme.Colour.accent)
+        }
+    }
+
+    private var chevron: some View {
+        Image(systemName: "chevron.right").foregroundStyle(Theme.Colour.textSecondary)
+    }
+
+    private func optionTile(_ title: String, _ subtitle: String, _ symbol: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+                iconChip(symbol)
+                Text(title).font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
+                Text(subtitle).font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+            }
+            .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
+            .modifier(CardStyle())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Card style
+
+private struct CardStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(Theme.Spacing.lg)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.Colour.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
+            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
     }
 }
 
