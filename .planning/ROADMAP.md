@@ -32,7 +32,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `ParticipantSettlementState` enum covers all named states (notRequired, awaitingAuthorisation, held, authorisedForReturn, authorisedForForfeit, returned, forfeited, settlementError)
   4. All five feature flags exist and are honoured (`ENABLE_REAL_MONEY_STAKES=false`, `ENABLE_TEST_STAKES=true`, `ENABLE_ROOM_PRIZE_POOL=false`, `ENABLE_SPONSORED_REWARDS=true`)
   5. A `TestModeBadge` / `MoneyLabel` component renders a persistent "TEST MODE — NO REAL MONEY WILL MOVE" label alongside any formatted `£` amount, and no money-displaying screen in the app omits it
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — Walking Skeleton: buildable iOS 17 app, Pence type + single 2dp formatter, MoneyLabel (structural TEST marker), 4 feature flags, design tokens, @Observable AppStore via .environment()
+- [ ] 01-02-PLAN.md — 8-state ParticipantSettlementState enum, CommitmentService/FocusControlAdapter protocols + money-conserving mocks (wallet seed £20.00 / "British Red Cross"), wired into AppStore
 
 ### Phase 2: Room & Contract
 **Goal**: A user can launch a preset £5 room, review the full contract with explicit pass/fail terms, accept and stake £5, watch three scripted bots do the same, and see the contract lock visibly with £20 at stake before the session starts
@@ -109,7 +112,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/2 | Planned | - |
 | 2. Room & Contract | 0/TBD | Not started | - |
 | 3. Session Engine & Tracking | 0/TBD | Not started | - |
 | 4. Screen Shield & Interruption | 0/TBD | Not started | - |
