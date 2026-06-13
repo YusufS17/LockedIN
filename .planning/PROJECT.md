@@ -68,6 +68,19 @@ The commitment-to-consequence loop must *feel real*: a frozen contract with a ge
 - The **reveal is the entertainment** — competitive/teasing tone is fine, abuse is not; supportive rooms can disable negative rankings; titles always show the numbers behind them.
 - Target demo is section 13 of the spec: £5 Serious Lock-In, three bots, Sam cracks, Sam = Biggest Culprit, £15 returned / £5 forfeited.
 
+## Visual Direction
+
+Reference mockup: `.planning/reference/study-room-mockup.png` (a "study room" reference the user provided).
+
+The mockup establishes the look and the core screen layout:
+- **Aesthetic:** cozy isometric / 2.5D pixel-art study room — dark-academia, warm amber lighting, bookshelves, plants, a window. Forest-meets-cozy-game. This doubles as the buildable "world".
+- **The room IS the screen:** avatars sit at desks visibly "working" — the idle focus-reward mechanic rendered directly in the room. The room space is also the world the user builds/edits.
+- **Live session HUD:** room name (e.g. "Economics Lock-In"), a large countdown timer (e.g. `24:18`), and aggregate status pills across the top (live room / competition-mode / focused counts) — aligns with the aggregate-signals, private-until-results requirement (SES-05).
+- **Bottom action card:** the user's avatar + a "Focused" state pill, with in-session actions like "Take break" and "Stay focused" — the planned-break / focus controls.
+- **"Edit" affordance** (bottom-left): entry point for customising your room/world (Phase 6).
+
+This reference informs Phase 2 (room), Phases 3–4 (session UI/HUD + interruption), and Phase 6 (world + edit). The pixel-art room and the buildable world are the same visual surface — build the room view once, then let coins/treasure grow it.
+
 ## Constraints
 
 - **Timeline**: ~5 hours total build budget — ruthless scope; nail the single section-13 demo spine, defer everything else. This is the dominant constraint.
@@ -115,4 +128,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-13 after initialization (+ simulated app-shield, idle focus-reward, and local persistent world/social features)*
+*Last updated: 2026-06-13 after initialization (+ simulated app-shield, idle focus-reward, local persistent world/social features, and study-room visual reference)*
