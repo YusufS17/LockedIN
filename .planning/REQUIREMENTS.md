@@ -132,56 +132,56 @@ Populated during roadmap creation by the roadmapper. Each requirement maps to ex
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FND-01 | TBD | Pending |
-| FND-02 | TBD | Pending |
-| FND-03 | TBD | Pending |
-| FND-04 | TBD | Pending |
-| FND-05 | TBD | Pending |
-| CTR-01 | TBD | Pending |
-| CTR-02 | TBD | Pending |
-| CTR-03 | TBD | Pending |
-| CTR-04 | TBD | Pending |
-| CTR-05 | TBD | Pending |
-| CTR-06 | TBD | Pending |
-| STK-01 | TBD | Pending |
-| STK-02 | TBD | Pending |
-| STK-03 | TBD | Pending |
-| STK-04 | TBD | Pending |
-| STK-05 | TBD | Pending |
-| SES-01 | TBD | Pending |
-| SES-02 | TBD | Pending |
-| SES-03 | TBD | Pending |
-| SES-04 | TBD | Pending |
-| SES-05 | TBD | Pending |
-| SHD-01 | TBD | Pending |
-| SHD-02 | TBD | Pending |
-| SHD-03 | TBD | Pending |
-| SHD-04 | TBD | Pending |
-| SHD-05 | TBD | Pending |
-| RWD-01 | TBD | Pending |
-| RWD-02 | TBD | Pending |
-| RWD-03 | TBD | Pending |
-| RWD-04 | TBD | Pending |
-| WLD-01 | TBD | Pending |
-| WLD-02 | TBD | Pending |
-| WLD-03 | TBD | Pending |
-| WLD-04 | TBD | Pending |
-| WLD-05 | TBD | Pending |
-| WLD-06 | TBD | Pending |
-| RES-01 | TBD | Pending |
-| RES-02 | TBD | Pending |
-| RES-03 | TBD | Pending |
-| RES-04 | TBD | Pending |
-| SAFE-01 | TBD | Pending |
-| SAFE-02 | TBD | Pending |
-| SAFE-03 | TBD | Pending |
-| SAFE-04 | TBD | Pending |
+| FND-01 | Phase 1 | Pending |
+| FND-02 | Phase 1 | Pending |
+| FND-03 | Phase 1 | Pending |
+| FND-04 | Phase 1 | Pending |
+| FND-05 | Phase 1 | Pending |
+| SAFE-01 | Phase 1 | Pending |
+| SAFE-02 | Phase 1 | Pending |
+| SAFE-03 | Phase 1 | Pending |
+| SAFE-04 | Phase 1 | Pending |
+| CTR-01 | Phase 2 | Pending |
+| CTR-02 | Phase 2 | Pending |
+| CTR-03 | Phase 2 | Pending |
+| CTR-04 | Phase 2 | Pending |
+| CTR-05 | Phase 2 | Pending |
+| CTR-06 | Phase 2 | Pending |
+| STK-01 | Phase 2 | Pending |
+| STK-04 | Phase 2 | Pending |
+| STK-05 | Phase 2 | Pending |
+| SES-01 | Phase 3 | Pending |
+| SES-02 | Phase 3 | Pending |
+| SES-03 | Phase 3 | Pending |
+| SES-04 | Phase 3 | Pending |
+| SES-05 | Phase 3 | Pending |
+| SHD-01 | Phase 4 | Pending |
+| SHD-02 | Phase 4 | Pending |
+| SHD-03 | Phase 4 | Pending |
+| SHD-04 | Phase 4 | Pending |
+| SHD-05 | Phase 4 | Pending |
+| STK-02 | Phase 5 | Pending |
+| STK-03 | Phase 5 | Pending |
+| RES-01 | Phase 5 | Pending |
+| RES-02 | Phase 5 | Pending |
+| RES-03 | Phase 5 | Pending |
+| RES-04 | Phase 5 | Pending |
+| RWD-01 | Phase 6 | Pending |
+| RWD-02 | Phase 6 | Pending |
+| RWD-03 | Phase 6 | Pending |
+| RWD-04 | Phase 6 | Pending |
+| WLD-01 | Phase 6 | Pending |
+| WLD-02 | Phase 6 | Pending |
+| WLD-03 | Phase 6 | Pending |
+| WLD-04 | Phase 6 | Pending |
+| WLD-05 | Phase 6 | Pending |
+| WLD-06 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 44 total
-- Mapped to phases: 0 (roadmap pending)
-- Unmapped: 44 ⚠️ (to be resolved by roadmap)
+- Mapped to phases: 44 (Phase 1: 9, Phase 2: 9, Phase 3: 5, Phase 4: 5, Phase 5: 6, Phase 6: 10)
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-06-13*
-*Last updated: 2026-06-13 after initial definition*
+*Last updated: 2026-06-13 — traceability filled; all 44 requirements mapped across 6 phases*
