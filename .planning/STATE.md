@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Roadmap restructured — Phase 2 (Character & Onboarding) inserted; Phase 3 (Room & Contract) context ready
-last_updated: "2026-06-13T13:07:29.874Z"
+status: verifying
+stopped_at: Phase 2 (Character & Onboarding) context gathered
+last_updated: "2026-06-13T13:28:43.092Z"
 last_activity: 2026-06-13
 progress:
   total_phases: 7
@@ -91,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-13T13:07:29.845Z
-Stopped at: Roadmap restructured — Phase 2 (Character & Onboarding) inserted; Phase 3 (Room & Contract) context ready
-Resume file: .planning/phases/03-room-contract/03-CONTEXT.md
+Last session: 2026-06-13T13:28:43.064Z
+Stopped at: Phase 2 (Character & Onboarding) context gathered
+Resume file: .planning/phases/02-character-onboarding/02-CONTEXT.md
