@@ -14,7 +14,7 @@ Seven phases deliver the section-13 demo spine first, then layer the world/socia
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Core data types, service protocols, mock implementations, and the TEST MODE design system (completed 2026-06-13)
-- [ ] **Phase 2: Character & Onboarding** - First-launch onboarding animation, pixel-art character creator, and the reusable avatar + cozy isometric room rendering system
+- [x] **Phase 2: Character & Onboarding** - First-launch onboarding animation, pixel-art character creator, and the reusable avatar + cozy isometric room rendering system (completed 2026-06-13)
 - [ ] **Phase 3: Room & Contract** - Lobby UI, preset room creation, contract review, per-participant acceptance, and contract freeze
 - [ ] **Phase 4: Session Engine & Tracking** - SessionCoordinator, scripted bots, countdown timer, metrics accumulation, and deterministic pass/fail rules
 - [ ] **Phase 5: Screen Shield & Interruption** - Full-screen Opal-style block overlay, hold-to-confirm forfeit gate, and honest emergency exit
@@ -63,9 +63,10 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
+
 - [x] 02-01-PLAN.md — Rendering foundation: CharacterAppearance + AvatarStatus models, Theme tokens/typography, code-drawn AvatarView (D-21a), static IsometricRoomView
 - [x] 02-02-PLAN.md — Creator + persistence: CharacterPersistence (UserDefaults), AppStore identity props, live-preview CharacterCreatorView
-- [ ] 02-03-PLAN.md — Onboarding flow + routing: 3-beat OnboardingView, ConceptBeatView, PayoffBeatView (room reveal + name), HomeView, RootView first-launch gate
+- [x] 02-03-PLAN.md — Onboarding flow + routing: 3-beat OnboardingView, ConceptBeatView, PayoffBeatView (room reveal + name), HomeView, RootView first-launch gate
 
 **UI hint**: yes
 
@@ -164,7 +165,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete | 2026-06-13 |
-| 2. Character & Onboarding | 2/3 | In progress | - |
+| 2. Character & Onboarding | 3/3 | Complete   | 2026-06-13 |
 | 3. Room & Contract | 0/TBD | Not started | - |
 | 4. Session Engine & Tracking | 0/TBD | Not started | - |
 | 5. Screen Shield & Interruption | 0/TBD | Not started | - |
