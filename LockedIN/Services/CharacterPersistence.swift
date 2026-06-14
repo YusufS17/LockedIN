@@ -8,9 +8,10 @@ import Foundation
 // CharacterPersistence save/load calls (character, displayName).
 
 enum PersistenceKeys {
-    static let character   = "userCharacterAppearance"
-    static let displayName = "userDisplayName"
-    static let onboarding  = "hasCompletedOnboarding"
+    static let character        = "userCharacterAppearance"
+    static let displayName      = "userDisplayName"
+    static let onboarding       = "hasCompletedOnboarding"
+    static let selectedCharacter = "selectedCharacterID"
 }
 
 // MARK: - CharacterPersistence (ONB-04)

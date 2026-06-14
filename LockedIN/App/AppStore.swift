@@ -55,6 +55,15 @@ final class AppStore {
     /// The user's chosen display name. Defaults to `""` until onboarding completes.
     var displayName: String = ""
 
+    /// The id of the user's chosen gallery character (`StudyCharacter.id`). Persisted directly
+    /// (not via @AppStorage — @Observable cannot hold property wrappers, RESEARCH Pitfall 8).
+    var selectedCharacterID: String = CharacterCatalog.first.id {
+        didSet { UserDefaults.standard.set(selectedCharacterID, forKey: PersistenceKeys.selectedCharacter) }
+    }
+
+    /// The chosen character resolved from the catalog.
+    var selectedCharacter: StudyCharacter { CharacterCatalog.character(id: selectedCharacterID) }
+
     // MARK: - Init
 
     /// Inject service implementations.
@@ -70,6 +79,9 @@ final class AppStore {
         if let saved = CharacterPersistence.load() {
             self.userCharacter = saved.appearance
             self.displayName   = saved.displayName
+        }
+        if let savedID = UserDefaults.standard.string(forKey: PersistenceKeys.selectedCharacter) {
+            self.selectedCharacterID = savedID
         }
     }
 
