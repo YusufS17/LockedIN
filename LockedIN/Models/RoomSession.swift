@@ -23,6 +23,33 @@ struct RoomConfig: Equatable {
         quickDemo: false
     )
 
+    /// Personal focus room — no stake, no opponents, supportive.
+    static let solo = RoomConfig(
+        roomName: "Your Focus Room",
+        subject: "Deep work",
+        focusMinutes: 25,
+        stakePence: 0,
+        breakAllowance: 1,
+        distractionLimit: 3,
+        competitive: false,
+        quickDemo: false
+    )
+
+    /// Drop-in squad room — social, no stake, crowns a focus champion.
+    static let groupRoom = RoomConfig(
+        roomName: "Drop-in Study Hall",
+        subject: "Mixed subjects",
+        focusMinutes: 25,
+        stakePence: 0,
+        breakAllowance: 1,
+        distractionLimit: 3,
+        competitive: true,
+        quickDemo: false
+    )
+
+    /// Whether this room puts real money on the line (drives the settlement card).
+    var isStaked: Bool { stakePence > 0 }
+
     var sessionSeconds: Int { quickDemo ? 20 : max(1, focusMinutes) * 60 }
     var forfeitDestination: String { ForfeitConfig.destination }
 
@@ -58,6 +85,12 @@ struct SessionParticipant: Identifiable {
 
     // Live state during the session.
     var status: AvatarStatus = .focused
+
+    /// Solo roster — just the user, clean run.
+    static func makeSolo(userCharacter: StudyCharacter, userName: String) -> [SessionParticipant] {
+        [SessionParticipant(character: userCharacter, displayName: userName.isEmpty ? "You" : userName,
+                            isUser: true, distractions: 0, leftEarly: false, focusPct: 98)]
+    }
 
     /// Builds the deterministic demo roster: you + Maya (clean), Leo (1 distraction), Sam (cracks).
     static func makeRoster(userCharacter: StudyCharacter, userName: String, config: RoomConfig) -> [SessionParticipant] {

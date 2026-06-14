@@ -90,8 +90,8 @@ struct HomeView: View {
         .fullScreenCover(item: $destination) { dest in
             switch dest {
             case .lockIn: RoomFlowView().environment(appStore)
-            case .solo:   StaticRoomScreen(imageName: "SoloRoom")
-            case .group:  StaticRoomScreen(imageName: "GroupRoom")
+            case .solo:   SoloRoomView().environment(appStore)
+            case .group:  GroupRoomView().environment(appStore)
             }
         }
     }

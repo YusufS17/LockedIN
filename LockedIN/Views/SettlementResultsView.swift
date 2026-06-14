@@ -79,7 +79,7 @@ struct SettlementResultsView: View {
 
                 if reveal >= 2 { summaryCard.transition(revealTransition) }
                 if reveal >= 3 { crowningCard(result).transition(revealTransition) }
-                if reveal >= 4 { settlementCard(result).transition(revealTransition) }
+                if config.isStaked, reveal >= 4 { settlementCard(result).transition(revealTransition) }
                 if reveal >= 5 { worldCard.transition(revealTransition) }
                 if reveal >= 6 { actions.transition(revealTransition) }
             }
