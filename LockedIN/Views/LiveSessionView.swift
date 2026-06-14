@@ -1,19 +1,24 @@
 import SwiftUI
 
-// MARK: - LiveSessionView — the live focus session (real engine)
+// MARK: - LiveSessionView — the live study room (Demo09)
 //
-// Runs a real countdown over `config.sessionSeconds` (Swift Concurrency tick, no
-// Combine), shows the room's frozen contract clock, an aggregate focus signal, and a
-// live participant row driven by `SpriteAvatarView`. Behaviour is deterministic
-// (SES-04): scripted "crackers" (anyone whose distractions exceed the limit) flip to
-// `.distracted` partway through. Pause/resume holds the clock; the honest "End
-// session" exit and the natural timeout both route to `onFinish(roster)` exactly once.
+// The room as drawn in the mockup: brand masthead, a big "TIME REMAINING" clock with a
+// slim progress bar, the editable room title + member count, BREAKS / DISTRACTIONS stat
+// tiles, the cozy isometric room (code-drawn IsometricRoomView) with participants placed
+// at their desks under floating status labels, a live participant list, and the Leave /
+// Take a break / Room chat toolbar.
+//
+// The clock is a Swift-Concurrency tick (no Combine). Behaviour is deterministic
+// (SES-04): high-focus members study in Deep focus, the scripted cracker (over the
+// distraction limit) breaks to Distracted past the midpoint, and "Take a break" spends
+// the contract's break allowance. The honest Leave exit and the natural timeout both
+// settle the roster via onFinish exactly once.
 
 struct LiveSessionView: View {
 
     let config: RoomConfig
-    var onFinish: ([SessionParticipant]) -> Void   // session ended → settle these participants
-    var onCancel: () -> Void                        // backed out before locking in
+    var onFinish: ([SessionParticipant]) -> Void
+    var onCancel: () -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -21,6 +26,8 @@ struct LiveSessionView: View {
     @State private var remaining: Int
     @State private var running = true
     @State private var distractionEvents = 0
+    @State private var breaksUsed = 0
+    @State private var onBreak = false
     @State private var finished = false
 
     init(config: RoomConfig,
@@ -30,144 +37,237 @@ struct LiveSessionView: View {
         self.config = config
         self.onFinish = onFinish
         self.onCancel = onCancel
-        _roster = State(initialValue: participants)
+        // Seed live "vibes": top focusers start in Deep focus; the cracker stays Focused
+        // until it breaks. Deterministic — derived from each participant's scripted traits.
+        var seeded = participants
+        for i in seeded.indices {
+            let p = seeded[i]
+            let isCracker = p.distractions > config.distractionLimit
+            seeded[i].status = (!isCracker && p.focusPct >= 95) ? .deepFocus : .focused
+        }
+        _roster = State(initialValue: seeded)
         _remaining = State(initialValue: config.sessionSeconds)
     }
 
     private var total: Int { max(1, config.sessionSeconds) }
     private var elapsed: Int { total - remaining }
-    private var clock: String { String(format: "%d:%02d", remaining / 60, remaining % 60) }
+    private var clock: String { String(format: "%02d:%02d", remaining / 60, remaining % 60) }
     private var progress: Double { Double(elapsed) / Double(total) }
 
-    private var focusedCount: Int {
-        roster.filter { $0.status == .focused || $0.status == .deepFocus }.count
-    }
-
-    /// Participants scripted to crack (exceed the distraction limit) — flipped live.
     private var crackerIDs: Set<UUID> {
         Set(roster.filter { $0.distractions > config.distractionLimit }.map(\.id))
     }
-    /// When a cracker visibly breaks: just past the contract's midpoint.
     private var crackMoment: Int { max(2, Int(Double(total) * 0.45)) }
+
+    // Floor slots (fractions of the room scene) for up to 4 desks.
+    private let slots: [CGPoint] = [
+        CGPoint(x: 0.30, y: 0.50),
+        CGPoint(x: 0.52, y: 0.43),
+        CGPoint(x: 0.70, y: 0.52),
+        CGPoint(x: 0.50, y: 0.63)
+    ]
 
     var body: some View {
         ZStack {
             Theme.Colour.background.ignoresSafeArea()
-            content
+            VStack(spacing: Theme.Spacing.md) {
+                BrandLockHeader().padding(.top, Theme.Spacing.sm)
+                clockBlock
+                titleBlock
+                statTiles
+                roomScene
+                participantList
+                Spacer(minLength: 0)
+                toolbar
+            }
+            .padding(.horizontal, Theme.Spacing.lg)
+            .padding(.bottom, Theme.Spacing.md)
         }
         .statusBarHidden(true)
         .task { await runClock() }
     }
 
-    private var content: some View {
-        VStack(spacing: Theme.Spacing.lg) {
-            header
-            Spacer(minLength: 0)
-            ring
-            aggregateSignal
-            participantRow
-            Spacer(minLength: 0)
-            controls
-        }
-        .padding(Theme.Spacing.lg)
-    }
+    // MARK: - Clock
 
-    // MARK: - Header
-
-    private var header: some View {
-        VStack(spacing: Theme.Spacing.xs) {
-            Text(config.roomName)
-                .font(Theme.TypeScale.title2).foregroundStyle(Theme.Colour.textPrimary)
-                .multilineTextAlignment(.center)
-            HStack(spacing: Theme.Spacing.sm) {
-                Text(config.subject)
-                    .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
-                Text("·").foregroundStyle(Theme.Colour.textSecondary)
-                MoneyLabel(config.stakePence, compact: true)
-                Text("each on the line")
-                    .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+    private var clockBlock: some View {
+        VStack(spacing: 4) {
+            Label("TIME REMAINING", systemImage: "timer")
+                .font(Theme.TypeScale.captionBold)
+                .foregroundStyle(Theme.Colour.textSecondary)
+            Text(clock)
+                .font(.system(size: 52, weight: .heavy, design: .rounded))
+                .foregroundStyle(Theme.Colour.textPrimary)
+                .monospacedDigit()
+                .contentTransition(.numericText())
+            Text(onBreak ? "On a break — clock paused" : (running ? "Focus together. Finish stronger." : "Paused"))
+                .font(Theme.TypeScale.caption)
+                .foregroundStyle(onBreak || !running ? Theme.Colour.forfeitRed : Theme.Colour.textSecondary)
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Theme.Colour.surfaceMid).frame(height: 6)
+                    Capsule().fill(Theme.Colour.accent)
+                        .frame(width: geo.size.width * progress, height: 6)
+                        .animation(reduceMotion ? nil : .easeInOut(duration: 0.4), value: progress)
+                }
             }
+            .frame(height: 6)
+            .padding(.top, 2)
         }
-        .padding(.top, Theme.Spacing.md)
     }
 
-    // MARK: - Ring
+    // MARK: - Title + members
 
-    private var ring: some View {
-        ZStack {
-            Circle().stroke(Theme.Colour.cardBorder, lineWidth: 14)
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(Theme.Colour.accent, style: StrokeStyle(lineWidth: 14, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(reduceMotion ? nil : .easeInOut(duration: 0.4), value: progress)
-            VStack(spacing: Theme.Spacing.xs) {
-                Text(clock)
-                    .font(.system(size: 60, weight: .bold, design: .monospaced))
+    private var titleBlock: some View {
+        VStack(spacing: 2) {
+            HStack(spacing: Theme.Spacing.xs) {
+                Text(config.roomName)
+                    .font(Theme.TypeScale.title2)
                     .foregroundStyle(Theme.Colour.textPrimary)
-                    .monospacedDigit()
-                Text(running ? "Locked in" : "Paused")
-                    .font(Theme.TypeScale.caption)
-                    .foregroundStyle(running ? Theme.Colour.textSecondary : Theme.Colour.forfeitRed)
+                Image(systemName: "pencil")
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundStyle(Theme.Colour.textSecondary)
+            }
+            Text("\(roster.count) members · \(config.subject)")
+                .font(Theme.TypeScale.caption)
+                .foregroundStyle(Theme.Colour.textSecondary)
+        }
+    }
+
+    // MARK: - Stat tiles
+
+    private var statTiles: some View {
+        HStack(spacing: Theme.Spacing.md) {
+            miniStat("cup.and.saucer.fill", "BREAKS", "\(breaksUsed)/\(config.breakAllowance)")
+            miniStat("exclamationmark.triangle.fill", "DISTRACTIONS", "\(distractionEvents)")
+            miniStat("flame.fill", "FOCUSED", "\(roster.filter { $0.status == .focused || $0.status == .deepFocus }.count)")
+        }
+    }
+
+    private func miniStat(_ icon: String, _ label: String, _ value: String) -> some View {
+        HStack(spacing: Theme.Spacing.xs) {
+            Image(systemName: icon)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundStyle(Theme.Colour.accent)
+            VStack(alignment: .leading, spacing: 0) {
+                Text(label).font(.system(size: 9, weight: .bold)).foregroundStyle(Theme.Colour.textSecondary)
+                Text(value).font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
             }
         }
-        .frame(width: 240, height: 240)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, Theme.Spacing.sm)
+        .background(Theme.Colour.surface)
+        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
+        .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
     }
 
-    // MARK: - Aggregate signal
+    // MARK: - Room scene (isometric room + placed avatars)
 
-    private var aggregateSignal: some View {
-        let distractionLabel = distractionEvents == 1 ? "1 distraction" : "\(distractionEvents) distractions"
-        return Text("\(focusedCount) focused · \(distractionLabel)")
-            .font(Theme.TypeScale.headline)
-            .foregroundStyle(Theme.Colour.textPrimary)
+    private var roomScene: some View {
+        GeometryReader { geo in
+            ZStack {
+                IsometricRoomView()
+                ForEach(Array(roster.enumerated()), id: \.element.id) { i, p in
+                    placedAvatar(p, at: slots[i % slots.count], in: geo.size)
+                }
+            }
+        }
+        .frame(height: 240)
+        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
+        .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
     }
 
-    // MARK: - Participants
+    private func placedAvatar(_ p: SessionParticipant, at slot: CGPoint, in size: CGSize) -> some View {
+        VStack(spacing: 2) {
+            statusPill(p.status)
+            SpriteAvatarView(character: p.character, status: p.status, size: 52, showStatusBadge: false)
+        }
+        .position(x: size.width * slot.x, y: size.height * slot.y)
+    }
 
-    private var participantRow: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top, spacing: Theme.Spacing.lg) {
-                ForEach(roster) { p in
-                    VStack(spacing: Theme.Spacing.xs) {
-                        SpriteAvatarView(character: p.character, status: p.status,
-                                         size: 64, showStatusBadge: true)
+    private func statusPill(_ status: AvatarStatus) -> some View {
+        Text(status.label)
+            .font(.system(size: 9, weight: .bold))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 3)
+            .background(Capsule().fill(status.ringColour))
+            .shadow(color: .black.opacity(0.15), radius: 2, y: 1)
+    }
+
+    // MARK: - Participant list
+
+    private var participantList: some View {
+        VStack(spacing: Theme.Spacing.xs) {
+            ForEach(roster) { p in
+                HStack(spacing: Theme.Spacing.sm) {
+                    SpriteAvatarView(character: p.character, status: p.status, size: 32, showStatusBadge: false)
+                    VStack(alignment: .leading, spacing: 0) {
                         Text(p.isUser ? "You" : firstName(p.displayName))
                             .font(Theme.TypeScale.captionBold)
                             .foregroundStyle(Theme.Colour.textPrimary)
                         Text(p.status.label)
                             .font(Theme.TypeScale.caption)
-                            .foregroundStyle(p.status == .distracted ? Theme.Colour.forfeitRed
-                                                                      : Theme.Colour.textSecondary)
+                            .foregroundStyle(p.status == .distracted ? Theme.Colour.forfeitRed : Theme.Colour.textSecondary)
                     }
-                    .frame(width: 84)
+                    Spacer()
+                    signalBars(for: p.status)
+                    Text(clock)
+                        .font(Theme.TypeScale.caption)
+                        .foregroundStyle(Theme.Colour.textSecondary)
+                        .monospacedDigit()
                 }
+                .padding(.vertical, 2)
             }
-            .padding(.horizontal, Theme.Spacing.xs)
         }
     }
 
-    // MARK: - Controls
-
-    private var controls: some View {
-        VStack(spacing: Theme.Spacing.md) {
-            Button {
-                running.toggle()
-            } label: {
-                Label(running ? "Pause" : "Resume", systemImage: running ? "pause.fill" : "play.fill")
-                    .font(Theme.TypeScale.headline)
-                    .foregroundStyle(Theme.Colour.buttonText)
-                    .frame(maxWidth: .infinity)
-                    .padding(Theme.Spacing.md)
-                    .background(Theme.Colour.buttonFill)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
+    private func signalBars(for status: AvatarStatus) -> some View {
+        let strength: Int = {
+            switch status {
+            case .deepFocus: return 3
+            case .focused:   return 2
+            case .onBreak:   return 1
+            default:         return 0   // distracted / idle / finished
             }
-
-            // Honest emergency exit — settles whatever's true right now (no deceptive copy).
-            Button("End session now") { finish() }
-                .font(Theme.TypeScale.caption)
-                .foregroundStyle(Theme.Colour.forfeitRed)
+        }()
+        return HStack(alignment: .bottom, spacing: 2) {
+            ForEach(0..<3, id: \.self) { i in
+                Capsule()
+                    .fill(i < strength ? status.ringColour : Theme.Colour.surfaceMid)
+                    .frame(width: 3, height: CGFloat(6 + i * 4))
+            }
         }
+    }
+
+    // MARK: - Toolbar
+
+    private var toolbar: some View {
+        HStack(spacing: Theme.Spacing.sm) {
+            toolButton("rectangle.portrait.and.arrow.right", "Leave", tint: Theme.Colour.forfeitRed) { finish() }
+            toolButton("cup.and.saucer.fill", onBreak ? "Resume" : "Take a break",
+                       tint: Theme.Colour.textPrimary,
+                       disabled: !onBreak && breaksUsed >= config.breakAllowance) { toggleBreak() }
+            toolButton("bubble.left.and.bubble.right.fill", "Room chat",
+                       tint: Theme.Colour.textSecondary, disabled: true) {}
+        }
+    }
+
+    private func toolButton(_ icon: String, _ label: String, tint: Color,
+                            disabled: Bool = false, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 3) {
+                Image(systemName: icon).font(.system(size: 16, weight: .bold))
+                Text(label).font(.system(size: 10, weight: .semibold))
+            }
+            .foregroundStyle(tint)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, Theme.Spacing.sm)
+            .background(Theme.Colour.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
+            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+        }
+        .disabled(disabled)
+        .opacity(disabled ? 0.45 : 1)
     }
 
     // MARK: - Clock loop (Swift Concurrency — no Combine)
@@ -182,12 +282,29 @@ struct LiveSessionView: View {
         if remaining == 0 { finish() }
     }
 
-    /// Deterministic live state: crackers flip to `.distracted` at the crack moment.
+    /// Deterministic live state: crackers flip to Distracted at the crack moment.
     private func applyChoreography() {
         guard elapsed >= crackMoment else { return }
         for i in roster.indices where crackerIDs.contains(roster[i].id) && roster[i].status != .distracted {
             roster[i].status = .distracted
             distractionEvents += 1
+        }
+    }
+
+    // MARK: - Actions
+
+    private func toggleBreak() {
+        guard let me = roster.firstIndex(where: { $0.isUser }) else { return }
+        if onBreak {
+            onBreak = false
+            running = true
+            roster[me].status = roster[me].focusPct >= 95 ? .deepFocus : .focused
+        } else {
+            guard breaksUsed < config.breakAllowance else { return }
+            breaksUsed += 1
+            onBreak = true
+            running = false
+            roster[me].status = .onBreak
         }
     }
 
