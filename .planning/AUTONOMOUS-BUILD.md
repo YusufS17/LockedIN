@@ -33,18 +33,26 @@ Must end `** BUILD SUCCEEDED **`. IGNORE harness SourceKit "Cannot find type/The
 - Persistence: `CharacterPersistence.save(appearance:displayName:)` / `.load()`; `PersistenceKeys.{character,displayName,onboarding,selectedCharacter}`
 - `@AppStorage` must live in Views, never on `@Observable` AppStore.
 
-## CURRENT WIRING (compiles today)
-- `RootView` → `DemoFlowView` (hackathon PNG deck). HomeView → RoomFlowView + StaticRoomScreen. DemoFlowView → LiveSessionView(onFinish:onCancel:) + CharacterCreationFlow.
+## CURRENT WIRING (compiles today — real spine, no PNG deck)
+- `RootView` (`App/RootView.swift`) → `@AppStorage(onboarding)` gate: false→`OnboardingHostView`, true→`HomeView`.
+- `OnboardingHostView` → ConceptBeatView → CharacterGalleryView → FirstRoomBeatView → sets onboarding flag.
+- `HomeView` `.lockIn` → `RoomFlowView()` (real loop). `.solo`/`.group` → `StaticRoomScreen` (PNG — still mockup, see step 7).
+- `RoomFlowView` = orchestrator `enum Stage{setup,session,results}`: `RoomSetupView` → `LiveSessionView(config:participants:onFinish:onCancel:)` → `SettlementResultsView(config:participants:onDone:)`.
+- `LiveSessionView` = Demo09 isometric room (IsometricRoomView + placed SpriteAvatarViews + status pills + stat tiles + toolbar).
+- `SettlementResultsView` = Demo10 animated reveal (real SettlementEngine money + trophy/coins/champion/culprit/world teaser).
+- `BrandLockHeader` shared masthead. DemoFlowView + CharacterCreationFlow DELETED.
+
+## DONE (committed, green) — steps 1–6 of the original plan
+1. ✅ RoomSetupView  2. ✅ LiveSessionView (isometric room)  3. ✅ SettlementResultsView (animated)
+4. ✅ RoomFlowView orchestrator  5. ✅ OnboardingHostView (real beats, not PNG)  6. ✅ RootView gate + PNG deck deleted
 
 ## NEXT STEPS (in order — build+commit each)
-1. **RoomSetupView** (`Views/RoomSetupView.swift`) — real "Set your lock-in": edit a `@State RoomConfig` (room name, subject, focus length stepper, break stepper, distraction stepper, stake shown via `MoneyLabel(config.stakePence)`, competitive/supportive toggle, "Quick demo 20s" toggle, contract summary). `var onStart:(RoomConfig)->Void`, `var onCancel:()->Void`. "Create room" → onStart(config).
-2. **LiveSessionView REWRITE** — `init(config:RoomConfig, participants:[SessionParticipant], onFinish:([SessionParticipant])->Void, onCancel:()->Void)`. Real countdown (`.task` Task.sleep loop from config.sessionSeconds), progress ring, aggregate signal ("N focused · M distractions"), a participant list using `SpriteAvatarView(character:status:showStatusBadge:true)` with live state (partway, set Sam `.distracted`). Honest "End session" → onFinish(participants).
-3. **SettlementResultsView** (`Views/SettlementResultsView.swift`) — `init(config:, participants:, onDone:)`. `.task { result = await SettlementEngine.run(...) }` using `appStore.commitmentService`. Show room totals (`MoneyLabel(result.totalReturnedPence)` / forfeited), titles (Champion=result.champion, Biggest Culprit=result.culprit unless `!config.competitive` → hide negative), per-participant rows. "Done" → onDone.
-4. **RoomFlowView REWRITE** — orchestrator `enum Stage{setup,session,results}`; setup→session→results passing `RoomConfig` + `[SessionParticipant]` (build roster via `SessionParticipant.makeRoster(userCharacter: appStore.selectedCharacter, userName: appStore.displayName, config:)`). No args (`RoomFlowView()`), reads `@Environment(AppStore.self)`. Keep this so HomeView's `RoomFlowView()` still works.
-5. **OnboardingHostView** (`Views/OnboardingHostView.swift`) — splash (`Image("Demo01")` full-bleed, tap) → welcome (`Image("Demo02")`, tap) → `CharacterGalleryView(onContinue:)` → set `@AppStorage(PersistenceKeys.onboarding)=true`. statusBarHidden.
-6. **RootView REWRITE** — `@AppStorage(PersistenceKeys.onboarding)` gate: false→OnboardingHostView, true→HomeView. (Drop DemoFlowView from root. You may delete `Views/DemoFlowView.swift` + `Views/CharacterCreationFlow.swift` after, OR leave compiling.)
-7. Build green, run `/gsd-code-review 2` style pass mentally, commit+push.
-8. **THEN** world layer (v2): coins/XP after session, personal room growth, district. See `.planning/reference/world-layer-prompt.md`.
+7. **Solo / Group rooms** — HomeView `.solo`/`.group` still open `StaticRoomScreen` (SoloRoom/GroupRoom PNGs). Replace with real screens (match `solo-room.png` / `group-room.png`), or route both to `RoomFlowView` (solo = no/low stake). LAST live PNGs in the app.
+8. Optional: `/gsd-code-review`, then a simulator smoke test of the full loop.
+9. **THEN** world layer (v2): coins/XP after session, personal room growth, district. See `.planning/reference/world-layer-prompt.md`.
+
+## SPRITES (still pending from user)
+Characters render via code-drawn fallback until `char_*.png` land. See `.planning/reference/SPRITE-ASSETS-SPEC.md`. Drop them into `Assets.xcassets` as `char_<id>` imagesets — `SpriteAvatarView` picks them up, no code change.
 
 ## SPRITES (user provides; see `.planning/reference/SPRITE-ASSETS-SPEC.md`)
 When `char_*.png` (transparent) land in `Design images/` or assets: add each as an imageset (`Assets.xcassets/char_maya.imageset/` + Contents.json), names `char_maya`…`char_mei` (+ `char_sam_focused`/`char_sam_distracted`). No code change needed — `SpriteAvatarView` picks them up.
