@@ -1,135 +1,156 @@
 import SwiftUI
 
-// MARK: - LiveSessionView — the ONE real, working feature
+// MARK: - LiveSessionView — the live focus session (real engine)
 //
-// Set up a room (name + focus length) and run an actual live countdown timer
-// (start / pause / resume / end). Reached from the "Set your lock-in" screen
-// in the demo flow ("Create room" → here); finishing routes to the results screen.
-//
-// Uses Swift Concurrency for the tick (no Combine), per CLAUDE.md.
+// Runs a real countdown over `config.sessionSeconds` (Swift Concurrency tick, no
+// Combine), shows the room's frozen contract clock, an aggregate focus signal, and a
+// live participant row driven by `SpriteAvatarView`. Behaviour is deterministic
+// (SES-04): scripted "crackers" (anyone whose distractions exceed the limit) flip to
+// `.distracted` partway through. Pause/resume holds the clock; the honest "End
+// session" exit and the natural timeout both route to `onFinish(roster)` exactly once.
 
 struct LiveSessionView: View {
 
-    var onFinish: () -> Void   // session ended → go to results
-    var onCancel: () -> Void   // backed out before finishing
+    let config: RoomConfig
+    var onFinish: ([SessionParticipant]) -> Void   // session ended → settle these participants
+    var onCancel: () -> Void                        // backed out before locking in
 
-    private enum Phase { case setup, running }
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    @State private var phase: Phase = .setup
-    @State private var roomName = "Finals Focus Room"
-    @State private var minutes = 25
-    @State private var useQuickDemo = false
+    @State private var roster: [SessionParticipant]
+    @State private var remaining: Int
+    @State private var running = true
+    @State private var distractionEvents = 0
+    @State private var finished = false
 
-    @State private var remaining = 0      // seconds
-    @State private var total = 1          // seconds (for progress)
-    @State private var running = false
+    init(config: RoomConfig,
+         participants: [SessionParticipant],
+         onFinish: @escaping ([SessionParticipant]) -> Void,
+         onCancel: @escaping () -> Void) {
+        self.config = config
+        self.onFinish = onFinish
+        self.onCancel = onCancel
+        _roster = State(initialValue: participants)
+        _remaining = State(initialValue: config.sessionSeconds)
+    }
 
+    private var total: Int { max(1, config.sessionSeconds) }
+    private var elapsed: Int { total - remaining }
     private var clock: String { String(format: "%d:%02d", remaining / 60, remaining % 60) }
-    private var progress: Double { total > 0 ? Double(total - remaining) / Double(total) : 0 }
+    private var progress: Double { Double(elapsed) / Double(total) }
+
+    private var focusedCount: Int {
+        roster.filter { $0.status == .focused || $0.status == .deepFocus }.count
+    }
+
+    /// Participants scripted to crack (exceed the distraction limit) — flipped live.
+    private var crackerIDs: Set<UUID> {
+        Set(roster.filter { $0.distractions > config.distractionLimit }.map(\.id))
+    }
+    /// When a cracker visibly breaks: just past the contract's midpoint.
+    private var crackMoment: Int { max(2, Int(Double(total) * 0.45)) }
 
     var body: some View {
         ZStack {
             Theme.Colour.background.ignoresSafeArea()
-            switch phase {
-            case .setup:   setupView
-            case .running: runningView
-            }
+            content
         }
         .statusBarHidden(true)
-        .task {
-            // One long-lived ticker; decrements only while running.
-            while true {
-                try? await Task.sleep(for: .seconds(1))
-                if running && remaining > 0 {
-                    remaining -= 1
-                    if remaining == 0 { running = false; onFinish() }
-                }
-            }
-        }
+        .task { await runClock() }
     }
 
-    // MARK: - Setup
-
-    private var setupView: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
-            HStack {
-                Button { onCancel() } label: {
-                    Image(systemName: "chevron.left").font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(Theme.Colour.textSecondary)
-                }
-                Spacer()
-            }
-
-            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                Text("Set up your room")
-                    .font(Theme.TypeScale.largeTitle).foregroundStyle(Theme.Colour.textPrimary)
-                Text("Name it and choose how long you'll lock in.")
-                    .font(Theme.TypeScale.body).foregroundStyle(Theme.Colour.textSecondary)
-            }
-
-            card {
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    Text("ROOM NAME").font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textSecondary)
-                    TextField("Room name", text: $roomName)
-                        .font(Theme.TypeScale.headline)
-                        .foregroundStyle(Theme.Colour.textPrimary)
-                        .textFieldStyle(.plain)
-                }
-            }
-
-            card {
-                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                    Text("FOCUS LENGTH").font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textSecondary)
-                    Stepper(value: $minutes, in: 1...120, step: 5) {
-                        Text("\(minutes) min")
-                            .font(Theme.TypeScale.title2).foregroundStyle(Theme.Colour.textPrimary)
-                    }
-                    Toggle(isOn: $useQuickDemo) {
-                        Text("Quick demo (20s)").font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
-                    }
-                    .tint(Theme.Colour.accent)
-                }
-            }
-
-            Spacer()
-
-            primaryButton("Create room & start") {
-                total = useQuickDemo ? 20 : minutes * 60
-                remaining = total
-                running = true
-                withAnimation { phase = .running }
-            }
+    private var content: some View {
+        VStack(spacing: Theme.Spacing.lg) {
+            header
+            Spacer(minLength: 0)
+            ring
+            aggregateSignal
+            participantRow
+            Spacer(minLength: 0)
+            controls
         }
         .padding(Theme.Spacing.lg)
     }
 
-    // MARK: - Running
+    // MARK: - Header
 
-    private var runningView: some View {
-        VStack(spacing: Theme.Spacing.lg) {
-            Spacer()
-
-            Text(roomName)
+    private var header: some View {
+        VStack(spacing: Theme.Spacing.xs) {
+            Text(config.roomName)
                 .font(Theme.TypeScale.title2).foregroundStyle(Theme.Colour.textPrimary)
-            Text(running ? "Locked in — focus together." : "Paused")
-                .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
-
-            ZStack {
-                Circle()
-                    .stroke(Theme.Colour.cardBorder, lineWidth: 14)
-                Circle()
-                    .trim(from: 0, to: progress)
-                    .stroke(Theme.Colour.accent, style: StrokeStyle(lineWidth: 14, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .animation(.easeInOut(duration: 0.4), value: progress)
-                Text(clock)
-                    .font(.system(size: 64, weight: .bold, design: .monospaced))
-                    .foregroundStyle(Theme.Colour.textPrimary)
+                .multilineTextAlignment(.center)
+            HStack(spacing: Theme.Spacing.sm) {
+                Text(config.subject)
+                    .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                Text("·").foregroundStyle(Theme.Colour.textSecondary)
+                MoneyLabel(config.stakePence, compact: true)
+                Text("each on the line")
+                    .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
             }
-            .frame(width: 260, height: 260)
-            .padding(.vertical, Theme.Spacing.lg)
+        }
+        .padding(.top, Theme.Spacing.md)
+    }
 
-            // Pause / Resume
+    // MARK: - Ring
+
+    private var ring: some View {
+        ZStack {
+            Circle().stroke(Theme.Colour.cardBorder, lineWidth: 14)
+            Circle()
+                .trim(from: 0, to: progress)
+                .stroke(Theme.Colour.accent, style: StrokeStyle(lineWidth: 14, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .animation(reduceMotion ? nil : .easeInOut(duration: 0.4), value: progress)
+            VStack(spacing: Theme.Spacing.xs) {
+                Text(clock)
+                    .font(.system(size: 60, weight: .bold, design: .monospaced))
+                    .foregroundStyle(Theme.Colour.textPrimary)
+                    .monospacedDigit()
+                Text(running ? "Locked in" : "Paused")
+                    .font(Theme.TypeScale.caption)
+                    .foregroundStyle(running ? Theme.Colour.textSecondary : Theme.Colour.forfeitRed)
+            }
+        }
+        .frame(width: 240, height: 240)
+    }
+
+    // MARK: - Aggregate signal
+
+    private var aggregateSignal: some View {
+        let distractionLabel = distractionEvents == 1 ? "1 distraction" : "\(distractionEvents) distractions"
+        return Text("\(focusedCount) focused · \(distractionLabel)")
+            .font(Theme.TypeScale.headline)
+            .foregroundStyle(Theme.Colour.textPrimary)
+    }
+
+    // MARK: - Participants
+
+    private var participantRow: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top, spacing: Theme.Spacing.lg) {
+                ForEach(roster) { p in
+                    VStack(spacing: Theme.Spacing.xs) {
+                        SpriteAvatarView(character: p.character, status: p.status,
+                                         size: 64, showStatusBadge: true)
+                        Text(p.isUser ? "You" : firstName(p.displayName))
+                            .font(Theme.TypeScale.captionBold)
+                            .foregroundStyle(Theme.Colour.textPrimary)
+                        Text(p.status.label)
+                            .font(Theme.TypeScale.caption)
+                            .foregroundStyle(p.status == .distracted ? Theme.Colour.forfeitRed
+                                                                      : Theme.Colour.textSecondary)
+                    }
+                    .frame(width: 84)
+                }
+            }
+            .padding(.horizontal, Theme.Spacing.xs)
+        }
+    }
+
+    // MARK: - Controls
+
+    private var controls: some View {
+        VStack(spacing: Theme.Spacing.md) {
             Button {
                 running.toggle()
             } label: {
@@ -142,40 +163,54 @@ struct LiveSessionView: View {
                     .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
             }
 
-            Spacer()
-
-            Button("End session") { running = false; onFinish() }
+            // Honest emergency exit — settles whatever's true right now (no deceptive copy).
+            Button("End session now") { finish() }
                 .font(Theme.TypeScale.caption)
                 .foregroundStyle(Theme.Colour.forfeitRed)
-                .padding(.bottom, Theme.Spacing.xl)
         }
-        .padding(Theme.Spacing.lg)
     }
 
-    // MARK: - Bits
+    // MARK: - Clock loop (Swift Concurrency — no Combine)
 
-    private func card<C: View>(@ViewBuilder _ content: () -> C) -> some View {
-        content()
-            .padding(Theme.Spacing.lg)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Theme.Colour.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
-            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+    private func runClock() async {
+        while remaining > 0 && !finished {
+            try? await Task.sleep(for: .seconds(1))
+            guard running, !finished else { continue }
+            remaining -= 1
+            applyChoreography()
+        }
+        if remaining == 0 { finish() }
     }
 
-    private func primaryButton(_ label: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(label)
-                .font(Theme.TypeScale.headline)
-                .foregroundStyle(Theme.Colour.buttonText)
-                .frame(maxWidth: .infinity)
-                .padding(Theme.Spacing.md)
-                .background(Theme.Colour.buttonFill)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
+    /// Deterministic live state: crackers flip to `.distracted` at the crack moment.
+    private func applyChoreography() {
+        guard elapsed >= crackMoment else { return }
+        for i in roster.indices where crackerIDs.contains(roster[i].id) && roster[i].status != .distracted {
+            roster[i].status = .distracted
+            distractionEvents += 1
         }
+    }
+
+    private func finish() {
+        guard !finished else { return }
+        finished = true
+        running = false
+        onFinish(roster)
+    }
+
+    private func firstName(_ name: String) -> String {
+        name.split(separator: " ").first.map(String.init) ?? name
     }
 }
 
-#Preview {
-    LiveSessionView(onFinish: {}, onCancel: {})
+#Preview("Live session") {
+    LiveSessionView(
+        config: .preset,
+        participants: SessionParticipant.makeRoster(
+            userCharacter: CharacterCatalog.first, userName: "You", config: .preset
+        ),
+        onFinish: { _ in },
+        onCancel: {}
+    )
+    .environment(AppStore())
 }

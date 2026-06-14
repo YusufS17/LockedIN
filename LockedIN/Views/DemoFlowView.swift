@@ -51,7 +51,13 @@ struct DemoFlowView: View {
         .statusBarHidden(true)
         .fullScreenCover(isPresented: $showSession) {
             LiveSessionView(
-                onFinish: {                       // session done → results screen
+                config: .preset,
+                participants: SessionParticipant.makeRoster(
+                    userCharacter: appStore.selectedCharacter,
+                    userName: appStore.displayName,
+                    config: .preset
+                ),
+                onFinish: { _ in                  // session done → results screen
                     showSession = false
                     withAnimation(.easeInOut(duration: 0.35)) { index = resultsIndex }
                 },
