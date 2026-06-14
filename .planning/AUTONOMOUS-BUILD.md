@@ -36,7 +36,7 @@ Must end `** BUILD SUCCEEDED **`. IGNORE harness SourceKit "Cannot find type/The
 ## CURRENT WIRING (compiles today — real spine, no PNG deck)
 - `RootView` (`App/RootView.swift`) → `@AppStorage(onboarding)` gate: false→`OnboardingHostView`, true→`HomeView`.
 - `OnboardingHostView` → ConceptBeatView → CharacterGalleryView → FirstRoomBeatView → sets onboarding flag.
-- `HomeView` `.lockIn` → `RoomFlowView()` (real loop). `.solo`/`.group` → `StaticRoomScreen` (PNG — still mockup, see step 7).
+- `HomeView` `.lockIn` → `RoomFlowView()` (staked loop). `.solo` → `SoloRoomView()`. `.group` → `GroupRoomView()`. ALL real — no PNG screens left.
 - `RoomFlowView` = orchestrator `enum Stage{setup,session,results}`: `RoomSetupView` → `LiveSessionView(config:participants:onFinish:onCancel:)` → `SettlementResultsView(config:participants:onDone:)`.
 - `LiveSessionView` = Demo09 isometric room (IsometricRoomView + placed SpriteAvatarViews + status pills + stat tiles + toolbar).
 - `SettlementResultsView` = Demo10 animated reveal (real SettlementEngine money + trophy/coins/champion/culprit/world teaser).
@@ -47,8 +47,8 @@ Must end `** BUILD SUCCEEDED **`. IGNORE harness SourceKit "Cannot find type/The
 4. ✅ RoomFlowView orchestrator  5. ✅ OnboardingHostView (real beats, not PNG)  6. ✅ RootView gate + PNG deck deleted
 
 ## NEXT STEPS (in order — build+commit each)
-7. **Solo / Group rooms** — HomeView `.solo`/`.group` still open `StaticRoomScreen` (SoloRoom/GroupRoom PNGs). Replace with real screens (match `solo-room.png` / `group-room.png`), or route both to `RoomFlowView` (solo = no/low stake). LAST live PNGs in the app.
-8. Optional: `/gsd-code-review`, then a simulator smoke test of the full loop.
+7. ✅ **Solo / Group rooms** — real `SoloRoomView` + `GroupRoomView` on the iso engine; `StaticRoomScreen` deleted. No PNG screens left.
+8. Optional: `/gsd-code-review`, then a simulator smoke test of the full loop (onboarding → each room → reveal).
 9. **THEN** world layer (v2): coins/XP after session, personal room growth, district. See `.planning/reference/world-layer-prompt.md`.
 
 ## SPRITES (still pending from user)
