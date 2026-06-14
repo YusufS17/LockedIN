@@ -29,10 +29,13 @@ struct RootView: View {
 
     var body: some View {
         // DEMO MODE: clickable static prototype of the full approved design
-        // (Demo01…Demo10). Tap anywhere to advance through the whole flow.
-        // The functional onboarding/home/loop remain in the codebase
-        // (OnboardingView / HomeView / RoomFlowView) for post-demo work.
-        DemoFlowView()
+        // First-launch gate: real onboarding beats until completed, then Home.
+        // The whole experience is real SwiftUI on the engine — no PNG demo deck.
+        if hasCompletedOnboarding {
+            HomeView()
+        } else {
+            OnboardingHostView()
+        }
     }
 }
 
