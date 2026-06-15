@@ -24,13 +24,9 @@ struct AvatarView: View {
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            // Layer 1: Base body (skin tone)
-            AvatarBodyLayer(skinTone: appearance.skinTone, size: size)
-            // Layer 2: Hair (style + colour)
-            AvatarHairLayer(style: appearance.hairStyle, colour: appearance.hairColour, size: size)
-            // Layer 3: Outfit (style + accent colour tint)
-            AvatarOutfitLayer(style: appearance.outfitStyle, accentColour: appearance.accentColour, size: size)
-            // Layer 4: Status badge — non-idle only; parent label carries the status for VoiceOver
+            // Code-drawn pixel-art sprite (skin/hair/outfit/status from appearance).
+            PixelAvatarView(appearance: appearance, status: status, size: size)
+            // Status badge — non-idle only; parent label carries the status for VoiceOver
             if status != .idle {
                 AvatarStatusOverlay(status: status, size: size)
                     .accessibilityHidden(true)

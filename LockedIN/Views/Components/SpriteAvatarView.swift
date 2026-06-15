@@ -35,7 +35,7 @@ struct SpriteAvatarView: View {
                     .scaledToFit()
                     .frame(width: size, height: size)
             } else {
-                AvatarView(appearance: character.fallback, status: status, size: size)
+                PixelAvatarView(appearance: character.fallback, status: status, size: size)
             }
 
             if showStatusBadge, status != .idle, let symbol = status.symbolName {
