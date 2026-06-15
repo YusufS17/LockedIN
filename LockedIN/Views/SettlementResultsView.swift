@@ -20,9 +20,11 @@ struct SettlementResultsView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var result: SessionResult?
+    @State private var reward: RewardOutcome?   // real XP/coins awarded + persisted
     @State private var reveal = 0          // staged reveal index (0 = nothing yet)
     @State private var coinsShown = 0      // animated coin count-up
     @State private var worldFill: Double = 0
+    @State private var showWorld = false
 
     // Derived session figures (deterministic).
     private var focusedMinutes: Int {
@@ -119,6 +121,12 @@ struct SettlementResultsView: View {
                 .foregroundStyle(Theme.Colour.accent)
                 .monospacedDigit()
                 .contentTransition(.numericText())
+            if let reward, reward.leveledUp, reveal >= 2 {
+                Text("⭐️ Level \(reward.newLevel) reached!")
+                    .font(Theme.TypeScale.captionBold)
+                    .foregroundStyle(Theme.Colour.moneyGreen)
+                    .transition(.scale.combined(with: .opacity))
+            }
         }
         .opacity(reveal >= 1 ? 1 : 0)
     }
@@ -246,32 +254,39 @@ struct SettlementResultsView: View {
         }
     }
 
-    // MARK: - World contribution (teaser — full layer is v2)
+    // MARK: - World contribution (real — banks Focus XP into the active building)
 
     private var worldCard: some View {
-        card {
+        let building = appStore.world.state.activeBuilding
+        let type = building?.type ?? .libraryHub
+        return card {
             VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
                 cardTitle("WORLD CONTRIBUTION")
                 HStack {
-                    Image(systemName: "building.columns.fill")
+                    Image(systemName: type.symbol)
                         .font(.system(size: 22, weight: .bold))
-                        .foregroundStyle(Theme.Colour.accentTeal)
+                        .foregroundStyle(type.tint)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Library Hub").font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
-                        Text("\(Int(worldFill * 100))% complete")
+                        Text(type.title).font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
+                        Text("Level \(building?.level ?? 1) · \(Int(worldFill * 100))% to next")
                             .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
                     }
                     Spacer()
+                    if let reward {
+                        Text("+\(reward.focusXP) XP")
+                            .font(Theme.TypeScale.captionBold)
+                            .foregroundStyle(Theme.Colour.accent)
+                    }
                 }
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
                         Capsule().fill(Theme.Colour.surfaceMid).frame(height: 10)
-                        Capsule().fill(Theme.Colour.accent)
+                        Capsule().fill(type.tint)
                             .frame(width: geo.size.width * worldFill, height: 10)
                     }
                 }
                 .frame(height: 10)
-                Text("Your \(focusedMinutes) focused minutes build the world all members share.")
+                Text("Your focus banks into the world all members share.")
                     .font(Theme.TypeScale.caption)
                     .foregroundStyle(Theme.Colour.textSecondary)
             }
@@ -291,11 +306,18 @@ struct SettlementResultsView: View {
                     .background(Theme.Colour.buttonFill)
                     .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
             }
-            // Honest: the world layer ships next — labelled, not a dead button.
-            Text("View world — coming soon")
-                .font(Theme.TypeScale.caption)
-                .foregroundStyle(Theme.Colour.textSecondary)
+            Button { showWorld = true } label: {
+                Text("View world")
+                    .font(Theme.TypeScale.headline)
+                    .foregroundStyle(Theme.Colour.textPrimary)
+                    .frame(maxWidth: .infinity)
+                    .padding(Theme.Spacing.md)
+                    .background(Theme.Colour.surface)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
+                    .overlay(RoundedRectangle(cornerRadius: Theme.Radius.pill).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+            }
         }
+        .fullScreenCover(isPresented: $showWorld) { WorldView().environment(appStore) }
     }
 
     // MARK: - Reveal driver
@@ -306,21 +328,27 @@ struct SettlementResultsView: View {
         )
         withAnimation { result = settled }
 
-        let coinStep = max(1, earnedCoins / 18)
+        // Award real, persisted Focus XP + coins for the user's session (once).
+        if reward == nil, let me = participants.first(where: { $0.isUser }) {
+            reward = appStore.world.applySession(user: me, config: config)
+        }
+        let coinTarget = reward?.coins ?? earnedCoins
+        let coinStep = max(1, coinTarget / 18)
 
         // Stage 1: trophy + coin count-up.
         await step(0.25) { advance() }                       // reveal 1
-        for c in stride(from: 0, through: earnedCoins, by: coinStep) {
-            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.05)) { coinsShown = min(c, earnedCoins) }
+        for c in stride(from: 0, through: coinTarget, by: coinStep) {
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.05)) { coinsShown = min(c, coinTarget) }
             try? await Task.sleep(for: .seconds(0.03))
         }
-        coinsShown = earnedCoins
+        coinsShown = coinTarget
 
         // Stages 2–6: cards cascade in.
         for _ in 2...6 { await step(0.28) { advance() } }
 
-        // World bar fills last.
-        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.8)) { worldFill = 0.72 }
+        // World bar fills to the active building's real progress.
+        let target = appStore.world.state.activeBuilding?.progress ?? 0
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.8)) { worldFill = target }
     }
 
     private func advance() {

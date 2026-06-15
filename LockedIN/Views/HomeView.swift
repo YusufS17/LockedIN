@@ -8,7 +8,7 @@ import SwiftUI
 struct HomeView: View {
 
     enum Destination: Identifiable {
-        case lockIn, solo, group
+        case lockIn, solo, group, world
         var id: Int { hashValue }
     }
 
@@ -26,14 +26,18 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
 
-                    // Greeting
-                    VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                        Text("Hi, \(name).")
-                            .font(Theme.TypeScale.largeTitle)
-                            .foregroundStyle(Theme.Colour.textPrimary)
-                        Text("How do you want to study?")
-                            .font(Theme.TypeScale.body)
-                            .foregroundStyle(Theme.Colour.textSecondary)
+                    // Greeting + world chip
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
+                            Text("Hi, \(name).")
+                                .font(Theme.TypeScale.largeTitle)
+                                .foregroundStyle(Theme.Colour.textPrimary)
+                            Text("How do you want to study?")
+                                .font(Theme.TypeScale.body)
+                                .foregroundStyle(Theme.Colour.textSecondary)
+                        }
+                        Spacer()
+                        worldChip
                     }
                     .padding(.top, Theme.Spacing.md)
 
@@ -92,11 +96,35 @@ struct HomeView: View {
             case .lockIn: RoomFlowView().environment(appStore)
             case .solo:   SoloRoomView().environment(appStore)
             case .group:  GroupRoomView().environment(appStore)
+            case .world:  WorldView().environment(appStore)
             }
         }
     }
 
     // MARK: - Bits
+
+    private var worldChip: some View {
+        let p = appStore.world.state.progression
+        return Button { destination = .world } label: {
+            VStack(spacing: 2) {
+                HStack(spacing: 4) {
+                    Image(systemName: "globe.europe.africa.fill")
+                        .font(.system(size: 12, weight: .bold)).foregroundStyle(Theme.Colour.accentTeal)
+                    Text("Lv \(p.level)").font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textPrimary)
+                }
+                HStack(spacing: 3) {
+                    Image(systemName: "circle.fill").font(.system(size: 8)).foregroundStyle(Theme.Colour.accent)
+                    Text("\(p.coins)").font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary).monospacedDigit()
+                }
+            }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.vertical, Theme.Spacing.xs)
+            .background(Theme.Colour.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
+            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+        }
+        .buttonStyle(.plain)
+    }
 
     private func iconChip(_ symbol: String) -> some View {
         ZStack {
