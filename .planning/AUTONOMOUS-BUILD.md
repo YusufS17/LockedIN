@@ -60,7 +60,7 @@ Aim: state-of-the-art studio-quality game (Pokémon/Minecraft tier) — proper w
 - ✅ **Character customizer/wardrobe** — `CharacterCustomizerView` (live preview, all axes, coin-gated premium cosmetics via `CosmeticCatalog`/`WorldStore.purchase`). `AppStore.userStudyCharacter` makes customization show everywhere. Entry: World "Edit your character" + onboarding "Customise".
 
 ## NEXT (still to do for the game side)
-- Make the **personal room customizable** (desk/chair/lamp/rug/shelf/plant/poster/floor/wall, locked/unlocked, coin-bought) — `RoomCustomisationService` per world-layer §11–12.
+- ✅ **Customizable personal room** — `Models/PersonalRoom.swift` (`RoomSlot` 10 slots, `RoomItem`, `RoomItemCatalog`, `PersonalRoom`); `WorldStore.{ownsRoomItem,purchaseRoomItem,selectRoomItem}` (RoomCustomisationService); `IsometricRoomView(room:)` now variant-driven (floor/wall tints + desk/chair/rug/poster/lamp/shelf/plant variants, default preserves old look); `PersonalRoomBuilderView` (live preview + slot chips + coin-gated item tiles). Entry: World "Customise room". Shows everywhere (hero/live/solo room). Verified in sim (113 coins, price tags, customized render).
 - **Juice**: animate buildings levelling up, world reveal sequence after results, avatar idle/breathing animation frames, particle/sparkle polish.
 - Possibly deepen sprites further (differentiate short/buzz/curly hair more at small sizes; more outfits/accessories).
 - Squad/District/build-voting = later networked milestone (needs backend) — see `.planning/reference/world-layer-prompt.md`.

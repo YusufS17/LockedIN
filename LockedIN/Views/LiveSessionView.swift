@@ -21,6 +21,7 @@ struct LiveSessionView: View {
     var onCancel: () -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(AppStore.self) private var appStore
 
     @State private var roster: [SessionParticipant]
     @State private var remaining: Int
@@ -165,7 +166,7 @@ struct LiveSessionView: View {
     private var roomScene: some View {
         GeometryReader { geo in
             ZStack {
-                IsometricRoomView()
+                IsometricRoomView(room: appStore.world.state.personalRoom)
                 ForEach(Array(roster.enumerated()), id: \.element.id) { i, p in
                     placedAvatar(p, at: slots[i % slots.count], in: geo.size)
                 }

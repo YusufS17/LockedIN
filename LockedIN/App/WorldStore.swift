@@ -104,6 +104,41 @@ final class WorldStore {
         return true
     }
 
+    // MARK: - Personal room customisation (world-layer §12 RoomCustomisationService)
+
+    /// Whether a room item is usable: free items always, premium only once purchased.
+    func ownsRoomItem(_ id: String) -> Bool {
+        RoomItemCatalog.cost(for: id) == 0 || state.ownedRoomItems.contains(id)
+    }
+
+    /// Buy a premium room item with coins. Returns true if owned afterwards.
+    @discardableResult
+    func purchaseRoomItem(_ id: String) -> Bool {
+        if ownsRoomItem(id) { return true }
+        let cost = RoomItemCatalog.cost(for: id)
+        guard cost > 0, state.progression.coins >= cost else { return false }
+        state.progression.coins -= cost
+        state.ownedRoomItems.insert(id)
+        WorldPersistence.save(state)
+        return true
+    }
+
+    /// Outcome of trying to place a room item (drives the builder's feedback).
+    enum RoomItemResult { case placed, purchasedAndPlaced, cannotAfford }
+
+    /// Place an item in its slot — buying it first if it's premium and affordable.
+    @discardableResult
+    func selectRoomItem(_ id: String) -> RoomItemResult {
+        guard let item = RoomItemCatalog.item(id: id) else { return .cannotAfford }
+        let alreadyOwned = ownsRoomItem(id)
+        if !alreadyOwned {
+            guard purchaseRoomItem(id) else { return .cannotAfford }
+        }
+        state.personalRoom.placements[item.slot.rawValue] = id
+        WorldPersistence.save(state)
+        return alreadyOwned ? .placed : .purchasedAndPlaced
+    }
+
     // MARK: - World direction
 
     /// Choose which unlocked building receives future contributions.

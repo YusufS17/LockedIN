@@ -18,6 +18,7 @@ struct WorldView: View {
     private let buildCost = 30
 
     @State private var showCustomizer = false
+    @State private var showRoomBuilder = false
 
     private var world: WorldStore { appStore.world }
     private var p: Progression { world.state.progression }
@@ -33,7 +34,7 @@ struct WorldView: View {
                     VStack(spacing: Theme.Spacing.lg) {
                         levelCard
                         heroRoom
-                        editCharacterButton
+                        customizeButtons
                         districtSection
                         statsRow
                     }
@@ -51,12 +52,22 @@ struct WorldView: View {
             }
             .environment(appStore)
         }
+        .fullScreenCover(isPresented: $showRoomBuilder) {
+            PersonalRoomBuilderView().environment(appStore)
+        }
     }
 
-    private var editCharacterButton: some View {
-        Button { showCustomizer = true } label: {
-            Label("Edit your character", systemImage: "wand.and.stars")
-                .font(Theme.TypeScale.headline)
+    private var customizeButtons: some View {
+        HStack(spacing: Theme.Spacing.md) {
+            customizeButton("Edit character", systemImage: "wand.and.stars") { showCustomizer = true }
+            customizeButton("Customise room", systemImage: "house.fill") { showRoomBuilder = true }
+        }
+    }
+
+    private func customizeButton(_ title: String, systemImage: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: systemImage)
+                .font(Theme.TypeScale.captionBold)
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .frame(maxWidth: .infinity)
                 .padding(Theme.Spacing.md)
@@ -124,7 +135,7 @@ struct WorldView: View {
 
     private var heroRoom: some View {
         ZStack {
-            IsometricRoomView()
+            IsometricRoomView(room: world.state.personalRoom)
             GeometryReader { geo in
                 SpriteAvatarView(character: appStore.userStudyCharacter, status: .deepFocus, size: 64)
                     .position(x: geo.size.width * 0.50, y: geo.size.height * 0.56)

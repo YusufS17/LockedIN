@@ -82,7 +82,7 @@ struct SoloRoomView: View {
 
     private var roomCard: some View {
         ZStack {
-            IsometricRoomView()
+            IsometricRoomView(room: appStore.world.state.personalRoom)
             GeometryReader { geo in
                 SpriteAvatarView(character: appStore.userStudyCharacter, status: .deepFocus, size: 72)
                     .position(x: geo.size.width * 0.50, y: geo.size.height * 0.56)

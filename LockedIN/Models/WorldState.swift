@@ -73,7 +73,9 @@ struct WorldState: Codable, Equatable {
     var progression: Progression
     var buildings: [WorldBuilding]
     var activeBuildingID: String     // BuildingType.rawValue receiving contributions
-    var ownedCosmetics: Set<String> = []   // purchased premium cosmetic ids
+    var ownedCosmetics: Set<String> = []   // purchased premium avatar cosmetic ids
+    var personalRoom: PersonalRoom = .seeded   // the customisable study room
+    var ownedRoomItems: Set<String> = []   // purchased premium room item ids
 
     var activeBuilding: WorldBuilding? {
         buildings.first { $0.id == activeBuildingID }
@@ -90,7 +92,9 @@ struct WorldState: Codable, Equatable {
         return WorldState(progression: Progression(),
                           buildings: buildings,
                           activeBuildingID: BuildingType.libraryHub.rawValue,
-                          ownedCosmetics: [])
+                          ownedCosmetics: [],
+                          personalRoom: .seeded,
+                          ownedRoomItems: [])
     }
 }
 
@@ -103,5 +107,7 @@ extension WorldState {
         self.buildings       = try c.decodeIfPresent([WorldBuilding].self, forKey: .buildings) ?? WorldState.seeded.buildings
         self.activeBuildingID = try c.decodeIfPresent(String.self, forKey: .activeBuildingID) ?? BuildingType.libraryHub.rawValue
         self.ownedCosmetics  = try c.decodeIfPresent(Set<String>.self, forKey: .ownedCosmetics) ?? []
+        self.personalRoom    = try c.decodeIfPresent(PersonalRoom.self, forKey: .personalRoom) ?? .seeded
+        self.ownedRoomItems  = try c.decodeIfPresent(Set<String>.self, forKey: .ownedRoomItems) ?? []
     }
 }
