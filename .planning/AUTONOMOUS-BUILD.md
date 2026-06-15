@@ -1,5 +1,32 @@
 # LockedIN — Autonomous Build Plan (continuation brief)
 
+---
+## ▶ RESUME HERE (last worked 2026-06-16)
+
+**Status:** working tree clean, `main` in sync with `origin/main`, everything pushed. HEAD `4450d0b`.
+
+**Mode now:** hackathon is OVER (see memory `proper-build-pivot`). No MVP/demo scoping — building
+the real app/game **state-of-the-art, detailed, curated** ([[aaa-game-vision]]). 5h-budget /
+demo-spine / in-memory-only constraints in CLAUDE.md are now SOFT. Art stays code-drawn pixel
+(user has no PNGs); no real payments yet (keep `CommitmentService` mock boundary clean).
+
+**Current focus axis (user-chosen):** ART & WORLD FIDELITY.
+
+**Done this push (all committed + pushed):**
+- `d8cb394` Sprite engine v2 — 24×32, procedural light shader, outline, animation frames (blink/type/sip/phone/celebrate).
+- `cc24547` Room engine v2 — furniture depth, lamp glow, window light-cast, vignette, dust motes, day/night window.
+- `4450d0b` Multi-desk squad room — `LiveRoomScene` + `RoomSeating` (1..8 layouts); each avatar seated at own desk (chair→avatar→desk-front z-order). Furniture refactored into reusable `RoomDecor` / `RoomShell` / `RoomAmbientLayer`.
+
+**NEXT STEPS (in priority order):**
+1. **Full real-flow verification pass** — walk onboarding creator → customizer → live squad room (4 avatars) → world → settlement reveal with the new sprites/room; fix any in-context sizing/composition/overlap issues (I've been verifying via isolated `#if DEBUG` smoke harnesses in `RootView`, not the live flows). *Highest priority — verify before adding more.*
+2. **Squad room foreground** — fill the empty bottom-centre (shared rug/coffee-table centrepiece, trophy shelf) so the scene feels intentional; nudge back-row avatars so they don't kiss the shelf/window.
+3. **Curated micro-polish** — haptics on key moments (stake lands, level-up, build), screen transitions, day/night tied to the real clock.
+4. Then revisit the other axes from the pivot: **game systems depth** (squads/world/achievements) and **foundation** (SwiftData persistence) — see the AskUserQuestion fork; user picked art first.
+
+**How to QA a single screen headlessly:** add a temporary `#if DEBUG` branch in `RootView.body` that reads `ProcessInfo.processInfo.arguments.contains("-smoke")` and returns the view, then `xcrun simctl launch booted com.lockedin.app -smoke` + screenshot. REMOVE before commit. (Mid-launch screenshots can be blank white — wait ~3-4s and retake.) See memory `simulator-smoke-test`.
+
+---
+
 **Goal:** finish the REAL, working core loop (and then the world layer), matching the design
 mockups, on the existing engine. Build screen-by-screen, `xcodebuild` green after each, commit + push each.
 
