@@ -75,6 +75,17 @@ bits (.ts types, image-rendering, src/features) mapped to SwiftUI; art stays cod
 - ✅ **Break corner + transition** — cosy break-area object (mug+table); user avatar springs to it on an approved break (re-slotted), back to desk on resume.
 - Verified in sim: hero room w/ 4 avatars + status pills, group-status bar single-line, participant sheet, world board, break corner.
 
+## POST-HACKATHON — building it properly (state-of-the-art, curated)
+Hackathon is OVER. No more MVP/demo scoping — build the real app/game to a high bar (see
+memory `proper-build-pivot`). Chosen first axis: **art & world fidelity**.
+- ✅ **Sprite engine v2** (`PixelAvatarView`) — 24×32 (was 12×16), procedural top-left **light shader** (auto highlight/shadow/AO, no hand-authored tones), silhouette outline + floor shadow, bigger expressive faces, distinct hair (short/buzz/curly/afro/long/tied), real **animation frames** via TimelineView (blink/type/sip/phone-glance/celebrate), reduce-motion gated. API unchanged → every caller upgraded.
+- ✅ **Room engine v2** (`IsometricRoomView`) — furniture **depth** (top+front faces) + floor shadows, plank-textured floor, warm **lamp glow** + window **light-cast** + cool window pool + edge **vignette**, drifting **dust motes** + lamp breathing (TimelineView, reduce-motion gated), **day/night** window sky. PersonalRoom variant system + caller API preserved.
+
+### Art fidelity — next
+- Verify/tune the new art in the REAL flows (customizer, live room w/ 4 avatars, world, reveal, onboarding) — the lab looks great; the live room may want a **multi-desk squad layout** so 4 avatars each get a desk (currently one central desk).
+- Per-participant micro-animations already in the sprite (type/sip/phone) — make sure live-room statuses drive them.
+- Curated polish pass: transitions, haptics, day/night tied to real time, richer onboarding character-creator.
+
 ## LIVE ROOM — still ahead (next room polish)
 - Per-participant micro-animations (typing/writing/page-turn/phone-glance) — currently status faces + idle breathing only.
 - 8-participant layout (slots scale 4→8); more desks/seats drawn in-scene.
