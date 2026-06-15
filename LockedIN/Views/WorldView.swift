@@ -17,6 +17,8 @@ struct WorldView: View {
     /// Coins to break ground on a new (unlocked, level-0) building.
     private let buildCost = 30
 
+    @State private var showCustomizer = false
+
     private var world: WorldStore { appStore.world }
     private var p: Progression { world.state.progression }
 
@@ -31,6 +33,7 @@ struct WorldView: View {
                     VStack(spacing: Theme.Spacing.lg) {
                         levelCard
                         heroRoom
+                        editCharacterButton
                         districtSection
                         statsRow
                     }
@@ -40,6 +43,28 @@ struct WorldView: View {
             }
         }
         .statusBarHidden(true)
+        .fullScreenCover(isPresented: $showCustomizer) {
+            CharacterCustomizerView(initial: appStore.userCharacter, initialName: appStore.displayName) { appearance, name in
+                appStore.userCharacter = appearance
+                appStore.displayName = name
+                CharacterPersistence.save(appearance: appearance, displayName: name)
+            }
+            .environment(appStore)
+        }
+    }
+
+    private var editCharacterButton: some View {
+        Button { showCustomizer = true } label: {
+            Label("Edit your character", systemImage: "wand.and.stars")
+                .font(Theme.TypeScale.headline)
+                .foregroundStyle(Theme.Colour.textPrimary)
+                .frame(maxWidth: .infinity)
+                .padding(Theme.Spacing.md)
+                .background(Theme.Colour.surface)
+                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
+                .overlay(RoundedRectangle(cornerRadius: Theme.Radius.pill).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Top bar
@@ -101,7 +126,7 @@ struct WorldView: View {
         ZStack {
             IsometricRoomView()
             GeometryReader { geo in
-                SpriteAvatarView(character: appStore.selectedCharacter, status: .deepFocus, size: 64)
+                SpriteAvatarView(character: appStore.userStudyCharacter, status: .deepFocus, size: 64)
                     .position(x: geo.size.width * 0.50, y: geo.size.height * 0.56)
             }
         }

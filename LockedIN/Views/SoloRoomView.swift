@@ -84,7 +84,7 @@ struct SoloRoomView: View {
         ZStack {
             IsometricRoomView()
             GeometryReader { geo in
-                SpriteAvatarView(character: appStore.selectedCharacter, status: .deepFocus, size: 72)
+                SpriteAvatarView(character: appStore.userStudyCharacter, status: .deepFocus, size: 72)
                     .position(x: geo.size.width * 0.50, y: geo.size.height * 0.56)
             }
         }
@@ -124,7 +124,7 @@ struct SoloRoomView: View {
 
     private func start() {
         participants = SessionParticipant.makeSolo(
-            userCharacter: appStore.selectedCharacter, userName: appStore.displayName
+            userCharacter: appStore.userStudyCharacter, userName: appStore.displayName
         )
         go(.session)
     }

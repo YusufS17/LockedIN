@@ -61,7 +61,7 @@ struct RoomFlowView: View {
     private func beginSession(with cfg: RoomConfig) {
         config = cfg
         participants = SessionParticipant.makeRoster(
-            userCharacter: appStore.selectedCharacter,
+            userCharacter: appStore.userStudyCharacter,
             userName: appStore.displayName,
             config: cfg
         )

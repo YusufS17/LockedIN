@@ -70,6 +70,17 @@ final class AppStore {
     /// The chosen character resolved from the catalog.
     var selectedCharacter: StudyCharacter { CharacterCatalog.character(id: selectedCharacterID) }
 
+    /// The user's avatar as a `StudyCharacter`, built from their editable `userCharacter`
+    /// appearance — the single source of truth for how the user looks everywhere (rooms,
+    /// reveal, world). Reflects customization immediately. Renders the custom appearance
+    /// via SpriteAvatarView's code-drawn fallback (no `char_you` PNG required).
+    var userStudyCharacter: StudyCharacter {
+        StudyCharacter(id: "you",
+                       name: displayName.isEmpty ? "You" : displayName,
+                       spriteAsset: "char_you",
+                       fallback: userCharacter)
+    }
+
     // MARK: - Init
 
     /// Inject service implementations.

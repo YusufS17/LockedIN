@@ -22,7 +22,7 @@ struct GroupRoomView: View {
 
     private var squad: [SessionParticipant] {
         participants.isEmpty
-            ? SessionParticipant.makeRoster(userCharacter: appStore.selectedCharacter,
+            ? SessionParticipant.makeRoster(userCharacter: appStore.userStudyCharacter,
                                             userName: appStore.displayName, config: config)
             : participants
     }

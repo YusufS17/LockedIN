@@ -14,6 +14,7 @@ struct CharacterGalleryView: View {
 
     @State private var selectedID = CharacterCatalog.first.id
     @State private var name = ""
+    @State private var showCustomizer = false
 
     private let columns = [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)]
 
@@ -115,9 +116,25 @@ struct CharacterGalleryView: View {
                     .background(Theme.Colour.buttonFill)
                     .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
             }
+
+            Button { showCustomizer = true } label: {
+                Label("Customise this character", systemImage: "wand.and.stars")
+                    .font(Theme.TypeScale.captionBold)
+                    .foregroundStyle(Theme.Colour.textSecondary)
+            }
         }
         .padding(.horizontal, Theme.Spacing.lg)
         .padding(.bottom, Theme.Spacing.xl)
+        .fullScreenCover(isPresented: $showCustomizer) {
+            CharacterCustomizerView(initial: selected.fallback, initialName: trimmedName) { appearance, newName in
+                appStore.userCharacter = appearance
+                appStore.displayName = newName
+                appStore.selectedCharacterID = selectedID
+                CharacterPersistence.save(appearance: appearance, displayName: newName)
+                onContinue()
+            }
+            .environment(appStore)
+        }
     }
 
     private func confirm() {
