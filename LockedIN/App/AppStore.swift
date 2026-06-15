@@ -42,6 +42,12 @@ final class AppStore {
     /// Mocked for the prototype; swap for `RealScreenTimeFocusControlAdapter` in v2 (REAL-01).
     let focusAdapter: FocusControlAdapter
 
+    // MARK: - World / Progression (Phase 7)
+
+    /// The persisted world economy: Focus XP, coins, level, and the district's buildings.
+    /// Sessions award rewards here; progress survives relaunch (CLAUDE.md local persistence).
+    let world = WorldStore()
+
     // MARK: - User Identity (Phase 2, ONB-04)
     //
     // Plain var — @Observable tracks these automatically.
