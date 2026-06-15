@@ -61,17 +61,6 @@ struct LiveSessionView: View {
     }
     private var crackMoment: Int { max(2, Int(Double(total) * 0.45)) }
 
-    // Floor slots (fractions of the room scene) for up to 4 desks.
-    private let slots: [CGPoint] = [
-        CGPoint(x: 0.30, y: 0.50),
-        CGPoint(x: 0.52, y: 0.43),
-        CGPoint(x: 0.70, y: 0.52),
-        CGPoint(x: 0.50, y: 0.63)
-    ]
-
-    /// Where an avatar stands when on an approved break (the break corner).
-    private let breakSlot = CGPoint(x: 0.86, y: 0.30)
-
     // MARK: - Live group status (derived)
 
     private var focusedCount: Int { roster.filter { $0.status == .focused || $0.status == .deepFocus }.count }
@@ -205,52 +194,18 @@ struct LiveSessionView: View {
         Rectangle().fill(Theme.Colour.cardBorder).frame(width: 1, height: 14)
     }
 
-    // MARK: - Room scene (isometric room + placed avatars)
+    // MARK: - Room scene (multi-desk squad room — each avatar at their own desk)
 
     private var roomScene: some View {
-        GeometryReader { geo in
-            ZStack {
-                IsometricRoomView(room: appStore.world.state.personalRoom)
-                breakCorner(in: geo.size)
-                ForEach(Array(roster.enumerated()), id: \.element.id) { i, p in
-                    placedAvatar(p, at: placement(for: p, deskIndex: i), in: geo.size)
-                }
-            }
-        }
+        LiveRoomScene(
+            participants: roster,
+            room: appStore.world.state.personalRoom,
+            breakingUserIndex: onBreak ? roster.firstIndex(where: { $0.isUser }) : nil
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
         .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
         .overlay(alignment: .bottomLeading) { worldProgressBoard.padding(Theme.Spacing.sm) }
-    }
-
-    /// The desk a participant sits at — unless they're on break, then the break corner.
-    private func placement(for p: SessionParticipant, deskIndex: Int) -> CGPoint {
-        p.status == .onBreak ? breakSlot : slots[deskIndex % slots.count]
-    }
-
-    private func placedAvatar(_ p: SessionParticipant, at slot: CGPoint, in size: CGSize) -> some View {
-        VStack(spacing: 2) {
-            statusPill(p.status)
-            SpriteAvatarView(character: p.character, status: p.status, size: 52, showStatusBadge: false)
-        }
-        .position(x: size.width * slot.x, y: size.height * slot.y)
-        .animation(reduceMotion ? nil : .spring(response: 0.55, dampingFraction: 0.8), value: slot)
-    }
-
-    /// A cosy break corner (mug on a side table) the avatar walks to on break.
-    private func breakCorner(in size: CGSize) -> some View {
-        let isUsed = breakCount > 0
-        return VStack(spacing: 3) {
-            Image(systemName: "cup.and.saucer.fill")
-                .font(.system(size: 15, weight: .bold))
-                .foregroundStyle(isUsed ? Theme.Colour.accent : Theme.Colour.textSecondary)
-            RoundedRectangle(cornerRadius: 3)
-                .fill(Theme.Colour.surfaceMid)
-                .frame(width: 30, height: 8)
-        }
-        .padding(6)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Theme.Colour.surface.opacity(isUsed ? 0.55 : 0.30)))
-        .position(x: size.width * breakSlot.x, y: size.height * (breakSlot.y + 0.14))
     }
 
     // MARK: - In-room world-progress board ("what this room is building")
