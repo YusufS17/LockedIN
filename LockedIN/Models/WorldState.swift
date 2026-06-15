@@ -73,6 +73,7 @@ struct WorldState: Codable, Equatable {
     var progression: Progression
     var buildings: [WorldBuilding]
     var activeBuildingID: String     // BuildingType.rawValue receiving contributions
+    var ownedCosmetics: Set<String> = []   // purchased premium cosmetic ids
 
     var activeBuilding: WorldBuilding? {
         buildings.first { $0.id == activeBuildingID }
@@ -88,6 +89,19 @@ struct WorldState: Codable, Equatable {
         }
         return WorldState(progression: Progression(),
                           buildings: buildings,
-                          activeBuildingID: BuildingType.libraryHub.rawValue)
+                          activeBuildingID: BuildingType.libraryHub.rawValue,
+                          ownedCosmetics: [])
+    }
+}
+
+// MARK: - Forward-compatible decoding (defined in extension to keep memberwise init)
+
+extension WorldState {
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.progression     = try c.decodeIfPresent(Progression.self, forKey: .progression) ?? Progression()
+        self.buildings       = try c.decodeIfPresent([WorldBuilding].self, forKey: .buildings) ?? WorldState.seeded.buildings
+        self.activeBuildingID = try c.decodeIfPresent(String.self, forKey: .activeBuildingID) ?? BuildingType.libraryHub.rawValue
+        self.ownedCosmetics  = try c.decodeIfPresent(Set<String>.self, forKey: .ownedCosmetics) ?? []
     }
 }

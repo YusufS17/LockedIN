@@ -85,6 +85,25 @@ final class WorldStore {
         }
     }
 
+    // MARK: - Cosmetics
+
+    /// Whether a cosmetic is usable: free items always, premium only once purchased.
+    func owns(_ id: String) -> Bool {
+        CosmeticCatalog.cost(for: id) == 0 || state.ownedCosmetics.contains(id)
+    }
+
+    /// Buy a premium cosmetic with coins. Returns true if owned afterwards.
+    @discardableResult
+    func purchase(_ id: String) -> Bool {
+        if owns(id) { return true }
+        let cost = CosmeticCatalog.cost(for: id)
+        guard cost > 0, state.progression.coins >= cost else { return false }
+        state.progression.coins -= cost
+        state.ownedCosmetics.insert(id)
+        WorldPersistence.save(state)
+        return true
+    }
+
     // MARK: - World direction
 
     /// Choose which unlocked building receives future contributions.
