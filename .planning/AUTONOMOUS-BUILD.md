@@ -55,10 +55,14 @@ Must end `** BUILD SUCCEEDED **`. IGNORE harness SourceKit "Cannot find type/The
 ## VISION (committed) — see `.planning/VISION.md`
 Aim: state-of-the-art studio-quality game (Pokémon/Minecraft tier) — proper world + deep character customization + gamification. **Build systems first, then polish the game/visual side.** Art is code-drawn/in-engine (never ask for PNGs).
 
-## NEXT (the "improve the game side" pass the user wants AFTER systems land)
-- Deepen pixel-art: more avatar parts/palettes/outfits + a real **character customizer/wardrobe** (spend coins on cosmetics).
+## GAME-SIDE POLISH (in progress)
+- ✅ **Deeper sprites** — `PixelAvatarView` 12×16 full-body (eyes/pupils, mouth, legs, shoes, outfit motifs); 6 hair styles, 6 hair colours, accessory axis (glasses/headphones/cap/beanie).
+- ✅ **Character customizer/wardrobe** — `CharacterCustomizerView` (live preview, all axes, coin-gated premium cosmetics via `CosmeticCatalog`/`WorldStore.purchase`). `AppStore.userStudyCharacter` makes customization show everywhere. Entry: World "Edit your character" + onboarding "Customise".
+
+## NEXT (still to do for the game side)
 - Make the **personal room customizable** (desk/chair/lamp/rug/shelf/plant/poster/floor/wall, locked/unlocked, coin-bought) — `RoomCustomisationService` per world-layer §11–12.
 - **Juice**: animate buildings levelling up, world reveal sequence after results, avatar idle/breathing animation frames, particle/sparkle polish.
+- Possibly deepen sprites further (differentiate short/buzz/curly hair more at small sizes; more outfits/accessories).
 - Squad/District/build-voting = later networked milestone (needs backend) — see `.planning/reference/world-layer-prompt.md`.
 
 ## SPRITES (still pending from user)
