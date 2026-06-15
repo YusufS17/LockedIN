@@ -64,6 +64,22 @@ Aim: state-of-the-art studio-quality game (Pokémon/Minecraft tier) — proper w
 - ✅ **Juice pass v1** — `SpriteAvatarView` idle breathing (per-status: calm breath / break sway / distracted jitter, phase-offset per avatar, reduce-motion gated; pickers+small list rows opt out via `animated:false`). Reusable `SparkleBurst` (radial particle one-shot, reduce-motion gated). Wired: reveal trophy celebratory burst; World building tiles pop + sparkle on successful build/focus tap (`celebrate(_:)`). Verified in sim (world layout clean, reveal trophy + coin count-up).
 - Possibly deepen sprites further (differentiate short/buzz/curly hair more at small sizes; more outfits/accessories).
 - More juice still ahead: dedicated post-results world-reveal *screen*, building level-up celebration tied to the session that caused it, coin/XP fly-to-counter particles.
+
+## LIVE ROOM = THE PRODUCT (room vertical slice — adapting ChatGPT room directive to SwiftUI)
+See `docs/ROOM_IMPLEMENTATION_PLAN.md` (audit + gap analysis + what's mocked). Web-specific
+bits (.ts types, image-rendering, src/features) mapped to SwiftUI; art stays code-drawn.
+- ✅ **Live room promoted to hero** — `LiveSessionView` room scene now fills the screen (was a 240pt card). Header shows room name + mode (Competitive/Supportive) + "N/M still LockedIN".
+- ✅ **Compact group-status bar** — "N focused · N break · N distracted" + Details affordance (replaced the 3 stat tiles).
+- ✅ **Expandable participant panel** — bottom sheet (medium/large detents) with per-participant cards: focused min / off-task / warns-left / signal bars + "simulated multiplayer" disclaimer.
+- ✅ **In-room world-progress board** — "BUILDING · <active building>" + progress bar pinned on the room scene (real `WorldStore.activeBuilding`). The world shows up *inside* the room.
+- ✅ **Break corner + transition** — cosy break-area object (mug+table); user avatar springs to it on an approved break (re-slotted), back to desk on resume.
+- Verified in sim: hero room w/ 4 avatars + status pills, group-status bar single-line, participant sheet, world board, break corner.
+
+## LIVE ROOM — still ahead (next room polish)
+- Per-participant micro-animations (typing/writing/page-turn/phone-glance) — currently status faces + idle breathing only.
+- 8-participant layout (slots scale 4→8); more desks/seats drawn in-scene.
+- Distracted/break states fire fast in a quick-demo config so they're visible without waiting for crackMoment (~45% elapsed).
+- Trophy shelf + richer back-wall decoration in the live room; reach the room builder contextually from the room.
 - Squad/District/build-voting = later networked milestone (needs backend) — see `.planning/reference/world-layer-prompt.md`.
 
 ## SPRITES (still pending from user)
