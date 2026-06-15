@@ -48,8 +48,18 @@ Must end `** BUILD SUCCEEDED **`. IGNORE harness SourceKit "Cannot find type/The
 
 ## NEXT STEPS (in order — build+commit each)
 7. ✅ **Solo / Group rooms** — real `SoloRoomView` + `GroupRoomView` on the iso engine; `StaticRoomScreen` deleted. No PNG screens left.
-8. Optional: `/gsd-code-review`, then a simulator smoke test of the full loop (onboarding → each room → reveal).
-9. **THEN** world layer (v2): coins/XP after session, personal room growth, district. See `.planning/reference/world-layer-prompt.md`.
+8. ✅ **Smoke test passed** (simulator) — onboarding → rooms → reveal, no crashes. NOTE simulator cfprefsd cache: `simctl erase` to reset first-launch state, not just reinstall.
+9. ✅ **Pixel-art characters** — `PixelAvatarView` (code-drawn Canvas sprite); SpriteAvatarView + AvatarView render it. User has NO PNGs — build all art in-engine.
+10. ✅ **World layer v1 (Phase 7) FUNCTIONAL** — `Progression`(XP/coins/level) + `RewardRules` + `WorldState`/`WorldBuilding` + `WorldStore`(@Observable, persisted via `WorldPersistence`). AppStore holds `world`. Reveal awards real XP/coins (once) + level-up flourish + real building-progress card. `WorldView` (district: level ring, coins, hero room, 8 buildings tap-to-focus/build, stats). Home world chip + reveal "View world" open it.
+
+## VISION (committed) — see `.planning/VISION.md`
+Aim: state-of-the-art studio-quality game (Pokémon/Minecraft tier) — proper world + deep character customization + gamification. **Build systems first, then polish the game/visual side.** Art is code-drawn/in-engine (never ask for PNGs).
+
+## NEXT (the "improve the game side" pass the user wants AFTER systems land)
+- Deepen pixel-art: more avatar parts/palettes/outfits + a real **character customizer/wardrobe** (spend coins on cosmetics).
+- Make the **personal room customizable** (desk/chair/lamp/rug/shelf/plant/poster/floor/wall, locked/unlocked, coin-bought) — `RoomCustomisationService` per world-layer §11–12.
+- **Juice**: animate buildings levelling up, world reveal sequence after results, avatar idle/breathing animation frames, particle/sparkle polish.
+- Squad/District/build-voting = later networked milestone (needs backend) — see `.planning/reference/world-layer-prompt.md`.
 
 ## SPRITES (still pending from user)
 Characters render via code-drawn fallback until `char_*.png` land. See `.planning/reference/SPRITE-ASSETS-SPEC.md`. Drop them into `Assets.xcassets` as `char_<id>` imagesets — `SpriteAvatarView` picks them up, no code change.
