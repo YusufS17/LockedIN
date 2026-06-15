@@ -152,9 +152,12 @@ struct SettlementResultsView: View {
                 .font(Theme.TypeScale.caption)
                 .foregroundStyle(Theme.Colour.textSecondary)
                 .multilineTextAlignment(.center)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, Theme.Spacing.sm)
+        .padding(.horizontal, 2)
         .background(Theme.Colour.surfaceMid)
         .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
     }

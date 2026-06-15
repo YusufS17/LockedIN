@@ -28,7 +28,6 @@ struct RootView: View {
     // MARK: - Body
 
     var body: some View {
-        // DEMO MODE: clickable static prototype of the full approved design
         // First-launch gate: real onboarding beats until completed, then Home.
         // The whole experience is real SwiftUI on the engine — no PNG demo deck.
         if hasCompletedOnboarding {
