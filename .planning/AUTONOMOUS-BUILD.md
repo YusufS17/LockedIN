@@ -61,8 +61,9 @@ Aim: state-of-the-art studio-quality game (Pokémon/Minecraft tier) — proper w
 
 ## NEXT (still to do for the game side)
 - ✅ **Customizable personal room** — `Models/PersonalRoom.swift` (`RoomSlot` 10 slots, `RoomItem`, `RoomItemCatalog`, `PersonalRoom`); `WorldStore.{ownsRoomItem,purchaseRoomItem,selectRoomItem}` (RoomCustomisationService); `IsometricRoomView(room:)` now variant-driven (floor/wall tints + desk/chair/rug/poster/lamp/shelf/plant variants, default preserves old look); `PersonalRoomBuilderView` (live preview + slot chips + coin-gated item tiles). Entry: World "Customise room". Shows everywhere (hero/live/solo room). Verified in sim (113 coins, price tags, customized render).
-- **Juice**: animate buildings levelling up, world reveal sequence after results, avatar idle/breathing animation frames, particle/sparkle polish.
+- ✅ **Juice pass v1** — `SpriteAvatarView` idle breathing (per-status: calm breath / break sway / distracted jitter, phase-offset per avatar, reduce-motion gated; pickers+small list rows opt out via `animated:false`). Reusable `SparkleBurst` (radial particle one-shot, reduce-motion gated). Wired: reveal trophy celebratory burst; World building tiles pop + sparkle on successful build/focus tap (`celebrate(_:)`). Verified in sim (world layout clean, reveal trophy + coin count-up).
 - Possibly deepen sprites further (differentiate short/buzz/curly hair more at small sizes; more outfits/accessories).
+- More juice still ahead: dedicated post-results world-reveal *screen*, building level-up celebration tied to the session that caused it, coin/XP fly-to-counter particles.
 - Squad/District/build-voting = later networked milestone (needs backend) — see `.planning/reference/world-layer-prompt.md`.
 
 ## SPRITES (still pending from user)

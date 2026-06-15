@@ -201,7 +201,7 @@ struct LiveSessionView: View {
         VStack(spacing: Theme.Spacing.xs) {
             ForEach(roster) { p in
                 HStack(spacing: Theme.Spacing.sm) {
-                    SpriteAvatarView(character: p.character, status: p.status, size: 32, showStatusBadge: false)
+                    SpriteAvatarView(character: p.character, status: p.status, size: 32, showStatusBadge: false, animated: false)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(p.isUser ? "You" : firstName(p.displayName))
                             .font(Theme.TypeScale.captionBold)

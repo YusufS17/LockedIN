@@ -18,6 +18,8 @@ struct SpriteAvatarView: View {
     var status: AvatarStatus = .idle
     var size: CGFloat = 80
     var showStatusBadge: Bool = false
+    /// Subtle idle "breathing" (juice). On by default; pickers/grids pass `false`.
+    var animated: Bool = true
 
     private var resolvedAssetName: String? {
         let pose = character.poseAsset(for: status)
@@ -26,17 +28,15 @@ struct SpriteAvatarView: View {
         return nil
     }
 
+    /// Stable per-avatar phase so a roomful of avatars don't breathe in lockstep.
+    private var phase: Double {
+        Double(abs(character.id.hashValue) % 1000) / 1000.0
+    }
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            if let asset = resolvedAssetName {
-                Image(asset)
-                    .interpolation(.none)        // crisp pixel art (RESEARCH pitfall 3)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size, height: size)
-            } else {
-                PixelAvatarView(appearance: character.fallback, status: status, size: size)
-            }
+            avatar
+                .modifier(BreathingModifier(enabled: animated, status: status, phase: phase))
 
             if showStatusBadge, status != .idle, let symbol = status.symbolName {
                 Image(systemName: symbol)
@@ -48,6 +48,76 @@ struct SpriteAvatarView: View {
             }
         }
         .frame(width: size, height: size)
+    }
+
+    @ViewBuilder private var avatar: some View {
+        if let asset = resolvedAssetName {
+            Image(asset)
+                .interpolation(.none)        // crisp pixel art (RESEARCH pitfall 3)
+                .resizable()
+                .scaledToFit()
+                .frame(width: size, height: size)
+        } else {
+            PixelAvatarView(appearance: character.fallback, status: status, size: size)
+        }
+    }
+}
+
+// MARK: - BreathingModifier — gentle idle life, flavoured by status
+//
+// A looping, autoreversing micro-animation: a slow breath for focus states, a relaxed
+// sway on break, and a tiny anxious jitter when distracted. Anchored at the feet so the
+// avatar appears to settle on the floor. Fully gated on Reduce Motion.
+
+private struct BreathingModifier: ViewModifier {
+    let enabled: Bool
+    let status: AvatarStatus
+    let phase: Double
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var animate = false
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(scale, anchor: .bottom)
+            .offset(x: xOffset, y: yOffset)
+            .rotationEffect(.degrees(tilt))
+            .onAppear {
+                guard enabled, !reduceMotion else { return }
+                withAnimation(.easeInOut(duration: period).repeatForever(autoreverses: true).delay(phase * period)) {
+                    animate = true
+                }
+            }
+    }
+
+    // Per-status motion character.
+    private var period: Double {
+        switch status {
+        case .deepFocus, .finished: return 2.2   // slow, calm
+        case .onBreak:              return 1.8
+        case .distracted:           return 0.5   // quick, restless
+        default:                    return 1.7
+        }
+    }
+    private var scale: CGFloat {
+        guard animate else { return 1 }
+        switch status {
+        case .distracted: return 1.0
+        case .onBreak:    return 1.02
+        default:          return 1.03
+        }
+    }
+    private var yOffset: CGFloat {
+        guard animate else { return 0 }
+        return status == .distracted ? 0 : -2
+    }
+    private var xOffset: CGFloat {
+        guard animate else { return 0 }
+        return status == .distracted ? 1.5 : 0   // restless side-to-side
+    }
+    private var tilt: Double {
+        guard animate else { return 0 }
+        return status == .onBreak ? 2.5 : 0       // relaxed sway
     }
 }
 

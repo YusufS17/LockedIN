@@ -70,7 +70,7 @@ struct CharacterGalleryView: View {
             withAnimation(.easeInOut(duration: 0.15)) { selectedID = character.id }
         } label: {
             VStack(spacing: Theme.Spacing.sm) {
-                SpriteAvatarView(character: character, status: .idle, size: 96)
+                SpriteAvatarView(character: character, status: .idle, size: 96, animated: false)
                 Text(character.name)
                     .font(Theme.TypeScale.captionBold)
                     .foregroundStyle(Theme.Colour.textPrimary)

@@ -19,6 +19,7 @@ struct WorldView: View {
 
     @State private var showCustomizer = false
     @State private var showRoomBuilder = false
+    @State private var burstBuildingID: String?   // tile to flourish after build/focus
 
     private var world: WorldStore { appStore.world }
     private var p: Progression { world.state.progression }
@@ -174,11 +175,13 @@ struct WorldView: View {
     private func buildingTile(_ b: WorldBuilding) -> some View {
         let isActive = b.id == world.state.activeBuildingID
         let canBuild = b.unlocked && b.level == 0
+        let popped = burstBuildingID == b.id
         return Button {
             if b.unlocked && b.level > 0 {
                 world.setActiveBuilding(b.type)
+                celebrate(b.id)
             } else if canBuild {
-                _ = world.startBuilding(b.type, cost: buildCost)
+                if world.startBuilding(b.type, cost: buildCost) { celebrate(b.id) }
             }
         } label: {
             VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
@@ -222,9 +225,21 @@ struct WorldView: View {
             .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg)
                 .strokeBorder(isActive ? Theme.Colour.accent : Theme.Colour.cardBorder,
                               lineWidth: isActive ? 2.5 : 1))
+            .overlay(SparkleBurst(trigger: popped, count: 10, radius: 56, colour: b.type.tint))
+            .scaleEffect(popped ? 1.06 : 1)
             .opacity(b.unlocked ? 1 : 0.6)
         }
         .buttonStyle(.plain)
+    }
+
+    /// Flourish a building tile after a successful build / focus tap.
+    private func celebrate(_ id: String) {
+        guard !reduceMotion else { return }
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) { burstBuildingID = id }
+        Task {
+            try? await Task.sleep(for: .seconds(0.5))
+            withAnimation(.easeOut(duration: 0.2)) { burstBuildingID = nil }
+        }
     }
 
     // MARK: - Stats

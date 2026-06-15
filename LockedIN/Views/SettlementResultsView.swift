@@ -105,6 +105,8 @@ struct SettlementResultsView: View {
             Image(systemName: "trophy.fill")
                 .font(.system(size: 38, weight: .bold))
                 .foregroundStyle(Theme.Colour.textOnAccent)
+            // Celebratory burst once the trophy pops in.
+            SparkleBurst(trigger: reveal >= 1, count: 12, radius: 70)
         }
         .scaleEffect(reveal >= 1 ? 1 : 0.3)
         .opacity(reveal >= 1 ? 1 : 0)
@@ -233,7 +235,7 @@ struct SettlementResultsView: View {
                 Divider()
                 ForEach(result.results) { r in
                     HStack {
-                        SpriteAvatarView(character: r.participant.character, status: .idle, size: 28)
+                        SpriteAvatarView(character: r.participant.character, status: .idle, size: 28, animated: false)
                         Text(r.participant.isUser ? "You" : firstName(r.participant.displayName))
                             .font(Theme.TypeScale.body)
                             .foregroundStyle(Theme.Colour.textPrimary)
