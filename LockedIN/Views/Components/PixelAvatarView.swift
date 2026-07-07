@@ -1,18 +1,16 @@
 import SwiftUI
 
-// MARK: - PixelAvatarView — code-drawn pixel-art student sprite (v2: lit + animated)
+// MARK: - PixelAvatarView — code-drawn pixel-art student sprite (v2 art, PixelKit renderer)
 //
-// A parametric full-body pixel character rendered in SwiftUI `Canvas` — no PNG assets.
-// v2 upgrades the look from a flat 12×16 blob to a 24×32 sprite with:
-//   • a procedural LIGHT-AWARE shader — every cell is tinted by a top-left light, giving
-//     automatic highlights, shadows and ambient occlusion without hand-authoring tones;
-//   • a crisp silhouette OUTLINE + soft floor shadow for a readable, "framed" pixel look;
-//   • TimelineView-driven ANIMATION frames — blink, typing, sipping, phone-glance,
-//     celebration — gated on Reduce Motion.
+// A parametric full-body pixel character. The art is unchanged v2 (24×32 material-channel
+// grid, procedural top-left light shader, silhouette outline, blink/type/sip/phone/celebrate
+// frames) — but rendering now goes through PixelKit: each animation frame is baked ONCE to a
+// tiny UIImage and cached in SpriteBakery, then composited by SwiftUI with nearest-neighbour
+// scaling. Zero per-frame drawing work; a roomful of avatars is a handful of texture swaps.
 //
-// The sprite is authored in MATERIAL channels (skin / hair / outfit / …); the renderer
-// resolves each material to a base colour from `CharacterAppearance` and then shades it.
-// Universal fallback behind `SpriteAvatarView`; real `char_*.png` override when present.
+// The animation loop is deterministic: blink every 18 ticks, typing every 2, sipping every 4
+// → the whole cycle repeats every 36 frames, so at most 36 baked frames per (appearance,
+// status). Static renders (Reduce Motion / animated:false) show a phase where eyes are open.
 
 struct PixelAvatarView: View {
     let appearance: CharacterAppearance
@@ -21,118 +19,77 @@ struct PixelAvatarView: View {
     /// Frame animation (blink/typing/…). Static when false or under Reduce Motion.
     var animated: Bool = true
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    private let cols = PixelSprite.cols
-    private let rows = PixelSprite.rows
+    private static let frameCount = 36   // LCM of all animation periods (18, 2, 4)
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 0.16, paused: !animated || reduceMotion)) { tl in
-            Canvas { ctx, canvasSize in
-                let tick = (animated && !reduceMotion)
-                    ? Int(tl.date.timeIntervalSinceReferenceDate / 0.16)
-                    : 0
-                let grid = PixelSprite.grid(appearance: appearance, status: status, tick: tick)
-                render(grid, in: &ctx, canvasSize: canvasSize)
-            }
+        ZStack(alignment: .bottom) {
+            // Soft floor shadow under the feet (grounds the character).
+            // Geometry matches the v2 canvas: 14 cells wide, 2.4 tall, slightly below the feet.
+            Ellipse()
+                .fill(.black.opacity(0.16))
+                .frame(width: size * 14 / 32, height: size * 2.4 / 32)
+                .offset(y: size * 0.8 / 32)
+
+            PixelSpriteView(
+                cacheKey: Self.cacheKey(appearance: appearance, status: status),
+                frameCount: Self.frameCount,
+                build: { frame in
+                    // +1 phase offset: frame 0 (the static frame) must not land on the
+                    // blink beat (tick % 18 == 0) — v2 showed closed eyes when static.
+                    PixelRenderer.bake(
+                        grid: PixelGrid(PixelSprite.grid(appearance: appearance, status: status, tick: frame + 1)),
+                        palette: .avatar(appearance),
+                        rules: .avatar,
+                        outline: PixelRGBA(r: 31, g: 23, b: 20)   // Color(red:0.12, green:0.09, blue:0.08)
+                    )
+                },
+                animated: animated
+            )
         }
         .frame(width: size, height: size)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Avatar: \(appearance.description), status: \(status.label)")
     }
 
-    // MARK: - Renderer (outline + procedural shading + floor shadow)
-
-    private func render(_ grid: [[Character]], in ctx: inout GraphicsContext, canvasSize: CGSize) {
-        let cell = min(canvasSize.width / CGFloat(cols), canvasSize.height / CGFloat(rows))
-        let ox = (canvasSize.width - cell * CGFloat(cols)) / 2
-        let oy = (canvasSize.height - cell * CGFloat(rows)) / 2
-
-        func mat(_ x: Int, _ y: Int) -> Character {
-            guard y >= 0, y < grid.count, x >= 0, x < grid[y].count else { return "." }
-            return grid[y][x]
-        }
-
-        // Soft floor shadow under the feet (grounds the character).
-        let shadowRect = CGRect(x: ox + cell * 5, y: oy + cell * CGFloat(rows) - cell * 1.6,
-                                width: cell * 14, height: cell * 2.4)
-        ctx.fill(Ellipse().path(in: shadowRect), with: .color(.black.opacity(0.16)))
-
-        let outline = Color(red: 0.12, green: 0.09, blue: 0.08)
-
-        // Pass 1 — outline: empty cells 4-adjacent to a filled cell.
-        for y in 0..<rows {
-            for x in 0..<cols where PixelSprite.isEmpty(mat(x, y)) {
-                let touches = !PixelSprite.isEmpty(mat(x - 1, y)) || !PixelSprite.isEmpty(mat(x + 1, y))
-                    || !PixelSprite.isEmpty(mat(x, y - 1)) || !PixelSprite.isEmpty(mat(x, y + 1))
-                guard touches else { continue }
-                let rect = CGRect(x: ox + CGFloat(x) * cell, y: oy + CGFloat(y) * cell,
-                                  width: cell + 0.7, height: cell + 0.7)
-                ctx.fill(Path(rect), with: .color(outline.opacity(0.9)))
-            }
-        }
-
-        // Pass 2 — fill with light-aware shading.
-        for y in 0..<rows {
-            for x in 0..<cols {
-                let ch = mat(x, y)
-                guard let base = baseColour(for: ch) else { continue }
-                let colour = PixelSprite.isFlat(ch)
-                    ? base
-                    : shade(base, level: shadeLevel(x: x, y: y, mat: mat))
-                let rect = CGRect(x: ox + CGFloat(x) * cell, y: oy + CGFloat(y) * cell,
-                                  width: cell + 0.7, height: cell + 0.7)
-                ctx.fill(Path(rect), with: .color(colour))
-            }
-        }
+    private static func cacheKey(appearance a: CharacterAppearance, status: AvatarStatus) -> String {
+        // Style axes shape the grid; colour axes shape the palette. Both must key the bake.
+        "av2|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.outfitStyle).\(a.accentColour).\(a.accessory)|\(status)"
     }
+}
 
-    /// Top-left light model: top/left edges of a form catch light, bottom/right fall to shadow.
-    private func shadeLevel(x: Int, y: Int, mat: (Int, Int) -> Character) -> Int {
-        let me = mat(x, y)
-        let g = PixelSprite.group(me)
-        func diff(_ nx: Int, _ ny: Int) -> Bool { PixelSprite.group(mat(nx, ny)) != g }
-        var level = 0
-        if diff(x, y + 1) { level -= 2 }   // bottom edge → shadow
-        if diff(x, y - 1) { level += 2 }   // top edge → highlight
-        if diff(x + 1, y) { level -= 1 }   // right edge → shadow
-        if diff(x - 1, y) { level += 1 }   // left edge → highlight
-        return max(-2, min(2, level))
-    }
+// MARK: - Avatar material rules + palette (PixelKit bindings for the v2 sprite)
 
-    private func shade(_ base: Color, level: Int) -> Color {
-        switch level {
-        case 2:   return base.lightened(0.30)
-        case 1:   return base.lightened(0.15)
-        case -1:  return base.darkened(0.16)
-        case -2:  return base.darkened(0.30)
-        default:  return base
-        }
-    }
+extension PixelMaterialRules.Rules {
+    /// Ports PixelSprite's isEmpty/isFlat/group semantics.
+    static let avatar = PixelMaterialRules.Rules(
+        isEmpty: { PixelSprite.isEmpty($0) },
+        isFlat: { PixelSprite.isFlat($0) },
+        group: { PixelSprite.group($0) }
+    )
+}
 
-    // MARK: - Material → base colour
-
-    private func baseColour(for ch: Character) -> Color? {
-        switch ch {
-        case "H": return appearance.hairColour.colour
-        case "S": return appearance.skinTone.colour
-        case "E": return Color(white: 0.97)                          // eye white
-        case "e": return Color(red: 0.13, green: 0.10, blue: 0.09)   // pupil
-        case "m": return appearance.skinTone.colour.darkened(0.40)   // mouth line
-        case "b": return appearance.skinTone.colour.darkened(0.22)   // brow / nose shade
-        case "u": return Color(red: 0.92, green: 0.55, blue: 0.55)   // blush
-        case "O": return appearance.accentColour.colour              // outfit primary
-        case "c": return appearance.accentColour.colour.lightened(0.30)  // collar / trim
-        case "t": return Theme.Colour.buttonFill                     // tie / dark trim
-        case "L": return Color(red: 0.27, green: 0.31, blue: 0.42)   // denim legs
-        case "F": return Color(red: 0.15, green: 0.12, blue: 0.11)   // shoes
-        case "G": return Theme.Colour.buttonFill                     // dark frames / headphones / phone
-        case "A": return appearance.accentColour.colour              // cap / beanie
-        case "g": return Theme.Colour.accentTeal                     // phone glow
-        case "W": return .white                                       // drawstrings / sparkle / steam
-        case "K": return Color(red: 0.85, green: 0.84, blue: 0.82)   // mug ceramic
-        default:  return nil
-        }
+extension PixelPalette {
+    /// Material → resolved colour for one appearance. Mirrors the v2 `baseColour(for:)` map.
+    static func avatar(_ a: CharacterAppearance) -> PixelPalette {
+        PixelPalette([
+            "H": PixelRGBA(a.hairColour.colour),
+            "S": PixelRGBA(a.skinTone.colour),
+            "E": PixelRGBA(Color(white: 0.97)),                          // eye white
+            "e": PixelRGBA(Color(red: 0.13, green: 0.10, blue: 0.09)),   // pupil
+            "m": PixelRGBA(a.skinTone.colour.darkened(0.40)),            // mouth line
+            "b": PixelRGBA(a.skinTone.colour.darkened(0.22)),            // brow / nose shade
+            "u": PixelRGBA(Color(red: 0.92, green: 0.55, blue: 0.55)),   // blush
+            "O": PixelRGBA(a.accentColour.colour),                       // outfit primary
+            "c": PixelRGBA(a.accentColour.colour.lightened(0.30)),       // collar / trim
+            "t": PixelRGBA(Theme.Colour.buttonFill),                     // tie / dark trim
+            "L": PixelRGBA(Color(red: 0.27, green: 0.31, blue: 0.42)),   // denim legs
+            "F": PixelRGBA(Color(red: 0.15, green: 0.12, blue: 0.11)),   // shoes
+            "G": PixelRGBA(Theme.Colour.buttonFill),                     // frames / headphones / phone
+            "A": PixelRGBA(a.accentColour.colour),                       // cap / beanie
+            "g": PixelRGBA(Theme.Colour.accentTeal),                     // phone glow
+            "W": PixelRGBA(.white),                                      // drawstrings / sparkle / steam
+            "K": PixelRGBA(Color(red: 0.85, green: 0.84, blue: 0.82)),   // mug ceramic
+        ])
     }
 }
 
@@ -401,27 +358,6 @@ enum PixelSprite {
     private static func set(_ g: inout [[Character]], _ row: Int, _ cols: [Int], _ ch: Character) {
         guard g.indices.contains(row) else { return }
         for c in cols where g[row].indices.contains(c) { g[row][c] = ch }
-    }
-}
-
-// MARK: - Colour adjust helpers
-
-extension Color {
-    /// Lighten toward white by `amount` (0…1).
-    func lightened(_ amount: CGFloat) -> Color { mixed(with: .white, amount) }
-    /// Darken toward black by `amount` (0…1).
-    func darkened(_ amount: CGFloat) -> Color { mixed(with: .black, amount) }
-
-    private func mixed(with other: Color, _ amount: CGFloat) -> Color {
-        let a = UIColor(self), b = UIColor(other)
-        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
-        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
-        a.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
-        b.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
-        let t = max(0, min(1, amount))
-        return Color(red: Double(r1 + (r2 - r1) * t),
-                     green: Double(g1 + (g2 - g1) * t),
-                     blue: Double(b1 + (b2 - b1) * t))
     }
 }
 

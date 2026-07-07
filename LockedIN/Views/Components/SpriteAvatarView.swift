@@ -1,16 +1,10 @@
 import SwiftUI
 
-// MARK: - SpriteAvatarView — renders a real pixel sprite, or falls back gracefully
+// MARK: - SpriteAvatarView — a character's animated sprite with idle "breathing"
 //
-// If the character's pixel-art PNG exists in the asset catalog it is rendered crisply
-// (`.interpolation(.none)`); otherwise it falls back to the code-drawn `AvatarView` so
-// the app always works. Optionally overlays a non-colour-only status badge (icon + ring
-// + the label is provided by callers) for live session states.
-//
-// Resolution order for the sprite image:
-//   1. per-state pose  "<spriteAsset>_<state>"  (e.g. char_maya_break)
-//   2. base sprite     "<spriteAsset>"          (e.g. char_maya)
-//   3. code-drawn AvatarView(appearance: fallback)
+// Renders the character's code-drawn PixelKit sprite (all art is in-engine — no PNG
+// assets) and layers on the BreathingModifier for idle life. Optionally overlays a
+// non-colour-only status badge (icon + ring) for live session states.
 
 struct SpriteAvatarView: View {
 
@@ -20,13 +14,6 @@ struct SpriteAvatarView: View {
     var showStatusBadge: Bool = false
     /// Subtle idle "breathing" (juice). On by default; pickers/grids pass `false`.
     var animated: Bool = true
-
-    private var resolvedAssetName: String? {
-        let pose = character.poseAsset(for: status)
-        if UIImage(named: pose) != nil { return pose }
-        if UIImage(named: character.spriteAsset) != nil { return character.spriteAsset }
-        return nil
-    }
 
     /// Stable per-avatar phase so a roomful of avatars don't breathe in lockstep.
     private var phase: Double {
@@ -50,16 +37,8 @@ struct SpriteAvatarView: View {
         .frame(width: size, height: size)
     }
 
-    @ViewBuilder private var avatar: some View {
-        if let asset = resolvedAssetName {
-            Image(asset)
-                .interpolation(.none)        // crisp pixel art (RESEARCH pitfall 3)
-                .resizable()
-                .scaledToFit()
-                .frame(width: size, height: size)
-        } else {
-            PixelAvatarView(appearance: character.fallback, status: status, size: size)
-        }
+    private var avatar: some View {
+        PixelAvatarView(appearance: character.fallback, status: status, size: size, animated: animated)
     }
 }
 
