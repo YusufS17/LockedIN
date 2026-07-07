@@ -1,27 +1,34 @@
 # LockedIN — Autonomous Build Plan (continuation brief)
 
 ---
-## ▶ RESUME HERE (last worked 2026-06-16)
+## ▶ RESUME HERE (last worked 2026-07-07)
 
-**Status:** working tree clean, `main` in sync with `origin/main`, everything pushed. HEAD `4450d0b`.
+**Status:** executing the USER-APPROVED **Studio-Fidelity Rebuild Plan** (plan file:
+`~/.claude/plans/swirling-inventing-feigenbaum.md` — full phase detail there). Session tasks #1–#7
+track phases P0–P6.
 
-**Mode now:** hackathon is OVER (see memory `proper-build-pivot`). No MVP/demo scoping — building
-the real app/game **state-of-the-art, detailed, curated** ([[aaa-game-vision]]). 5h-budget /
-demo-spine / in-memory-only constraints in CLAUDE.md are now SOFT. Art stays code-drawn pixel
-(user has no PNGs); no real payments yet (keep `CommitmentService` mock boundary clean).
+**Mode:** post-hackathon proper build ([[proper-build-pivot]], [[aaa-game-vision]]). Art is
+**organic** — authored in Swift, NO asset packs, NO AI-generated PNGs (user-confirmed 2026-07-07).
+Reference = 11 ChatGPT mockups: `.planning/reference/mockups/` + home-dashboard, "Set your
+lock-in", expanded customizer screenshots (user-shared; home/lock-in not in repo folder).
 
-**Current focus axis (user-chosen):** ART & WORLD FIDELITY.
+**The plan in one line per phase:**
+- **P0** baseline + dead-weight removal (dead onboarding views + 21 unused imagesets DELETED, staged)
+- **P1** PixelKit: bake-once pipeline (grids+palettes → cached UIImage, nearest-neighbour) — `LockedIN/PixelKit/` WRITTEN, PixelAvatarView rewired at v2-art parity, SpriteAvatarView PNG path dropped
+- **P2** character art v3: 48×64 chibi, pose system (stand/sitTypingFront/coffee/phone/celebrate), AvatarPortraitView, appearance split top/bottoms/shoes/face + randomise (legacy outfitStyle decode mapping!)
+- **P3** onboarding rebuild: 6 beats (splash/valueprops/8-char gallery/customizer icon-rail/reveal/first-room), PixelButtonStyle/PixelDecor/PixelIcons
+- **P4** room art v3: pixel shell+furniture, RoomComposer bake, pixel-space seat anchors + project(), live session mockup chrome (speech bubbles, roster rows, 4-action bar)
+- **P5** app shell: custom pixel tab bar (Home/Rooms/World/Profile), home dashboard (greeting/coins/STREAK chips, action cards, friends-now rail via PresenceSimulator, world card), "Set your lock-in" setup (goal+privacy fields, contract card); Progression gains streakDays via decodeIfPresent
+- **P6** game feel: scenePhase real user distraction tracking, haptics, sessionHistoryV1 store, Profile/settings, transitions, final cleanup
 
-**Done this push (all committed + pushed):**
-- `d8cb394` Sprite engine v2 — 24×32, procedural light shader, outline, animation frames (blink/type/sip/phone/celebrate).
-- `cc24547` Room engine v2 — furniture depth, lamp glow, window light-cast, vignette, dust motes, day/night window.
-- `4450d0b` Multi-desk squad room — `LiveRoomScene` + `RoomSeating` (1..8 layouts); each avatar seated at own desk (chair→avatar→desk-front z-order). Furniture refactored into reusable `RoomDecor` / `RoomShell` / `RoomAmbientLayer`.
+**Environment gotchas (this machine, 2026-07-07):** Xcode moved to `~/Downloads/Xcode.app`
+(26.3); xcode-select now points there, license accepted. iOS 26.2 sim platform was downloading
+(`xcodebuild -downloadPlatform iOS`) — old iOS 18.6 runtime is INELIGIBLE for Xcode 26.3.
 
-**NEXT STEPS (in priority order):**
-1. **Full real-flow verification pass** — walk onboarding creator → customizer → live squad room (4 avatars) → world → settlement reveal with the new sprites/room; fix any in-context sizing/composition/overlap issues (I've been verifying via isolated `#if DEBUG` smoke harnesses in `RootView`, not the live flows). *Highest priority — verify before adding more.*
-2. **Squad room foreground** — fill the empty bottom-centre (shared rug/coffee-table centrepiece, trophy shelf) so the scene feels intentional; nudge back-row avatars so they don't kiss the shelf/window.
-3. **Curated micro-polish** — haptics on key moments (stake lands, level-up, build), screen transitions, day/night tied to the real clock.
-4. Then revisit the other axes from the pivot: **game systems depth** (squads/world/achievements) and **foundation** (SwiftData persistence) — see the AskUserQuestion fork; user picked art first.
+**IN FLIGHT when last paused:** waiting on platform download → then: stash P1 changes → build →
+baseline screenshots (old renderer) → commit P0 → unstash → build → parity screenshots (new
+renderer) → commit P1. Uncommitted: staged deletions (P0) + `LockedIN/PixelKit/*` +
+PixelAvatarView/SpriteAvatarView rewires (P1).
 
 **How to QA a single screen headlessly:** add a temporary `#if DEBUG` branch in `RootView.body` that reads `ProcessInfo.processInfo.arguments.contains("-smoke")` and returns the view, then `xcrun simctl launch booted com.lockedin.app -smoke` + screenshot. REMOVE before commit. (Mid-launch screenshots can be blank white — wait ~3-4s and retake.) See memory `simulator-smoke-test`.
 
