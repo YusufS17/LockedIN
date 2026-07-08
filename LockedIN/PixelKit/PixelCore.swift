@@ -146,6 +146,15 @@ struct PixelGrid: Hashable {
         for c in columns { self[c, row] = ch }
     }
 
+    /// Rectangular crop — used for portrait head-crops and swatch tiles.
+    func subgrid(x: Int, y: Int, cols w: Int, rows h: Int) -> PixelGrid {
+        var out = PixelGrid(cols: w, rows: h)
+        for oy in 0..<h {
+            for ox in 0..<w { out[ox, oy] = self[x + ox, y + oy] }
+        }
+        return out
+    }
+
     /// Horizontal mirror — author half a symmetric sprite, or flip furniture to face the other way.
     func mirrored() -> PixelGrid {
         var out = PixelGrid(cols: cols, rows: rows)

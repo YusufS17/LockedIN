@@ -98,11 +98,29 @@ enum AvatarSpriteV3 {
         applyFace(&g, status: status)
         applyOutfit(&g, appearance.outfitStyle)
         applyAccessory(&g, appearance.accessory)
+        applyPose(&g, pose)
         applyAnimation(&g, pose: pose, status: status, frame: frame)
         return g
     }
 
     static func frameCount(pose: AvatarPose, status: AvatarStatus) -> Int { 36 }
+
+    /// The natural pose for a status when the caller doesn't specify one.
+    /// Rooms pass `.sitTypingFront` explicitly for seated participants.
+    static func defaultPose(for status: AvatarStatus) -> AvatarPose {
+        switch status {
+        case .onBreak:    return .coffee
+        case .distracted: return .phone
+        case .finished:   return .celebrate
+        default:          return .stand
+        }
+    }
+
+    /// Head crop for roster rows, cards and the home greeting: rows 0–31, cols 8–39.
+    static func portraitGrid(appearance: CharacterAppearance) -> PixelGrid {
+        grid(appearance: appearance, pose: .stand, status: .idle, frame: 0)
+            .subgrid(x: 8, y: 0, cols: 32, rows: 32)
+    }
 
     private static func mirroredBase() -> PixelGrid {
         let half = PixelGrid(rows: baseHalf)
@@ -230,6 +248,36 @@ enum AvatarSpriteV3 {
         }
     }
 
+    // MARK: Poses (body + prop layout; animation cycles the details)
+
+    private static func applyPose(_ g: inout PixelGrid, _ pose: AvatarPose) {
+        switch pose {
+        case .stand:
+            break
+
+        case .sitTypingFront:
+            // Hands come forward onto an implied desk edge; legs are occluded in-room.
+            g.set(row: 43, cols: [17, 18, 19, 28, 29, 30], "S")
+            g.set(row: 44, cols: [17, 18, 19, 28, 29, 30], "S")
+
+        case .coffee:
+            // Mug held chest-height beside the sleeve.
+            for y in 36...39 { g.set(row: y, cols: [5, 6, 7, 8], "K") }
+            g.set(row: 40, cols: [6, 7, 8], "S")   // hand under mug
+
+        case .phone:
+            // Lit phone in the lowered hand.
+            for y in 40...45 { g.set(row: y, cols: [5, 6, 7, 8], "G") }
+            for y in 41...44 { g.set(row: y, cols: [6, 7], "g") }
+
+        case .celebrate:
+            // Arms thrown up beside the head.
+            for y in 26...34 { g.set(row: y, cols: [7, 8, cols - 9, cols - 8], "O") }
+            g.set(row: 24, cols: [7, 8, cols - 9, cols - 8], "S")
+            g.set(row: 25, cols: [7, 8, cols - 9, cols - 8], "S")
+        }
+    }
+
     // MARK: Animation frames (36-frame loop, matching PixelKit playback)
 
     private static func applyAnimation(_ g: inout PixelGrid, pose: AvatarPose,
@@ -244,23 +292,35 @@ enum AvatarSpriteV3 {
             g.set(row: 20, cols: [31, 32, 33, 34, 35], "m")
         }
 
-        switch status {
-        case .onBreak:
-            if tick % 4 >= 2 {
-                for y in 24...27 { g.set(row: y, cols: [6, 7, 8, 9], "K") }   // mug raised
-                g.set(row: 22, cols: [7], "W"); g.set(row: 21, cols: [8], "W") // steam
-            } else {
-                for y in 43...46 { g.set(row: y, cols: [6, 7, 8, 9], "K") }
-            }
-        case .distracted:
-            for y in 44...48 { g.set(row: y, cols: [6, 7, 8, 9], "G") }       // phone
-            g.set(row: 45, cols: [7, 8], "g")
-            if tick % 4 < 2 { g.set(row: 46, cols: [7, 8], "g") }
-        case .finished:
+        switch pose {
+        case .sitTypingFront:
+            // Typing: forward hands rise and fall on alternating beats.
             if tick % 2 == 0 {
-                g.set(row: 12, cols: [4], "W"); g.set(row: 8, cols: [43], "W")
+                g.set(row: 44, cols: [17, 18, 19, 28, 29, 30], "O")
+                g.set(row: 42, cols: [17, 18, 19, 28, 29, 30], "S")
             }
-        default:
+
+        case .coffee:
+            // Sip: mug lifts toward the face on the second half of the cycle.
+            if tick % 4 >= 2 {
+                for y in 36...39 { g.set(row: y, cols: [5, 6, 7, 8], ".") }
+                g.set(row: 40, cols: [6, 7, 8], ".")
+                for y in 28...31 { g.set(row: y, cols: [5, 6, 7, 8], "K") }
+                g.set(row: 26, cols: [6], "W"); g.set(row: 25, cols: [7], "W")   // steam
+            }
+
+        case .phone:
+            // Screen glow flicker.
+            if tick % 4 < 2 { g.set(row: 42, cols: [6, 7], "G") }
+
+        case .celebrate:
+            // Twinkles by the raised hands.
+            if tick % 2 == 0 {
+                g.set(row: 22, cols: [5], "W"); g.set(row: 21, cols: [cols - 6], "W")
+            }
+
+        case .stand:
+            // Standing focus reads as attentive stillness; break status still sips via pose.
             break
         }
     }
