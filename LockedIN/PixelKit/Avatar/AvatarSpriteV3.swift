@@ -95,8 +95,11 @@ enum AvatarSpriteV3 {
                      frame: Int = 0) -> PixelGrid {
         var g = mirroredBase()
         applyHair(&g, appearance.hairStyle)
+        applyFaceStyle(&g, appearance.faceStyle)
         applyFace(&g, status: status)
-        applyOutfit(&g, appearance.outfitStyle)
+        applyTop(&g, appearance.topStyle)
+        applyBottoms(&g, appearance.bottomStyle)
+        applyShoes(&g, appearance.shoeStyle)
         applyAccessory(&g, appearance.accessory)
         applyPose(&g, pose)
         applyAnimation(&g, pose: pose, status: status, frame: frame)
@@ -198,25 +201,100 @@ enum AvatarSpriteV3 {
         }
     }
 
-    // MARK: Outfit motifs (v2 axes for now; v3 wardrobe split lands with the customizer)
+    // MARK: Face styles (permanent features, applied before status expressions)
 
-    private static func applyOutfit(_ g: inout PixelGrid, _ outfit: OutfitStyle) {
-        switch outfit {
-        case .casual:
+    private static func applyFaceStyle(_ g: inout PixelGrid, _ face: FaceStyle) {
+        switch face {
+        case .neutral:
+            break
+        case .smile:
+            g.set(row: 23, cols: [20, 27], "m")   // upturned corners
+        case .freckles:
+            g.set(row: 22, cols: [14, 16, 31, 33], "b")
+            g.set(row: 23, cols: [15, 32], "b")
+        case .lashes:
+            g.set(row: 16, cols: [12, 16, 31, 35], "e")   // lash flicks above the eyes
+        case .stern:
+            g.set(row: 16, cols: [12, 13, 14, 15, 33, 34, 35, 36], "b")
+        }
+    }
+
+    // MARK: Tops (torso rows 32–48; accent-tinted)
+
+    private static func applyTop(_ g: inout PixelGrid, _ top: TopStyle) {
+        switch top {
+        case .tee:
+            // Short sleeves: forearms bare from row 40 down.
+            for y in 40...45 {
+                g.set(row: y, cols: [11, 12, 13, 34, 35, 36], y <= 43 ? "S" : "S")
+            }
+            for y in 40...45 { g.set(row: y, cols: [14, 33], "S") }
             g.set(row: 33, cols: [23, 24], "c")
-        case .academic:
-            g.set(row: 32, cols: [18, 19, 28, 29], "c")
-            g.set(row: 33, cols: [21, 22, 25, 26], "c")
-            for y in 34...36 { g.set(row: y, cols: [23, 24], "t") }
+
         case .hoodie:
             // Hood rim + drawstrings + front pocket.
             g.set(row: 31, cols: [16, 17, 18, 29, 30, 31], "c")
             g.set(row: 32, cols: [15, 16, 31, 32], "c")
             for y in 33...36 { g.set(row: y, cols: [21, 26], "W") }
             for y in 44...47 { g.set(row: y, cols: Array(18...29), "c") }
-        case .smart:
+
+        case .jumper:
+            // Wide ribbed collar + cuff trim.
+            g.set(row: 32, cols: [18, 19, 20, 27, 28, 29], "c")
+            g.set(row: 33, cols: [21, 22, 25, 26], "c")
+            g.set(row: 43, cols: [11, 12, 13, 34, 35, 36], "c")
+
+        case .jacket:
+            // Open front panel over a lighter inner layer.
+            for y in 33...46 { g.set(row: y, cols: [21, 22, 25, 26], "c") }
+            for y in 33...46 { g.set(row: y, cols: [23, 24], "W") }
+
+        case .shirt:
+            // Collar points + button placket.
             g.set(row: 32, cols: [20, 21, 26, 27], "c")
             for y in 33...38 { g.set(row: y, cols: [23, 24], "t") }
+        }
+    }
+
+    // MARK: Bottoms (rows 49–56) + shoes (rows 57–61)
+
+    private static func applyBottoms(_ g: inout PixelGrid, _ bottoms: BottomStyle) {
+        switch bottoms {
+        case .jeans, .chinos:
+            break   // base silhouette, palette recolours
+        case .joggers:
+            g.set(row: 55, cols: [15, 16, 17, 18, 19, 20, 27, 28, 29, 30, 31, 32], "c")   // cuffs
+        case .shorts:
+            // Bare shins from row 53 down.
+            for y in 53...56 {
+                for x in 0..<cols where g[x, y] == "L" { g[x, y] = "S" }
+            }
+        case .skirt:
+            // Flared block over bare legs.
+            for y in 49...52 {
+                for x in 14...33 where g[x, y] == "L" || g[x, y] == "." { g[x, y] = "L" }
+            }
+            g.set(row: 52, cols: Array(13...34), "L")
+            for y in 53...56 {
+                for x in 0..<cols where g[x, y] == "L" { g[x, y] = "S" }
+            }
+        }
+    }
+
+    private static func applyShoes(_ g: inout PixelGrid, _ shoes: ShoeStyle) {
+        switch shoes {
+        case .sneakers:
+            break   // base: white upper + dark sole
+        case .boots:
+            // Taller shaft eating the lower shin.
+            for y in 55...56 {
+                for x in 0..<cols where (g[x, y] == "L" || g[x, y] == "S") { g[x, y] = "w" }
+            }
+        case .slipOns:
+            // Lower profile: top shoe row becomes leg/skin.
+            for x in 0..<cols where g[x, 57] == "w" {
+                g[x, 57] = g[x, 56] == "S" ? "S" : "L"
+            }
         }
     }
 
@@ -373,8 +451,8 @@ extension PixelPalette {
             "o": PixelRGBA(a.accentColour.colour.darkened(0.22)),        // sleeve seam
             "c": PixelRGBA(a.accentColour.colour.lightened(0.28)),
             "t": PixelRGBA(Theme.Colour.buttonFill),
-            "L": PixelRGBA(Color(red: 0.28, green: 0.32, blue: 0.44)),   // denim
-            "w": PixelRGBA(Color(white: 0.94)),                          // sneaker upper
+            "L": PixelRGBA(a.bottomStyle.colour),                        // bottoms (per style)
+            "w": PixelRGBA(a.shoeStyle.upperColour),                     // shoe upper (per style)
             "f": PixelRGBA(Color(red: 0.22, green: 0.19, blue: 0.17)),   // sole
             "F": PixelRGBA(Color(red: 0.15, green: 0.12, blue: 0.11)),
             "G": PixelRGBA(Theme.Colour.buttonFill),

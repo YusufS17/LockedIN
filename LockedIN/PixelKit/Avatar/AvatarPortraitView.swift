@@ -43,7 +43,7 @@ struct AvatarPortraitView: View {
     }
 
     private static func cacheKey(appearance a: CharacterAppearance) -> String {
-        "av3p|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.accentColour).\(a.accessory)"
+        "av3p|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.accentColour).\(a.accessory)"
     }
 }
 
