@@ -19,27 +19,28 @@ struct PixelAvatarView: View {
     /// Frame animation (blink/typing/…). Static when false or under Reduce Motion.
     var animated: Bool = true
 
+    /// Room scenes pass an explicit pose; nil derives one from the status.
+    var pose: AvatarPose? = nil
+
     private static let frameCount = 36   // LCM of all animation periods (18, 2, 4)
 
     var body: some View {
         ZStack(alignment: .bottom) {
             // Soft floor shadow under the feet (grounds the character).
-            // Geometry matches the v2 canvas: 14 cells wide, 2.4 tall, slightly below the feet.
             Ellipse()
                 .fill(.black.opacity(0.16))
-                .frame(width: size * 14 / 32, height: size * 2.4 / 32)
-                .offset(y: size * 0.8 / 32)
+                .frame(width: size * 20 / 48, height: size * 3.5 / 64)
+                .offset(y: size * 0.5 / 64)
 
             PixelSpriteView(
-                cacheKey: Self.cacheKey(appearance: appearance, status: status),
+                cacheKey: Self.cacheKey(appearance: appearance, status: status, pose: resolvedPose),
                 frameCount: Self.frameCount,
                 build: { frame in
-                    // +1 phase offset: frame 0 (the static frame) must not land on the
-                    // blink beat (tick % 18 == 0) — v2 showed closed eyes when static.
                     PixelRenderer.bake(
-                        grid: PixelGrid(PixelSprite.grid(appearance: appearance, status: status, tick: frame + 1)),
-                        palette: .avatar(appearance),
-                        rules: .avatar,
+                        grid: AvatarSpriteV3.grid(appearance: appearance, pose: resolvedPose,
+                                                  status: status, frame: frame),
+                        palette: .avatarV3(appearance),
+                        rules: .avatarV3,
                         outline: PixelRGBA(r: 31, g: 23, b: 20)   // Color(red:0.12, green:0.09, blue:0.08)
                     )
                 },
@@ -51,9 +52,13 @@ struct PixelAvatarView: View {
         .accessibilityLabel("Avatar: \(appearance.description), status: \(status.label)")
     }
 
-    private static func cacheKey(appearance a: CharacterAppearance, status: AvatarStatus) -> String {
+    private var resolvedPose: AvatarPose {
+        pose ?? .stand
+    }
+
+    private static func cacheKey(appearance a: CharacterAppearance, status: AvatarStatus, pose: AvatarPose) -> String {
         // Style axes shape the grid; colour axes shape the palette. Both must key the bake.
-        "av2|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.outfitStyle).\(a.accentColour).\(a.accessory)|\(status)"
+        "av3|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.outfitStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
     }
 }
 
