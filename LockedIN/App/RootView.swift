@@ -4,15 +4,11 @@ import SwiftUI
 //
 // First-launch routing gate.
 // Reads @AppStorage(PersistenceKeys.onboarding) to decide which experience to show:
-//   - false (first launch / onboarding not completed) → OnboardingView
+//   - false (first launch / onboarding not completed) → OnboardingHostView
 //   - true  (returning user)                          → HomeView
 //
 // @AppStorage lives HERE (in the View), NOT on AppStore.
 // @Observable classes cannot hold @AppStorage property wrappers (RESEARCH.md Pitfall 8).
-//
-// Walking-skeleton sections (headerSection / walletSection / stakeSection / forfeitSection)
-// from Phase 1 are removed — they were proof-of-concept scaffolding. Phase 2 replaces
-// the entire root with the animated onboarding + home experience.
 //
 // LockedINApp.swift mounts RootView() under .environment(appStore) — leave unchanged.
 
@@ -29,7 +25,6 @@ struct RootView: View {
 
     var body: some View {
         // First-launch gate: real onboarding beats until completed, then Home.
-        // The whole experience is real SwiftUI on the engine — no PNG demo deck.
         if hasCompletedOnboarding {
             HomeView()
         } else {

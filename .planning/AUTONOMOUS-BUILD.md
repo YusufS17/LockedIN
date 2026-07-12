@@ -25,10 +25,22 @@ lock-in", expanded customizer screenshots (user-shared; home/lock-in not in repo
 (26.3); xcode-select now points there, license accepted. iOS 26.2 sim platform was downloading
 (`xcodebuild -downloadPlatform iOS`) — old iOS 18.6 runtime is INELIGIBLE for Xcode 26.3.
 
-**IN FLIGHT when last paused:** waiting on platform download → then: stash P1 changes → build →
-baseline screenshots (old renderer) → commit P0 → unstash → build → parity screenshots (new
-renderer) → commit P1. Uncommitted: staged deletions (P0) + `LockedIN/PixelKit/*` +
-PixelAvatarView/SpriteAvatarView rewires (P1).
+**PROGRESS (2026-07-12):** ✅ P0 (`a111f6e`) ✅ P1 (`7ceaf74`) ✅ P2 (`e7c3cde`+`9d34b66`+`bea1a71`
++`e0ec721` pose-from-status/cache-key fix) ✅ **P3 onboarding rebuild** — 6-beat flow live:
+WelcomeSplash → ValueProps → gallery (2×4 pixel cards) → customizer (icon rail: skin/hair/
+hairColour/face/top/bottoms/shoes/accent/accessory + dice randomise, coin gating kept) →
+AvatarReveal ("You're all set!", pedestal+burst, name field — identity persists HERE now) →
+FirstRoom. `PixelKit/UI/`: PixelPanelShape (stepped corners), PixelButtonStyle (gold/charcoal,
+hard drop shadow, pressed-shifts-down), PixelDecor (PixelCloud/PixelSparkle/OnboardingBackdrop/
+PageDots/StepBadge/PixelSpeechBubble), PixelIcon (25 authored 12×12 glyphs incl. customizer rail).
+ConceptBeatView DELETED. Customizer signature: `initial/initialName/onBack/onSave` — name field
+removed (name set at reveal; WorldView caller unaffected, name passes through).
+NEXT = **P4 room art v3** (RoomSpriteShell ~192×160, RoomFurniture, RoomComposer bake +
+pixel-space seat anchors + project(), LiveSessionView group-room chrome, speech-bubble statuses).
+
+Progress artifact for the user: https://claude.ai/code/artifact/d0ee3838-4ed6-48af-b361-7651eac6ef2e
+(update per phase). Sim destination is **iPhone 17 Pro** (iOS 26.x) — first boot of a fresh
+runtime is SLOW (simctl install can hang minutes; poll listapps instead of blocking).
 
 **How to QA a single screen headlessly:** add a temporary `#if DEBUG` branch in `RootView.body` that reads `ProcessInfo.processInfo.arguments.contains("-smoke")` and returns the view, then `xcrun simctl launch booted com.lockedin.app -smoke` + screenshot. REMOVE before commit. (Mid-launch screenshots can be blank white — wait ~3-4s and retake.) See memory `simulator-smoke-test`.
 

@@ -119,35 +119,11 @@ struct FirstRoomBeatView: View {
 
     private var bottomSection: some View {
         VStack(spacing: Theme.Spacing.md) {
-            progressDots(active: 3)
+            PageDots(count: 6, active: 5)
 
-            // EXPLORE ROOM pill — dark charcoal (matches mockup 04)
-            Button(action: onExplore) {
-                Text("EXPLORE ROOM")
-                    .font(Theme.TypeScale.headline)
-                    .foregroundStyle(Theme.Colour.buttonText)
-                    .frame(maxWidth: .infinity)
-                    .padding(Theme.Spacing.md)
-                    .background(Theme.Colour.buttonFill)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
-            }
-        }
-    }
-
-    // MARK: - Progress Dots
-
-    private func progressDots(active: Int) -> some View {
-        HStack(spacing: Theme.Spacing.sm) {
-            ForEach(0..<4, id: \.self) { i in
-                Circle()
-                    .fill(i == active
-                          ? Theme.Colour.accent
-                          : Theme.Colour.textSecondary.opacity(0.4))
-                    .frame(
-                        width:  i == active ? 8 : 4,
-                        height: i == active ? 8 : 4
-                    )
-            }
+            // EXPLORE ROOM — dark charcoal pixel CTA (matches mockup 04)
+            Button("EXPLORE ROOM", action: onExplore)
+                .buttonStyle(PixelButtonStyle(kind: .charcoal))
         }
     }
 }

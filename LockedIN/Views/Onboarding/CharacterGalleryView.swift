@@ -13,13 +13,10 @@ struct CharacterGalleryView: View {
     var onContinue: () -> Void
 
     @State private var selectedID = CharacterCatalog.first.id
-    @State private var name = ""
-    @State private var showCustomizer = false
 
     private let columns = [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)]
 
     private var selected: StudyCharacter { CharacterCatalog.character(id: selectedID) }
-    private var trimmedName: String { name.trimmingCharacters(in: .whitespaces) }
 
     var body: some View {
         ZStack {
@@ -42,7 +39,6 @@ struct CharacterGalleryView: View {
         }
         .onAppear {
             selectedID = appStore.selectedCharacterID
-            if !appStore.displayName.isEmpty { name = appStore.displayName }
         }
     }
 
@@ -50,10 +46,11 @@ struct CharacterGalleryView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-            Text("Choose your study avatar")
+            Text("Choose your\nstudy avatar")
                 .font(Theme.TypeScale.title)
                 .foregroundStyle(Theme.Colour.textPrimary)
-            Text("Pick the one that's you. You can rename it below.")
+                .fixedSize(horizontal: false, vertical: true)
+            Text("Pick a starting look — you'll fully customise it next.")
                 .font(Theme.TypeScale.body)
                 .foregroundStyle(Theme.Colour.textSecondary)
         }
@@ -77,71 +74,33 @@ struct CharacterGalleryView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(Theme.Spacing.md)
-            .background(Theme.Colour.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
+            .background(PixelPanelShape(unit: 4).fill(Theme.Colour.surface))
             .overlay(
-                RoundedRectangle(cornerRadius: Theme.Radius.lg)
-                    .strokeBorder(isSelected ? Theme.Colour.accent : Theme.Colour.cardBorder,
-                                  lineWidth: isSelected ? 3 : 1)
+                PixelPanelShape(unit: 4)
+                    .stroke(isSelected ? Theme.Colour.accent : Theme.Colour.cardBorder,
+                            lineWidth: isSelected ? 3 : 1.5)
             )
+            .scaleEffect(isSelected ? 1.03 : 1)
         }
         .buttonStyle(.plain)
     }
 
-    // MARK: - Footer (name + continue)
+    // MARK: - Footer
 
     private var footer: some View {
         VStack(spacing: Theme.Spacing.md) {
-            HStack(spacing: Theme.Spacing.sm) {
-                Text("Name").font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textSecondary)
-                TextField("Enter a name…", text: $name)
-                    .font(Theme.TypeScale.headline)
-                    .foregroundStyle(Theme.Colour.textPrimary)
-                    .textFieldStyle(.plain)
-                    .onChange(of: name) { _, new in
-                        if new.count > 24 { name = String(new.prefix(24)) }
-                    }
-            }
-            .padding(Theme.Spacing.md)
-            .background(Theme.Colour.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
-            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
-
-            Button(action: confirm) {
-                Text("Continue")
-                    .font(Theme.TypeScale.headline)
-                    .foregroundStyle(Theme.Colour.buttonText)
-                    .frame(maxWidth: .infinity)
-                    .padding(Theme.Spacing.md)
-                    .background(Theme.Colour.buttonFill)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.pill))
-            }
-
-            Button { showCustomizer = true } label: {
-                Label("Customise this character", systemImage: "wand.and.stars")
-                    .font(Theme.TypeScale.captionBold)
-                    .foregroundStyle(Theme.Colour.textSecondary)
-            }
+            PageDots(count: 6, active: 2)
+            Button("NEXT") { confirm() }
+                .buttonStyle(PixelButtonStyle(kind: .gold))
         }
         .padding(.horizontal, Theme.Spacing.lg)
         .padding(.bottom, Theme.Spacing.xl)
-        .fullScreenCover(isPresented: $showCustomizer) {
-            CharacterCustomizerView(initial: selected.fallback, initialName: trimmedName) { appearance, newName in
-                appStore.userCharacter = appearance
-                appStore.displayName = newName
-                appStore.selectedCharacterID = selectedID
-                CharacterPersistence.save(appearance: appearance, displayName: newName)
-                onContinue()
-            }
-            .environment(appStore)
-        }
     }
 
+    /// Commit the base pick; naming + persistence happen at the reveal beat.
     private func confirm() {
         appStore.selectedCharacterID = selectedID
-        appStore.displayName = trimmedName.isEmpty ? "You" : trimmedName
         appStore.userCharacter = selected.fallback
-        CharacterPersistence.save(appearance: selected.fallback, displayName: appStore.displayName)
         onContinue()
     }
 }
