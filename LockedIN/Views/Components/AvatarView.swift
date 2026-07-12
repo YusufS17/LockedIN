@@ -21,11 +21,13 @@ struct AvatarView: View {
     let appearance: CharacterAppearance
     let status: AvatarStatus
     var size: CGFloat = 80
+    /// Room scenes pass an explicit pose; nil derives one from the status.
+    var pose: AvatarPose? = nil
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             // Code-drawn pixel-art sprite (skin/hair/outfit/status from appearance).
-            PixelAvatarView(appearance: appearance, status: status, size: size)
+            PixelAvatarView(appearance: appearance, status: status, size: size, pose: pose)
             // Status badge — non-idle only; parent label carries the status for VoiceOver
             if status != .idle {
                 AvatarStatusOverlay(status: status, size: size)

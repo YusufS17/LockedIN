@@ -53,12 +53,12 @@ struct PixelAvatarView: View {
     }
 
     private var resolvedPose: AvatarPose {
-        pose ?? .stand
+        pose ?? AvatarSpriteV3.defaultPose(for: status)
     }
 
     private static func cacheKey(appearance a: CharacterAppearance, status: AvatarStatus, pose: AvatarPose) -> String {
         // Style axes shape the grid; colour axes shape the palette. Both must key the bake.
-        "av3|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.outfitStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
+        "av3|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.topStyle).\(a.bottomStyle).\(a.shoeStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
     }
 }
 
