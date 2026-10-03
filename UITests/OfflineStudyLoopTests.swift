@@ -38,10 +38,13 @@ final class OfflineStudyLoopTests: XCTestCase {
             // Bring the full participant control above that inset before tapping.
             let coveredByBreak = identifier == "study.participants" &&
                 button.frame.maxY > app.buttons["study.break"].frame.minY - 12
-            let coveredByStart = identifier == "study.club" &&
+            let isHomeRoute = ["study.club", "Edit avatar", "Decorate"].contains(identifier)
+            let coveredByStart = isHomeRoute && app.buttons["study.start"].exists &&
                 button.frame.maxY > app.buttons["study.start"].frame.minY - 12
             if button.isHittable && !coveredByBreak && !coveredByStart { break }
-            app.swipeUp()
+            // Swipe within the scroll view's visible bounds. A full-screen
+            // gesture can begin on the pinned dock at accessibility sizes.
+            app.scrollViews.firstMatch.swipeUp()
         }
         XCTAssertTrue(button.isHittable)
         button.tap()

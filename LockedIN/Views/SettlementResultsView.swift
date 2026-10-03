@@ -158,7 +158,7 @@ struct SettlementResultsView: View {
                     statTile("hand.raised", "\(user?.distractions ?? 0)", "Reported", Theme.Colour.textSecondary)
                 }
                 Text("\(user?.focusPct ?? 0)% of planned timer time · \(user?.recordedBreakSeconds ?? 0)s on break")
-                    .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                    .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                 if let goalAnswer {
                     HStack(alignment: .top, spacing: 9) {
                         Image(systemName: "lock").font(.caption)
@@ -187,11 +187,11 @@ struct SettlementResultsView: View {
                 .font(.system(size: 16, weight: .bold))
                 .foregroundStyle(tint)
             Text(value)
-                .font(Theme.TypeScale.title2)
+                .font(.system(.title2, design: .rounded, weight: .semibold))
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .monospacedDigit()
             Text(label)
-                .font(Theme.TypeScale.caption)
+                .font(.caption)
                 .foregroundStyle(Theme.Colour.textSecondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
