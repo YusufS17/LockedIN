@@ -4,11 +4,12 @@ Last updated: 2026-10-03
 
 ## Current work — recovery and polish, 2026-10-03
 
-- Recovered all saved source/assets/evidence; preserved pre-existing edits in local commit `e2af5a1`. No remote push.
-- Three agents completed room atmosphere, truthful onboarding and adaptive Home/setup/shared controls. No agents remain running. Implementation saved in local commit `175271e`.
-- Root: new onboarding/large-text UI checks added; current Xcode build is running before runtime inspection.
-- Existing iPhone 17 simulator booted without data erasure. Clock/reward/persistence/session/seating and private-state fixture checks all passed. Source-art exports inspected; new screens await build/runtime verification.
-- Next: integrate agent changes, inspect actual renders and save final evidence/commits.
+- All previous work survived; preserved in local recovery commit `e2af5a1`. Three agents finished room atmosphere, truthful onboarding and adaptive Home/setup/shared controls, saved in `175271e`. Save/handoff guidance committed in `554ba3b`. No remote push.
+- Root added onboarding/largest-text UI cases and inspected actual welcome, club/setup/focus/break/results and largest-text Home/setup renders. Fixed a decorative ordinal ellipsis and compressed play icon found in those screenshots.
+- Model/clock/reward/persistence/seating/private-state fixture checks passed; production/UI target build passed. Final small correction build passed; whitespace check passed.
+- Demo-club case passed140.859s. Largest-text Home/setup reached focus but cleanup stalled; remaining onboarding/solo cases did not execute. Onboarding-only retry failed because Xcode lost the simulator destination. No full new-onboarding acceptance pass is claimed.
+- No agents, builds, UI tests or exports remain running. Normal app saves preserved. [Changes, screenshots, logs and limits](docs/verification/RECOVERY_POLISH.md).
+- Next: restore simulator availability, run the three new onboarding/large-text cases separately and inspect their renders; continue avatar/reference polish. Real friend networking remains unfinished.
 
 ## Product direction
 

@@ -199,7 +199,7 @@ struct StudySetupView: View {
 
     private func planHeading(_ number: String, _ title: String, _ detail: String) -> some View {
         HStack(spacing: 10) {
-            Text(number).font(.system(.caption2, design: .monospaced, weight: .bold))
+            Text(number).font(.system(size: 11, weight: .bold, design: .monospaced))
                 .frame(width: 30, height: 30)
                 .background(Theme.Colour.surfaceMid, in: RoundedRectangle(cornerRadius: 9))
                 .accessibilityHidden(true)

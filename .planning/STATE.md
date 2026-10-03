@@ -1,7 +1,7 @@
 ---
-status: recovery_polish_runtime_verification
+status: recovery_polish_saved_partial_runtime_verification
 last_updated: "2026-10-03"
-stopped_at: "Recovered baseline committed; three polish agents completed; build and model checks passed; root running five UI checks"
+stopped_at: "Recovery and team polish committed; model/build checks pass; new onboarding acceptance blocked by simulator destination loss"
 ---
 
 # Current handoff
@@ -32,13 +32,15 @@ Continue building the native iPhone app, preserve existing work and make progres
 
 ## Exact next action
 
-The restart recovery found all accumulated work intact but uncommitted. Saved it as `e2af5a1`, then used three agents for room atmosphere, onboarding and Home/setup accessibility. Their integrated implementation and new onboarding/large-text UI checks are saved in `175271e`. No remote push. Updated AGENTS/workflow guidance requires meaningful local checkpoint commits.
+Recovery found all accumulated work intact but uncommitted. Saved it as `e2af5a1`; three agents completed room atmosphere, truthful onboarding and Home/setup accessibility, saved in `175271e`. Save/workflow checkpoint guidance is in `554ba3b`. No remote push.
 
-All agents are finished. Production app and UI target built successfully in `/tmp/LockedIN-recovery-build.log`. Clock/reward/world/session/seating and private-friends prototype fixtures passed. Offscreen production art exported and inspected. Existing iPhone 17 booted without data erasure.
+[Final recovery evidence](../docs/verification/RECOVERY_POLISH.md) records exact changes, tests, screenshots and limitations. Production app/UI target built; all model/clock/reward/persistence/seating/private-state fixtures passed. Root inspected actual welcome, club and largest-text Home/setup renders and corrected decorative ordinal/play-icon compression afterwards. Final small-fix build passed (`/tmp/LockedIN-recovery-final-build.log`); `git diff --check` passed. No builds remain running.
 
-Root is currently running five selected simulator tests through `Tests/run-ui-checks.py`: demo club, largest-text Home/setup, normal onboarding + saved identity, largest-text onboarding, solo study/reward/purchase. Result bundle `LockedIN-ui-checks-801kxd9w/OfflineLoop.xcresult` in the normal temp directory. Demo-club case passed140.859s; other cases pending. New screen fidelity is not yet claimed. Next: inspect exported attachments, fix actual failures, then save final evidence/handoff and commit.
+All agents and UI/export jobs stopped. Demo-club test passed140.859s; largest-text Home/setup reached focus but stalled during cleanup. Root stopped only its own test group/runner; Xcode cancellation left an unfinished xcresult. Seven raw screenshot payloads recovered and inspected, saved with logs under `docs/verification/recovery-polish/`. Onboarding retry exited70 because Xcode could no longer find the existing simulator destination. No simulator/user app data erased; another project's build was left untouched.
 
-Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent rewards. Real friend networking and native app blocking remain unimplemented. Do not treat private-state fixture tests as multiplayer.
+Next: recover simulator destination availability, build-for-testing, then run new onboarding/saved-identity, largest-text onboarding and largest-text Home/setup cases separately. Inspect final renders; rerun affected solo/editor journey. Do not describe the new onboarding as fully runtime verified. Continue richer avatar/reference fidelity; networking remains unimplemented.
+
+Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent rewards. Private-state fixtures are not multiplayer evidence.
 
 ## Current environment
 
@@ -48,7 +50,7 @@ Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent re
 - October 3 baseline, room/chair and final lighting builds passed. All three regression suites passed. Offscreen room/focus/break/chair exports inspected.
 - Historical iOS 18.6 startup failure is superseded for verification by working iPhone 17 / iOS 26.3; solo/early-exit/editor UI cases passed. Do not erase the older device.
 - Elevated CoreSimulator/Xcode and Observation compiler access was approved; no automatic approval rejection occurred. No app data reset.
-- Temporary build/log paths may disappear. Recheck the runtime rather than assuming the September simulator is still open and working.
+- October3 recovery boot initially succeeded but Xcode later lost the simulator destination. Recheck availability; do not assume the app is currently open. Temporary logs may disappear; durable recovery evidence is linked above.
 
 ## Verification commands
 

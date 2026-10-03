@@ -55,3 +55,8 @@ bash Tests/run-study-area-checks.sh
 ```
 
 Compiles the actual pure mapping helper; checks balanced size1–8 areas, one occurrence per roster index and global break membership. Pixel occlusion/readability still require iPhone inspection. UI checks now include 2- and 8-person clubs, area selection, shared study text and restoration. Repeat `--only-testing` to run multiple specific cases.
+
+
+## Onboarding and larger text
+
+`OfflineStudyLoopTests` also includes `testOnboardingArrivalAndSavedIdentity`, `testOnboardingAtLargestAccessibilitySize` and `testHomeAndSetupAtLargestAccessibilitySize`. These use the same disposable suites; the latter two request the largest accessibility content-size category through a launch argument. Assertions establish journey reachability; inspect screenshots for actual wrapping/scrolling quality. October3 recovery runs encountered simulator cleanup/destination failures; see [recorded limits](../docs/verification/RECOVERY_POLISH.md). They are not yet all passing acceptance evidence.

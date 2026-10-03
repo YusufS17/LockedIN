@@ -87,3 +87,8 @@ Privacy-safe session history and sharing follow reliable outcome data. Real paym
 ## Maintenance
 
 Update gates after verified milestones. Link evidence or reproducible commands in the handoff. Keep implementation, automated checks and runtime verification distinct; preserve historical planning under `archive/`.
+
+
+## October3 restart checkpoint
+
+Recovered and committed the accumulated app work; a three-agent polish pass improved onboarding, room atmosphere and Home/setup Dynamic Type. Build/model checks pass; actual welcome/club/large-text renders inspected. Full new onboarding acceptance remains open because simulator cleanup stalled and Xcode then lost the destination. [Exact evidence and next checks](../docs/verification/RECOVERY_POLISH.md). This does not close final reference fidelity or multiplayer gates.

@@ -1,0 +1,19 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=5DA4238F-6617-4E78-BBD0-80936A3A4B1E" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-vtx6j5i6/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/OfflineStudyLoopTests/testOnboardingArrivalAndSavedIdentity" "-only-testing:LockedINUITests/OfflineStudyLoopTests/testOnboardingAtLargestAccessibilitySize"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-vtx6j5i6/OfflineLoop.xcresult
+
+xcodebuild: error: Unable to find a device matching the provided destination specifier:
+		{ platform:iOS Simulator, id:5DA4238F-6617-4E78-BBD0-80936A3A4B1E }
+
+	The requested device could not be found because no available devices matched the request.
+
+	Available destinations for the "LockedIN" scheme:
+		{ platform:iOS, arch:arm64, id:00008130-001128CA2208001C, name:YS }
+		{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+		{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }

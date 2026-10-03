@@ -42,7 +42,7 @@ struct HomeView: View {
             VStack(spacing: 8) {
                 Button { destination = .solo } label: {
                     HStack {
-                        Image(systemName: "play.fill").font(.system(size: 12))
+                        Image(systemName: "play.fill").font(.system(size: 12)).fixedSize().accessibilityHidden(true)
                         Text(studyActionTitle)
                         Spacer()
                         Image(systemName: "arrow.right")
