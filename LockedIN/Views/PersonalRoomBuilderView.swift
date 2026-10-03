@@ -11,7 +11,7 @@ struct PersonalRoomBuilderView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            StudioHeader(title: "Your room studio", subtitle: "Small upgrades. A place that's yours.", close: { dismiss() })
+            StudioHeader(title: "Your room studio", subtitle: "Small upgrades. A place that's yours.", compactAtAccessibility: true, close: { dismiss() })
             if !dynamicTypeSize.isAccessibilitySize {
                 roomPreview.padding(.horizontal, 24).padding(.bottom, 16)
             }

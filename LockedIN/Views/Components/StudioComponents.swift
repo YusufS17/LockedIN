@@ -30,6 +30,8 @@ struct StudioHeader: View {
     let title: String
     var subtitle: String? = nil
     var closeIdentifier: String = "studio.back"
+    var compactAtAccessibility = false
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     var close: () -> Void
 
     var body: some View {
@@ -46,8 +48,11 @@ struct StudioHeader: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(title).font(.system(.headline, design: .rounded, weight: .bold))
                     .accessibilityAddTraits(.isHeader)
-                if let subtitle {
+                    .accessibilityHint(subtitle ?? "")
+                    .fixedSize(horizontal: false, vertical: true)
+                if let subtitle, !compactAtAccessibility || !dynamicTypeSize.isAccessibilitySize {
                     Text(subtitle).font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             Spacer()

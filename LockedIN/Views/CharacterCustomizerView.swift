@@ -81,7 +81,7 @@ struct CharacterCustomizerView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            StudioHeader(title: "Your wardrobe", subtitle: "A character that feels like you", closeIdentifier: "avatar.close", close: requestClose)
+            StudioHeader(title: "Your wardrobe", subtitle: "A character that feels like you", closeIdentifier: "avatar.close", compactAtAccessibility: true, close: requestClose)
             if !dynamicTypeSize.isAccessibilitySize {
                 preview.padding(.horizontal, 24).padding(.bottom, 14)
             }
