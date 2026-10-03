@@ -2,16 +2,13 @@
 
 Last updated: 2026-10-03
 
-## Current work — 2026-10-03
+## Current work — recovery and polish, 2026-10-03
 
-Completed a substantial character and main-interface redesign with three agents and root integration. [Design decisions](docs/design/INTERFACE_SYSTEM.md) · [Verification/screenshots](docs/verification/VISUAL_REDESIGN.md).
-
-- Characters: new proportions, turned faces, fuller independent garments, distinct curls/afro/bun/long hair, clearer deep-skin features and corrected seated/gesture hands.
-- Main flows: cohesive home/setup/live/check-in/results; compact timer with subject/goal, readable status roster, warm outlined controls and real reward presentation.
-- Editors: persistent outfit/room previews, feature-specific wardrobe crops, real material thumbnails, clear selected/owned/price states and visible purchase feedback. World labels no longer obscured by idle celebration effects.
-- Verified: production model and seating checks; builds; all seven UI journeys have passing evidence across the full run and final affected recheck. Final three-case run passed260.376s, zero failures. Root/agents inspected real phone renders and fixed observed defects. Initial automation failures are documented, not hidden.
-- All agents/build/test/export jobs finished. Updated app is open on Home in the existing simulator; normal saves preserved. No background automation is running. Local changes remain uncommitted.
-- Next visual milestone: richer hair/clothing volume, more natural seated silhouettes and room atmosphere, then onboarding/Dynamic Type consistency. Original reference fidelity remains open; networking follows this user-prioritized visual work.
+- Recovered all saved source/assets/evidence; preserved pre-existing edits in local commit `e2af5a1`. No remote push.
+- Three agents completed room atmosphere, truthful onboarding and adaptive Home/setup/shared controls. No agents remain running. Implementation saved in local commit `175271e`.
+- Root: new onboarding/large-text UI checks added; current Xcode build is running before runtime inspection.
+- Existing iPhone 17 simulator booted without data erasure. Clock/reward/persistence/session/seating and private-state fixture checks all passed. Source-art exports inspected; new screens await build/runtime verification.
+- Next: integrate agent changes, inspect actual renders and save final evidence/commits.
 
 ## Product direction
 
@@ -64,7 +61,7 @@ Build log: `/tmp/LockedIN-visual-redesign-world-build.log` (temporary and may di
 
 Update this file and `.planning/STATE.md` after meaningful milestones or before handing work back. Update roadmap checkboxes only when their acceptance checks are met. Record what changed, checks actually run, blockers and the next concrete action. Distinguish implemented code from runtime-verified behaviour. Preserve existing local edits and do not infer completion from historical plans.
 
-The current work is saved locally but remains uncommitted. These documents are a handoff, not a remote backup.
+Recovered work is preserved in local commit `e2af5a1`. Local commits survive a restart but are not a remote backup.
 
 ## Visual references recovered — 2026-09-27
 

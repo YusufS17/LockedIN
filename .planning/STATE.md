@@ -1,7 +1,7 @@
 ---
-status: visual_redesign_iteration_verified
+status: recovery_polish_runtime_verification
 last_updated: "2026-10-03"
-stopped_at: "Character/main-flow redesign verified; final affected3 UI cases passed; app open Home; no jobs running"
+stopped_at: "Recovered baseline committed; three polish agents completed; build and model checks passed; root running five UI checks"
 ---
 
 # Current handoff
@@ -32,15 +32,13 @@ Continue building the native iPhone app, preserve existing work and make progres
 
 ## Exact next action
 
-The user reprioritized character art and detailed UI/UX over networking. The substantial [visual redesign iteration](VISUAL_REDESIGN.md) is implemented and verified. Three agents completed character, live study, and home/setup/results work; root integrated shared controls, wardrobe/decorating, private check-in, world polish and verification. [Design decisions](../docs/design/INTERFACE_SYSTEM.md) · [Evidence](../docs/verification/VISUAL_REDESIGN.md).
+The restart recovery found all accumulated work intact but uncommitted. Saved it as `e2af5a1`, then used three agents for room atmosphere, onboarding and Home/setup accessibility. Their integrated implementation and new onboarding/large-text UI checks are saved in `175271e`. No remote push. Updated AGENTS/workflow guidance requires meaningful local checkpoint commits.
 
-Final character source retains48×64 canvas and saved wardrobe IDs but replaces body/face geometry, several hairstyles and gesture arms. Desk hands now taper within the existing registration masks and render without a heavy outline. Head/portrait bounds and wardrobe thumbnail crops were updated. Editors keep previews visible while browsing; room floor/wall thumbnails use the actual shell renderer.
+All agents are finished. Production app and UI target built successfully in `/tmp/LockedIN-recovery-build.log`. Clock/reward/world/session/seating and private-friends prototype fixtures passed. Offscreen production art exported and inspected. Existing iPhone 17 booted without data erasure.
 
-Verification: model/area checks passed; production and UI targets built. Seven-case run `LockedIN-ui-checks-66l7wowx` passed6 and stopped8-person at an uppercase subject assertion; corrected test compares subject case-insensitively. Final affected recheck `LockedIN-ui-checks-41dmm8d5` passed editor/eight-person/custom garments with zero failures in260.376s. Saved screenshots: `docs/verification/visual-redesign/reviewed/` (final affected views), `journey-check/` (earlier complete journey views), `before/` (baseline). Root/agent phone review fixed timer glyph shadowing, status contrast, typing-hand blocks and editor preview visibility. Final world-only fix removed inactive stars over building names; production build and actual world render passed.
+Root is currently running five selected simulator tests through `Tests/run-ui-checks.py`: demo club, largest-text Home/setup, normal onboarding + saved identity, largest-text onboarding, solo study/reward/purchase. Result bundle `LockedIN-ui-checks-801kxd9w/OfflineLoop.xcresult` in the normal temp directory. Demo-club case passed140.859s; other cases pending. New screen fidelity is not yet claimed. Next: inspect exported attachments, fix actual failures, then save final evidence/handoff and commit.
 
-Next: richer hair/garment volume, more natural seated silhouettes and room atmosphere, then onboarding/Dynamic Type consistency. Do not claim original mockup fidelity complete or resume networking as the immediate priority without considering this visual direction. Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent rewards.
-
-All agents/build/test/export jobs finished; no background automation. Updated app open on Home using normal saved preferences. Environment: one root-owned Xcode/simulator, iPhone17/iOS26.3 `5DA4238F-6617-4E78-BBD0-80936A3A4B1E`. Final build `/tmp/LockedIN-visual-redesign-world-build.log`; affected-test build `/tmp/LockedIN-visual-redesign-reviewed-build.log`. Temporary logs may disappear. No commits or data erasure.
+Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent rewards. Real friend networking and native app blocking remain unimplemented. Do not treat private-state fixture tests as multiplayer.
 
 ## Current environment
 
@@ -64,7 +62,7 @@ Run the three regression executables using [Tests/README.md](../Tests/README.md)
 
 ## Important implementation constraints
 
-- Existing tracked modifications and untracked source files predate this resumed session. Preserve them; nothing has been committed or pushed by this work.
+- Accumulated pre-existing work was preserved in local recovery commit `e2af5a1`; implementation polish is in `175271e`. Nothing was pushed. Preserve all saves and later edits.
 - Reward receipt identity is the user's participant UUID, created per session roster. Future session restoration must retain it; rebuilding the roster creates a different identity.
 - Receipts and balances are saved in one world payload. ActiveStudySession is persisted separately until results acknowledgment; a replay keeps the participant UUID and reuses the receipt. Tests cover normal save/reload, not power-loss durability or concurrent writers.
 - User results now report recorded timer completion and self-reported breaks/interruptions, not attention/app usage. Companion values remain seeded; never describe them as real friends.

@@ -1,6 +1,6 @@
 # Working on LockedIN with Codex
 
-Updated 2026-09-27.
+Updated 2026-10-03.
 
 ## Project instructions and memory
 
@@ -39,3 +39,10 @@ Use the available image generation skill for raster concepts/assets and the brow
 ## Current autonomy
 
 The user authorises continuing implementation and design, including routine local fixes, appropriate tests and mockup generation. Make normal decisions from their brief and references without repeatedly stopping for confirmation. Preserve pre-existing edits and saved app data. Record meaningful decisions. The first deliverable should be completed and verified as far as the environment permits, not merely proposed.
+
+
+## Crash recovery and save checkpoints
+
+Start with `git status --short`, recent commits, `PROGRESS.md` and `.planning/STATE.md`. Preserve existing edits; do not reset or clean them to obtain a tidy working tree. Review and commit a recovered baseline before starting a new batch. Commit each meaningful implementation milestone, then record final evidence and handoff in a separate commit if verification finishes later. Note pending checks explicitly rather than describing committed code as tested.
+
+The October 3 recovery baseline is `e2af5a1`; it contains the previously uncommitted app, tests, layered source art and existing verification images. The next implementation checkpoint is `175271e`. These are local Git saves; no remote push occurred during recovery. Normal simulator preferences were preserved; UI checks use disposable namespaced saves.

@@ -12,6 +12,7 @@ On a new/resumed task, use `PROGRESS.md` and `.planning/STATE.md` to recover the
 - Maintain a compact current-work section in `PROGRESS.md`; it is a saved checkpoint, not a live token or agent monitor. List sub-agents only if actually running, with their specific responsibilities. Never invent usage metrics or background activity.
 - Continue authorised implementation, local builds, disposable-fixture regression checks, mockup generation and reversible fixes without repeatedly asking whether to proceed. Make routine design decisions from the supplied references and explain material choices.
 - Work through implementation and appropriate verification. If one path is blocked, progress independent authorised work and record the exact blocker. Avoid spending the whole session repeatedly trying the same stalled simulator command.
+- Save and commit meaningful local milestones after reviewing the diff and running appropriate checks; record any checks still pending. On recovery, preserve accumulated pre-existing edits in a clearly labelled checkpoint commit before new implementation. Keep generated assets and their provenance with the project. Local commits are not a remote backup; record whether a push actually occurred.
 - Update progress/handoff notes after milestones and before ending work: files/artifacts changed, actual verification, unresolved issues and the next concrete action. Do not leave claims that a task is running after it has stopped.
 
 ## Quality and scope
