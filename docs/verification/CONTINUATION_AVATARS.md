@@ -14,3 +14,6 @@ Preserved 48×64 size, wardrobe/save IDs, palette keys, silhouette registration,
 Agent verification: `git diff --check` passed. Inspected root's fresh production-source `avatar-pose-family.png`, `avatar-wardrobe-family.png` and `current-art-board.png` exports after the change. The jumper now reads as shaped fabric rather than a horizontal stripe; hoodie pocket and shirt/jacket pockets remain distinguishable across light/dark colours. Sneaker toes, laces and collars read independently from trouser cuffs. Standing and seated rows retain their outlines; long-hair highlights leave the face and glasses readable. No serious source-art defect was found, so no further artwork edit was made. Root owns the shared production build and runtime inspection; their results belong in the continuation handoff. This inspection covers source-art exports only.
 
 Remaining: richer native hair silhouettes across the family, finer face expression and continued room-scale/reference comparison. A standalone source-art sheet does not establish screen accessibility or seated compositing acceptance.
+
+
+Root completed integrated build, focused UI checks and actual render review after this agent report. See [final team evidence and limitations](CONTINUATION_TEAM.md), which supersedes pending root checks above.

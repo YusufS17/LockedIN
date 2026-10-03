@@ -1,0 +1,182 @@
+Application, 0x103f3cdc0, pid: 43233, label: 'LockedIN' <App element pid: 43233>
+  Window (Main), 0x103f40630, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4373757856.4>
+    Other, 0x103f409f0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4377715808.168>
+    Other, 0x103f40b10, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4373819968.5>
+      Other, 0x103f40750, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4373843872.6>
+        Other, 0x103f40870, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4371532448.7>
+          Other, 0x103f40c30, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4371607712.8>
+            ScrollView, 0x103f40d50, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4421577728.9>
+              Other, 0x103f40e70, {{0.0, 62.0}, {402.0, 989.7}} <AX element pid: 43233, elementOrHash.elementID: 4376784816.12>
+                Image, 0x103f40f90, {{26.3, 88.0}, {11.3, 16.3}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 43233, elementOrHash.elementID: 4377358144.16>
+                StaticText, 0x103f410b0, {{47.0, 84.5}, {87.7, 23.0}}, label: 'LockedIN' <AX element pid: 43233, elementOrHash.elementID: 4377358928.17>
+                Button, 0x103f411d0, {{272.3, 74.0}, {53.7, 44.0}}, label: '0 coins. View progress' <AX element pid: 43233, elementOrHash.elementID: 4377362272.18>
+                  Image, 0x103f412f0, {{284.3, 88.7}, {15.0, 15.0}} <AX element pid: 43233, elementOrHash.elementID: 4377359712.34>
+                  StaticText, 0x103f41410, {{304.3, 87.0}, {9.7, 18.0}}, label: '0' <AX element pid: 43233, elementOrHash.elementID: 4377361168.35>
+                Button, 0x103f41530, {{334.0, 74.0}, {44.0, 44.0}}, label: 'More options' <AX element pid: 43233, elementOrHash.elementID: 4377367312.19>
+                  Button, 0x103f41650, {{334.0, 74.0}, {44.0, 44.0}} <AX element pid: 43233, elementOrHash.elementID: 4377144192.36>
+                    Image, 0x103f41770, {{347.3, 94.0}, {17.3, 4.0}}, identifier: 'ellipsis', label: 'More' <AX element pid: 43233, elementOrHash.elementID: 4377126544.59>
+                StaticText, 0x103f41890, {{110.0, 136.0}, {182.7, 13.3}}, label: 'WELCOME TO YOUR CORNER' <AX element pid: 43233, elementOrHash.elementID: 4377375856.20>
+                StaticText, 0x103f419b0, {{110.0, 153.3}, {172.7, 64.7}}, label: 'Make yourself at home.' <AX element pid: 43233, elementOrHash.elementID: 4377376880.21>
+                StaticText, 0x103f41ad0, {{110.0, 222.0}, {193.7, 14.3}}, label: 'A little focus. A world of your own.' <AX element pid: 43233, elementOrHash.elementID: 4377377664.22>
+                StaticText, 0x103f41bf0, {{40.0, 270.3}, {127.7, 20.3}}, label: 'Your study room' <AX element pid: 43233, elementOrHash.elementID: 4377378448.23>
+                StaticText, 0x103c3da10, {{324.7, 277.3}, {27.3, 13.3}}, label: 'Level 1' <AX element pid: 43233, elementOrHash.elementID: 4377380016.24>
+                StaticText, 0x103c3df70, {{40.0, 293.7}, {148.0, 14.3}}, label: 'Built one session at a time' <AX element pid: 43233, elementOrHash.elementID: 4377379232.25>
+                Other, 0x103c3e400, {{28.0, 308.0}, {346.0, 289.0}}, label: 'Your furnished study room and custom avatar' <AX element pid: 43233, elementOrHash.elementID: 4377385072.26>
+                  Image, 0x103c3e520, {{28.0, 308.0}, {346.0, 289.0}} <AX element pid: 43233, elementOrHash.elementID: 4377382048.37>
+                  Other, 0x103c3e640, {{226.0, 466.7}, {64.3, 86.3}}, label: 'Avatar: Medium skin, Short Brown hair, Tee, Jeans, Sneakers, status: Idle' <AX element pid: 43233, elementOrHash.elementID: 4377383616.38>
+                    Image, 0x103c3e760, {{226.0, 466.7}, {64.3, 85.7}} <AX element pid: 43233, elementOrHash.elementID: 4377382832.60>
+                StaticText, 0x103c3e880, {{80.0, 610.9}, {147.2, 14.3}}, label: '0 sessions completed' <AX element pid: 43233, elementOrHash.elementID: 4377386608.27>
+                StaticText, 0x103c3e9a0, {{239.3, 610.9}, {82.8, 14.3}}, label: '0 to spend' <AX element pid: 43233, elementOrHash.elementID: 4377388384.28>
+                Button, 0x103c3eac0, {{24.0, 657.3}, {171.0, 68.0}}, label: 'Edit avatar' <AX element pid: 43233, elementOrHash.elementID: 4377393392.29>
+                  Image, 0x103c3ebe0, {{37.0, 678.7}, {25.0, 25.0}} <AX element pid: 43233, elementOrHash.elementID: 4377389728.39>
+                  StaticText, 0x103c3ed00, {{72.0, 674.1}, {75.0, 18.0}}, label: 'Edit avatar' <AX element pid: 43233, elementOrHash.elementID: 4377390832.40>
+                  StaticText, 0x103c3ee20, {{72.0, 695.1}, {98.7, 13.3}}, label: 'Hair, clothes & you' <AX element pid: 43233, elementOrHash.elementID: 4377391264.41>
+                Button, 0x103c3ef40, {{207.0, 657.3}, {171.0, 68.0}}, label: 'Decorate' <AX element pid: 43233, elementOrHash.elementID: 4377398432.30>
+                  Image, 0x103c3f060, {{220.0, 678.7}, {25.0, 25.0}} <AX element pid: 43233, elementOrHash.elementID: 4377395120.42>
+                  StaticText, 0x103c3f180, {{255.0, 674.1}, {64.3, 18.0}}, label: 'Decorate' <AX element pid: 43233, elementOrHash.elementID: 4377396224.43>
+                  StaticText, 0x103c3f2a0, {{255.0, 695.1}, {98.0, 13.3}}, label: 'Make room for you' <AX element pid: 43233, elementOrHash.elementID: 4377396656.44>
+                Button, 0x103c3f410, {{24.0, 743.3}, {354.0, 126.0}}, identifier: 'study.club', label: 'A LITTLE COMPANY, DEMO, The study club, 2–8 seats · simulated companions' <AX element pid: 43233, elementOrHash.elementID: 4373780592.31>
+                  StaticText, 0x103c3f530, {{42.0, 765.3}, {133.0, 13.3}}, label: 'A LITTLE COMPANY' <AX element pid: 43233, elementOrHash.elementID: 4377400160.45>
+                  StaticText, 0x103c3f650, {{325.7, 765.3}, {27.3, 13.3}}, label: 'DEMO' <AX element pid: 43233, elementOrHash.elementID: 4377400592.46>
+                  Other, 0x103c3f770, {{42.0, 805.0}, {38.0, 38.0}}, label: 'Portrait: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons' <AX element pid: 43233, elementOrHash.elementID: 4377401808.47>
+                    Image, 0x103c3f890, {{45.0, 810.7}, {32.0, 26.7}} <AX element pid: 43233, elementOrHash.elementID: 4377401024.61>
+                  Other, 0x103c3f9b0, {{72.0, 805.0}, {38.0, 38.0}}, label: 'Portrait: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers' <AX element pid: 43233, elementOrHash.elementID: 4377403696.48>
+                    Image, 0x103c3fad0, {{75.0, 810.7}, {32.0, 26.7}} <AX element pid: 43233, elementOrHash.elementID: 4377403264.62>
+                  Other, 0x103c3fbf0, {{102.0, 805.0}, {38.0, 38.0}}, label: 'Portrait: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons' <AX element pid: 43233, elementOrHash.elementID: 4361056608.49>
+                    Image, 0x103c3fd10, {{105.0, 810.7}, {32.0, 26.7}} <AX element pid: 43233, elementOrHash.elementID: 4361056176.63>
+                  StaticText, 0x103c3fe30, {{154.0, 796.6}, {115.7, 20.3}}, label: 'The study club' <AX element pid: 43233, elementOrHash.elementID: 4361057040.50>
+                  StaticText, 0x103c3ff50, {{154.0, 820.9}, {124.3, 30.3}}, label: '2–8 seats · simulated companions' <AX element pid: 43233, elementOrHash.elementID: 4373970496.51>
+                  Image, 0x103c40070, {{347.7, 818.7}, {10.7, 10.7}}, identifier: 'arrow.up.right', label: 'arrow.up.right' <AX element pid: 43233, elementOrHash.elementID: 4373785840.52>
+                Button, 0x103c40190, {{24.0, 887.3}, {354.0, 124.0}}, label: 'LITTLE BY LITTLE, Your story starts here., Progress to level 2, 0 / 100 XP to level 2, 0 sessions', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373990096.32>
+                  StaticText, 0x103c402b0, {{42.0, 905.3}, {133.0, 13.3}}, label: 'LITTLE BY LITTLE' <AX element pid: 43233, elementOrHash.elementID: 4373884800.53>
+                  Image, 0x103c403d0, {{347.7, 907.3}, {11.0, 9.0}}, identifier: 'arrow.right', label: 'Right' <AX element pid: 43233, elementOrHash.elementID: 4373861568.54>
+                  StaticText, 0x103c404f0, {{42.0, 930.6}, {177.0, 20.3}}, label: 'Your story starts here.' <AX element pid: 43233, elementOrHash.elementID: 4373824528.55>
+                  ProgressIndicator, 0x103c40610, {{42.0, 963.0}, {318.0, 4.0}}, label: 'Progress to level 2', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373872464.56>
+                    ProgressIndicator, 0x103c40730, {{42.0, 953.0}, {318.0, 24.0}}, value: 0% <AX element pid: 43233, elementOrHash.elementID: 4372717520.64>
+                  StaticText, 0x103c40850, {{42.0, 978.9}, {112.7, 14.3}}, label: '0 / 100 XP to level 2' <AX element pid: 43233, elementOrHash.elementID: 4373991216.57>
+                  StaticText, 0x103c40970, {{300.0, 978.9}, {60.0, 14.3}}, label: '0 sessions' <AX element pid: 43233, elementOrHash.elementID: 4373858304.58>
+                StaticText, 0x103c40a90, {{58.8, 1029.3}, {284.3, 14.3}}, label: 'A room that grows with you, one session at a time.' <AX element pid: 43233, elementOrHash.elementID: 4373902832.33>
+            Button, 0x103c40bb0, {{24.0, 757.7}, {354.0, 55.0}}, identifier: 'study.start', label: 'Start studying' <AX element pid: 43233, elementOrHash.elementID: 4373909792.10>
+              Image, 0x103c40cd0, {{41.3, 778.7}, {9.0, 10.0}}, identifier: 'play.fill', label: 'Play' <AX element pid: 43233, elementOrHash.elementID: 4373904784.13>
+              StaticText, 0x103c40df0, {{58.7, 774.7}, {99.3, 18.0}}, label: 'Start studying' <AX element pid: 43233, elementOrHash.elementID: 4373908432.14>
+              Image, 0x103c40f10, {{345.7, 778.0}, {14.3, 11.7}}, identifier: 'arrow.right', label: 'Right' <AX element pid: 43233, elementOrHash.elementID: 4373909360.15>
+            StaticText, 0x103c41030, {{136.2, 817.7}, {129.7, 14.3}}, label: 'Your pace. Your space.' <AX element pid: 43233, elementOrHash.elementID: 4371607280.11>
+    Other, 0x103c41150, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4373987888.67>
+      Other, 0x103c41270, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4377136736.68>
+        Other, 0x103c41390, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4374269136.69>
+          Button, 0x103b254c0, {{24.0, 74.0}, {44.0, 44.0}}, identifier: 'avatar.close', label: 'Back' <AX element pid: 43233, elementOrHash.elementID: 4374197488.70>
+          StaticText, 0x10393dbb0, {{80.0, 77.2}, {117.3, 20.3}}, label: 'Your wardrobe' <AX element pid: 43233, elementOrHash.elementID: 4374198384.71>
+          StaticText, 0x1039414c0, {{80.0, 100.5}, {168.3, 14.3}}, label: 'A character that feels like you' <AX element pid: 43233, elementOrHash.elementID: 4374204704.72>
+          StaticText, 0x1039415e0, {{40.0, 151.3}, {108.0, 13.3}}, label: 'DRESSING ROOM' <AX element pid: 43233, elementOrHash.elementID: 4374205136.73>
+          Other, 0x103941700, {{309.7, 142.0}, {52.3, 32.0}}, label: '0 earned coins' <AX element pid: 43233, elementOrHash.elementID: 4374207456.74>
+            Image, 0x103941820, {{320.7, 150.0}, {16.0, 16.0}} <AX element pid: 43233, elementOrHash.elementID: 4374205568.83>
+            StaticText, 0x103941940, {{342.7, 150.8}, {8.3, 14.3}}, label: '0' <AX element pid: 43233, elementOrHash.elementID: 4374207024.84>
+          Other, 0x103941a60, {{91.3, 182.0}, {219.5, 152.0}} <AX element pid: 43233, elementOrHash.elementID: 4374208912.75>
+          Other, 0x103941b80, {{144.7, 174.0}, {112.7, 151.3}}, label: 'Avatar: Deep skin, Short Brown hair, Tee, Jeans, Sneakers, status: Idle' <AX element pid: 43233, elementOrHash.elementID: 4374210128.76>
+            Image, 0x103941ca0, {{144.7, 174.0}, {112.7, 150.0}} <AX element pid: 43233, elementOrHash.elementID: 4374209344.85>
+          StaticText, 0x103941dc0, {{40.0, 344.0}, {161.0, 18.0}}, label: 'Your study companion' <AX element pid: 43233, elementOrHash.elementID: 4374211584.77>
+          StaticText, 0x103941ee0, {{40.0, 365.0}, {117.0, 13.3}}, label: 'Tee · Jeans · Sneakers' <AX element pid: 43233, elementOrHash.elementID: 4374212016.78>
+          Image, 0x103942000, {{344.7, 353.7}, {15.3, 15.3}}, identifier: 'person.crop.square', label: 'Selfie' <AX element pid: 43233, elementOrHash.elementID: 4374212800.79>
+          ScrollView, 0x103942120, {{0.0, 402.3}, {402.0, 471.7}} <AX element pid: 43233, elementOrHash.elementID: 4430065152.80>
+            Other, 0x103942240, {{0.0, 402.3}, {402.0, 474.7}} <AX element pid: 43233, elementOrHash.elementID: 4374089424.86>
+              StaticText, 0x103942360, {{24.0, 402.5}, {113.0, 20.3}}, label: 'Find your look' <AX element pid: 43233, elementOrHash.elementID: 4374213584.87>
+              StaticText, 0x103942480, {{24.0, 426.9}, {175.0, 14.3}}, label: 'Mix every piece independently.' <AX element pid: 43233, elementOrHash.elementID: 4374215040.88>
+              Button, 0x1039425a0, {{287.3, 402.3}, {90.7, 39.0}}, label: 'Randomise appearance' <AX element pid: 43233, elementOrHash.elementID: 4374217360.89>
+                Image, 0x1039426c0, {{300.7, 415.3}, {13.0, 13.0}}, identifier: 'dice', label: 'dice' <AX element pid: 43233, elementOrHash.elementID: 4374215472.95>
+                StaticText, 0x1039427e0, {{287.3, 402.3}, {90.7, 39.0}}, label: 'Shuffle' <AX element pid: 43233, elementOrHash.elementID: 4374216928.96>
+              ScrollView, 0x103942900, {{24.0, 457.3}, {354.0, 44.0}}, identifier: 'avatar.categories' <AX element pid: 43233, elementOrHash.elementID: 4430489600.90>
+                Other, 0x103942a80, {{24.0, 457.3}, {883.3, 44.0}} <AX element pid: 43233, elementOrHash.elementID: 4374080512.97>
+                  Button, 0x103942ba0, {{24.0, 457.3}, {73.7, 44.0}}, identifier: 'avatar.category.skin', label: 'Skin', Selected <AX element pid: 43233, elementOrHash.elementID: 4374219760.104>
+                    Image, 0x103942cc0, {{36.0, 471.0}, {17.0, 17.0}}, Selected <AX element pid: 43233, elementOrHash.elementID: 4374219328.135>
+                    StaticText, 0x103942de0, {{24.0, 457.3}, {73.7, 44.0}}, label: 'Skin', Selected <AX element pid: 43233, elementOrHash.elementID: 4374220432.136>
+                  Button, 0x103942f00, {{105.7, 457.3}, {72.7, 44.0}}, identifier: 'avatar.category.hair', label: 'Hair' <AX element pid: 43233, elementOrHash.elementID: 4374222928.105>
+                    Image, 0x103943020, {{117.7, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374221792.137>
+                    StaticText, 0x103943140, {{105.7, 457.3}, {72.7, 44.0}}, label: 'Hair' <AX element pid: 43233, elementOrHash.elementID: 4374223600.138>
+                  Button, 0x103943260, {{186.3, 457.3}, {113.0, 44.0}}, identifier: 'avatar.category.hairColour', label: 'Hair colour' <AX element pid: 43233, elementOrHash.elementID: 4374226416.106>
+                    Image, 0x103943380, {{198.3, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374224960.139>
+                    StaticText, 0x1039434a0, {{186.3, 457.3}, {113.0, 44.0}}, label: 'Hair colour' <AX element pid: 43233, elementOrHash.elementID: 4374227120.140>
+                  Button, 0x1039435c0, {{307.3, 457.3}, {75.7, 44.0}}, identifier: 'avatar.category.face', label: 'Face' <AX element pid: 43233, elementOrHash.elementID: 4374229936.107>
+                    Image, 0x1039436e0, {{319.3, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374228480.141>
+                    StaticText, 0x103943800, {{307.3, 457.3}, {75.7, 44.0}}, label: 'Face' <AX element pid: 43233, elementOrHash.elementID: 4374230640.142>
+                  Button, 0x103943920, {{391.0, 457.3}, {69.7, 44.0}}, identifier: 'avatar.category.top', label: 'Top' <AX element pid: 43233, elementOrHash.elementID: 4374233456.108>
+                    Image, 0x103943a40, {{403.0, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374232000.143>
+                    StaticText, 0x103943b60, {{391.0, 457.3}, {69.7, 44.0}}, label: 'Top' <AX element pid: 43233, elementOrHash.elementID: 4374234160.144>
+                  Button, 0x103943c80, {{468.7, 457.3}, {98.0, 44.0}}, identifier: 'avatar.category.bottoms', label: 'Bottoms' <AX element pid: 43233, elementOrHash.elementID: 4374236976.109>
+                    Image, 0x103943da0, {{480.7, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374235520.145>
+                    StaticText, 0x103943ec0, {{468.7, 457.3}, {98.0, 44.0}}, label: 'Bottoms' <AX element pid: 43233, elementOrHash.elementID: 4374237680.146>
+                  Button, 0x103943fe0, {{574.7, 457.3}, {84.3, 44.0}}, identifier: 'avatar.category.shoes', label: 'Shoes' <AX element pid: 43233, elementOrHash.elementID: 4374240496.110>
+                    Image, 0x103944100, {{586.7, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374239040.147>
+                    StaticText, 0x103944220, {{574.7, 457.3}, {84.3, 44.0}}, label: 'Shoes' <AX element pid: 43233, elementOrHash.elementID: 4374241200.148>
+                  Button, 0x103c414b0, {{667.0, 457.3}, {122.7, 44.0}}, identifier: 'avatar.category.accent', label: 'Outfit colour' <AX element pid: 43233, elementOrHash.elementID: 4374244016.111>
+                    Image, 0x103c415d0, {{679.0, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374242560.149>
+                    StaticText, 0x103c416f0, {{667.0, 457.3}, {122.7, 44.0}}, label: 'Outfit colour' <AX element pid: 43233, elementOrHash.elementID: 4374244720.150>
+                  Button, 0x103c41810, {{797.7, 457.3}, {109.7, 44.0}}, identifier: 'avatar.category.accessory', label: 'Accessory' <AX element pid: 43233, elementOrHash.elementID: 4374247536.112>
+                    Image, 0x103c41930, {{809.7, 471.0}, {17.0, 17.0}} <AX element pid: 43233, elementOrHash.elementID: 4374246080.151>
+                    StaticText, 0x103b22ed0, {{797.7, 457.3}, {109.7, 44.0}}, label: 'Accessory' <AX element pid: 43233, elementOrHash.elementID: 4374248240.152>
+              StaticText, 0x103b20000, {{24.0, 517.4}, {33.3, 13.3}}, label: 'SKIN' <AX element pid: 43233, elementOrHash.elementID: 4374251760.91>
+              StaticText, 0x103b21fd0, {{303.7, 517.4}, {74.3, 13.3}}, label: 'Choose a look' <AX element pid: 43233, elementOrHash.elementID: 4374252192.92>
+              Other, 0x103b23930, {{24.0, 542.7}, {354.0, 263.3}} <AX element pid: 43233, elementOrHash.elementID: 4374253408.93>
+                Button, 0x103b26650, {{24.0, 542.7}, {110.0, 125.7}}, label: 'Light' <AX element pid: 43233, elementOrHash.elementID: 4361112736.153>
+                  StaticText, 0x103944340, {{64.2, 622.7}, {29.7, 14.3}}, label: 'Light' <AX element pid: 43233, elementOrHash.elementID: 4361109584.157>
+                  StaticText, 0x103944460, {{60.2, 645.1}, {37.7, 13.3}}, label: 'Owned' <AX element pid: 43233, elementOrHash.elementID: 4361112304.158>
+                Button, 0x103c41a50, {{146.0, 542.7}, {110.0, 125.7}}, label: 'Medium' <AX element pid: 43233, elementOrHash.elementID: 4361115872.154>
+                  StaticText, 0x103c41b70, {{177.8, 622.7}, {46.3, 14.3}}, label: 'Medium' <AX element pid: 43233, elementOrHash.elementID: 4361114304.159>
+                  StaticText, 0x103c41c90, {{182.2, 645.1}, {37.7, 13.3}}, label: 'Owned' <AX element pid: 43233, elementOrHash.elementID: 4361115440.161>
+                Button, 0x103b24a50, {{268.0, 542.7}, {110.0, 125.7}}, label: 'Dark' <AX element pid: 43233, elementOrHash.elementID: 4361118320.155>
+                  StaticText, 0x103b25f70, {{309.3, 622.7}, {27.3, 14.3}}, label: 'Dark' <AX element pid: 43233, elementOrHash.elementID: 4361117440.162>
+                  StaticText, 0x103b24000, {{304.2, 645.1}, {37.7, 13.3}}, label: 'Owned' <AX element pid: 43233, elementOrHash.elementID: 4361117888.163>
+                Button, 0x103b235d0, {{24.0, 680.3}, {110.0, 125.7}}, label: 'Deep, selected', Selected <AX element pid: 43233, elementOrHash.elementID: 4361121024.156>
+                  StaticText, 0x103b1f550, {{63.8, 760.4}, {30.3, 14.3}}, label: 'Deep', Selected <AX element pid: 43233, elementOrHash.elementID: 4361119888.164>
+                  Image, 0x103b1f1d0, {{50.7, 784.7}, {9.7, 9.3}}, identifier: 'checkmark', label: 'Selected', Selected <AX element pid: 43233, elementOrHash.elementID: 4372972816.166>
+                  StaticText, 0x103b269d0, {{64.5, 782.7}, {44.3, 13.3}}, label: 'Wearing', Selected <AX element pid: 43233, elementOrHash.elementID: 4361120592.165>
+              StaticText, 0x103b25be0, {{24.5, 822.7}, {353.0, 30.3}}, label: 'Owned looks are free to try. Tap a priced look to unlock it with earned coins.' <AX element pid: 43233, elementOrHash.elementID: 4374265296.94>
+          Button, 0x103b27090, {{24.0, 753.7}, {354.0, 55.0}}, identifier: 'avatar.save', label: 'Save avatar' <AX element pid: 43233, elementOrHash.elementID: 4374267216.81>
+          StaticText, 0x103b26d40, {{61.8, 814.7}, {278.3, 13.3}}, label: 'Save to keep your outfit. Unlocked items stay owned.' <AX element pid: 43233, elementOrHash.elementID: 4374267648.82>
+    Other, 0x103b25850, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4377785312.169>
+      Other, 0x103b27420, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'PopoverDismissRegion', label: 'dismiss popup' <AX element pid: 43233, elementOrHash.elementID: 4377717360.171>
+      Popover, 0x103b27790, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373901232.172>
+        Image, 0x103b27ae0, {{-69.0, 193.0}, {540.0, 514.3}} <AX element pid: 43233, elementOrHash.elementID: 4377720800.174>
+        Other, 0x103b27e70, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4776291104.175>
+          Other, 0x103b28580, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373002464.177>
+            Other, 0x103b28200, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373003728.179>
+              Other, 0x103b29350, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373069776.181>
+                Other, 0x103b288e0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373071760.183>
+                  Other, 0x103b28c30, {{81.0, 343.0}, {0.0, 0.0}} <AX element pid: 43233, elementOrHash.elementID: 4373072176.186>
+                    Other, 0x103b28fd0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373066784.189>
+                      Other, 0x103b29db0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373080128.196>
+                        Other, 0x103b29a20, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373046384.204>
+                          Other, 0x103b296b0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4373045968.206>
+        Other, 0x103b0f450, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4776295040.176>
+          Sheet, 0x103b38050, {{81.0, 343.0}, {240.0, 214.3}}, label: 'Discard your outfit changes?' <AX element pid: 43233, elementOrHash.elementID: 4437987840.178>
+            Other, 0x103b454b0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4372827600.180>
+              Other, 0x103b455d0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4376316448.182>
+                Other, 0x103b456f0, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4374268432.184>
+                Other, 0x103b45810, {{81.0, 343.0}, {240.0, 214.3}} <AX element pid: 43233, elementOrHash.elementID: 4376320496.185>
+                  ScrollView, 0x103b45930, {{81.0, 343.0}, {240.0, 134.3}} <AX element pid: 43233, elementOrHash.elementID: 4422546944.187>
+                    Other, 0x103c41db0, {{81.0, 343.0}, {240.0, 134.3}} <AX element pid: 43233, elementOrHash.elementID: 4377737568.190>
+                      StaticText, 0x103c41ed0, {{111.0, 365.0}, {180.0, 42.3}}, label: 'Discard your outfit changes?' <AX element pid: 43233, elementOrHash.elementID: 4377746176.197>
+                      StaticText, 0x103c41ff0, {{111.0, 415.0}, {180.0, 58.0}}, label: 'Your saved outfit will stay as it was. Any unlocked items stay owned.' <AX element pid: 43233, elementOrHash.elementID: 4377738496.198>
+                    Other, 0x103c42110, {{288.0, 377.0}, {30.0, 100.3}}, label: 'Vertical scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373011392.191>
+                      Other, 0x103c42230, {{315.0, 304.0}, {3.0, 36.0}} <AX element pid: 43233, elementOrHash.elementID: 4373013136.199>
+                    Other, 0x103c42350, {{81.0, 444.3}, {240.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373010624.192>
+                      Other, 0x103c42470, {{42.0, 471.3}, {36.0, 3.0}} <AX element pid: 43233, elementOrHash.elementID: 4373011904.200>
+                    Other, 0x103c42590, {{288.0, 377.0}, {30.0, 100.3}}, label: 'Vertical scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373011392.191>
+                      Other, 0x103c426b0, {{315.0, 304.0}, {3.0, 36.0}} <AX element pid: 43233, elementOrHash.elementID: 4373013136.199>
+                    Other, 0x103c427d0, {{81.0, 444.3}, {240.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373010624.192>
+                      Other, 0x103c428f0, {{42.0, 471.3}, {36.0, 3.0}} <AX element pid: 43233, elementOrHash.elementID: 4373011904.200>
+                  ScrollView, 0x103c42a10, {{81.0, 477.3}, {240.0, 80.0}} <AX element pid: 43233, elementOrHash.elementID: 4413621248.188>
+                    Other, 0x103c42b30, {{81.0, 477.3}, {240.0, 80.0}} <AX element pid: 43233, elementOrHash.elementID: 4376327584.193>
+                      Other, 0x103c42c50, {{97.0, 493.3}, {208.0, 48.0}} <AX element pid: 43233, elementOrHash.elementID: 4376328592.201>
+                        Button, 0x103c42d70, {{97.0, 493.3}, {208.0, 48.0}}, identifier: 'avatar.discard', label: 'Discard changes' <AX element pid: 43233, elementOrHash.elementID: 4374234592.205>
+                          Button, 0x103c42e90, {{97.0, 493.3}, {208.0, 48.0}}, identifier: 'avatar.discard', label: 'Discard changes' <AX element pid: 43233, elementOrHash.elementID: 4377763600.207>
+                    Other, 0x103c42fb0, {{288.0, 477.3}, {30.0, 46.0}}, label: 'Vertical scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373019216.194>
+                      Other, 0x103c430d0, {{315.0, 567.3}, {3.0, 7.0}} <AX element pid: 43233, elementOrHash.elementID: 4373019984.202>
+                    Other, 0x103c431f0, {{115.0, 524.3}, {172.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373016928.195>
+                      Other, 0x103c43310, {{171.0, 551.3}, {7.0, 3.0}} <AX element pid: 43233, elementOrHash.elementID: 4373017888.203>
+                    Other, 0x103c43430, {{288.0, 477.3}, {30.0, 46.0}}, label: 'Vertical scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373019216.194>
+                      Other, 0x103c43550, {{315.0, 567.3}, {3.0, 7.0}} <AX element pid: 43233, elementOrHash.elementID: 4373019984.202>
+                    Other, 0x103c43670, {{115.0, 524.3}, {172.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0% <AX element pid: 43233, elementOrHash.elementID: 4373016928.195>
+                      Other, 0x103c43790, {{171.0, 551.3}, {7.0, 3.0}} <AX element pid: 43233, elementOrHash.elementID: 4373017888.203>
+  Window, 0x103c438b0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4422514176.167>
+    Other, 0x103c439d0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4377789664.170>
+      Other, 0x103c43af0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 43233, elementOrHash.elementID: 4776289136.173>

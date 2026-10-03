@@ -1,0 +1,62 @@
+Application, 0x107896fc0, pid: 45473, label: 'LockedIN' <App element pid: 45473>
+  Window (Main), 0x107897360, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 45473, elementOrHash.elementID: 4338093696.4>
+    Other, 0x10789a2d0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 45473, elementOrHash.elementID: 4338035376.5>
+      Other, 0x10789a3f0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 45473, elementOrHash.elementID: 4339085632.6>
+        Other, 0x10789a030, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 45473, elementOrHash.elementID: 4338006592.7>
+          Other, 0x10789a150, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 45473, elementOrHash.elementID: 4338308832.8>
+            ScrollView, 0x10789a510, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 45473, elementOrHash.elementID: 4329705472.9>
+              Other, 0x10789a630, {{0.0, -567.0}, {402.0, 3040.0}} <AX element pid: 45473, elementOrHash.elementID: 4318470992.12>
+                Image, 0x10789a750, {{31.3, -542.0}, {35.3, 51.0}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 45473, elementOrHash.elementID: 4337198176.16>
+                StaticText, 0x10789a870, {{81.0, -528.2}, {87.7, 23.0}}, label: 'LockedIN' <AX element pid: 45473, elementOrHash.elementID: 4337008768.17>
+                Button, 0x10789a990, {{250.7, -555.0}, {75.3, 76.7}}, label: '0 coins. View progress' <AX element pid: 45473, elementOrHash.elementID: 4337223392.18>
+                  Image, 0x10789aab0, {{262.7, -524.0}, {15.0, 15.0}} <AX element pid: 45473, elementOrHash.elementID: 4337220400.34>
+                  StaticText, 0x10789abd0, {{282.7, -546.0}, {31.3, 58.7}}, label: '0' <AX element pid: 45473, elementOrHash.elementID: 4337221504.35>
+                Button, 0x10789acf0, {{334.0, -538.7}, {44.0, 44.0}}, label: 'More options' <AX element pid: 45473, elementOrHash.elementID: 4337226976.19>
+                  Button, 0x10789ae10, {{334.0, -538.7}, {44.0, 44.0}} <AX element pid: 45473, elementOrHash.elementID: 4318477136.36>
+                    Image, 0x10789af30, {{347.3, -518.7}, {17.3, 4.0}}, identifier: 'ellipsis', label: 'More' <AX element pid: 45473, elementOrHash.elementID: 4337226112.59>
+                StaticText, 0x10789b050, {{24.0, -374.3}, {288.7, 96.0}}, label: 'WELCOME TO YOUR CORNER' <AX element pid: 45473, elementOrHash.elementID: 4337234272.20>
+                StaticText, 0x10789b170, {{24.0, -274.3}, {349.3, 129.0}}, label: 'Make yourself at home.' <AX element pid: 45473, elementOrHash.elementID: 4337234944.21>
+                StaticText, 0x10789b290, {{24.0, -141.3}, {332.7, 102.3}}, label: 'A little focus. A world of your own.' <AX element pid: 45473, elementOrHash.elementID: 4337235376.22>
+                StaticText, 0x10789b3b0, {{40.0, 9.0}, {144.7, 187.3}}, label: 'Your study room' <AX element pid: 45473, elementOrHash.elementID: 4337235808.23>
+                StaticText, 0x10789b4d0, {{253.0, 16.0}, {99.0, 48.0}}, label: 'Level 1' <AX element pid: 45473, elementOrHash.elementID: 4337236672.24>
+                StaticText, 0x10789b5f0, {{40.0, 199.3}, {192.7, 153.3}}, label: 'Built one session at a time' <AX element pid: 45473, elementOrHash.elementID: 4337236240.25>
+                Other, 0x10789b710, {{28.0, 352.7}, {346.0, 289.0}}, label: 'Your furnished study room and custom avatar' <AX element pid: 45473, elementOrHash.elementID: 4338267760.26>
+                  Image, 0x10789b830, {{28.0, 352.7}, {346.0, 289.0}} <AX element pid: 45473, elementOrHash.elementID: 4338262912.37>
+                  Other, 0x107c1de80, {{226.0, 511.3}, {64.3, 86.3}}, label: 'Avatar: Medium skin, Short Brown hair, Tee, Jeans, Sneakers, status: Idle' <AX element pid: 45473, elementOrHash.elementID: 4338266304.38>
+                    Image, 0x105568cd0, {{226.0, 511.3}, {64.3, 85.7}} <AX element pid: 45473, elementOrHash.elementID: 4338265424.60>
+                StaticText, 0x10789b950, {{85.3, 655.6}, {231.5, 102.3}}, label: '0 sessions completed' <AX element pid: 45473, elementOrHash.elementID: 4338269296.27>
+                StaticText, 0x10789ba70, {{85.3, 765.9}, {221.2, 51.3}}, label: '0 to spend' <AX element pid: 45473, elementOrHash.elementID: 4338271072.28>
+                Button, 0x10789bb90, {{24.0, 849.3}, {354.0, 183.7}}, label: 'Edit avatar' <AX element pid: 45473, elementOrHash.elementID: 4338276080.29>
+                  Image, 0x10789bcb0, {{37.0, 928.7}, {25.0, 25.0}} <AX element pid: 45473, elementOrHash.elementID: 4338272416.39>
+                  StaticText, 0x10789bdd0, {{72.0, 862.3}, {232.7, 58.7}}, label: 'Edit avatar' <AX element pid: 45473, elementOrHash.elementID: 4338273520.40>
+                  StaticText, 0x10789bef0, {{72.0, 923.9}, {216.7, 96.0}}, label: 'Hair, clothes & you' <AX element pid: 45473, elementOrHash.elementID: 4338273952.41>
+                Button, 0x10789c010, {{24.0, 1045.0}, {354.0, 183.7}}, label: 'Decorate' <AX element pid: 45473, elementOrHash.elementID: 4338281120.30>
+                  Image, 0x10789c130, {{37.0, 1124.3}, {25.0, 25.0}} <AX element pid: 45473, elementOrHash.elementID: 4338277808.42>
+                  StaticText, 0x10789c250, {{72.0, 1057.9}, {201.0, 58.7}}, label: 'Decorate' <AX element pid: 45473, elementOrHash.elementID: 4338278912.43>
+                  StaticText, 0x10789c370, {{72.0, 1119.6}, {198.0, 96.0}}, label: 'Make room for you' <AX element pid: 45473, elementOrHash.elementID: 4338279344.44>
+                Button, 0x10789c490, {{24.0, 1246.7}, {354.0, 570.0}}, identifier: 'study.club', label: 'A LITTLE COMPANY, DEMO, The study club, 2–8 seats · simulated companions' <AX element pid: 45473, elementOrHash.elementID: 4338289136.31>
+                  StaticText, 0x10789c5b0, {{42.0, 1264.6}, {183.7, 144.0}}, label: 'A LITTLE COMPANY' <AX element pid: 45473, elementOrHash.elementID: 4338282848.45>
+                  StaticText, 0x10789c6d0, {{254.0, 1312.6}, {99.0, 48.0}}, label: 'DEMO' <AX element pid: 45473, elementOrHash.elementID: 4338283280.46>
+                  Other, 0x10789c7f0, {{42.0, 1422.7}, {38.0, 38.0}}, label: 'Portrait: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons' <AX element pid: 45473, elementOrHash.elementID: 4338284496.47>
+                    Image, 0x10789c910, {{45.0, 1428.3}, {32.0, 26.7}} <AX element pid: 45473, elementOrHash.elementID: 4338283712.61>
+                  Other, 0x10789ca30, {{72.0, 1422.7}, {38.0, 38.0}}, label: 'Portrait: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers' <AX element pid: 45473, elementOrHash.elementID: 4338286384.48>
+                    Image, 0x10789cb50, {{75.0, 1428.3}, {32.0, 26.7}} <AX element pid: 45473, elementOrHash.elementID: 4338285952.62>
+                  Other, 0x10789cc70, {{102.0, 1422.7}, {38.0, 38.0}}, label: 'Portrait: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons' <AX element pid: 45473, elementOrHash.elementID: 4338288272.49>
+                    Image, 0x10789cd90, {{105.0, 1428.3}, {32.0, 26.7}} <AX element pid: 45473, elementOrHash.elementID: 4338287840.63>
+                  StaticText, 0x10789ceb0, {{42.0, 1474.6}, {246.7, 125.3}}, label: 'The study club' <AX element pid: 45473, elementOrHash.elementID: 4338287168.50>
+                  StaticText, 0x10789cfd0, {{42.0, 1603.9}, {225.0, 153.3}}, label: '2–8 seats · simulated companions' <AX element pid: 45473, elementOrHash.elementID: 4338288704.51>
+                  Image, 0x10789d0f0, {{43.7, 1786.7}, {10.7, 10.7}}, identifier: 'arrow.up.right', label: 'arrow.up.right' <AX element pid: 45473, elementOrHash.elementID: 4338289728.52>
+                Button, 0x10789d210, {{24.0, 1834.7}, {354.0, 459.0}}, label: 'LITTLE BY LITTLE, Your story starts here., Progress to level 2, 0 / 100 XP to level 2, 0 sessions', value: 0% <AX element pid: 45473, elementOrHash.elementID: 4338306416.32>
+                  StaticText, 0x10789d330, {{42.0, 1852.6}, {234.7, 96.0}}, label: 'LITTLE BY LITTLE' <AX element pid: 45473, elementOrHash.elementID: 4338294752.53>
+                  Image, 0x10789d450, {{315.7, 1884.7}, {39.0, 32.0}}, identifier: 'arrow.right', label: 'Right' <AX element pid: 45473, elementOrHash.elementID: 4338295184.54>
+                  StaticText, 0x10789d570, {{42.0, 1960.6}, {266.3, 125.3}}, label: 'Your story starts here.' <AX element pid: 45473, elementOrHash.elementID: 4338295616.55>
+                  ProgressIndicator, 0x10789d690, {{42.0, 2098.0}, {318.0, 4.0}}, label: 'Progress to level 2', value: 0% <AX element pid: 45473, elementOrHash.elementID: 4338296480.56>
+                    ProgressIndicator, 0x10789d7b0, {{42.0, 2088.0}, {318.0, 24.0}}, value: 0% <AX element pid: 45473, elementOrHash.elementID: 4318395808.64>
+                  StaticText, 0x10789d8d0, {{42.0, 2113.9}, {246.0, 102.3}}, label: '0 / 100 XP to level 2' <AX element pid: 45473, elementOrHash.elementID: 4338296912.57>
+                  StaticText, 0x10789d9f0, {{42.0, 2224.3}, {195.0, 51.3}}, label: '0 sessions' <AX element pid: 45473, elementOrHash.elementID: 4338302944.58>
+                StaticText, 0x10789db10, {{30.2, 2311.6}, {341.7, 153.3}}, label: 'A room that grows with you, one session at a time.' <AX element pid: 45473, elementOrHash.elementID: 4337238112.33>
+            Button, 0x10789dc30, {{24.0, 581.0}, {354.0, 143.7}}, identifier: 'study.start', label: 'Start studying' <AX element pid: 45473, elementOrHash.elementID: 4339040496.10>
+              Image, 0x10789dd50, {{41.3, 646.3}, {9.0, 10.0}}, identifier: 'play.fill', label: 'Play' <AX element pid: 45473, elementOrHash.elementID: 4339036976.13>
+              StaticText, 0x10789de70, {{58.7, 593.0}, {191.7, 116.7}}, label: 'Start studying' <AX element pid: 45473, elementOrHash.elementID: 4319103024.14>
+              Image, 0x10789df90, {{310.0, 632.3}, {46.0, 37.7}}, identifier: 'arrow.right', label: 'Right' <AX element pid: 45473, elementOrHash.elementID: 4319194112.15>
+            StaticText, 0x10789e0b0, {{95.0, 729.7}, {212.0, 102.3}}, label: 'Your pace. Your space.' <AX element pid: 45473, elementOrHash.elementID: 4338308400.11>

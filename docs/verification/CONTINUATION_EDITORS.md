@@ -24,3 +24,6 @@ Swift parser check passed for both modified editor files; `git diff --check` pas
 ## Remaining checks
 
 Inspect both editors at the largest text size on the running simulator. Verify closing a changed outfit can cancel/discard, saved changes persist, and room selection remains saved after return. Final art fidelity remains a separate gate; these are usability changes to live production layers, not new artwork or multiplayer implementation.
+
+
+Root completed integrated build, focused UI checks and actual render review after this agent report. See [final team evidence and limitations](CONTINUATION_TEAM.md), which supersedes pending root checks above.

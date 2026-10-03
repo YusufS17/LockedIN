@@ -1,0 +1,154 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=5DA4238F-6617-4E78-BBD0-80936A3A4B1E" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-83fp_vmv/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/OfflineStudyLoopTests/testOnboardingArrivalAndSavedIdentity"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-83fp_vmv/OfflineLoop.xcresult
+
+2026-10-03 19:54:56.119584+0100 LockedINUITests-Runner[41629:182609] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-03 19:54:59.369.
+Test Suite 'LockedINUITests.xctest' started at 2026-10-03 19:54:59.371.
+Test Suite 'OfflineStudyLoopTests' started at 2026-10-03 19:54:59.372.
+Test Case '-[LockedINUITests.OfflineStudyLoopTests testOnboardingArrivalAndSavedIdentity]' started.
+    t =     0.00s Start Test at 2026-10-03 19:54:59.376
+    t =     0.72s Set Up
+    t =     0.75s Terminate com.lockedin.app:14384
+    t =     2.06s Open com.lockedin.app
+    t =     2.06s     Launch com.lockedin.app
+    t =     6.54s         Setting up automation session
+    t =     9.76s         Wait for com.lockedin.app to idle
+    t =    14.05s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    15.09s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    15.09s         Checking existence of `"onboarding.continue" Button`
+    t =    15.28s Find the "onboarding.continue" Button
+    t =    15.39s Find the "onboarding.continue" Button
+    t =    15.50s Tap "onboarding.continue" Button
+    t =    15.50s     Wait for com.lockedin.app to idle
+    t =    15.51s     Find the "onboarding.continue" Button
+    t =    15.56s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    15.64s     Synthesize event
+    t =    16.01s     Wait for com.lockedin.app to idle
+    t =    17.14s Find the Target Application 'com.lockedin.app'
+    t =    17.57s Added attachment named 'onboarding-02-value'
+    t =    17.58s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    18.58s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    18.58s         Checking existence of `"onboarding.continue" Button`
+    t =    18.68s Find the "onboarding.continue" Button
+    t =    18.79s Find the "onboarding.continue" Button
+    t =    18.89s Tap "onboarding.continue" Button
+    t =    18.89s     Wait for com.lockedin.app to idle
+    t =    18.90s     Find the "onboarding.continue" Button
+    t =    18.97s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    19.06s     Synthesize event
+    t =    19.39s     Wait for com.lockedin.app to idle
+    t =    20.40s Find the Target Application 'com.lockedin.app'
+    t =    20.77s Added attachment named 'onboarding-03-gallery'
+    t =    20.77s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    21.83s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    21.83s         Checking existence of `"onboarding.continue" Button`
+    t =    21.89s Find the "onboarding.continue" Button
+    t =    21.98s Find the "onboarding.continue" Button
+    t =    22.07s Tap "onboarding.continue" Button
+    t =    22.07s     Wait for com.lockedin.app to idle
+    t =    22.08s     Find the "onboarding.continue" Button
+    t =    22.14s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    22.20s     Synthesize event
+    t =    22.53s     Wait for com.lockedin.app to idle
+    t =    22.91s Waiting 15.0s for "Save avatar" Button to exist
+    t =    23.97s     Checking `Expect predicate `existsNoRetry == 1` for object "Save avatar" Button`
+    t =    23.97s         Checking existence of `"Save avatar" Button`
+    t =    24.13s Find the "Save avatar" Button
+    t =    24.28s Find the "avatar.save" Button
+    t =    24.43s Tap "avatar.save" Button
+    t =    24.43s     Wait for com.lockedin.app to idle
+    t =    24.45s     Find the "avatar.save" Button
+    t =    24.58s     Check for interrupting elements affecting "avatar.save" Button
+    t =    24.70s     Synthesize event
+    t =    25.03s     Wait for com.lockedin.app to idle
+    t =    25.11s Waiting 15.0s for "onboarding.name" TextField to exist
+    t =    26.17s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.name" TextField`
+    t =    26.18s         Checking existence of `"onboarding.name" TextField`
+    t =    26.24s Tap "onboarding.name" TextField
+    t =    26.24s     Wait for com.lockedin.app to idle
+    t =    26.25s     Find the "onboarding.name" TextField
+    t =    26.31s     Check for interrupting elements affecting "onboarding.name" TextField
+    t =    26.37s     Synthesize event
+    t =    26.75s     Wait for com.lockedin.app to idle
+    t =    28.27s Type ' River' into "onboarding.name" TextField
+    t =    28.27s     Wait for com.lockedin.app to idle
+    t =    28.61s     Find the "onboarding.name" TextField
+    t =    28.87s     Check for interrupting elements affecting "onboarding.name" TextField
+    t =    29.01s     Synthesize event
+    t =    29.33s     Wait for com.lockedin.app to idle
+    t =    30.10s Find the Target Application 'com.lockedin.app'
+    t =    30.56s Added attachment named 'onboarding-05-name'
+    t =    30.56s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    31.58s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    31.58s         Checking existence of `"onboarding.continue" Button`
+    t =    31.68s Find the "onboarding.continue" Button
+    t =    31.80s Find the "onboarding.continue" Button
+    t =    31.93s Tap "onboarding.continue" Button
+    t =    31.93s     Wait for com.lockedin.app to idle
+    t =    31.94s     Find the "onboarding.continue" Button
+    t =    32.09s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    32.18s     Synthesize event
+    t =    32.58s     Wait for com.lockedin.app to idle
+    t =    33.44s Find the Target Application 'com.lockedin.app'
+    t =    33.79s Added attachment named 'onboarding-06-arrival'
+    t =    33.79s Waiting 15.0s for "onboarding.finish" Button to exist
+    t =    34.84s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.finish" Button`
+    t =    34.84s         Checking existence of `"onboarding.finish" Button`
+    t =    34.89s Find the "onboarding.finish" Button
+    t =    34.96s Find the "onboarding.finish" Button
+    t =    35.04s Tap "onboarding.finish" Button
+    t =    35.04s     Wait for com.lockedin.app to idle
+    t =    35.05s     Find the "onboarding.finish" Button
+    t =    35.10s     Check for interrupting elements affecting "onboarding.finish" Button
+    t =    35.18s     Synthesize event
+    t =    35.64s     Wait for com.lockedin.app to idle
+    t =    35.86s Waiting 15.0s for "study.start" Button to exist
+    t =    36.91s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    36.91s         Checking existence of `"study.start" Button`
+    t =    37.00s Terminate com.lockedin.app:41743
+    t =    38.01s Open com.lockedin.app
+    t =    38.01s     Launch com.lockedin.app
+    t =    38.46s         Setting up automation session
+    t =    41.21s         Wait for com.lockedin.app to idle
+    t =    44.87s Waiting 15.0s for "study.start" Button to exist
+    t =    45.89s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    45.89s         Checking existence of `"study.start" Button`
+    t =    46.04s Checking existence of `"onboarding.continue" Button`
+    t =    46.12s Checking existence of `StaticText (First Match)`
+    t =    46.87s Find the Target Application 'com.lockedin.app'
+    t =    47.18s Added attachment named 'onboarding-07-saved-home'
+    t =    47.19s Tear Down
+    t =    47.19s     Terminate com.lockedin.app:41947
+    t =    48.20s     Open com.lockedin.app
+    t =    48.20s         Launch com.lockedin.app
+    t =    48.63s             Setting up automation session
+    t =    50.80s             Wait for com.lockedin.app to idle
+    t =    52.33s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    53.36s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    53.36s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    53.40s     Terminate com.lockedin.app:42069
+Test Case '-[LockedINUITests.OfflineStudyLoopTests testOnboardingArrivalAndSavedIdentity]' passed (54.674 seconds).
+Test Suite 'OfflineStudyLoopTests' passed at 2026-10-03 19:55:54.050.
+	 Executed 1 test, with 0 failures (0 unexpected) in 54.674 (54.678) seconds
+Test Suite 'LockedINUITests.xctest' passed at 2026-10-03 19:55:54.051.
+	 Executed 1 test, with 0 failures (0 unexpected) in 54.674 (54.680) seconds
+Test Suite 'Selected tests' passed at 2026-10-03 19:55:54.053.
+	 Executed 1 test, with 0 failures (0 unexpected) in 54.674 (54.683) seconds
+2026-10-03 19:55:54.507 xcodebuild[41542:181984] [MT] IDETestOperationsObserverDebug: 67.987 elapsed -- Testing started completed.
+2026-10-03 19:55:54.507 xcodebuild[41542:181984] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-03 19:55:54.507 xcodebuild[41542:181984] [MT] IDETestOperationsObserverDebug: 67.987 sec, +67.987 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-83fp_vmv/OfflineLoop.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

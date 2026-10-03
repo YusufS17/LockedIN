@@ -13,3 +13,6 @@
 Inspected actual prior `recovery-polish/club-focus.png` and `club-results.png`. These show the baseline, not this iteration. Reviewed scoped source diff; `swiftc -frontend -parse` on all three views and `git diff --check` passed. Parsing does not establish type-checking or runtime appearance. Build and new simulator screenshots are delegated to the root agent and remain pending in this note. No timer/reward rules, participant identifiers, persistence or receipt deduplication changed. Demo companion and self-report labels remain explicit.
 
 Next: inspect default and largest-text live/check-in/results renders, and verify Reduce Motion results contain final coins plus return action without a reveal delay.
+
+
+Root completed integrated build, focused UI checks and actual render review after this agent report. See [final team evidence and limitations](CONTINUATION_TEAM.md), which supersedes pending root checks above.

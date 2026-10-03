@@ -2,14 +2,14 @@
 
 Last updated: 2026-10-03
 
-## Current work — recovery and polish, 2026-10-03
+## Current work — refinement team complete, 2026-10-03
 
-- All previous work survived; preserved in local recovery commit `e2af5a1`. Three agents finished room atmosphere, truthful onboarding and adaptive Home/setup/shared controls, saved in `175271e`. Save/handoff guidance committed in `554ba3b`. No remote push.
-- Root added onboarding/largest-text UI cases and inspected actual welcome, club/setup/focus/break/results and largest-text Home/setup renders. Fixed a decorative ordinal ellipsis and compressed play icon found in those screenshots.
-- Model/clock/reward/persistence/seating/private-state fixture checks passed; production/UI target build passed. Final small correction build passed; whitespace check passed.
-- Demo-club case passed140.859s. Largest-text Home/setup reached focus but cleanup stalled; remaining onboarding/solo cases did not execute. Onboarding-only retry failed because Xcode lost the simulator destination. No full new-onboarding acceptance pass is claimed.
-- No agents, builds, UI tests or exports remain running. Normal app saves preserved. [Changes, screenshots, logs and limits](docs/verification/RECOVERY_POLISH.md).
-- Next: restore simulator availability, run the three new onboarding/large-text cases separately and inspect their renders; continue avatar/reference polish. Real friend networking remains unfinished.
+- Three agents completed avatar fabric/hair/shoes, safer adaptive editors and readable live/check-in/results. Root integrated, inspected real renders and fixed observed confirmation/wrapping/stat/header issues. [Changes, screenshots and exact evidence](docs/verification/CONTINUATION_TEAM.md).
+- Production-model integration and production/UI target builds passed. All six targeted UI journeys have passing evidence: normal and largest-text onboarding, largest-text full study/results, independent garments, saved solo reward/purchase and editor discard/large editors.
+- Final3 affected cases passed zero failures in212.059s. Subsequent compact-header editor-only recheck passed76.494s. Valid screenshot exports inspected, including scrolled room/catalogue/stat content. Initial failed runs and fixes documented.
+- Implementation/fixes saved in `4d75304`, `6bbb5ac`, `870ff27`, `bc34880`; evidence and handoff saved in Git. No remote push. Normal saves preserved.
+- No agents/builds/tests/exports remain running. Updated app launched Home with ordinary preferences via Debug render route; simulator available.
+- Next: smaller-phone layout acceptance and VoiceOver/Reduce Motion interaction checks; further avatar/reference craft; authenticated private-friends service afterwards. Final reference fidelity and real networking remain open.
 
 ## Product direction
 
@@ -34,15 +34,15 @@ This is a native SwiftUI iPhone app. Open `LockedIN.xcodeproj`, select LockedIN 
 
 | Check | Latest result |
 | --- | --- |
-| Debug iPhone Simulator build | Passed 2026-10-03, including character/UI redesign and final world fix |
+| Debug iPhone Simulator build | Passed 2026-10-03, including final avatar/editor/study refinements |
 | Focus clock regression checks | Passed |
 | Reward rules regression checks | Passed |
 | Persistent reward checks, legacy save migration and reset | Passed |
 | Git whitespace check | Passed |
 | Production-model integration | Passed, including restoration, receipt replay and catalogue purchases |
-| App screenshots and interaction walkthrough | All seven journeys have passing evidence; final editor/eight-person/custom-garment recheck passed with zero failures; screenshots inspected |
+| App screenshots and interaction walkthrough | Earlier seven-case baseline plus six targeted refinement journeys have passing evidence; final3 affected + editor-only rechecks passed; actual renders inspected |
 
-Build log: `/tmp/LockedIN-visual-redesign-world-build.log` (temporary and may disappear). Reproducible regression commands are in [Tests/README.md](Tests/README.md).
+Latest build log: `/tmp/LockedIN-continuation-editor-build.log` (temporary and may disappear). Durable continuation screenshots/logs are linked in the current work section. Reproducible regression commands are in [Tests/README.md](Tests/README.md).
 
 ## Still unfinished
 

@@ -92,3 +92,8 @@ Update gates after verified milestones. Link evidence or reproducible commands i
 ## October3 restart checkpoint
 
 Recovered and committed the accumulated app work; a three-agent polish pass improved onboarding, room atmosphere and Home/setup Dynamic Type. Build/model checks pass; actual welcome/club/large-text renders inspected. Full new onboarding acceptance remains open because simulator cleanup stalled and Xcode then lost the destination. [Exact evidence and next checks](../docs/verification/RECOVERY_POLISH.md). This does not close final reference fidelity or multiplayer gates.
+
+
+## Next refinement team — verified
+
+Avatar fabric/hair/shoe detail, safer adaptive editors and live/check-in/results readability are implemented. Six targeted journeys have passing evidence, including normal/largest-text onboarding, saved solo upgrade and independent garments. Final3 affected cases and subsequent compact-editor recheck passed; actual/scrolled renders inspected. [Evidence](../docs/verification/CONTINUATION_TEAM.md). Next: smaller iPhone layout acceptance and VoiceOver/Reduce Motion interaction checks, continued reference craft. Real friend networking and original-reference fidelity gates remain open.

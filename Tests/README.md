@@ -59,4 +59,9 @@ Compiles the actual pure mapping helper; checks balanced size1–8 areas, one oc
 
 ## Onboarding and larger text
 
-`OfflineStudyLoopTests` also includes `testOnboardingArrivalAndSavedIdentity`, `testOnboardingAtLargestAccessibilitySize` and `testHomeAndSetupAtLargestAccessibilitySize`. These use the same disposable suites; the latter two request the largest accessibility content-size category through a launch argument. Assertions establish journey reachability; inspect screenshots for actual wrapping/scrolling quality. October3 recovery runs encountered simulator cleanup/destination failures; see [recorded limits](../docs/verification/RECOVERY_POLISH.md). They are not yet all passing acceptance evidence.
+`OfflineStudyLoopTests` also includes `testOnboardingArrivalAndSavedIdentity`, `testOnboardingAtLargestAccessibilitySize` and `testHomeAndSetupAtLargestAccessibilitySize`. These use the same disposable suites; the latter two request the largest accessibility content-size category through a launch argument. Assertions establish journey reachability; inspect screenshots for actual wrapping/scrolling quality. October3 recovery runs encountered simulator cleanup/destination failures; see [recorded limits](../docs/verification/RECOVERY_POLISH.md). The subsequent continuation team run provides passing evidence for all three, including final affected rechecks; see [current evidence](../docs/verification/CONTINUATION_TEAM.md).
+
+
+## Editor discard and study readability refinements
+
+`testWardrobeDiscardProtectionAndLargeEditors` verifies Keep editing preserves a staged outfit, Discard restores the existing saved look, and both editors remain escapable at the largest accessibility size. `testHomeAndSetupAtLargestAccessibilitySize` now walks focus/break/relaunch/check-in/results and captures scrolled room/results content. UI fixture teardown launches a lightweight Debug cleanup surface and asserts it; onboarding tests avoid an unrelated initial Home launch. Ordinary user saves remain untouched. [Team evidence](../docs/verification/CONTINUATION_TEAM.md).

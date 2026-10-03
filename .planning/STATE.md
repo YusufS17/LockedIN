@@ -1,7 +1,7 @@
 ---
-status: recovery_polish_saved_partial_runtime_verification
+status: continuation_team_verified_committed
 last_updated: "2026-10-03"
-stopped_at: "Recovery and team polish committed; model/build checks pass; new onboarding acceptance blocked by simulator destination loss"
+stopped_at: "Team refinement verified; final3 + editor-only UI runs pass; app launched Home; no jobs running"
 ---
 
 # Current handoff
@@ -32,15 +32,13 @@ Continue building the native iPhone app, preserve existing work and make progres
 
 ## Exact next action
 
-Recovery found all accumulated work intact but uncommitted. Saved it as `e2af5a1`; three agents completed room atmosphere, truthful onboarding and Home/setup accessibility, saved in `175271e`. Save/workflow checkpoint guidance is in `554ba3b`. No remote push.
+Refinement team completed avatars (fabric/hair/shoes), editors (adaptive previews, feedback, safe outfit discard) and live/check-in/results readability. Root integrated, built, inspected actual simulator renders and fixed observed omitted cancel action, timer/check-in wrapping, fixed-size result statistics and editor-header crowding. Implementation/fixes saved in `4d75304`, `6bbb5ac`, `870ff27`, `bc34880`; final evidence/handoff also saved in Git. No remote push.
 
-[Final recovery evidence](../docs/verification/RECOVERY_POLISH.md) records exact changes, tests, screenshots and limitations. Production app/UI target built; all model/clock/reward/persistence/seating/private-state fixtures passed. Root inspected actual welcome, club and largest-text Home/setup renders and corrected decorative ordinal/play-icon compression afterwards. Final small-fix build passed (`/tmp/LockedIN-recovery-final-build.log`); `git diff --check` passed. No builds remain running.
+[Final team evidence](../docs/verification/CONTINUATION_TEAM.md). Production study-model integration passed. Production/UI target builds passed. Six targeted journeys have passing evidence across the run: normal onboarding/saved identity54.674s, largest-text onboarding28.997s, independent garments84.497s, final affected largest-text full study67.462s, saved solo reward/purchase81.798s, editor discard/large editors62.799s (all3 final affected zero failures in212.059s). Subsequent header/catalogue editor recheck passed76.494s, zero failures.
 
-All agents and UI/export jobs stopped. Demo-club test passed140.859s; largest-text Home/setup reached focus but stalled during cleanup. Root stopped only its own test group/runner; Xcode cancellation left an unfinished xcresult. Seven raw screenshot payloads recovered and inspected, saved with logs under `docs/verification/recovery-polish/`. Onboarding retry exited70 because Xcode could no longer find the existing simulator destination. No simulator/user app data erased; another project's build was left untouched.
+Valid xcresult screenshots/manifests exported under `docs/verification/continuation/` and inspected. Initial integration compile errors and two editor test failures are documented with fixes; no false full-run pass. Final editor captures are `continuation/editors/`; accepted study/stat captures `continuation/accepted/`; normal onboarding `continuation/onboarding/`. User saves preserved; test fixtures namespaced and cleared through lightweight Debug-only cleanup. No agents/build/test/export jobs remain running. App launched on Home using ordinary preferences through Debug render route; simulator available.
 
-Next: recover simulator destination availability, build-for-testing, then run new onboarding/saved-identity, largest-text onboarding and largest-text Home/setup cases separately. Inspect final renders; rerun affected solo/editor journey. Do not describe the new onboarding as fully runtime verified. Continue richer avatar/reference fidelity; networking remains unimplemented.
-
-Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent rewards. Private-state fixtures are not multiplayer evidence.
+Next concrete slice: smaller iPhone/Dynamic Type layouts, VoiceOver + Reduce Motion runtime checks, then richer avatar/reference fidelity and authenticated private-friends integration per roadmap. Comprehensive accessibility and physical-device acceptance remain open. Preserve participant UUIDs, frozen intent, independent outfit saves and idempotent receipts; fixtures are not multiplayer evidence.
 
 ## Current environment
 
@@ -50,7 +48,7 @@ Preserve verified session UUIDs, frozen intent, wardrobe saves and idempotent re
 - October 3 baseline, room/chair and final lighting builds passed. All three regression suites passed. Offscreen room/focus/break/chair exports inspected.
 - Historical iOS 18.6 startup failure is superseded for verification by working iPhone 17 / iOS 26.3; solo/early-exit/editor UI cases passed. Do not erase the older device.
 - Elevated CoreSimulator/Xcode and Observation compiler access was approved; no automatic approval rejection occurred. No app data reset.
-- October3 recovery boot initially succeeded but Xcode later lost the simulator destination. Recheck availability; do not assume the app is currently open. Temporary logs may disappear; durable recovery evidence is linked above.
+- Earlier recovery destination loss is superseded by successful continuation-team simulator tests. Final editor check passed; app launched Home. Recheck availability on next resume; temporary logs may disappear.
 
 ## Verification commands
 

@@ -1,0 +1,53 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "E6AAD5EE-77F8-43F9-92BE-19B38CFF08C9.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-07-saved-home_0_A9F50C48-4CC9-40A3-9332-43113E92C6F5.png",
+        "timestamp" : 1791053746.557
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "21C4C3D8-B31A-4DE8-A3D1-AF8CA07418FA.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-06-arrival_0_8795B904-90DF-4EF3-929F-008BB2AD3AD9.png",
+        "timestamp" : 1791053733.162
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "45524A4D-4F8C-442A-829B-5DB8D2121606.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-05-name_0_F384A04C-E805-4381-842D-DBE3038EEB40.png",
+        "timestamp" : 1791053729.933
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "6D4AEF2A-656F-4CB5-AA37-CECFF4CD1BAF.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-03-gallery_0_2F86BA09-45C3-485A-AC49-37FB155A8D73.png",
+        "timestamp" : 1791053720.142
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "AA192E47-CD35-492D-B458-0CED57E505EA.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-02-value_0_9B168B85-864F-4C5B-9460-3977F723042D.png",
+        "timestamp" : 1791053716.945
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testOnboardingArrivalAndSavedIdentity()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testOnboardingArrivalAndSavedIdentity"
+  }
+]

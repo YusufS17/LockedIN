@@ -1,0 +1,44 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "23EA2A3D-118E-4035-B96B-6FE03F549852.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-decorating-browse-largest_0_039DDA34-480F-4C46-98DF-A9623E4D115E.png",
+        "timestamp" : 1791055408.659
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "947DBD77-EC8F-459C-B161-03610C7A4A8A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-decorating-largest_0_5DD0BB57-3898-4F70-9210-6ABD143BC661.png",
+        "timestamp" : 1791055402.297
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "4A02F649-5391-411D-AC6B-F4097BEA5166.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-wardrobe-browse-largest_0_B11871BD-72FB-491D-B4E6-2AF82230AA4C.png",
+        "timestamp" : 1791055397.165
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "8FB37908-3852-41D7-8AAE-3F527A95E028.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-wardrobe-largest_0_913A02C6-AF4F-4E6C-9BE2-09A9F40DBB20.png",
+        "timestamp" : 1791055390.792
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testWardrobeDiscardProtectionAndLargeEditors()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testWardrobeDiscardProtectionAndLargeEditors"
+  }
+]
