@@ -31,7 +31,7 @@ final class OfflineStudyLoopTests: XCTestCase {
     }
 
     private func tap(_ identifier: String) {
-        let button = app.buttons[identifier]
+        let button = app.buttons[identifier].firstMatch
         XCTAssertTrue(button.waitForExistence(timeout: 15), "Missing button: \(identifier)")
         for _ in 0..<6 {
             // Scroll content can report hittable behind the pinned break button.
@@ -131,6 +131,9 @@ final class OfflineStudyLoopTests: XCTestCase {
         tap("study.begin")
         XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
         capture("accessibility-focus-largest")
+        app.swipeUp()
+        capture("accessibility-room-largest")
+        app.swipeDown()
         tap("study.break")
         capture("accessibility-break-largest")
         tap("study.break")
@@ -142,6 +145,8 @@ final class OfflineStudyLoopTests: XCTestCase {
         tap("study.review.partly")
         XCTAssertTrue(app.staticTexts["study.coins"].waitForExistence(timeout: 15))
         capture("accessibility-results-largest")
+        app.swipeUp()
+        capture("accessibility-result-details-largest")
     }
 
     func testStudyRestoreGoalRewardAndUpgrade() {

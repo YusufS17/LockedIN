@@ -92,8 +92,11 @@ struct LiveSessionView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 5) {
                         Image(systemName: onBreak ? "cup.and.saucer.fill" : "hourglass")
+                            .fixedSize().accessibilityHidden(true)
                         Text(onBreak ? "ON A BREAK" : "TIME TO FOCUS").tracking(1.5)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(Theme.Colour.textSecondary)
                     Text(clock).font(.system(size: timerFontSize, weight: .bold, design: .rounded))

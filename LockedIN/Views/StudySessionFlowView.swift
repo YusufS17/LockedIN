@@ -49,9 +49,9 @@ struct StudySessionFlowView: View {
     private func goalCheck(_ session: ActiveStudySession) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
-                HStack {
+                (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8)) : AnyLayout(HStackLayout())) {
                     StudioEyebrow(text: "Session complete")
-                    Spacer()
+                    if !dynamicTypeSize.isAccessibilitySize { Spacer() }
                     Label("Private check-in", systemImage: "lock")
                         .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
                 }

@@ -137,7 +137,7 @@ struct CharacterCustomizerView: View {
             withAnimation { toast = nil }
         }
         .interactiveDismissDisabled(appearance != initial)
-        .confirmationDialog("Discard your outfit changes?", isPresented: $showsDiscardConfirmation, titleVisibility: .visible) {
+        .alert("Discard your outfit changes?", isPresented: $showsDiscardConfirmation) {
             Button("Discard changes", role: .destructive) { close() }
                 .accessibilityIdentifier("avatar.discard")
             Button("Keep editing", role: .cancel) {}
