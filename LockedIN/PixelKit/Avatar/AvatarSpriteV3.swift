@@ -138,6 +138,15 @@ enum AvatarSpriteV3 {
             g.set(row:9,cols:[26,27,28],"h")
         }
         if a.hairStyle == .long {
+            // A swept part continues into the side locks; highlights follow
+            // the crown's volume rather than forming a regular striped texture.
+            for (x,y) in [(20,3),(21,3),(22,3),(19,4),(20,4),(18,5),
+                          (27,4),(28,5),(29,6),(30,7)] {
+                if "HhI".contains(g[x,y]) { g[x,y] = "I" }
+            }
+            for (x,y) in [(25,5),(25,6),(26,7),(27,8),(28,9)] {
+                if "HhI".contains(g[x,y]) { g[x,y] = "h" }
+            }
             // Break the curtain into irregular overlapping locks and tapered tips.
             for y in 21...32 {
                 for x in 9...14 where "HhI".contains(g[x,y]) {
@@ -251,11 +260,15 @@ enum AvatarSpriteV3 {
         for y in 26...48 {
             bar(y, left[y-26], right[y-26], "O")
             for x in left[y-26]...min(left[y-26]+2, right[y-26]) { g[x,y] = "c" }
-            if y > 28 { bar(y, 30, right[y-26], "o") }
+            // The side plane narrows at the chest and widens near the waist.
+            // Separate sleeves below make the torso read as cloth with volume.
+            if y > 28 { bar(y, y < 36 ? 32 : 30, right[y-26], "o") }
         }
         // Sleeve seams curve into the underarm; cuffs have a different material.
         for y in 31...41 { g[18,y] = "o"; g[30,y] = "o" }
         bar(30, 15, 18, "c")
+        bar(31,15,17,"c"); bar(32,14,16,"c")
+        bar(29,21,25,"c")
         bar(41, 13, 17, "o"); bar(42,13,17,"c")
         bar(41,31,34,"o"); bar(42,31,34,"c")
         for y in 43...45 { bar(y,14,17,y == 45 ? "s" : "S"); bar(y,31,33,y == 45 ? "s" : "S") }
@@ -269,6 +282,10 @@ enum AvatarSpriteV3 {
             for y in 36...42 { bar(y,13,17,"S"); bar(y,31,34,"s") }
             bar(35,12,17,"c"); bar(35,31,35,"c")
             bar(27,21,28,"o"); bar(28,23,27,"c")
+            // Ribbed neck and a small diagonal shoulder fold.
+            g[21,28] = "c"; g[28,28] = "o"
+            bar(32,28,30,"c"); g[29,33] = "c"
+            bar(46,20,24,"o")
         case .hoodie:
             bar(25,18,21,"o"); bar(25,28,31,"o")
             bar(26,17,21,"c"); bar(26,29,32,"c")
@@ -278,21 +295,37 @@ enum AvatarSpriteV3 {
             for y in 29...32 { g[28,y] = "W" }
             bar(39,22,27,"o"); g[21,40] = "o"; g[28,40] = "o"
             bar(43,21,28,"o"); bar(42,22,27,"c")
+            g[22,34] = "t"; g[28,32] = "t"
+            // Sloping pocket openings and a softly lit pouch front.
+            g[22,40] = "c"; g[27,40] = "c"
+            bar(41,23,26,"c")
+            bar(46,19,29,"o")
+            for x in [20,23,26,29] { g[x,47] = "c" }
         case .jumper:
             bar(26,20,29,"c"); bar(27,22,28,"o")
             for x in stride(from:18,through:30,by:2) { g[x,47] = "o" }
-            bar(34,20,28,"c")
+            // Small knit folds follow the shoulder and elbow instead of a
+            // decorative horizontal chest stripe.
+            bar(33,21,23,"c"); bar(34,20,22,"c")
+            g[28,36] = "o"; g[27,37] = "o"
+            bar(40,14,17,"o"); bar(40,31,33,"o")
         case .jacket:
             for y in 27...46 { bar(y,24,27,"W"); g[23,y] = "o"; g[28,y] = "o" }
             bar(27,20,23,"c"); bar(28,21,24,"c"); bar(29,22,24,"c")
             bar(27,28,31,"c"); bar(28,28,30,"c"); bar(29,28,29,"c")
             bar(38,19,22,"o"); bar(39,19,22,"c")
+            g[19,37] = "c"; g[22,37] = "c"
+            bar(44,19,21,"c"); bar(45,20,22,"o")
+            g[30,36] = "c"; g[31,37] = "c"
             for y in [34,39,44] { g[28,y] = "t" }
         case .shirt:
             bar(27,20,23,"c"); bar(28,22,24,"c"); bar(27,28,30,"c")
             for y in 29...46 { g[26,y] = "c" }
             for y in [31,36,41,46] { g[26,y] = "t" }
             bar(33,28,30,"o"); bar(36,28,30,"o")
+            g[28,34] = "c"; g[30,34] = "c"
+            bar(44,20,22,"o"); g[20,43] = "o"
+            bar(46,28,30,"c")
         }
         // Offset legs and shoe toes establish the same turn as the torso.
         for y in 49...57 {
@@ -301,6 +334,10 @@ enum AvatarSpriteV3 {
         }
         bar(49,18,31,"l"); bar(50,24,25,"L")
         bar(54,18,20,"l"); bar(55,27,29,"l")
+        // Hip pockets, a turned knee and cuffs retain separate leg silhouettes.
+        g[19,51] = "l"; g[20,52] = "l"
+        g[28,51] = "l"; g[27,52] = "l"
+        g[22,55] = "l"; g[29,56] = "l"
         if a.bottomStyle == .shorts || a.bottomStyle == .skirt {
             for y in 54...57 { bar(y,18,22,"S"); bar(y,27,31,"s") }
         }
@@ -319,6 +356,11 @@ enum AvatarSpriteV3 {
         } else if a.shoeStyle == .sneakers {
             bar(58,18,21,"F"); bar(59,17,20,"W")
             bar(59,28,31,"F"); bar(60,27,30,"W")
+            // Dark heel/collar, tiny laces and separate white rubber toe caps.
+            g[23,59] = "F"; g[33,60] = "F"
+            g[19,58] = "W"; g[29,59] = "W"
+            g[15,60] = "W"; g[16,60] = "W"
+            g[25,61] = "W"; g[26,61] = "W"
         } else {
             bar(58,18,22,"L"); bar(59,27,31,"L")
         }

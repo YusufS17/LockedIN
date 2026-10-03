@@ -3,6 +3,7 @@ import SwiftUI
 struct PersonalRoomBuilderView: View {
     @Environment(AppStore.self) private var appStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var slot: RoomSlot = .desk
     @State private var message: String?
     private var world: WorldStore { appStore.world }
@@ -11,9 +12,12 @@ struct PersonalRoomBuilderView: View {
     var body: some View {
         VStack(spacing: 0) {
             StudioHeader(title: "Your room studio", subtitle: "Small upgrades. A place that's yours.", close: { dismiss() })
-            roomPreview.padding(.horizontal, 24).padding(.bottom, 16)
+            if !dynamicTypeSize.isAccessibilitySize {
+                roomPreview.padding(.horizontal, 24).padding(.bottom, 16)
+            }
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
+                    if dynamicTypeSize.isAccessibilitySize { roomPreview }
                     StudioSectionHeading(title: "Make room for you", detail: "Choose a piece. See it in your space.")
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -26,6 +30,7 @@ struct PersonalRoomBuilderView: View {
                                 }
                                 .buttonStyle(.plain)
                                 .accessibilityAddTraits(slot == category ? .isSelected : [])
+                                .accessibilityIdentifier("room.category.\(category.rawValue)")
                             }
                         }
                     }
@@ -35,7 +40,7 @@ struct PersonalRoomBuilderView: View {
                         Text("\(RoomItemCatalog.items(for: slot).count) pieces")
                             .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
                     }
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12)], spacing: 12) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: dynamicTypeSize.isAccessibilitySize ? 140 : 96), spacing: 12)], spacing: 12) {
                         ForEach(RoomItemCatalog.items(for: slot)) { item in itemTile(item) }
                     }
                     Text(message ?? "Owned pieces are ready to place. Priced pieces unlock and place with one tap.")
@@ -56,6 +61,7 @@ struct PersonalRoomBuilderView: View {
                 }
                 Button("Back to my room") { dismiss() }
                     .buttonStyle(StudioButtonStyle(primary: true))
+                    .accessibilityIdentifier("room.done")
             }
             .padding(.horizontal, 24).padding(.vertical, 12)
             .background(Theme.Colour.background)
@@ -97,13 +103,13 @@ struct PersonalRoomBuilderView: View {
         } label: {
             VStack(spacing: 8) {
                 RoomItemThumbnail(item: item).frame(height: 84).padding(.horizontal, 8)
-                Text(item.name).font(.caption.weight(.semibold))
+                Text(item.name).font(.caption.weight(.semibold)).multilineTextAlignment(.center)
                 HStack(spacing: 3) {
                     if selected { Image(systemName: "checkmark") }
                     else if !owned { Image(systemName: "lock") }
                     Text(selected ? "Placed" : (owned ? "Owned" : "\(item.cost) coins"))
                 }
-                .font(.system(size: 11, weight: .medium))
+                .font(.caption2.weight(.medium))
                 .foregroundStyle(selected ? Theme.Colour.focusGreen : Theme.Colour.textSecondary)
             }
             .frame(maxWidth: .infinity).padding(.vertical, 12)
@@ -111,6 +117,8 @@ struct PersonalRoomBuilderView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(item.name), \(selected ? "placed" : owned ? "owned" : "\(item.cost) coins")")
+        .accessibilityAddTraits(selected ? .isSelected : [])
+        .accessibilityIdentifier("room.item.\(item.id)")
         .accessibilityHint(owned ? "Place in your room" : "Buy with earned coins and place in your room")
     }
 }

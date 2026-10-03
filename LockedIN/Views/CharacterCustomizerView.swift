@@ -17,6 +17,7 @@ struct CharacterCustomizerView: View {
 
     @Environment(AppStore.self) private var appStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let initial: CharacterAppearance
     var initialName: String = ""
@@ -26,6 +27,7 @@ struct CharacterCustomizerView: View {
     @State private var appearance: CharacterAppearance
     @State private var category: Category = .hair
     @State private var toast: String?
+    @State private var showsDiscardConfirmation = false
 
     init(initial: CharacterAppearance,
          initialName: String = "",
@@ -79,21 +81,24 @@ struct CharacterCustomizerView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            StudioHeader(title: "Your wardrobe", subtitle: "A character that feels like you", close: {
-                if let onBack { onBack() } else { dismiss() }
-            })
-            preview.padding(.horizontal, 24).padding(.bottom, 14)
+            StudioHeader(title: "Your wardrobe", subtitle: "A character that feels like you", closeIdentifier: "avatar.close", close: requestClose)
+            if !dynamicTypeSize.isAccessibilitySize {
+                preview.padding(.horizontal, 24).padding(.bottom, 14)
+            }
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
-                    HStack(alignment: .center) {
-                        StudioSectionHeading(title: "Find your look", detail: "Mix every piece independently.")
-                        Spacer()
-                        Button(action: randomise) {
-                            Label("Shuffle", systemImage: "dice")
-                                .font(.caption.weight(.semibold)).padding(12)
+                    if dynamicTypeSize.isAccessibilitySize { preview }
+                    if dynamicTypeSize.isAccessibilitySize {
+                        VStack(alignment: .leading, spacing: 10) {
+                            StudioSectionHeading(title: "Find your look", detail: "Mix every piece independently.")
+                            shuffleButton
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        HStack(alignment: .center) {
+                            StudioSectionHeading(title: "Find your look", detail: "Mix every piece independently.")
+                            Spacer()
+                            shuffleButton
                         }
-                        .background(Theme.Colour.surface, in: Capsule())
-                        .accessibilityLabel("Randomise appearance")
                     }
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -126,6 +131,29 @@ struct CharacterCustomizerView: View {
         .background(Theme.Colour.background.ignoresSafeArea())
         .safeAreaInset(edge: .bottom, spacing: 0) { saveBar.background(Theme.Colour.background) }
         .overlay(alignment: .bottom) { if let toast { toastView(toast) } }
+        .task(id: toast) {
+            guard toast != nil else { return }
+            do { try await Task.sleep(for: .seconds(3)) } catch { return }
+            withAnimation { toast = nil }
+        }
+        .interactiveDismissDisabled(appearance != initial)
+        .confirmationDialog("Discard your outfit changes?", isPresented: $showsDiscardConfirmation, titleVisibility: .visible) {
+            Button("Discard changes", role: .destructive) { close() }
+                .accessibilityIdentifier("avatar.discard")
+            Button("Keep editing", role: .cancel) {}
+                .accessibilityIdentifier("avatar.keepEditing")
+        } message: {
+            Text("Your saved outfit will stay as it was. Any unlocked items stay owned.")
+        }
+    }
+
+    private var shuffleButton: some View {
+        Button(action: randomise) {
+            Label("Shuffle", systemImage: "dice")
+                .font(.caption.weight(.semibold)).padding(12)
+        }
+        .background(Theme.Colour.surface, in: Capsule())
+        .accessibilityLabel("Randomise appearance")
     }
 
     private var preview: some View {
@@ -160,7 +188,9 @@ struct CharacterCustomizerView: View {
 
     // MARK: - Swatch area
 
-    private let swatchColumns = [GridItem(.adaptive(minimum: 86), spacing: 12)]
+    private var swatchColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: dynamicTypeSize.isAccessibilitySize ? 140 : 86), spacing: 12)]
+    }
 
     private var swatchArea: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -242,7 +272,7 @@ struct CharacterCustomizerView: View {
                         .overlay(Circle().strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
                     if locked, let id { priceTag(CosmeticCatalog.cost(for: id)) }
                 }.frame(height: 62)
-                Text(label).font(.system(size: 11, weight: .medium))
+                Text(label).font(.caption.weight(.medium)).multilineTextAlignment(.center)
                 inventoryState(selected: selected, locked: locked, id: id)
             }
             .frame(maxWidth: .infinity).padding(.vertical, 10)
@@ -251,6 +281,7 @@ struct CharacterCustomizerView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(label)\(selected ? ", selected" : "")")
+        .accessibilityAddTraits(selected ? .isSelected : [])
         .accessibilityHint(locked ? "Unlock for \(id.map { CosmeticCatalog.cost(for: $0) } ?? 0) earned coins" : "Try on this look")
     }
 
@@ -263,7 +294,7 @@ struct CharacterCustomizerView: View {
                     itemPreview(preview).frame(height: 86).padding(.horizontal, 8)
                     if locked, let id { priceTag(CosmeticCatalog.cost(for: id)) }
                 }
-                Text(label).font(.system(size: 11, weight: .medium))
+                Text(label).font(.caption.weight(.medium)).multilineTextAlignment(.center)
                 inventoryState(selected: selected, locked: locked, id: id)
             }
             .frame(maxWidth: .infinity).padding(.vertical, 10)
@@ -272,6 +303,7 @@ struct CharacterCustomizerView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(label)\(selected ? ", selected" : "")")
+        .accessibilityAddTraits(selected ? .isSelected : [])
         .accessibilityHint(locked ? "Unlock for \(id.map { CosmeticCatalog.cost(for: $0) } ?? 0) earned coins" : "Try on this look")
     }
 
@@ -281,7 +313,7 @@ struct CharacterCustomizerView: View {
             else if locked { Image(systemName: "lock.fill") }
             Text(selected ? "Wearing" : locked ? "\(id.map { CosmeticCatalog.cost(for: $0) } ?? 0) coins" : "Owned")
         }
-        .font(.system(size: 10, weight: .medium))
+        .font(.caption2.weight(.medium))
         .foregroundStyle(selected ? Theme.Colour.testBadgeFg : Theme.Colour.textSecondary)
     }
 
@@ -322,8 +354,11 @@ struct CharacterCustomizerView: View {
         VStack(spacing: 9) {
             Button("Save avatar") { save() }
                 .buttonStyle(StudioButtonStyle(primary: true))
-            Text("Save to keep your outfit. Unlocked items stay owned.")
-                .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
+                .accessibilityIdentifier("avatar.save")
+            if !dynamicTypeSize.isAccessibilitySize {
+                Text("Save to keep your outfit. Unlocked items stay owned.")
+                    .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
+            }
         }
         .padding(.horizontal, 24).padding(.vertical, 12)
     }
@@ -333,6 +368,9 @@ struct CharacterCustomizerView: View {
             .font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.buttonText)
             .padding(.horizontal, Theme.Spacing.md).padding(.vertical, Theme.Spacing.sm)
             .background(PixelPanelShape(unit: 2).fill(Theme.Colour.buttonFill))
+            .multilineTextAlignment(.center)
+            .accessibilityIdentifier("avatar.feedback")
+            .padding(.horizontal, 24)
             .padding(.bottom, 96)
             .transition(.move(edge: .bottom).combined(with: .opacity))
     }
@@ -351,7 +389,7 @@ struct CharacterCustomizerView: View {
             withAnimation(.easeInOut(duration: 0.15)) { apply() }
             flash("Unlocked! ✨")
         } else {
-            flash("Need \(CosmeticCatalog.cost(for: id)) coins")
+            flash("Need \(max(0, CosmeticCatalog.cost(for: id) - coins)) more coins. You have \(coins).")
         }
     }
 
@@ -364,10 +402,15 @@ struct CharacterCustomizerView: View {
 
     private func flash(_ message: String) {
         withAnimation { toast = message }
-        Task {
-            try? await Task.sleep(for: .seconds(1.4))
-            withAnimation { toast = nil }
-        }
+
+    }
+
+    private func requestClose() {
+        if appearance != initial { showsDiscardConfirmation = true } else { close() }
+    }
+
+    private func close() {
+        if let onBack { onBack() } else { dismiss() }
     }
 
     private func save() {

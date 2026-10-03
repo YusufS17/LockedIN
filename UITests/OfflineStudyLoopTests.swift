@@ -8,12 +8,17 @@ final class OfflineStudyLoopTests: XCTestCase {
         continueAfterFailure = false
         suite = "LockedIN.ui-tests.\(UUID().uuidString)"
         app = XCUIApplication()
-        launch(reset: true)
+        // Onboarding tests launch their own first-run configuration.
+        if !name.contains("testOnboarding") { launch(reset: true) }
     }
 
     override func tearDownWithError() throws {
         app.terminate()
-        launch(reset: true) // removes only this test's namespaced save
+        // Clear the isolated suite through a lightweight Debug route. Avoid
+        // rendering another complete Home just to discard disposable fixtures.
+        app.launchArguments = ["-ui-test-suite", suite, "-ui-test-reset", "-ui-test-cleanup"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["ui-test.cleaned"].waitForExistence(timeout: 15))
         app.terminate()
     }
 
@@ -125,6 +130,18 @@ final class OfflineStudyLoopTests: XCTestCase {
         capture("accessibility-setup-largest")
         tap("study.begin")
         XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
+        capture("accessibility-focus-largest")
+        tap("study.break")
+        capture("accessibility-break-largest")
+        tap("study.break")
+        app.terminate()
+        app.launchArguments += ["-ui-test-elapsed", "1600"]
+        app.launch()
+        tap("study.start")
+        capture("accessibility-check-in-largest")
+        tap("study.review.partly")
+        XCTAssertTrue(app.staticTexts["study.coins"].waitForExistence(timeout: 15))
+        capture("accessibility-results-largest")
     }
 
     func testStudyRestoreGoalRewardAndUpgrade() {
@@ -212,6 +229,34 @@ final class OfflineStudyLoopTests: XCTestCase {
         XCTAssertTrue(button.isHittable)
         button.tap()
         XCTAssertTrue(button.isSelected)
+    }
+
+    func testWardrobeDiscardProtectionAndLargeEditors() {
+        tap("Edit avatar")
+        tap("Skin")
+        tap("Deep")
+        tap("avatar.close")
+        XCTAssertTrue(app.buttons["avatar.keepEditing"].waitForExistence(timeout: 15))
+        tap("avatar.keepEditing")
+        XCTAssertTrue(app.buttons["Deep, selected"].exists)
+        tap("avatar.close")
+        tap("avatar.discard")
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+        tap("Edit avatar")
+        tap("Skin")
+        XCTAssertFalse(app.buttons["Deep, selected"].exists)
+        tap("Save avatar")
+        app.terminate()
+        app.launchArguments = ["-smoke-room", "home", "-ui-test-suite", suite,
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        tap("Edit avatar")
+        capture("accessibility-wardrobe-largest")
+        tap("Save avatar")
+        tap("Decorate")
+        capture("accessibility-decorating-largest")
+        tap("room.done")
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
     }
 
     func testIndependentGarmentsPersist() {

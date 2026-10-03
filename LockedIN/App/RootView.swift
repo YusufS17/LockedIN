@@ -26,7 +26,10 @@ struct RootView: View {
     var body: some View {
         // First-launch gate: real onboarding beats until completed, then Home.
         #if DEBUG
-        if let screen = Self.smokeScreen {
+        if StudyTestEnvironment.suiteName != nil &&
+            ProcessInfo.processInfo.arguments.contains("-ui-test-cleanup") {
+            Text("Fixture cleared").accessibilityIdentifier("ui-test.cleaned")
+        } else if let screen = Self.smokeScreen {
             SmokeRoomScreen(screen: screen)   // Debug-only isolated render and interaction harness
         } else if hasCompletedOnboarding {
             HomeView()

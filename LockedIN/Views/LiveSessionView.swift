@@ -6,6 +6,8 @@ struct LiveSessionView: View {
     var onCancel: () -> Void
     @Environment(AppStore.self) private var appStore
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .largeTitle) private var timerFontSize = 42.0
     @State private var session: ActiveStudySession
     @State private var now = Date()
     @State private var showParticipants = false
@@ -70,9 +72,9 @@ struct LiveSessionView: View {
                 .background(Theme.Colour.focusGreen.opacity(0.09), in: RoundedRectangle(cornerRadius: 12))
             VStack(alignment: .leading, spacing: 4) {
                 Text(isGroup ? config.roomName : "Your focus room")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .font(.system(.title3, design: .rounded, weight: .bold))
                 Text(isGroup ? "Demo room · simulated companions" : "A little time for yourself")
-                    .font(.system(size: 12)).foregroundStyle(Theme.Colour.textSecondary)
+                    .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }
             Spacer(minLength: 0)
             Button { showLeave = true } label: {
@@ -86,27 +88,28 @@ struct LiveSessionView: View {
 
     private var timerPanel: some View {
         VStack(spacing: 10) {
-            HStack(alignment: .center, spacing: 16) {
+            (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12)) : AnyLayout(HStackLayout(alignment: .center, spacing: 16))) {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 5) {
                         Image(systemName: onBreak ? "cup.and.saucer.fill" : "hourglass")
                         Text(onBreak ? "ON A BREAK" : "TIME TO FOCUS").tracking(1.5)
                     }
-                    .font(.system(size: 9, weight: .bold))
+                    .font(.caption2.weight(.bold))
                     .foregroundStyle(Theme.Colour.textSecondary)
-                    Text(clock).font(.system(size: 42, weight: .bold, design: .rounded))
+                    Text(clock).font(.system(size: timerFontSize, weight: .bold, design: .rounded))
                         .monospacedDigit().tracking(-1)
+                        .lineLimit(1).minimumScaleFactor(0.7)
                         .accessibilityLabel("\(remaining / 60) minutes, \(remaining % 60) seconds remaining")
                 }
                 Spacer(minLength: 0)
-                VStack(alignment: .trailing, spacing: 6) {
+                VStack(alignment: dynamicTypeSize.isAccessibilitySize ? .leading : .trailing, spacing: 6) {
                     Label(onBreak ? "Timer paused" : config.subject, systemImage: onBreak ? "pause.circle" : "book.closed")
-                        .font(.system(size: 11, weight: .medium))
+                        .font(.caption.weight(.medium))
                         .foregroundStyle(Theme.Colour.focusGreen)
                     Text(onBreak ? "Come back when you’re ready." : config.goal)
-                        .font(.system(size: 11)).foregroundStyle(Theme.Colour.textSecondary)
-                        .lineLimit(3)
-                        .multilineTextAlignment(.trailing)
+                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 3)
+                        .multilineTextAlignment(dynamicTypeSize.isAccessibilitySize ? .leading : .trailing)
                 }
             }
             ProgressView(value: min(1, max(0, 1 - Double(remaining) / session.clock.duration)))
@@ -124,26 +127,26 @@ struct LiveSessionView: View {
         Button { showParticipants = true } label: {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text("CLUB MEMBERS").font(.system(size: 9, weight: .bold)).tracking(1.5)
+                    Text("CLUB MEMBERS").font(.caption2.weight(.bold)).tracking(1.5)
                     Spacer()
-                    Text("Goals & people").font(.system(size: 11, weight: .semibold))
-                    Image(systemName: "chevron.right").font(.system(size: 9, weight: .bold))
+                    Text("Goals & people").font(.caption.weight(.semibold))
+                    Image(systemName: "chevron.right").font(.caption2.weight(.bold))
                 }.foregroundStyle(Theme.Colour.textSecondary)
-                LazyVGrid(columns: [GridItem(.flexible(), alignment: .leading), GridItem(.flexible(), alignment: .leading)], spacing: 12) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), alignment: .leading), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2), spacing: 12) {
                     ForEach(Array(roster.prefix(4))) { person in
                         HStack(spacing: 8) {
                             AvatarPortraitView(appearance: person.character.fallback, size: 34)
                             VStack(alignment: .leading, spacing: 3) {
                                 Text(person.isUser ? "You" : person.displayName)
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(.subheadline.weight(.semibold))
                                 Label(person.status.label, systemImage: person.status.symbolName ?? "circle.fill")
-                                    .font(.system(size: 10)).foregroundStyle(statusInk(person.status))
+                                    .font(.caption).foregroundStyle(statusInk(person.status))
                             }
                         }
                     }
                 }
                 Text(roster.count > 4 ? "First 4 of \(roster.count) · Simulated companions · View all" : "Simulated companions · \(focusedCount)/\(roster.count) focusing")
-                    .font(.system(size: 10)).foregroundStyle(Theme.Colour.textSecondary)
+                    .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -161,19 +164,19 @@ struct LiveSessionView: View {
             if let building = appStore.world.state.activeBuilding {
                 HStack(spacing: 10) {
                     Image(systemName: building.type.symbol).foregroundStyle(Theme.Colour.focusGreen)
-                    Text("Growing your \(building.type.title)").font(.system(size: 11, weight: .medium))
+                    Text("Growing your \(building.type.title)").font(.caption.weight(.medium))
                     Spacer(minLength: 0)
                     ProgressView(value: building.progress).tint(Theme.Colour.focusGreen).frame(width: 64)
                 }
             }
-            HStack(spacing: 6) {
+            (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6)) : AnyLayout(HStackLayout(spacing: 6))) {
                 Image(systemName: "leaf")
                 Text(config.competitive ? "Competitive demo" : "Supportive session")
                 Spacer()
                 Text("\(breaksUsed)/\(config.breakAllowance) breaks used")
-            }.font(.system(size: 10))
+            }.font(.caption)
             Text(isGroup ? "Companions are simulated. Your timer keeps running outside the app; other app use is not tracked." : "Your timer keeps running outside the app. Breaks and interruptions are self-reported; other app use is not tracked.")
-                .font(.system(size: 11)).fixedSize(horizontal: false, vertical: true)
+                .font(.caption).fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }.foregroundStyle(Theme.Colour.textSecondary)
     }
@@ -188,30 +191,38 @@ struct LiveSessionView: View {
     }
 
     private var controlDock: some View {
-        HStack(spacing: 10) {
-            Button {
-                session.reportInterruption(at: Date())
-                onCheckpoint(session)
-                if !session.isRunning { onFinish(session.participants) }
-            } label: {
-                VStack(spacing: 3) {
-                    Image(systemName: "arrow.uturn.backward").font(.system(size: 15, weight: .semibold))
-                    Text("Interrupted").font(.system(size: 9, weight: .semibold))
+        VStack(spacing: 8) {
+            (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(spacing: 10)) : AnyLayout(HStackLayout(spacing: 10))) {
+                Button {
+                    session.reportInterruption(at: Date())
+                    onCheckpoint(session)
+                    if !session.isRunning { onFinish(session.participants) }
+                } label: {
+                    VStack(spacing: 3) {
+                        Image(systemName: "arrow.uturn.backward").font(.system(size: 15, weight: .semibold))
+                        Text("Interrupted").font(.caption2.weight(.semibold))
+                    }
+                    .frame(maxWidth: dynamicTypeSize.isAccessibilitySize ? .infinity : 76, minHeight: 50)
+                    .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 8 : 0)
+                    .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 14))
+                    .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Theme.Colour.cardBorder))
                 }
-                .frame(width: 76, height: 50)
-                .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 14))
-                .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Theme.Colour.cardBorder))
+                .buttonStyle(.plain)
+                .accessibilityLabel("I got interrupted, \(session.user?.distractions ?? 0) reported")
+                .accessibilityIdentifier("study.interruption")
+                .disabled(onBreak)
+                Button(action: toggleBreak) {
+                    Label(onBreak ? "Back to focus" : "Take a break", systemImage: onBreak ? "play.fill" : "cup.and.saucer")
+                }
+                .buttonStyle(StudioButtonStyle(primary: true))
+                .accessibilityIdentifier("study.break")
+                .disabled(!onBreak && breaksUsed >= config.breakAllowance)
             }
-            .buttonStyle(.plain)
-            .accessibilityLabel("I got interrupted, \(session.user?.distractions ?? 0) reported")
-            .accessibilityIdentifier("study.interruption")
-            .disabled(onBreak)
-            Button(action: toggleBreak) {
-                Label(onBreak ? "Back to focus" : "Take a break", systemImage: onBreak ? "play.fill" : "cup.and.saucer")
+            if !onBreak && breaksUsed >= config.breakAllowance {
+                Text("All planned breaks used. You can still report an interruption or leave the session.")
+                    .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            .buttonStyle(StudioButtonStyle(primary: true))
-            .accessibilityIdentifier("study.break")
-            .disabled(!onBreak && breaksUsed >= config.breakAllowance)
         }
         .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
         .background(Theme.Colour.background)
@@ -239,31 +250,31 @@ struct LiveSessionView: View {
                 VStack(alignment: .leading, spacing: 14) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Different goals. Shared quiet.")
-                            .font(.system(size: 23, weight: .bold, design: .rounded))
+                            .font(.system(.title2, design: .rounded, weight: .bold))
                         Text("Your companions are simulated. These are their demo study goals; your end-of-session check-in stays private.")
-                            .font(.system(size: 12)).foregroundStyle(Theme.Colour.textSecondary)
+                            .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                     }.padding(.vertical, 8)
                     ForEach(roster) { person in
                         VStack(alignment: .leading, spacing: 12) {
-                            HStack(spacing: 10) {
+                            (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 10)) : AnyLayout(HStackLayout(spacing: 10))) {
                                 AvatarPortraitView(appearance: person.character.fallback, size: 42)
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(person.isUser ? "You" : person.displayName)
-                                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                                        .font(.system(.headline, design: .rounded, weight: .bold))
                                     Text(person.isUser ? "Your study goal" : "Simulated companion")
-                                        .font(.system(size: 10)).foregroundStyle(Theme.Colour.textSecondary)
+                                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                                 }
                                 Spacer(minLength: 0)
                                 Label(person.status.label, systemImage: person.status.symbolName ?? "circle.fill")
-                                    .font(.system(size: 10, weight: .medium))
+                                    .font(.caption.weight(.medium))
                                     .foregroundStyle(statusInk(person.status))
                             }
                             if let intent = person.studyIntent {
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text(intent.subject.uppercased())
-                                        .font(.system(size: 9, weight: .bold)).tracking(1)
+                                        .font(.caption2.weight(.bold)).tracking(1)
                                         .foregroundStyle(Theme.Colour.textSecondary)
-                                    Text(intent.goal).font(.system(size: 14, weight: .medium))
+                                    Text(intent.goal).font(.subheadline.weight(.medium))
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)

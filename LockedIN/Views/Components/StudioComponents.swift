@@ -29,6 +29,7 @@ struct StudioButtonStyle: ButtonStyle {
 struct StudioHeader: View {
     let title: String
     var subtitle: String? = nil
+    var closeIdentifier: String = "studio.back"
     var close: () -> Void
 
     var body: some View {
@@ -41,6 +42,7 @@ struct StudioHeader: View {
                     .overlay(Circle().strokeBorder(Theme.Colour.cardBorder.opacity(0.7)))
             }
             .accessibilityLabel("Back")
+            .accessibilityIdentifier(closeIdentifier)
             VStack(alignment: .leading, spacing: 3) {
                 Text(title).font(.system(.headline, design: .rounded, weight: .bold))
                     .accessibilityAddTraits(.isHeader)

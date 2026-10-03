@@ -5,6 +5,7 @@ struct StudySessionFlowView: View {
     let group: Bool
     @Environment(AppStore.self) private var appStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var config: RoomConfig
     @State private var clubSize = 4
 
@@ -54,12 +55,12 @@ struct StudySessionFlowView: View {
                     Label("Private check-in", systemImage: "lock")
                         .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
                 }
-                HStack(spacing: 16) {
+                (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16)) : AnyLayout(HStackLayout(spacing: 16))) {
                     PixelAvatarView(appearance: appStore.userCharacter, status: .finished, size: 108)
                         .frame(width: 94)
                     VStack(alignment: .leading, spacing: 7) {
                         Text("A little closer.")
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .font(.system(.title, design: .rounded, weight: .bold))
                         Text("You made time for what matters.")
                             .font(.subheadline).foregroundStyle(Theme.Colour.textSecondary)
                     }

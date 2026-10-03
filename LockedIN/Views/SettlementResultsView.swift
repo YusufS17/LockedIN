@@ -11,6 +11,7 @@ struct SettlementResultsView: View {
 
     @Environment(AppStore.self) private var appStore
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @State private var result: SessionResult?
     @State private var reward: RewardOutcome?   // real XP/coins awarded + persisted
@@ -74,7 +75,7 @@ struct SettlementResultsView: View {
                     StudioEyebrow(text: "A little time, well spent")
                     trophy
                     Text(user?.leftEarly == true ? "See you next time" : "Room complete")
-                        .font(.system(size: 30, weight: .bold, design: .rounded)).tracking(-0.7)
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold)).tracking(-0.7)
                         .foregroundStyle(Theme.Colour.textPrimary)
                     Text(user?.leftEarly == true ? "Your room will be here when you’re ready." : "One more small step towards your world.")
                         .font(.subheadline).foregroundStyle(Theme.Colour.textSecondary)
@@ -122,7 +123,7 @@ struct SettlementResultsView: View {
                 .font(Theme.TypeScale.body)
                 .foregroundStyle(Theme.Colour.textSecondary)
             Text("+\(coinsShown) coins").accessibilityIdentifier("study.coins")
-                .font(.system(size: 26, weight: .heavy, design: .rounded))
+                .font(.system(.title, design: .rounded, weight: .heavy))
                 .foregroundStyle(Theme.Colour.testBadgeFg)
                 .monospacedDigit()
                 .contentTransition(.numericText())
@@ -151,7 +152,7 @@ struct SettlementResultsView: View {
                     Spacer(minLength: 0)
                 }
                 Rectangle().fill(Theme.Colour.cardBorder.opacity(0.6)).frame(height: 1)
-                HStack(spacing: Theme.Spacing.sm) {
+                (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(spacing: Theme.Spacing.sm)) : AnyLayout(HStackLayout(spacing: Theme.Spacing.sm))) {
                     statTile("clock.fill", focusTime, "Your timer", Theme.Colour.accent)
                     statTile("cup.and.saucer", "\(user?.recordedBreakCount ?? 0)", "Breaks", Theme.Colour.textPrimary)
                     statTile("hand.raised", "\(user?.distractions ?? 0)", "Reported", Theme.Colour.textSecondary)
@@ -162,7 +163,7 @@ struct SettlementResultsView: View {
                     HStack(alignment: .top, spacing: 9) {
                         Image(systemName: "lock").font(.caption)
                         VStack(alignment: .leading, spacing: 3) {
-                            Text("Your private check-in").font(.system(size: 10, weight: .semibold))
+                            Text("Your private check-in").font(.caption.weight(.semibold))
                             Text(goalAnswer).font(.subheadline)
                         }
                     }.foregroundStyle(Theme.Colour.textSecondary)
@@ -193,12 +194,13 @@ struct SettlementResultsView: View {
                 .font(Theme.TypeScale.caption)
                 .foregroundStyle(Theme.Colour.textSecondary)
                 .multilineTextAlignment(.center)
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, Theme.Spacing.sm)
         .padding(.horizontal, 2)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label), \(value)")
         .background(Theme.Colour.surfaceMid)
         .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
     }
@@ -299,7 +301,7 @@ struct SettlementResultsView: View {
         return card {
             VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
                 cardTitle("WORLD CONTRIBUTION")
-                HStack {
+                (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 10)) : AnyLayout(HStackLayout(spacing: 10))) {
                     Image(systemName: type.symbol)
                         .font(.system(size: 22, weight: .bold))
                         .foregroundStyle(type.tint)
@@ -342,7 +344,7 @@ struct SettlementResultsView: View {
                     PersonalRoomScene(room: appStore.world.state.personalRoom, character: appStore.userStudyCharacter)
                         .aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height, contentMode: .fit)
                 } else if let item = suggestedItem {
-                    HStack(spacing: 16) {
+                    (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16)) : AnyLayout(HStackLayout(spacing: 16))) {
                         if let image = RoomComposer.itemImage(item) {
                             Image(uiImage: image).interpolation(.none).resizable().scaledToFit()
                                 .frame(width: 64, height: 72)
@@ -394,7 +396,7 @@ struct SettlementResultsView: View {
         let settled = await SettlementEngine.run(
             config: config, participants: participants, service: appStore.commitmentService
         )
-        withAnimation { result = settled }
+        withAnimation(reduceMotion ? nil : .default) { result = settled }
 
         // Award real, persisted Focus XP + coins for the user's session (once).
         if reward == nil, let me = participants.first(where: { $0.isUser }) {
@@ -402,6 +404,12 @@ struct SettlementResultsView: View {
         }
         let coinTarget = config.quickDemo ? 0 : (reward?.coins ?? 0)
         let coinStep = max(1, coinTarget / 18)
+        if reduceMotion {
+            coinsShown = coinTarget
+            worldFill = appStore.world.state.activeBuilding?.progress ?? 0
+            reveal = 6
+            return
+        }
 
         // Stage 1: trophy + coin count-up.
         await step(0.25) { advance() }                       // reveal 1
