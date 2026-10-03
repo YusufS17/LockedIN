@@ -1,11 +1,6 @@
 import SwiftUI
 
-// MARK: - CharacterGalleryView — real "Choose your study avatar" (ONB-02)
-//
-// Functional gallery: pick from CharacterCatalog (real sprites when present, code-drawn
-// fallback otherwise), name your avatar, continue. Persists selection + name to AppStore
-// + UserDefaults so it represents the user everywhere and survives relaunch (ONB-04).
-// Matches the "Choose your study avatar" + "Player ready" mockups.
+// Choose a real catalogue base; naming and identity save happen at reveal.
 
 struct CharacterGalleryView: View {
 
@@ -23,9 +18,8 @@ struct CharacterGalleryView: View {
             Theme.Colour.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                header
-
                 ScrollView {
+                    header
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(CharacterCatalog.all) { character in
                             tile(character)
@@ -46,12 +40,12 @@ struct CharacterGalleryView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-            Text("Choose your\nstudy avatar")
-                .font(Theme.TypeScale.title)
+            Text("Choose your study avatar")
+                .font(.system(.title, design: .rounded, weight: .bold))
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
             Text("Pick a starting look — you'll fully customise it next.")
-                .font(Theme.TypeScale.body)
+                .font(.body)
                 .foregroundStyle(Theme.Colour.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -69,7 +63,7 @@ struct CharacterGalleryView: View {
             VStack(spacing: Theme.Spacing.sm) {
                 SpriteAvatarView(character: character, status: .idle, size: 96, animated: false)
                 Text(character.name)
-                    .font(Theme.TypeScale.captionBold)
+                    .font(.system(.caption, design: .rounded, weight: .semibold))
                     .foregroundStyle(Theme.Colour.textPrimary)
             }
             .frame(maxWidth: .infinity)
@@ -80,9 +74,20 @@ struct CharacterGalleryView: View {
                     .stroke(isSelected ? Theme.Colour.accent : Theme.Colour.cardBorder,
                             lineWidth: isSelected ? 3 : 1.5)
             )
-            .scaleEffect(isSelected ? 1.03 : 1)
+            .overlay(alignment: .topTrailing) {
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Theme.Colour.textPrimary, Theme.Colour.accent)
+                        .font(.title3)
+                        .padding(10)
+                        .accessibilityHidden(true)
+                }
+            }
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("\(character.name), starting look")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier("onboarding.avatar.\(character.id)")
     }
 
     // MARK: - Footer
@@ -90,8 +95,9 @@ struct CharacterGalleryView: View {
     private var footer: some View {
         VStack(spacing: Theme.Spacing.md) {
             PageDots(count: 6, active: 2)
-            Button("NEXT") { confirm() }
-                .buttonStyle(PixelButtonStyle(kind: .gold))
+            Button("Customise this look") { confirm() }
+                .buttonStyle(StudioButtonStyle(primary: true))
+                .accessibilityIdentifier("onboarding.continue")
         }
         .padding(.horizontal, Theme.Spacing.lg)
         .padding(.bottom, Theme.Spacing.xl)

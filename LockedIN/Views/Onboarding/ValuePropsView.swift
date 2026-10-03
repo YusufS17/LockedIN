@@ -1,11 +1,6 @@
 import SwiftUI
 
-// MARK: - ValuePropsView — Beat 2 of 6: how LockedIN works
-//
-// Matches mockup 06-welcome-valueprops: book mark over "Welcome to LockedIN",
-// three numbered cards (Join a room / Focus with friends / Build your world),
-// each pairing copy with a live-sprite illustration, gold CONTINUE pixel CTA and
-// the "Already have an account? Log in" soft skip.
+// Explain the current offline loop and label simulated club companions.
 
 struct ValuePropsView: View {
 
@@ -14,31 +9,27 @@ struct ValuePropsView: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var visibleCards = 0
-    @State private var ctaVisible = false
 
     var body: some View {
         ZStack {
             Theme.Colour.background.ignoresSafeArea()
             OnboardingBackdrop()
 
-            VStack(spacing: 0) {
-                heading
-                    .padding(.top, Theme.Spacing.lg)
-
-                Spacer(minLength: Theme.Spacing.md)
-
-                VStack(spacing: Theme.Spacing.md) {
+            ScrollView {
+                VStack(spacing: 20) {
+                    heading
                     if visibleCards > 0 { card1.transition(cardTransition) }
                     if visibleCards > 1 { card2.transition(cardTransition) }
                     if visibleCards > 2 { card3.transition(cardTransition) }
                 }
-
-                Spacer(minLength: Theme.Spacing.lg)
-
-                bottomSection
+                .padding(24)
             }
-            .padding(.horizontal, Theme.Spacing.lg)
-            .padding(.bottom, Theme.Spacing.xl)
+            .safeAreaInset(edge: .bottom) {
+                bottomSection
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 16)
+                    .background(Theme.Colour.background)
+            }
         }
         .task { await animateIn() }
     }
@@ -49,10 +40,10 @@ struct ValuePropsView: View {
         VStack(spacing: Theme.Spacing.xs) {
             PixelIconView(icon: .book, size: 30, tint: Theme.Colour.textPrimary)
             Text("Welcome to LockedIN")
-                .font(Theme.TypeScale.title)
+                .font(.system(.title, design: .rounded, weight: .bold))
                 .foregroundStyle(Theme.Colour.textPrimary)
             Text("Stay accountable. Build your world.")
-                .font(Theme.TypeScale.caption)
+                .font(.caption)
                 .foregroundStyle(Theme.Colour.textSecondary)
         }
         .frame(maxWidth: .infinity)
@@ -61,8 +52,8 @@ struct ValuePropsView: View {
     // MARK: - Cards
 
     private var card1: some View {
-        propCard(number: 1, title: "Join a room",
-                 copy: "Pick a room that matches your vibe and goals.") {
+        propCard(number: 1, title: "Find your focus",
+                 copy: "Set a subject, choose a goal and settle into your personal room.") {
             HStack(spacing: Theme.Spacing.xs) {
                 ForEach(Array(CharacterCatalog.all.prefix(4))) { ch in
                     AvatarPortraitView(appearance: ch.fallback, size: 38)
@@ -72,8 +63,8 @@ struct ValuePropsView: View {
     }
 
     private var card2: some View {
-        propCard(number: 2, title: "Focus with friends",
-                 copy: "Study together in real time. Stay on track and keep each other motivated.") {
+        propCard(number: 2, title: "Try a study club",
+                 copy: "Explore shared rooms with simulated companions. Real friend sessions are still being built.") {
             HStack(alignment: .bottom, spacing: Theme.Spacing.md) {
                 AvatarView(appearance: .maya, status: .focused, size: 46, pose: .sitTypingFront)
                 PixelSpeechBubble(text: "Locked in!", icon: .bolt)
@@ -85,7 +76,7 @@ struct ValuePropsView: View {
 
     private var card3: some View {
         propCard(number: 3, title: "Build your world",
-                 copy: "Unlock items, customise your room, and grow your world together.") {
+                 copy: "Complete focus sessions to earn coins and unlock furniture for your room.") {
             HStack(spacing: Theme.Spacing.md) {
                 iconTile(.house)
                 iconTile(.coin)
@@ -99,18 +90,18 @@ struct ValuePropsView: View {
         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
             HStack(spacing: Theme.Spacing.sm) {
                 Text("\(number)")
-                    .font(Theme.TypeScale.headline)
+                    .font(.system(.headline, design: .rounded, weight: .semibold))
                     .foregroundStyle(Theme.Colour.textOnAccent)
                     .frame(width: 28, height: 28)
                     .background(PixelPanelShape(unit: 2).fill(Theme.Colour.accent))
                     .overlay(PixelPanelShape(unit: 2).stroke(Theme.Colour.appShell, lineWidth: 1.5))
                 Text(title)
-                    .font(Theme.TypeScale.headline)
+                    .font(.system(.headline, design: .rounded, weight: .semibold))
                     .foregroundStyle(Theme.Colour.textPrimary)
                 Spacer()
             }
             Text(copy)
-                .font(Theme.TypeScale.caption)
+                .font(.caption)
                 .foregroundStyle(Theme.Colour.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
             illustration()
@@ -139,14 +130,16 @@ struct ValuePropsView: View {
         VStack(spacing: Theme.Spacing.md) {
             PageDots(count: 6, active: 1)
 
-            Button("CONTINUE") { onContinue() }
-                .buttonStyle(PixelButtonStyle(kind: .gold))
-                .opacity(ctaVisible ? 1 : 0)
+            Button("Choose my avatar") { onContinue() }
+                .buttonStyle(StudioButtonStyle(primary: true))
+                .accessibilityIdentifier("onboarding.continue")
 
-            Button("Already have an account? Log in") { onSkip() }
-                .font(Theme.TypeScale.caption)
+            Button("Skip introduction") { onSkip() }
+                .font(.caption)
                 .foregroundStyle(Theme.Colour.textSecondary)
-                .accessibilityLabel("Skip onboarding")
+                .frame(minHeight: 44)
+                .accessibilityLabel("Skip introduction and choose avatar")
+                .accessibilityIdentifier("onboarding.skip")
         }
     }
 
@@ -155,14 +148,12 @@ struct ValuePropsView: View {
     private func animateIn() async {
         if reduceMotion {
             visibleCards = 3
-            ctaVisible = true
             return
         }
         for i in 1...3 {
             withAnimation(.easeOut(duration: 0.45)) { visibleCards = i }
             try? await Task.sleep(for: .seconds(0.35))
         }
-        withAnimation(.easeOut(duration: 0.4)) { ctaVisible = true }
     }
 }
 

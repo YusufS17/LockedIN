@@ -282,11 +282,23 @@ enum RoomShelfSprite {
     ]
 
     static func grid(variant: Int) -> PixelGrid {
-        let face: PixelGrid
+        var face: PixelGrid
         switch variant {
         case 1: face = PixelGrid(rows: wideArt)
         case 2: face = PixelGrid(rows: globeArt)
         default: face = PixelGrid(rows: baseArt)
+        }
+        // Tiny foil rules and paper labels break up the solid spines. Only
+        // stamp inside a continuous spine, preserving its silhouette and
+        // leaving the shelf's plant, trophy and stacked books untouched.
+        let spines: Set<Character> = ["r", "o", "m", "v", "p"]
+        for y in [25, 29, 44, 57, 61] {
+            for x in 4..<(face.cols - 5) {
+                let material = face[x, y]
+                guard spines.contains(material), face[x - 1, y] == material,
+                      face[x + 1, y] == material else { continue }
+                face[x, y] = y == 29 || y == 61 ? "I" : "J"
+            }
         }
         return face.isometricFace(rising: false, depth: 8, top: "W", side: "d")
     }
@@ -299,6 +311,8 @@ enum RoomShelfSprite {
             "W": wood(DecorTone.woodLight), "w": wood(DecorTone.wood),
             "d": wood(DecorTone.woodDark),  "x": wood(DecorTone.woodLine),
             "k": wood(DecorTone.shelfBack),
+            "I": PixelRGBA(r: 225, g: 213, b: 184), // worn paper spine labels
+            "J": PixelRGBA(r: 204, g: 167, b: 106), // muted foil binding rules
             "r": tint ?? DecorTone.bookRust,
             "o": DecorTone.bookOrange, "m": DecorTone.bookMustard,
             "v": DecorTone.bookOlive,  "c": DecorTone.cream, "p": DecorTone.bookPlum,
@@ -312,7 +326,7 @@ enum RoomShelfSprite {
     @MainActor
     static func image(variant: Int, tint: Color?, mirrored: Bool = false) -> UIImage {
         let pal = palette(variant: variant, tint: tint.map(PixelRGBA.init))
-        return SpriteBakery.shared.image(key: "room-shelf-iso3|v\(variant)|\(pal.cacheKey)|m\(mirrored ? 1 : 0)") {
+        return SpriteBakery.shared.image(key: "room-shelf-binding4|v\(variant)|\(pal.cacheKey)|m\(mirrored ? 1 : 0)") {
             var g = grid(variant: variant)
             if mirrored { g = g.mirrored() }
             return PixelRenderer.bake(grid: g, palette: pal, rules: .flatIcon,

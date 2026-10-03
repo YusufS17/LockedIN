@@ -10,6 +10,8 @@ struct StudioButtonStyle: ButtonStyle {
             .font(.system(.subheadline, design: .rounded, weight: .semibold))
             .foregroundStyle(Theme.Colour.textPrimary)
             .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, minHeight: 52)
             .background(primary ? Theme.Colour.accent : Theme.Colour.surface,
                         in: RoundedRectangle(cornerRadius: 14))
@@ -41,6 +43,7 @@ struct StudioHeader: View {
             .accessibilityLabel("Back")
             VStack(alignment: .leading, spacing: 3) {
                 Text(title).font(.system(.headline, design: .rounded, weight: .bold))
+                    .accessibilityAddTraits(.isHeader)
                 if let subtitle {
                     Text(subtitle).font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                 }
@@ -78,7 +81,7 @@ struct StudioEyebrow: View {
     let text: String
     var body: some View {
         Text(text.uppercased())
-            .font(.system(size: 10, weight: .bold, design: .monospaced))
+            .font(.system(.caption2, design: .monospaced, weight: .bold))
             .tracking(1.5)
             .foregroundStyle(Theme.Colour.textSecondary)
     }
@@ -105,6 +108,7 @@ struct StudioSelectionTile: ViewModifier {
             .overlay(RoundedRectangle(cornerRadius: 14)
                 .strokeBorder(selected ? Theme.Colour.testBadgeFg : Theme.Colour.cardBorder.opacity(0.7),
                               lineWidth: selected ? 2 : 1))
+            .accessibilityAddTraits(selected ? .isSelected : [])
     }
 }
 
@@ -115,6 +119,7 @@ struct StudioSectionHeading: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title).font(.system(.headline, design: .rounded, weight: .bold))
+                .accessibilityAddTraits(.isHeader)
             if let detail {
                 Text(detail).font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }

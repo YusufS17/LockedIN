@@ -1,11 +1,6 @@
 import SwiftUI
 
-// MARK: - AvatarRevealView — Beat 5 of 6: "You're all set!"
-//
-// Matches mockup 03-avatar-reveal-name: the customised avatar stands on a glowing
-// gold pedestal with a sparkle burst, the user names it ("Name your avatar" card),
-// and CONFIRM commits identity. A hint bubble is honest about visibility: the
-// avatar and name are what study buddies see in rooms.
+// Preview and name the chosen outfit before saving identity.
 
 struct AvatarRevealView: View {
 
@@ -19,36 +14,33 @@ struct AvatarRevealView: View {
     @State private var avatarVisible = false
     @FocusState private var nameFocused: Bool
 
-    private var trimmedName: String { name.trimmingCharacters(in: .whitespaces) }
+    private var trimmedName: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
 
     var body: some View {
         ZStack {
             Theme.Colour.background.ignoresSafeArea()
             OnboardingBackdrop()
 
-            VStack(spacing: 0) {
-                Spacer(minLength: Theme.Spacing.xl)
-
-                heading
-
-                Spacer(minLength: Theme.Spacing.lg)
-
-                pedestal
-
-                Spacer(minLength: Theme.Spacing.xl)
-
-                nameCard
-
-                Spacer(minLength: Theme.Spacing.lg)
-
-                VStack(spacing: Theme.Spacing.md) {
-                    PageDots(count: 6, active: 4)
-                    Button("CONFIRM") { confirm() }
-                        .buttonStyle(PixelButtonStyle(kind: .charcoal))
+            ScrollView {
+                VStack(spacing: 24) {
+                    heading
+                    pedestal
+                    nameCard
                 }
-                .padding(.bottom, Theme.Spacing.xl)
+                .padding(24)
             }
-            .padding(.horizontal, Theme.Spacing.lg)
+            .scrollDismissesKeyboard(.interactively)
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 12) {
+                    PageDots(count: 6, active: 4)
+                    Button("Meet your room") { confirm() }
+                        .buttonStyle(StudioButtonStyle(primary: true))
+                        .accessibilityIdentifier("onboarding.continue")
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 16)
+                .background(Theme.Colour.background)
+            }
         }
         .onAppear {
             name = initialName
@@ -60,7 +52,7 @@ struct AvatarRevealView: View {
                 burst = true
             }
         }
-        .onTapGesture { nameFocused = false }
+
     }
 
     // MARK: - Heading
@@ -68,10 +60,10 @@ struct AvatarRevealView: View {
     private var heading: some View {
         VStack(spacing: Theme.Spacing.sm) {
             Text("You're all set!")
-                .font(Theme.TypeScale.title)
+                .font(.system(.title, design: .rounded, weight: .bold))
                 .foregroundStyle(Theme.Colour.textPrimary)
             Text("Your avatar is ready\nto start studying.")
-                .font(Theme.TypeScale.body)
+                .font(.body)
                 .foregroundStyle(Theme.Colour.textSecondary)
                 .multilineTextAlignment(.center)
         }
@@ -116,15 +108,16 @@ struct AvatarRevealView: View {
     private var nameCard: some View {
         VStack(spacing: Theme.Spacing.sm) {
             Text("Name your avatar")
-                .font(Theme.TypeScale.captionBold)
+                .font(.system(.caption, design: .rounded, weight: .semibold))
                 .foregroundStyle(Theme.Colour.textPrimary)
 
             TextField("Enter name…", text: $name)
-                .font(Theme.TypeScale.headline)
+                .font(.system(.headline, design: .rounded, weight: .semibold))
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .textFieldStyle(.plain)
                 .multilineTextAlignment(.center)
                 .focused($nameFocused)
+                .accessibilityIdentifier("onboarding.name")
                 .submitLabel(.done)
                 .onSubmit { confirm() }
                 .onChange(of: name) { _, new in
@@ -134,7 +127,7 @@ struct AvatarRevealView: View {
                 .background(PixelPanelShape(unit: 3).fill(Theme.Colour.background))
                 .overlay(PixelPanelShape(unit: 3).stroke(Theme.Colour.cardBorder, lineWidth: 1.5))
 
-            PixelSpeechBubble(text: "Visible to your study buddies", icon: .users)
+            PixelSpeechBubble(text: "Your name in study rooms", icon: .users)
                 .scaleEffect(0.9)
         }
         .padding(Theme.Spacing.md)

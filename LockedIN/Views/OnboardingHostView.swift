@@ -9,7 +9,7 @@ import SwiftUI
 //   4. CharacterCustomizerView — fully customise the look (wardrobe axes)
 //   5. AvatarRevealView      — "You're all set!" + name your avatar
 //   6. FirstRoomBeatView     — arrive in your first room
-// A "N OF 6" step badge pins top-trailing (except inside the customizer, which has
+// A "N OF 6" step badge occupies a reserved header (except inside the customizer, which has
 // its own chrome). Identity persists at the reveal beat; the completion flag flips
 // on "Explore room", so RootView routes to Home next launch.
 //
@@ -75,10 +75,33 @@ struct OnboardingHostView: View {
                 .transition(beatTransition)
             }
 
+        }
+        .safeAreaInset(edge: .top, spacing: 0) {
             if beat != .customizer {
-                StepBadge(current: beat.rawValue + 1, total: 6)
-                    .padding(.top, Theme.Spacing.md)
-                    .padding(.trailing, Theme.Spacing.lg)
+                HStack {
+                    if beat != .splash {
+                        Button {
+                            if let previous = Beat(rawValue: beat.rawValue - 1) { go(previous) }
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 16, weight: .semibold))
+                                .frame(width: 44, height: 44)
+                        }
+                        .foregroundStyle(Theme.Colour.textPrimary)
+                        .accessibilityLabel("Previous onboarding step")
+                        .accessibilityIdentifier("onboarding.back")
+                    } else {
+                        PixelIconView(icon: .lock, size: 24, tint: Theme.Colour.textPrimary)
+                            .frame(width: 44, height: 44)
+                            .accessibilityHidden(true)
+                    }
+                    Spacer()
+                    StepBadge(current: beat.rawValue + 1, total: 6)
+                        .accessibilityLabel("Step \(beat.rawValue + 1) of 6")
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 8)
+                .background(Theme.Colour.background)
             }
         }
         .statusBarHidden(true)

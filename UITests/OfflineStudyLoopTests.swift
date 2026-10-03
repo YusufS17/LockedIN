@@ -62,6 +62,71 @@ final class OfflineStudyLoopTests: XCTestCase {
         XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
     }
 
+    func testOnboardingArrivalAndSavedIdentity() {
+        app.terminate()
+        app.launchArguments = ["-ui-test-suite", suite, "-ui-test-reset"]
+        app.launch()
+        tap("onboarding.continue")
+        capture("onboarding-02-value")
+        tap("onboarding.continue")
+        capture("onboarding-03-gallery")
+        tap("onboarding.continue")
+        tap("Save avatar")
+        let name = app.textFields["onboarding.name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 15))
+        name.tap()
+        name.typeText(" River")
+        capture("onboarding-05-name")
+        tap("onboarding.continue")
+        capture("onboarding-06-arrival")
+        tap("onboarding.finish")
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+        app.terminate()
+        app.launchArguments = ["-ui-test-suite", suite]
+        app.launch()
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+        XCTAssertFalse(app.buttons["onboarding.continue"].exists)
+        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "River")).firstMatch.exists)
+        capture("onboarding-07-saved-home")
+    }
+
+    func testOnboardingAtLargestAccessibilitySize() {
+        app.terminate()
+        app.launchArguments = ["-ui-test-suite", suite, "-ui-test-reset",
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        capture("accessibility-welcome-largest")
+        tap("onboarding.continue")
+        capture("accessibility-value-largest")
+        tap("onboarding.continue")
+        capture("accessibility-gallery-largest")
+        tap("onboarding.continue")
+        tap("Save avatar")
+        capture("accessibility-name-largest")
+        tap("onboarding.continue")
+        capture("accessibility-arrival-largest")
+        tap("onboarding.finish")
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+    }
+
+    func testHomeAndSetupAtLargestAccessibilitySize() {
+        app.terminate()
+        app.launchArguments = ["-smoke-room", "home", "-ui-test-suite", suite,
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 30))
+        capture("accessibility-home-largest")
+        tap("study.start")
+        let goal = app.descendants(matching: .any).matching(identifier: "study.goal").firstMatch
+        XCTAssertTrue(goal.waitForExistence(timeout: 15))
+        goal.tap()
+        goal.typeText("Review my notes")
+        if app.buttons["Done"].exists { app.buttons["Done"].tap() }
+        capture("accessibility-setup-largest")
+        tap("study.begin")
+        XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
+    }
+
     func testStudyRestoreGoalRewardAndUpgrade() {
         capture("01-home")
         startStudy()

@@ -6,6 +6,8 @@ struct HomeView: View {
         var id: String { rawValue }
     }
     @Environment(AppStore.self) private var appStore
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .title) private var welcomeSize = 27.0
     @State private var destination: Destination?
     @State private var showRecoveryReset = false
     private var progression: Progression { appStore.world.state.progression }
@@ -22,7 +24,7 @@ struct HomeView: View {
                 }
                 welcome
                 roomCard
-                HStack(spacing: 12) {
+                routeLayout {
                     homeRoute("Edit avatar", detail: "Hair, clothes & you", icon: .shirt, destination: .avatar)
                     homeRoute("Decorate", detail: "Make room for you", icon: .house, destination: .decorate)
                 }
@@ -49,7 +51,7 @@ struct HomeView: View {
                 .buttonStyle(StudioButtonStyle(primary: true))
                 .accessibilityIdentifier("study.start")
                 .disabled(appStore.studySession.recoveryIssue != nil)
-                Text(appStore.studySession.current?.config.subject ?? "Your pace. Your space.").font(.system(size: 11)).foregroundStyle(Theme.Colour.textSecondary)
+                Text(appStore.studySession.current?.config.subject ?? "Your pace. Your space.").font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }
             .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 8)
             .background(Theme.Colour.background.opacity(0.97))
@@ -77,6 +79,12 @@ struct HomeView: View {
         }
     }
 
+    private var routeLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 12))
+            : AnyLayout(HStackLayout(spacing: 12))
+    }
+
     private var studyActionTitle: String {
         guard let session = appStore.studySession.current else { return "Start studying" }
         switch session.phase {
@@ -99,6 +107,7 @@ struct HomeView: View {
                     Text("\(progression.coins)").monospacedDigit().font(.subheadline.weight(.semibold))
                 }
                 .padding(.horizontal, 12).padding(.vertical, 9)
+                .frame(minWidth: 44, minHeight: 44)
                 .background(Theme.Colour.surface, in: Capsule())
             }
             .accessibilityLabel("\(progression.coins) coins. View progress")
@@ -115,15 +124,16 @@ struct HomeView: View {
     }
 
     private var welcome: some View {
-        HStack(spacing: 14) {
+        clubLayout {
             AvatarPortraitView(appearance: appStore.userCharacter, size: 62)
                 .padding(5)
                 .background(Theme.Colour.surfaceMid, in: RoundedRectangle(cornerRadius: 18))
                 .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Theme.Colour.cardBorder))
+                .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 4) {
                 StudioEyebrow(text: "Welcome to your corner")
                 Text(appStore.displayName.isEmpty ? "Make yourself at home." : "Hey, \(appStore.displayName).")
-                    .font(.system(size: 27, weight: .bold, design: .rounded)).tracking(-0.7)
+                    .font(.system(size: welcomeSize, weight: .bold, design: .rounded)).tracking(-0.7)
                 Text("A little focus. A world of your own.")
                     .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }
@@ -141,7 +151,8 @@ struct HomeView: View {
                 }
                 Spacer()
                 Text("LV \(progression.level)")
-                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                    .font(.system(.caption2, design: .monospaced, weight: .bold))
+                    .accessibilityLabel("Level \(progression.level)")
                     .padding(.horizontal, 10).padding(.vertical, 7)
                     .background(Theme.Colour.accentSoft.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
             }
@@ -149,14 +160,19 @@ struct HomeView: View {
             PersonalRoomScene(room: appStore.world.state.personalRoom, character: appStore.userStudyCharacter)
                 .aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height, contentMode: .fit)
                 .padding(.horizontal, 4)
-            HStack(spacing: 6) {
-                PixelIconView(icon: .hourglass, size: 13, tint: Theme.Colour.textSecondary)
-                Text("\(progression.sessionsCompleted) sessions completed")
-                Spacer()
-                PixelIconView(icon: .coin, size: 13, tint: Theme.Colour.testBadgeFg)
-                Text("\(progression.coins) to spend")
+            roomStatsLayout {
+                Label {
+                    Text("\(progression.sessionsCompleted) sessions completed")
+                } icon: {
+                    PixelIconView(icon: .hourglass, size: 13, tint: Theme.Colour.textSecondary)
+                }
+                Label {
+                    Text("\(progression.coins) to spend")
+                } icon: {
+                    PixelIconView(icon: .coin, size: 13, tint: Theme.Colour.testBadgeFg)
+                }
             }
-            .font(.system(size: 11, weight: .medium))
+            .font(.caption.weight(.medium))
             .foregroundStyle(Theme.Colour.textSecondary)
             .padding(14)
             .background(Theme.Colour.surfaceMid.opacity(0.45))
@@ -166,13 +182,19 @@ struct HomeView: View {
         .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Theme.Colour.cardBorder))
     }
 
+    private var roomStatsLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
+            : AnyLayout(HStackLayout(spacing: 12))
+    }
+
     private func homeRoute(_ title: String, detail: String, icon: PixelIcon, destination target: Destination) -> some View {
         Button { destination = target } label: {
             HStack(spacing: 10) {
                 PixelIconView(icon: icon, size: 25, tint: Theme.Colour.testBadgeFg)
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(title).font(.system(size: 14, weight: .semibold, design: .rounded))
-                    Text(detail).font(.system(size: 10)).foregroundStyle(Theme.Colour.textSecondary)
+                    Text(title).font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    Text(detail).font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
                 }
                 Spacer(minLength: 0)
             }
@@ -181,6 +203,7 @@ struct HomeView: View {
             .overlay(RoundedRectangle(cornerRadius: 15).strokeBorder(Theme.Colour.cardBorder))
         }.buttonStyle(.plain)
         .accessibilityLabel(title)
+        .accessibilityHint(detail)
     }
 
     private var clubCard: some View {
@@ -189,20 +212,21 @@ struct HomeView: View {
                 HStack {
                     StudioEyebrow(text: "A little company")
                     Spacer()
-                    Text("DEMO").font(.system(size: 9, weight: .bold, design: .monospaced))
+                    Text("DEMO").font(.system(.caption2, design: .monospaced, weight: .bold))
                         .padding(.horizontal, 7).padding(.vertical, 4)
                         .background(Theme.Colour.surfaceMid, in: RoundedRectangle(cornerRadius: 5))
                 }
-                HStack(spacing: 14) {
+                clubLayout {
                     HStack(spacing: -8) {
                         ForEach(Array(CharacterCatalog.all.prefix(3))) { character in
                             AvatarPortraitView(appearance: character.fallback, size: 38)
                         }
                     }
+                    .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 4) {
                         Text("The study club").font(.system(.headline, design: .rounded))
                         Text("2–8 seats · simulated companions")
-                            .font(.system(size: 11)).foregroundStyle(Theme.Colour.textSecondary)
+                            .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                     }
                     Spacer(minLength: 0)
                     Image(systemName: "arrow.up.right").font(.system(size: 14, weight: .semibold))
@@ -211,6 +235,12 @@ struct HomeView: View {
         }.buttonStyle(.plain)
         .accessibilityIdentifier("study.club")
         .disabled(appStore.studySession.recoveryIssue != nil)
+    }
+
+    private var clubLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 14))
+            : AnyLayout(HStackLayout(spacing: 14))
     }
 
     private var progressCard: some View {
@@ -223,11 +253,12 @@ struct HomeView: View {
                 }
                 Text(progression.focusXP == 0 ? "Your story starts here." : "Look how far you’ve come.").font(.headline)
                 ProgressView(value: progression.levelProgress).tint(Theme.Colour.focusGreen)
-                HStack {
+                    .accessibilityLabel("Progress to level \(progression.level + 1)")
+                roomStatsLayout {
                     Text("\(progression.xpIntoLevel) / \(progression.xpForThisLevel) XP to level \(progression.level + 1)")
-                    Spacer()
+                    if !dynamicTypeSize.isAccessibilitySize { Spacer() }
                     Text("\(progression.sessionsCompleted) sessions")
-                }.font(.system(size: 11)).foregroundStyle(Theme.Colour.textSecondary)
+                }.font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }.modifier(StudioCard())
         }.buttonStyle(.plain)
     }

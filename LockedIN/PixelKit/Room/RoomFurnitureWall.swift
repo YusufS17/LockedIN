@@ -122,6 +122,27 @@ enum RoomWindowSprite {
         rows.append(String(repeating: "E", count: 52))
 
         var g = PixelGrid(rows: rows)
+        // Three restrained sky bands keep the view luminous without making
+        // the pane a flat colour block. Coordinates remain in the authored
+        // face, so projection and mirrored wall registration stay unchanged.
+        for y in 3...34 {
+            for x in 3...48 where g[x, y] == "s" {
+                g[x, y] = y < 13 ? "S" : (y > 24 ? "H" : "s")
+            }
+        }
+        // A distant neighbourhood at the horizon links this study nook to
+        // the wider world. Interrupted heights read as rooftops at phone size.
+        for (left, width, height) in [(3, 5, 3), (9, 7, 5), (18, 5, 2),
+                                      (27, 6, 4), (35, 7, 2), (44, 5, 5)] {
+            for x in left..<(left + width) {
+                for y in (35 - height)..<35 where g[x, y] == "H" || g[x, y] == "s" || g[x, y] == "a" {
+                    g[x, y] = "B"
+                }
+            }
+        }
+        for (x, y) in [(11, 32), (14, 33), (29, 33), (46, 31), (46, 33)] {
+            if g[x, y] == "B" { g[x, y] = "b" }
+        }
         if variant == 1 { g.stamp(vine, atX: 0, y: 0) }
         return g
     }
@@ -149,6 +170,10 @@ enum RoomWindowSprite {
         PixelPalette([
             "L": WallWood.light, "F": WallWood.base, "D": WallWood.dark, "E": WallWood.line,
             "s": sky,
+            "S": sky.darkened(0.12),
+            "H": DayPhase.mix(sky, accent, 0.22),
+            "B": sky.darkened(0.32),
+            "b": DayPhase.mix(accent, PixelRGBA(r: 255, g: 211, b: 139), 0.55),
             "a": accent,
             "g": sky.lightened(0.35),
             "v": PixelRGBA(r: 0x4A, g: 0x7C, b: 0x59),
@@ -158,7 +183,7 @@ enum RoomWindowSprite {
 
     @MainActor
     static func image(variant: Int, sky: PixelRGBA, accent: PixelRGBA, mirrored: Bool = false) -> UIImage {
-        let key = "room-window-iso3|v\(variant)|\(sky.keyFragment)|\(accent.keyFragment)|\(mirrored ? "m" : "n")"
+        let key = "room-window-horizon4|v\(variant)|\(sky.keyFragment)|\(accent.keyFragment)|\(mirrored ? "m" : "n")"
         return SpriteBakery.shared.image(key: key) {
             var g = grid(variant: variant).isometricFace(rising: true)
             if mirrored { g = g.mirrored() }

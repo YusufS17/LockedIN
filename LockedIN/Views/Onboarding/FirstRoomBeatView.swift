@@ -1,15 +1,6 @@
 import SwiftUI
 
-// MARK: - FirstRoomBeatView — Beat 4 of 4: First Room Arrival
-//
-// Matches mockup 04-first-room.png:
-//   "This is your first room" heading,
-//   "Your space. Your focus. Your journey." body,
-//   IsometricRoomView with the user's AvatarView placed at the desk slot in a cream card,
-//   dark charcoal "EXPLORE ROOM" pill.
-//
-// This beat bridges the onboarding payoff to the Home screen.
-// Init: FirstRoomBeatView(appearance: CharacterAppearance, displayName: String, onExplore: () -> Void)
+// First-room arrival connects the saved identity to earned room upgrades.
 
 struct FirstRoomBeatView: View {
 
@@ -30,25 +21,23 @@ struct FirstRoomBeatView: View {
         ZStack {
             Theme.Colour.background.ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                Spacer()
-
-                // Heading block
-                headingSection
-
-                Spacer(minLength: Theme.Spacing.xl)
-
-                // Room card with avatar (matches mockup: cream card with room inside)
-                roomCard
-
-                Spacer(minLength: Theme.Spacing.xl)
-
-                // Progress dots + CTA
-                bottomSection
-
-                Spacer(minLength: Theme.Spacing.xxl)
+            ScrollView {
+                VStack(spacing: 28) {
+                    headingSection
+                    roomCard
+                    Text("Finish focus sessions to earn coins, then make this space your own.")
+                        .font(.body)
+                        .foregroundStyle(Theme.Colour.textSecondary)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(24)
             }
-            .padding(.horizontal, Theme.Spacing.lg)
+            .safeAreaInset(edge: .bottom) {
+                bottomSection
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 16)
+                    .background(Theme.Colour.background)
+            }
         }
         .preferredColorScheme(.light)
         .onAppear {
@@ -65,21 +54,21 @@ struct FirstRoomBeatView: View {
 
     private var headingSection: some View {
         VStack(spacing: Theme.Spacing.sm) {
-            Text("This is your\nfirst room")
-                .font(Theme.TypeScale.title)
+            Text("Welcome home, \(displayName)")
+                .font(.system(.title, design: .rounded, weight: .bold))
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
 
             VStack(spacing: Theme.Spacing.xs) {
                 Text("Your space.")
-                    .font(Theme.TypeScale.body)
+                    .font(.body)
                     .foregroundStyle(Theme.Colour.textSecondary)
                 Text("Your focus.")
-                    .font(Theme.TypeScale.body)
+                    .font(.body)
                     .foregroundStyle(Theme.Colour.textSecondary)
                 Text("Your journey.")
-                    .font(Theme.TypeScale.body)
+                    .font(.body)
                     .foregroundStyle(Theme.Colour.textSecondary)
             }
         }
@@ -121,9 +110,9 @@ struct FirstRoomBeatView: View {
         VStack(spacing: Theme.Spacing.md) {
             PageDots(count: 6, active: 5)
 
-            // EXPLORE ROOM — dark charcoal pixel CTA (matches mockup 04)
-            Button("EXPLORE ROOM", action: onExplore)
-                .buttonStyle(PixelButtonStyle(kind: .charcoal))
+            Button("Explore my room", action: onExplore)
+                .buttonStyle(StudioButtonStyle(primary: true))
+                .accessibilityIdentifier("onboarding.finish")
         }
     }
 }

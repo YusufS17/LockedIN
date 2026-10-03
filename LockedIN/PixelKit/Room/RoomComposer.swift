@@ -110,7 +110,7 @@ enum RoomComposer {
     @MainActor
     static func baseImage(room: PersonalRoom, phase: DayPhase, includeSeating: Bool, sharedStudy: Bool = false) -> UIImage {
         let placements = RoomSlot.allCases.map { room.itemID(for: $0) }.joined(separator: ",")
-        let key = "room-base-iso7|\(placements)|\(phase.rawValue)|s\(includeSeating ? 1 : 0)|shared\(sharedStudy ? 1 : 0)"
+        let key = "room-base-horizon8|\(placements)|\(phase.rawValue)|s\(includeSeating ? 1 : 0)|shared\(sharedStudy ? 1 : 0)"
         return SpriteBakery.shared.image(key: key) {
             compose(room: room, phase: phase, includeSeating: includeSeating, sharedStudy: sharedStudy)
         }
