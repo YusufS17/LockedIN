@@ -46,7 +46,9 @@ final class AppStore {
 
     /// The persisted world economy: Focus XP, coins, level, and the district's buildings.
     /// Sessions award rewards here; progress survives relaunch (CLAUDE.md local persistence).
-    let world = WorldStore()
+    let defaults: UserDefaults
+    let world: WorldStore
+    let studySession: StudySessionStore
 
     // MARK: - User Identity (Phase 2, ONB-04)
     //
@@ -64,7 +66,7 @@ final class AppStore {
     /// The id of the user's chosen gallery character (`StudyCharacter.id`). Persisted directly
     /// (not via @AppStorage — @Observable cannot hold property wrappers, RESEARCH Pitfall 8).
     var selectedCharacterID: String = CharacterCatalog.first.id {
-        didSet { UserDefaults.standard.set(selectedCharacterID, forKey: PersistenceKeys.selectedCharacter) }
+        didSet { defaults.set(selectedCharacterID, forKey: PersistenceKeys.selectedCharacter) }
     }
 
     /// The chosen character resolved from the catalog.
@@ -87,17 +89,21 @@ final class AppStore {
     /// Defaults to the mock implementations so the prototype works out of the box.
     init(
         commitmentService: CommitmentService = MockCommitmentService(),
-        focusAdapter: FocusControlAdapter = MockFocusControlAdapter()
+        focusAdapter: FocusControlAdapter = MockFocusControlAdapter(),
+        defaults: UserDefaults = StudyTestEnvironment.defaults
     ) {
+        self.defaults = defaults
+        self.world = WorldStore(defaults: defaults)
+        self.studySession = StudySessionStore(defaults: defaults, now: StudyTestEnvironment.restorationDate)
         self.commitmentService = commitmentService
         self.focusAdapter = focusAdapter
         // Restore persisted identity on start (ONB-04).
         // Falls back to .default / "" if no data saved or data is corrupt (T-02-03).
-        if let saved = CharacterPersistence.load() {
+        if let saved = CharacterPersistence.load(defaults: defaults) {
             self.userCharacter = saved.appearance
             self.displayName   = saved.displayName
         }
-        if let savedID = UserDefaults.standard.string(forKey: PersistenceKeys.selectedCharacter) {
+        if let savedID = defaults.string(forKey: PersistenceKeys.selectedCharacter) {
             self.selectedCharacterID = savedID
         }
     }

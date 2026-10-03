@@ -9,7 +9,7 @@ import Foundation
 //
 // See .planning/reference/SPRITE-ASSETS-SPEC.md for the exact asset list + sizes.
 
-struct StudyCharacter: Identifiable, Equatable {
+struct StudyCharacter: Identifiable, Equatable, Codable {
     let id: String                 // stable id, e.g. "maya" (persisted)
     let name: String               // default display name
     let spriteAsset: String        // base sprite asset name (idle pose)

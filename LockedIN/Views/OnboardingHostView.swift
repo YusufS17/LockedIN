@@ -60,7 +60,7 @@ struct OnboardingHostView: View {
                     onConfirm: { name in
                         appStore.displayName = name
                         CharacterPersistence.save(appearance: appStore.userCharacter,
-                                                  displayName: name)
+                                                  displayName: name, defaults: appStore.defaults)
                         go(.firstRoom)
                     }
                 )

@@ -20,6 +20,7 @@ struct WorldView: View {
     @State private var showCustomizer = false
     @State private var showRoomBuilder = false
     @State private var burstBuildingID: String?   // tile to flourish after build/focus
+    @State private var districtMessage: String?
 
     private var world: WorldStore { appStore.world }
     private var p: Progression { world.state.progression }
@@ -44,12 +45,11 @@ struct WorldView: View {
                 }
             }
         }
-        .statusBarHidden(true)
         .fullScreenCover(isPresented: $showCustomizer) {
             CharacterCustomizerView(initial: appStore.userCharacter, initialName: appStore.displayName) { appearance, name in
                 appStore.userCharacter = appearance
                 appStore.displayName = name
-                CharacterPersistence.save(appearance: appearance, displayName: name)
+                CharacterPersistence.save(appearance: appearance, displayName: name, defaults: appStore.defaults)
             }
             .environment(appStore)
         }
@@ -82,19 +82,7 @@ struct WorldView: View {
     // MARK: - Top bar
 
     private var topBar: some View {
-        HStack {
-            Button { dismiss() } label: {
-                Image(systemName: "chevron.left").font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(Theme.Colour.textSecondary)
-            }
-            Spacer()
-            Text("Your World").font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
-            Spacer()
-            coinChip
-        }
-        .padding(.horizontal, Theme.Spacing.lg)
-        .padding(.top, Theme.Spacing.lg)
-        .padding(.bottom, Theme.Spacing.sm)
+        StudioHeader(title: "Your growing world", subtitle: "Built with time you made for yourself", close: { dismiss() })
     }
 
     private var coinChip: some View {
@@ -138,8 +126,12 @@ struct WorldView: View {
         ZStack {
             IsometricRoomView(room: world.state.personalRoom)
             GeometryReader { geo in
-                SpriteAvatarView(character: appStore.userStudyCharacter, status: .deepFocus, size: 64)
-                    .position(x: geo.size.width * 0.50, y: geo.size.height * 0.56)
+                // Hero stands on the open front floor beside the desk (mockup 04).
+                let cell = RoomLayout.scale(in: geo.size)
+                let feet = RoomLayout.project(RoomLayout.heroStand, in: geo.size)
+                let h = 44 * cell
+                SpriteAvatarView(character: appStore.userStudyCharacter, status: .deepFocus, size: h)
+                    .position(x: feet.x, y: feet.y - h / 2)
             }
         }
         .frame(height: 200)
@@ -159,16 +151,19 @@ struct WorldView: View {
 
     private var districtSection: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-            HStack {
-                Text("YOUR DISTRICT").font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textSecondary)
+            HStack(alignment: .top) {
+                StudioSectionHeading(title: "Your district", detail: "Choose where your next session contributes.")
                 Spacer()
-                Text("Tap to focus here").font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                StudioCoinBalance(coins: p.coins)
             }
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(world.state.buildings) { b in
                     buildingTile(b)
                 }
             }
+            Text(districtMessage ?? "Level up a building through completed sessions to unlock the next plot.")
+                .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 
@@ -180,8 +175,14 @@ struct WorldView: View {
             if b.unlocked && b.level > 0 {
                 world.setActiveBuilding(b.type)
                 celebrate(b.id)
+                districtMessage = "Your next session will help grow \(b.type.title)."
             } else if canBuild {
-                if world.startBuilding(b.type, cost: buildCost) { celebrate(b.id) }
+                if world.startBuilding(b.type, cost: buildCost) {
+                    celebrate(b.id)
+                    districtMessage = "\(b.type.title) is ready. Tap it to direct your next session here."
+                } else {
+                    districtMessage = "Building this plot takes \(buildCost) coins. You have \(p.coins)."
+                }
             }
         } label: {
             VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
@@ -225,11 +226,16 @@ struct WorldView: View {
             .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg)
                 .strokeBorder(isActive ? Theme.Colour.accent : Theme.Colour.cardBorder,
                               lineWidth: isActive ? 2.5 : 1))
-            .overlay(SparkleBurst(trigger: popped, count: 10, radius: 56, colour: b.type.tint))
+            .overlay {
+                if popped { SparkleBurst(trigger: true, count: 10, radius: 56, colour: b.type.tint) }
+            }
             .scaleEffect(popped ? 1.06 : 1)
             .opacity(b.unlocked ? 1 : 0.6)
         }
         .buttonStyle(.plain)
+        .disabled(!b.unlocked)
+        .accessibilityAddTraits(isActive ? .isSelected : [])
+        .accessibilityHint(!b.unlocked ? "Level up your current building to unlock more plots" : canBuild ? "Build for \(buildCost) earned coins" : "Direct future session contributions here")
     }
 
     /// Flourish a building tile after a successful build / focus tap.

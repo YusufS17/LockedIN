@@ -1,0 +1,53 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "4CE52265-D902-48D1-8607-3D65CA1F2E9A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "club-05-results_0_80A82ADC-7B7B-4174-A8A7-2986AF85F5EE.png",
+        "timestamp" : 1790997140.946
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "A5415DE8-76A9-43A2-AEF2-6B097A04AEB4.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "club-04-restored-break_0_E32BD984-87D5-4CEC-94FF-98A0A9E4D989.png",
+        "timestamp" : 1790997123.312
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "2089F192-D0D1-442B-A2C5-CA3E0B4EFF99.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "club-03-break_0_0512FB1F-F554-4E81-841D-65348C8F3B7E.png",
+        "timestamp" : 1790997112.036
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "C0DAA07F-696C-427F-BB0F-024668751A35.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "club-02-focus_0_5BE004F6-6F4E-49AD-8DE5-0F42DEF7857F.png",
+        "timestamp" : 1790997109.014
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "AA5A8753-5D28-4C17-B138-070F045D3E0E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "club-01-setup_0_B66D16E3-F6D3-40F7-994F-66F30178F98F.png",
+        "timestamp" : 1790997098.662
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testDemoClubRestorationAndResults()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testDemoClubRestorationAndResults"
+  }
+]

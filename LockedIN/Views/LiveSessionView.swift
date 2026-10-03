@@ -1,416 +1,327 @@
 import SwiftUI
 
-// MARK: - LiveSessionView — the live study room (Demo09)
-//
-// The room as drawn in the mockup: brand masthead, a big "TIME REMAINING" clock with a
-// slim progress bar, the editable room title + member count, BREAKS / DISTRACTIONS stat
-// tiles, the cozy isometric room (code-drawn IsometricRoomView) with participants placed
-// at their desks under floating status labels, a live participant list, and the Leave /
-// Take a break / Room chat toolbar.
-//
-// The clock is a Swift-Concurrency tick (no Combine). Behaviour is deterministic
-// (SES-04): high-focus members study in Deep focus, the scripted cracker (over the
-// distraction limit) breaks to Distracted past the midpoint, and "Take a break" spends
-// the contract's break allowance. The honest Leave exit and the natural timeout both
-// settle the roster via onFinish exactly once.
-
 struct LiveSessionView: View {
-
     let config: RoomConfig
     var onFinish: ([SessionParticipant]) -> Void
     var onCancel: () -> Void
-
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(AppStore.self) private var appStore
-
-    @State private var roster: [SessionParticipant]
-    @State private var remaining: Int
-    @State private var running = true
-    @State private var distractionEvents = 0
-    @State private var breaksUsed = 0
-    @State private var onBreak = false
-    @State private var finished = false
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var session: ActiveStudySession
+    @State private var now = Date()
     @State private var showParticipants = false
+    @State private var showLeave = false
+    private let onCheckpoint: (ActiveStudySession) -> Void
 
-    init(config: RoomConfig,
-         participants: [SessionParticipant],
-         onFinish: @escaping ([SessionParticipant]) -> Void,
-         onCancel: @escaping () -> Void) {
-        self.config = config
+    init(config: RoomConfig, participants: [SessionParticipant],
+         restoredSession: ActiveStudySession? = nil,
+         onCheckpoint: @escaping (ActiveStudySession) -> Void = { _ in },
+         onFinish: @escaping ([SessionParticipant]) -> Void, onCancel: @escaping () -> Void) {
+        self.config = restoredSession?.config ?? config
         self.onFinish = onFinish
         self.onCancel = onCancel
-        // Seed live "vibes": top focusers start in Deep focus; the cracker stays Focused
-        // until it breaks. Deterministic — derived from each participant's scripted traits.
-        var seeded = participants
-        for i in seeded.indices {
-            let p = seeded[i]
-            let isCracker = p.distractions > config.distractionLimit
-            seeded[i].status = (!isCracker && p.focusPct >= 95) ? .deepFocus : .focused
-        }
-        _roster = State(initialValue: seeded)
-        _remaining = State(initialValue: config.sessionSeconds)
+        self.onCheckpoint = onCheckpoint
+        _session = State(initialValue: restoredSession ?? ActiveStudySession(config: config, participants: participants))
     }
 
-    private var total: Int { max(1, config.sessionSeconds) }
-    private var elapsed: Int { total - remaining }
+    private var roster: [SessionParticipant] { session.participants }
+    private var remaining: Int { session.clock.remaining(at: now) }
+    private var onBreak: Bool { session.phase == .onBreak }
+    private var breaksUsed: Int { session.breaksUsed }
     private var clock: String { String(format: "%02d:%02d", remaining / 60, remaining % 60) }
-    private var progress: Double { Double(elapsed) / Double(total) }
-
-    private var crackerIDs: Set<UUID> {
-        Set(roster.filter { $0.distractions > config.distractionLimit }.map(\.id))
-    }
-    private var crackMoment: Int { max(2, Int(Double(total) * 0.45)) }
-
-    // MARK: - Live group status (derived)
-
     private var focusedCount: Int { roster.filter { $0.status == .focused || $0.status == .deepFocus }.count }
-    private var breakCount: Int { roster.filter { $0.status == .onBreak }.count }
-    private var distractedCount: Int { roster.filter { $0.status == .distracted }.count }
-    /// Members still perfectly LockedIN (not distracted, not on break, not left).
-    private var stillLockedIn: Int { roster.filter { $0.status == .focused || $0.status == .deepFocus || $0.status == .finished }.count }
-    private var modeLabel: String { config.competitive ? "Competitive mode" : "Supportive mode" }
-
-    private func focusedMinutes(_ p: SessionParticipant) -> Int {
-        Int((Double(config.focusMinutes) * Double(p.focusPct) / 100).rounded())
-    }
-    private func warningsRemaining(_ p: SessionParticipant) -> Int {
-        max(0, config.distractionLimit - p.distractions)
-    }
+    private var isGroup: Bool { roster.count > 1 }
 
     var body: some View {
-        ZStack {
-            Theme.Colour.background.ignoresSafeArea()
-            VStack(spacing: Theme.Spacing.sm) {
-                BrandLockHeader().padding(.top, Theme.Spacing.sm)
-                clockBlock
-                titleBlock
-                groupStatusBar
-                roomScene                       // hero — fills remaining space
-                toolbar
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 18) {
+                header
+                timerPanel
+                LiveRoomScene(participants: roster, room: appStore.world.state.personalRoom,
+                              breakingUserIndex: onBreak ? roster.firstIndex(where: { $0.isUser }) : nil)
+                    .padding(.horizontal, -14)
+                if isGroup { roomRoster }
+                goalCard
+                sessionDetails
             }
-            .padding(.horizontal, Theme.Spacing.lg)
-            .padding(.bottom, Theme.Spacing.md)
+            .padding(.horizontal, 20).padding(.top, 10).padding(.bottom, 24)
         }
-        .statusBarHidden(true)
-        .sheet(isPresented: $showParticipants) {
-            participantSheet
-                .presentationDetents([.medium, .large])
-                .presentationDragIndicator(.visible)
+        .foregroundStyle(Theme.Colour.textPrimary)
+        .background(Theme.Colour.background.ignoresSafeArea())
+        .safeAreaInset(edge: .bottom, spacing: 0) { controlDock }
+        .sheet(isPresented: $showParticipants) { participantSheet }
+        .confirmationDialog("Leave this session?", isPresented: $showLeave, titleVisibility: .visible) {
+            Button("Leave session", role: .destructive) { finish(leaving: true) }
+            Button("Keep focusing", role: .cancel) {}
+        } message: {
+            Text("This session will be marked as left early.\(config.isStaked ? " Your simulated test stake will be forfeited." : " You can start fresh whenever you’re ready.")")
         }
         .task { await runClock() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { tick() } else { onCheckpoint(session) }
+        }
     }
 
-    // MARK: - Clock
+    private var header: some View {
+        HStack(spacing: 12) {
+            Image(systemName: isGroup ? "person.2.fill" : "leaf.fill")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(Theme.Colour.focusGreen)
+                .frame(width: 42, height: 42)
+                .background(Theme.Colour.focusGreen.opacity(0.09), in: RoundedRectangle(cornerRadius: 12))
+            VStack(alignment: .leading, spacing: 4) {
+                Text(isGroup ? config.roomName : "Your focus room")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                Text(isGroup ? "Demo room · simulated companions" : "A little time for yourself")
+                    .font(.system(size: 12)).foregroundStyle(Theme.Colour.textSecondary)
+            }
+            Spacer(minLength: 0)
+            Button { showLeave = true } label: {
+                Image(systemName: "xmark").font(.system(size: 13, weight: .semibold))
+                    .frame(width: 44, height: 44)
+                    .background(Theme.Colour.surface, in: Circle())
+                    .overlay(Circle().strokeBorder(Theme.Colour.cardBorder.opacity(0.65)))
+            }.accessibilityLabel("Leave session").accessibilityIdentifier("study.leave")
+        }
+    }
 
-    private var clockBlock: some View {
-        VStack(spacing: 4) {
-            Label("TIME REMAINING", systemImage: "timer")
-                .font(Theme.TypeScale.captionBold)
-                .foregroundStyle(Theme.Colour.textSecondary)
-            Text(clock)
-                .font(.system(size: 52, weight: .heavy, design: .rounded))
-                .foregroundStyle(Theme.Colour.textPrimary)
-                .monospacedDigit()
-                .contentTransition(.numericText())
-            Text(onBreak ? "On a break — clock paused" : (running ? "Focus together. Finish stronger." : "Paused"))
-                .font(Theme.TypeScale.caption)
-                .foregroundStyle(onBreak || !running ? Theme.Colour.forfeitRed : Theme.Colour.textSecondary)
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(Theme.Colour.surfaceMid).frame(height: 6)
-                    Capsule().fill(Theme.Colour.accent)
-                        .frame(width: geo.size.width * progress, height: 6)
-                        .animation(reduceMotion ? nil : .easeInOut(duration: 0.4), value: progress)
+    private var timerPanel: some View {
+        VStack(spacing: 10) {
+            HStack(alignment: .center, spacing: 16) {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 5) {
+                        Image(systemName: onBreak ? "cup.and.saucer.fill" : "hourglass")
+                        Text(onBreak ? "ON A BREAK" : "TIME TO FOCUS").tracking(1.5)
+                    }
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundStyle(Theme.Colour.textSecondary)
+                    Text(clock).font(.system(size: 42, weight: .bold, design: .rounded))
+                        .monospacedDigit().tracking(-1)
+                        .accessibilityLabel("\(remaining / 60) minutes, \(remaining % 60) seconds remaining")
+                }
+                Spacer(minLength: 0)
+                VStack(alignment: .trailing, spacing: 6) {
+                    Label(onBreak ? "Timer paused" : config.subject, systemImage: onBreak ? "pause.circle" : "book.closed")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(Theme.Colour.focusGreen)
+                    Text(onBreak ? "Come back when you’re ready." : config.goal)
+                        .font(.system(size: 11)).foregroundStyle(Theme.Colour.textSecondary)
+                        .lineLimit(3)
+                        .multilineTextAlignment(.trailing)
                 }
             }
-            .frame(height: 6)
-            .padding(.top, 2)
+            ProgressView(value: min(1, max(0, 1 - Double(remaining) / session.clock.duration)))
+                .tint(onBreak ? Theme.Colour.accent : Theme.Colour.focusGreen)
+                .accessibilityLabel("Session progress")
         }
+        .padding(16)
+        .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 18))
+        .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Theme.Colour.cardBorder))
+        .background(RoundedRectangle(cornerRadius: 18)
+            .fill(Theme.Colour.cardBorder.opacity(0.35)).offset(y: 3))
     }
 
-    // MARK: - Title + members
-
-    private var titleBlock: some View {
-        VStack(spacing: 2) {
-            HStack(spacing: Theme.Spacing.xs) {
-                Text(config.roomName)
-                    .font(Theme.TypeScale.title2)
-                    .foregroundStyle(Theme.Colour.textPrimary)
-                Image(systemName: "pencil")
-                    .font(.system(size: 13, weight: .bold))
-                    .foregroundStyle(Theme.Colour.textSecondary)
-            }
-            HStack(spacing: 6) {
-                Text(modeLabel)
-                    .font(.system(size: 11, weight: .bold, design: .rounded))
-                    .foregroundStyle(config.competitive ? Theme.Colour.forfeitRed : Theme.Colour.moneyGreen)
-                Text("·").foregroundStyle(Theme.Colour.textSecondary)
-                Text("\(stillLockedIn)/\(roster.count) still LockedIN")
-                    .font(Theme.TypeScale.caption)
-                    .foregroundStyle(Theme.Colour.textSecondary)
-            }
-        }
-    }
-
-    // MARK: - Compact group-status bar (tap to expand the participant panel)
-
-    private var groupStatusBar: some View {
+    private var roomRoster: some View {
         Button { showParticipants = true } label: {
-            HStack(spacing: Theme.Spacing.sm) {
-                statusDot(Theme.Colour.moneyGreen, "\(focusedCount)", "focused")
-                divider
-                statusDot(Theme.Colour.accent, "\(breakCount)", "break")
-                divider
-                statusDot(Theme.Colour.forfeitRed, "\(distractedCount)", "distracted")
-                Spacer()
-                HStack(spacing: 4) {
-                    Text("Details").font(.system(size: 11, weight: .bold, design: .rounded))
-                    Image(systemName: "chevron.up").font(.system(size: 9, weight: .bold))
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text("CLUB MEMBERS").font(.system(size: 9, weight: .bold)).tracking(1.5)
+                    Spacer()
+                    Text("Goals & people").font(.system(size: 11, weight: .semibold))
+                    Image(systemName: "chevron.right").font(.system(size: 9, weight: .bold))
+                }.foregroundStyle(Theme.Colour.textSecondary)
+                LazyVGrid(columns: [GridItem(.flexible(), alignment: .leading), GridItem(.flexible(), alignment: .leading)], spacing: 12) {
+                    ForEach(Array(roster.prefix(4))) { person in
+                        HStack(spacing: 8) {
+                            AvatarPortraitView(appearance: person.character.fallback, size: 34)
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(person.isUser ? "You" : person.displayName)
+                                    .font(.system(size: 12, weight: .semibold))
+                                Label(person.status.label, systemImage: person.status.symbolName ?? "circle.fill")
+                                    .font(.system(size: 10)).foregroundStyle(statusInk(person.status))
+                            }
+                        }
+                    }
                 }
-                .foregroundStyle(Theme.Colour.textSecondary)
-                .lineLimit(1)
-                .fixedSize()
+                Text(roster.count > 4 ? "First 4 of \(roster.count) · Simulated companions · View all" : "Simulated companions · \(focusedCount)/\(roster.count) focusing")
+                    .font(.system(size: 10)).foregroundStyle(Theme.Colour.textSecondary)
             }
-            .padding(.horizontal, Theme.Spacing.md)
-            .padding(.vertical, Theme.Spacing.sm)
-            .background(Theme.Colour.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
-            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 16))
+            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(Theme.Colour.cardBorder.opacity(0.7)))
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("study.participants")
+        .accessibilityLabel("In the room, \(roster.count) people, \(focusedCount) focusing. Everyone’s goals. Simulated companions.")
     }
 
-    private func statusDot(_ colour: Color, _ value: String, _ label: String) -> some View {
-        HStack(spacing: 5) {
-            Circle().fill(colour).frame(width: 8, height: 8)
-            Text(value).font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
-            Text(label).font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
-        }
-        .lineLimit(1)
-        .fixedSize(horizontal: true, vertical: false)
-    }
-
-    private var divider: some View {
-        Rectangle().fill(Theme.Colour.cardBorder).frame(width: 1, height: 14)
-    }
-
-    // MARK: - Room scene (multi-desk squad room — each avatar at their own desk)
-
-    private var roomScene: some View {
-        LiveRoomScene(
-            participants: roster,
-            room: appStore.world.state.personalRoom,
-            breakingUserIndex: onBreak ? roster.firstIndex(where: { $0.isUser }) : nil
-        )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
-        .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
-        .overlay(alignment: .bottomLeading) { worldProgressBoard.padding(Theme.Spacing.sm) }
-    }
-
-    // MARK: - In-room world-progress board ("what this room is building")
-
-    private var worldProgressBoard: some View {
-        let building = appStore.world.state.activeBuilding
-        let type = building?.type ?? .libraryHub
-        return HStack(spacing: Theme.Spacing.sm) {
-            Image(systemName: type.symbol)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundStyle(type.tint)
-            VStack(alignment: .leading, spacing: 2) {
-                Text("BUILDING").font(.system(size: 8, weight: .heavy)).foregroundStyle(Theme.Colour.textSecondary)
-                Text(type.title).font(.system(size: 12, weight: .bold, design: .rounded)).foregroundStyle(Theme.Colour.textPrimary)
-                ZStack(alignment: .leading) {
-                    Capsule().fill(Theme.Colour.surfaceMid).frame(width: 84, height: 5)
-                    Capsule().fill(type.tint).frame(width: 84 * (building?.progress ?? 0), height: 5)
+    private var sessionDetails: some View {
+        VStack(spacing: 12) {
+            if let building = appStore.world.state.activeBuilding {
+                HStack(spacing: 10) {
+                    Image(systemName: building.type.symbol).foregroundStyle(Theme.Colour.focusGreen)
+                    Text("Growing your \(building.type.title)").font(.system(size: 11, weight: .medium))
+                    Spacer(minLength: 0)
+                    ProgressView(value: building.progress).tint(Theme.Colour.focusGreen).frame(width: 64)
                 }
             }
+            HStack(spacing: 6) {
+                Image(systemName: "leaf")
+                Text(config.competitive ? "Competitive demo" : "Supportive session")
+                Spacer()
+                Text("\(breaksUsed)/\(config.breakAllowance) breaks used")
+            }.font(.system(size: 10))
+            Text(isGroup ? "Companions are simulated. Your timer keeps running outside the app; other app use is not tracked." : "Your timer keeps running outside the app. Breaks and interruptions are self-reported; other app use is not tracked.")
+                .font(.system(size: 11)).fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }.foregroundStyle(Theme.Colour.textSecondary)
+    }
+
+    private func statusInk(_ status: AvatarStatus) -> Color {
+        switch status {
+        case .focused, .finished: return Theme.Colour.focusGreen
+        case .deepFocus: return Theme.Colour.deepFocusBlue
+        case .distracted: return Theme.Colour.forfeitRed
+        case .idle, .onBreak: return Theme.Colour.textSecondary
         }
-        .padding(.horizontal, Theme.Spacing.sm)
-        .padding(.vertical, 6)
-        .background(RoundedRectangle(cornerRadius: Theme.Radius.md).fill(Theme.Colour.surface.opacity(0.94)))
-        .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
     }
 
-    private func statusPill(_ status: AvatarStatus) -> some View {
-        Text(status.label)
-            .font(.system(size: 9, weight: .bold))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 7)
-            .padding(.vertical, 3)
-            .background(Capsule().fill(status.ringColour))
-            .shadow(color: .black.opacity(0.15), radius: 2, y: 1)
+    private var controlDock: some View {
+        HStack(spacing: 10) {
+            Button {
+                session.reportInterruption(at: Date())
+                onCheckpoint(session)
+                if !session.isRunning { onFinish(session.participants) }
+            } label: {
+                VStack(spacing: 3) {
+                    Image(systemName: "arrow.uturn.backward").font(.system(size: 15, weight: .semibold))
+                    Text("Interrupted").font(.system(size: 9, weight: .semibold))
+                }
+                .frame(width: 76, height: 50)
+                .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 14))
+                .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Theme.Colour.cardBorder))
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("I got interrupted, \(session.user?.distractions ?? 0) reported")
+            .accessibilityIdentifier("study.interruption")
+            .disabled(onBreak)
+            Button(action: toggleBreak) {
+                Label(onBreak ? "Back to focus" : "Take a break", systemImage: onBreak ? "play.fill" : "cup.and.saucer")
+            }
+            .buttonStyle(StudioButtonStyle(primary: true))
+            .accessibilityIdentifier("study.break")
+            .disabled(!onBreak && breaksUsed >= config.breakAllowance)
+        }
+        .padding(.horizontal, 20).padding(.top, 12).padding(.bottom, 8)
+        .background(Theme.Colour.background)
+        .overlay(alignment: .top) { Rectangle().fill(Theme.Colour.cardBorder.opacity(0.5)).frame(height: 1) }
     }
 
-    // MARK: - Expandable participant panel (bottom sheet)
+    private var goalCard: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: "book.closed").font(.system(size: 21)).foregroundStyle(Theme.Colour.focusGreen)
+                .padding(.top, 2)
+            VStack(alignment: .leading, spacing: 6) {
+                StudioEyebrow(text: config.subject.isEmpty ? "Your focus" : config.subject)
+                Text(config.goal.isEmpty ? "A little closer to where you want to be." : config.goal)
+                    .font(.subheadline.weight(.medium)).fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .modifier(StudioCard())
+    }
 
     private var participantSheet: some View {
-        ZStack {
-            Theme.Colour.background.ignoresSafeArea()
-            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                HStack {
-                    Text("Participants").font(Theme.TypeScale.title2).foregroundStyle(Theme.Colour.textPrimary)
-                    Spacer()
-                    Text("\(focusedCount) focused · \(breakCount) break · \(distractedCount) distracted")
-                        .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
-                }
-                ScrollView {
-                    VStack(spacing: Theme.Spacing.sm) {
-                        ForEach(roster) { p in participantCard(p) }
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Different goals. Shared quiet.")
+                            .font(.system(size: 23, weight: .bold, design: .rounded))
+                        Text("Your companions are simulated. These are their demo study goals; your end-of-session check-in stays private.")
+                            .font(.system(size: 12)).foregroundStyle(Theme.Colour.textSecondary)
+                    }.padding(.vertical, 8)
+                    ForEach(roster) { person in
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack(spacing: 10) {
+                                AvatarPortraitView(appearance: person.character.fallback, size: 42)
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(person.isUser ? "You" : person.displayName)
+                                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                                    Text(person.isUser ? "Your study goal" : "Simulated companion")
+                                        .font(.system(size: 10)).foregroundStyle(Theme.Colour.textSecondary)
+                                }
+                                Spacer(minLength: 0)
+                                Label(person.status.label, systemImage: person.status.symbolName ?? "circle.fill")
+                                    .font(.system(size: 10, weight: .medium))
+                                    .foregroundStyle(statusInk(person.status))
+                            }
+                            if let intent = person.studyIntent {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(intent.subject.uppercased())
+                                        .font(.system(size: 9, weight: .bold)).tracking(1)
+                                        .foregroundStyle(Theme.Colour.textSecondary)
+                                    Text(intent.goal).font(.system(size: 14, weight: .medium))
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(12)
+                                .background(Theme.Colour.background, in: RoundedRectangle(cornerRadius: 10))
+                            } else {
+                                Text("No shared study goal").font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+                            }
+                        }
+                        .padding(14)
+                        .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 17))
+                        .overlay(RoundedRectangle(cornerRadius: 17).strokeBorder(Theme.Colour.cardBorder.opacity(0.7)))
+                        .accessibilityElement(children: .combine)
+                        .accessibilityIdentifier("study.person.\(person.isUser ? "you" : person.character.id)")
                     }
-                }
-                Text("Multiplayer is simulated for this demo — scripted study-mates.")
-                    .font(Theme.TypeScale.caption)
-                    .foregroundStyle(Theme.Colour.testBadgeFg)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                }.padding(20)
             }
-            .padding(Theme.Spacing.lg)
+            .background(Theme.Colour.background)
+            .navigationTitle("In the room").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showParticipants = false }.accessibilityIdentifier("study.participants.done") } }
         }
+        .presentationDetents([.large])
     }
-
-    private func participantCard(_ p: SessionParticipant) -> some View {
-        HStack(spacing: Theme.Spacing.md) {
-            SpriteAvatarView(character: p.character, status: p.status, size: 44, showStatusBadge: false, animated: false)
-            VStack(alignment: .leading, spacing: 3) {
-                HStack(spacing: 6) {
-                    Text(p.isUser ? "You" : firstName(p.displayName))
-                        .font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
-                    statusPill(p.status)
-                }
-                HStack(spacing: Theme.Spacing.lg) {
-                    metric("\(focusedMinutes(p))m", "focused")
-                    metric("\(p.distractions)", "off-task")
-                    if config.competitive || p.isUser {
-                        metric("\(warningsRemaining(p))", "warns left")
-                    }
-                }
-            }
-            Spacer()
-            signalBars(for: p.status)
-        }
-        .padding(Theme.Spacing.md)
-        .background(Theme.Colour.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
-        .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md)
-            .strokeBorder(p.status == .distracted ? Theme.Colour.forfeitRed.opacity(0.5) : Theme.Colour.cardBorder, lineWidth: 1))
-    }
-
-    private func metric(_ value: String, _ label: String) -> some View {
-        VStack(alignment: .leading, spacing: 1) {
-            Text(value).font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
-            Text(label).font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
-        }
-        .lineLimit(1)
-        .fixedSize()
-    }
-
-    private func signalBars(for status: AvatarStatus) -> some View {
-        let strength: Int = {
-            switch status {
-            case .deepFocus: return 3
-            case .focused:   return 2
-            case .onBreak:   return 1
-            default:         return 0   // distracted / idle / finished
-            }
-        }()
-        return HStack(alignment: .bottom, spacing: 2) {
-            ForEach(0..<3, id: \.self) { i in
-                Capsule()
-                    .fill(i < strength ? status.ringColour : Theme.Colour.surfaceMid)
-                    .frame(width: 3, height: CGFloat(6 + i * 4))
-            }
-        }
-    }
-
-    // MARK: - Toolbar
-
-    private var toolbar: some View {
-        HStack(spacing: Theme.Spacing.sm) {
-            toolButton("rectangle.portrait.and.arrow.right", "Leave", tint: Theme.Colour.forfeitRed) { finish() }
-            toolButton("cup.and.saucer.fill", onBreak ? "Resume" : "Take a break",
-                       tint: Theme.Colour.textPrimary,
-                       disabled: !onBreak && breaksUsed >= config.breakAllowance) { toggleBreak() }
-            toolButton("bubble.left.and.bubble.right.fill", "Room chat",
-                       tint: Theme.Colour.textSecondary, disabled: true) {}
-        }
-    }
-
-    private func toolButton(_ icon: String, _ label: String, tint: Color,
-                            disabled: Bool = false, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 3) {
-                Image(systemName: icon).font(.system(size: 16, weight: .bold))
-                Text(label).font(.system(size: 10, weight: .semibold))
-            }
-            .foregroundStyle(tint)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, Theme.Spacing.sm)
-            .background(Theme.Colour.surface)
-            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))
-            .overlay(RoundedRectangle(cornerRadius: Theme.Radius.md).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
-        }
-        .disabled(disabled)
-        .opacity(disabled ? 0.45 : 1)
-    }
-
-    // MARK: - Clock loop (Swift Concurrency — no Combine)
 
     private func runClock() async {
-        while remaining > 0 && !finished {
-            try? await Task.sleep(for: .seconds(1))
-            guard running, !finished else { continue }
-            remaining -= 1
-            applyChoreography()
-        }
-        if remaining == 0 { finish() }
-    }
-
-    /// Deterministic live state: crackers flip to Distracted at the crack moment.
-    private func applyChoreography() {
-        guard elapsed >= crackMoment else { return }
-        for i in roster.indices where crackerIDs.contains(roster[i].id) && roster[i].status != .distracted {
-            roster[i].status = .distracted
-            distractionEvents += 1
+        while session.isRunning && !Task.isCancelled {
+            tick()
+            do { try await Task.sleep(for: .seconds(1)) } catch { return }
         }
     }
 
-    // MARK: - Actions
+    private func tick() {
+        guard session.isRunning else { return }
+        now = Date()
+        let before = session
+        session.update(at: now)
+        if before != session { onCheckpoint(session) }
+        if !session.isRunning { onFinish(session.participants) }
+    }
 
     private func toggleBreak() {
-        guard let me = roster.firstIndex(where: { $0.isUser }) else { return }
-        if onBreak {
-            onBreak = false
-            running = true
-            roster[me].status = roster[me].focusPct >= 95 ? .deepFocus : .focused
-        } else {
-            guard breaksUsed < config.breakAllowance else { return }
-            breaksUsed += 1
-            onBreak = true
-            running = false
-            roster[me].status = .onBreak
-        }
+        now = Date()
+        session.toggleBreak(at: now)
+        onCheckpoint(session)
+        if !session.isRunning { onFinish(session.participants) }
     }
 
-    private func finish() {
-        guard !finished else { return }
-        finished = true
-        running = false
-        onFinish(roster)
+    private func finish(leaving: Bool) {
+        guard session.isRunning else { return }
+        now = Date()
+        session.finish(leaving: leaving, at: now)
+        onCheckpoint(session)
+        onFinish(session.participants)
     }
 
-    private func firstName(_ name: String) -> String {
-        name.split(separator: " ").first.map(String.init) ?? name
-    }
 }
 
-#Preview("Live session") {
-    LiveSessionView(
-        config: .preset,
-        participants: SessionParticipant.makeRoster(
-            userCharacter: CharacterCatalog.first, userName: "You", config: .preset
-        ),
-        onFinish: { _ in },
-        onCancel: {}
-    )
-    .environment(AppStore())
+#Preview {
+    LiveSessionView(config: .solo, participants: SessionParticipant.makeSolo(userCharacter: CharacterCatalog.first, userName: "You"), onFinish: { _ in }, onCancel: {})
+        .environment(AppStore())
 }

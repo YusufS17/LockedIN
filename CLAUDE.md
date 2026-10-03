@@ -1,3 +1,5 @@
+> **Current continuity notes (2026-09-27):** Read [PROGRESS.md](PROGRESS.md), [.planning/STATE.md](.planning/STATE.md) and the [active roadmap](.planning/ROADMAP.md) before resuming work. The historical hackathon material below is not the current stage tracker. The user requests saved progress and handoff notes; update them after meaningful milestones and before handing work back. Preserve existing local changes.
+
 <!-- GSD:project-start source:PROJECT.md -->
 
 ## Project

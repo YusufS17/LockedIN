@@ -1,0 +1,139 @@
+Application, 0x1105b6210, pid: 6262, label: 'LockedIN' <App element pid: 6262>
+  Window (Main), 0x1105b21e0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4523711904.3>
+    Other, 0x1105b4530, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4527773872.4>
+      Other, 0x1105b85a0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4524704272.5>
+        Other, 0x1105b4f90, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4524814016.6>
+          Other, 0x1105b49a0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4527080528.7>
+            ScrollView, 0x1105b86c0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4597522432.8>
+              Other, 0x1105b87e0, {{0.0, 62.0}, {402.0, 897.7}} <AX element pid: 6262, elementOrHash.elementID: 4523771376.11>
+                Image, 0x1105b8900, {{26.3, 88.0}, {11.3, 16.3}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 6262, elementOrHash.elementID: 4528943104.15>
+                StaticText, 0x1105b8a20, {{47.0, 84.5}, {87.7, 23.0}}, label: 'LockedIN' <AX element pid: 6262, elementOrHash.elementID: 4522636032.16>
+                Button, 0x1105b8b40, {{272.3, 78.0}, {53.7, 36.0}}, label: '0 coins. View progress' <AX element pid: 6262, elementOrHash.elementID: 4527057904.17>
+                  Image, 0x1105b8c60, {{284.3, 88.7}, {15.0, 15.0}} <AX element pid: 6262, elementOrHash.elementID: 4526993376.30>
+                  StaticText, 0x1105b8d80, {{304.3, 87.0}, {9.7, 18.0}}, label: '0' <AX element pid: 6262, elementOrHash.elementID: 4526993808.31>
+                Button, 0x1105b8ea0, {{334.0, 74.0}, {44.0, 44.0}}, label: 'More options' <AX element pid: 6262, elementOrHash.elementID: 4527808208.18>
+                  Button, 0x1105b8fc0, {{334.0, 74.0}, {44.0, 44.0}} <AX element pid: 6262, elementOrHash.elementID: 4523773472.32>
+                    Image, 0x1105b90e0, {{347.3, 94.0}, {17.3, 4.0}}, identifier: 'ellipsis', label: 'More' <AX element pid: 6262, elementOrHash.elementID: 4523755424.51>
+                StaticText, 0x1105b9200, {{24.0, 142.0}, {238.7, 12.0}}, label: 'A LITTLE SPACE. A LITTLE FOCUS.' <AX element pid: 6262, elementOrHash.elementID: 4524900480.19>
+                StaticText, 0x1105b9320, {{24.0, 162.0}, {245.0, 40.7}}, label: 'Your little corner.' <AX element pid: 6262, elementOrHash.elementID: 4524900912.20>
+                StaticText, 0x1105b9440, {{24.0, 210.7}, {240.3, 18.0}}, label: 'Settle in. Make something of today.' <AX element pid: 6262, elementOrHash.elementID: 4524901696.21>
+                Other, 0x1105b9560, {{8.0, 252.7}, {386.0, 322.3}}, label: 'Your furnished study room and custom avatar' <AX element pid: 6262, elementOrHash.elementID: 4527065152.22>
+                  Image, 0x1105b9680, {{8.0, 252.7}, {386.0, 322.3}} <AX element pid: 6262, elementOrHash.elementID: 4527062832.33>
+                  Other, 0x1105b97a0, {{229.0, 429.7}, {71.3, 96.3}}, label: 'Avatar: Medium skin, Short Brown hair, Tee, Jeans, Sneakers, status: Idle' <AX element pid: 6262, elementOrHash.elementID: 4527063696.34>
+                    Image, 0x1105b98c0, {{229.0, 429.7}, {71.3, 95.7}} <AX element pid: 6262, elementOrHash.elementID: 4527063264.52>
+                StaticText, 0x1105b99e0, {{25.3, 581.4}, {83.0, 14.3}}, label: 'Your room' <AX element pid: 6262, elementOrHash.elementID: 4525866592.23>
+                StaticText, 0x1105b9b00, {{338.7, 581.2}, {39.3, 14.3}}, label: 'Level 1' <AX element pid: 6262, elementOrHash.elementID: 4526049904.24>
+                Button, 0x1105b9c20, {{24.0, 619.7}, {171.0, 50.0}}, label: 'Edit avatar' <AX element pid: 6262, elementOrHash.elementID: 4526052224.25>
+                  Image, 0x1105b9d40, {{61.0, 637.7}, {14.0, 14.0}}, identifier: 'person.crop.square', label: 'Selfie' <AX element pid: 6262, elementOrHash.elementID: 4526050336.35>
+                  StaticText, 0x1105b9e60, {{61.0, 635.7}, {99.0, 18.0}}, label: 'Edit avatar' <AX element pid: 6262, elementOrHash.elementID: 4526051792.36>
+                Button, 0x1105b9f80, {{207.0, 619.7}, {171.0, 50.0}}, label: 'Decorate' <AX element pid: 6262, elementOrHash.elementID: 4523793552.26>
+                  Image, 0x1105ba0a0, {{249.0, 638.0}, {15.0, 13.3}}, identifier: 'chair.lounge', label: 'chair.lounge' <AX element pid: 6262, elementOrHash.elementID: 4524903440.37>
+                  StaticText, 0x1105ba1c0, {{249.0, 635.7}, {89.2, 18.0}}, label: 'Decorate' <AX element pid: 6262, elementOrHash.elementID: 4524904896.38>
+                Button, 0x1105ba2e0, {{24.0, 693.7}, {354.0, 74.0}}, identifier: 'study.club', label: 'Portrait: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons, Portrait: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers, Portrait: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons, Better together, Explore the study club · Demo' <AX element pid: 6262, elementOrHash.elementID: 4526054672.27>
+                  Other, 0x1105ba600, {{42.0, 711.7}, {38.0, 38.0}}, label: 'Portrait: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons' <AX element pid: 6262, elementOrHash.elementID: 4523795584.39>
+                    Image, 0x1105ba720, {{45.0, 714.7}, {32.0, 32.0}} <AX element pid: 6262, elementOrHash.elementID: 4523794800.53>
+                  Other, 0x1105ba840, {{68.0, 711.7}, {38.0, 38.0}}, label: 'Portrait: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers' <AX element pid: 6262, elementOrHash.elementID: 4523797472.40>
+                    Image, 0x1105ba960, {{71.0, 714.7}, {32.0, 32.0}} <AX element pid: 6262, elementOrHash.elementID: 4523797040.54>
+                  Other, 0x1105baa80, {{94.0, 711.7}, {38.0, 38.0}}, label: 'Portrait: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons' <AX element pid: 6262, elementOrHash.elementID: 4523799360.41>
+                    Image, 0x1105baba0, {{97.0, 714.7}, {32.0, 32.0}} <AX element pid: 6262, elementOrHash.elementID: 4523798928.55>
+                  StaticText, 0x1105bacc0, {{146.0, 712.6}, {110.0, 18.0}}, label: 'Better together' <AX element pid: 6262, elementOrHash.elementID: 4522636928.42>
+                  StaticText, 0x1105bade0, {{146.0, 734.6}, {169.7, 14.3}}, label: 'Explore the study club · Demo' <AX element pid: 6262, elementOrHash.elementID: 4522637360.43>
+                  Image, 0x1105baf00, {{347.7, 725.3}, {10.7, 10.7}}, identifier: 'arrow.up.right', label: 'arrow.up.right' <AX element pid: 6262, elementOrHash.elementID: 4522530960.44>
+                Button, 0x1105bb020, {{24.0, 791.7}, {354.0, 121.7}}, label: 'LITTLE BY LITTLE, Your story starts here., 0 / 100 XP to level 2, 0 sessions', value: 0% <AX element pid: 6262, elementOrHash.elementID: 4527070960.28>
+                  StaticText, 0x1105bb140, {{42.0, 809.7}, {122.0, 12.0}}, label: 'LITTLE BY LITTLE' <AX element pid: 6262, elementOrHash.elementID: 4527811872.45>
+                  Image, 0x1105bb260, {{347.7, 811.3}, {11.0, 9.0}}, identifier: 'arrow.right', label: 'Right' <AX element pid: 6262, elementOrHash.elementID: 4527850592.46>
+                  StaticText, 0x1105bb380, {{42.0, 833.7}, {177.0, 20.3}}, label: 'Your story starts here.' <AX element pid: 6262, elementOrHash.elementID: 4527851376.47>
+                  ProgressIndicator, 0x1105bb4a0, {{42.0, 866.0}, {318.0, 4.0}}, value: 0% <AX element pid: 6262, elementOrHash.elementID: 4528944080.48>
+                    ProgressIndicator, 0x1105bb5c0, {{42.0, 856.0}, {318.0, 24.0}}, value: 0% <AX element pid: 6262, elementOrHash.elementID: 4524816128.56>
+                  StaticText, 0x1105bb6e0, {{42.0, 882.1}, {104.7, 13.3}}, label: '0 / 100 XP to level 2' <AX element pid: 6262, elementOrHash.elementID: 4528944512.49>
+                  StaticText, 0x1105bb800, {{304.3, 882.1}, {55.7, 13.3}}, label: '0 sessions' <AX element pid: 6262, elementOrHash.elementID: 4523796368.50>
+                StaticText, 0x1105bb920, {{58.8, 937.4}, {284.3, 14.3}}, label: 'A room that grows with you, one session at a time.' <AX element pid: 6262, elementOrHash.elementID: 4527071856.29>
+            Button, 0x110444e10, {{24.0, 760.7}, {354.0, 50.0}}, identifier: 'study.start', label: 'Return to your session' <AX element pid: 6262, elementOrHash.elementID: 4527074656.9>
+              Image, 0x110442780, {{45.3, 780.7}, {9.0, 10.0}}, identifier: 'play.fill', label: 'Play' <AX element pid: 6262, elementOrHash.elementID: 4527074224.12>
+              StaticText, 0x110442430, {{62.7, 776.7}, {156.7, 18.0}}, label: 'Return to your session' <AX element pid: 6262, elementOrHash.elementID: 4527075216.13>
+              Image, 0x110443190, {{341.7, 780.0}, {14.3, 11.7}}, identifier: 'arrow.right', label: 'Right' <AX element pid: 6262, elementOrHash.elementID: 4527076000.14>
+            StaticText, 0x1104434e0, {{161.5, 818.7}, {79.0, 13.3}}, label: 'Mixed subjects' <AX element pid: 6262, elementOrHash.elementID: 4527080096.10>
+    Other, 0x110442e40, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4524928240.60>
+      Other, 0x110443850, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4528947232.61>
+        Other, 0x1104442c0, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4522743776.62>
+          ScrollView, 0x110443f60, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4531003392.247>
+            Other, 0x1100aaa10, {{0.0, 62.0}, {402.0, 953.3}} <AX element pid: 6262, elementOrHash.elementID: 4525006320.249>
+              StaticText, 0x1100aa1c0, {{24.0, 76.7}, {117.7, 20.3}}, label: 'The study club' <AX element pid: 6262, elementOrHash.elementID: 4524929200.252>
+              StaticText, 0x1100ac0d0, {{24.0, 101.0}, {202.7, 14.3}}, label: 'Demo room · simulated companions' <AX element pid: 6262, elementOrHash.elementID: 4524947920.253>
+              Button, 0x1100ac1f0, {{334.0, 74.0}, {44.0, 44.0}}, identifier: 'study.leave', label: 'Leave session' <AX element pid: 6262, elementOrHash.elementID: 4525157200.254>
+              StaticText, 0x1100ac310, {{119.3, 140.0}, {163.3, 12.0}}, label: 'A MOMENT TO BREATHE' <AX element pid: 6262, elementOrHash.elementID: 4524963504.255>
+              StaticText, 0x1100ac430, {{124.0, 158.0}, {154.0, 74.0}}, label: '24 minutes, 50 seconds remaining' <AX element pid: 6262, elementOrHash.elementID: 4524964288.256>
+              StaticText, 0x1100ac550, {{124.2, 238.0}, {153.7, 14.3}}, label: 'Your focus timer is paused.' <AX element pid: 6262, elementOrHash.elementID: 4524951088.257>
+              Other, 0x1100ac670, {{67.7, 427.7}, {91.3, 62.7}}, label: 'Empty study desk' <AX element pid: 6262, elementOrHash.elementID: 4526114176.363>
+                Image, 0x1100ac790, {{94.0, 440.7}, {39.0, 36.7}} <AX element pid: 6262, elementOrHash.elementID: 4526003680.368>
+                Image, 0x1100ac8b0, {{67.7, 427.7}, {91.3, 62.7}} <AX element pid: 6262, elementOrHash.elementID: 4526065024.369>
+              Other, 0x1100ac9d0, {{116.0, 419.3}, {102.3, 125.0}}, label: 'Leo, Focused' <AX element pid: 6262, elementOrHash.elementID: 4527404192.364>
+                Image, 0x1100acaf0, {{145.3, 488.7}, {43.7, 41.0}} <AX element pid: 6262, elementOrHash.elementID: 4526108560.370>
+                Other, 0x1100acc10, {{134.3, 439.0}, {65.7, 88.3}}, label: 'Avatar: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers, status: Focused' <AX element pid: 6262, elementOrHash.elementID: 4527371264.371>
+                  Image, 0x1100acd30, {{134.3, 439.0}, {65.7, 87.7}} <AX element pid: 6262, elementOrHash.elementID: 4527279600.391>
+                Image, 0x1100ace50, {{116.0, 474.0}, {102.3, 70.3}} <AX element pid: 6262, elementOrHash.elementID: 4527390272.372>
+                Other, 0x1100acf70, {{134.3, 439.0}, {65.7, 87.7}}, label: 'Avatar: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers, status: Focused' <AX element pid: 6262, elementOrHash.elementID: 4527341024.373>
+                  Image, 0x1100ad090, {{134.3, 439.0}, {65.7, 87.7}} <AX element pid: 6262, elementOrHash.elementID: 4527103728.392>
+                Image, 0x1100ad1b0, {{139.3, 425.3}, {6.3, 9.0}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 6262, elementOrHash.elementID: 4527128416.374>
+                StaticText, 0x1100ad2d0, {{150.0, 423.2}, {46.3, 13.3}}, label: 'Focused' <AX element pid: 6262, elementOrHash.elementID: 4527276688.375>
+              Other, 0x113068e40, {{201.0, 368.7}, {91.3, 113.7}}, label: 'Maya, Focused' <AX element pid: 6262, elementOrHash.elementID: 4525952848.365>
+                Image, 0x1105bba40, {{227.3, 432.7}, {39.0, 36.7}} <AX element pid: 6262, elementOrHash.elementID: 4526115840.376>
+                Other, 0x1105bbb60, {{217.3, 388.3}, {59.0, 79.0}}, label: 'Avatar: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons, status: Focused' <AX element pid: 6262, elementOrHash.elementID: 4526163536.377>
+                  Image, 0x1105bbc80, {{217.3, 388.3}, {59.0, 78.3}} <AX element pid: 6262, elementOrHash.elementID: 4526322928.393>
+                Image, 0x1105bbda0, {{201.0, 419.7}, {91.3, 62.7}} <AX element pid: 6262, elementOrHash.elementID: 4526124976.378>
+                Other, 0x1105bbec0, {{217.3, 388.3}, {59.0, 78.3}}, label: 'Avatar: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons, status: Focused' <AX element pid: 6262, elementOrHash.elementID: 4526093392.379>
+                  Image, 0x1105bbfe0, {{217.3, 388.3}, {59.0, 78.3}} <AX element pid: 6262, elementOrHash.elementID: 4526107600.394>
+                Image, 0x1105bc100, {{219.0, 374.7}, {6.3, 9.0}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 6262, elementOrHash.elementID: 4526203712.380>
+                StaticText, 0x1105bc220, {{229.6, 372.6}, {46.3, 13.3}}, label: 'Focused' <AX element pid: 6262, elementOrHash.elementID: 4526320832.381>
+              Other, 0x1105bc340, {{183.0, 481.3}, {130.0, 96.3}}, label: 'You, on break' <AX element pid: 6262, elementOrHash.elementID: 4524828512.366>
+                Other, 0x1105bc460, {{183.0, 481.3}, {71.7, 96.3}}, label: 'Avatar: Medium skin, Short Brown hair, Tee, Jeans, Sneakers, status: On break' <AX element pid: 6262, elementOrHash.elementID: 4527168896.382>
+                  Image, 0x1105bc580, {{183.0, 481.3}, {71.7, 95.3}} <AX element pid: 6262, elementOrHash.elementID: 4527168464.395>
+                Image, 0x1105bc6a0, {{245.7, 539.7}, {12.0, 9.0}}, identifier: 'cup.and.saucer.fill', label: 'cup.and.saucer.fill' <AX element pid: 6262, elementOrHash.elementID: 4527445472.383>
+                StaticText, 0x1105bc7c0, {{259.3, 537.5}, {49.7, 13.3}}, label: 'On break' <AX element pid: 6262, elementOrHash.elementID: 4527445904.384>
+              Other, 0x1103c1930, {{234.7, 412.7}, {105.3, 118.3}}, label: 'Sam, Focused' <AX element pid: 6262, elementOrHash.elementID: 4526016960.367>
+                Image, 0x1103be7b0, {{262.0, 479.0}, {41.0, 38.3}} <AX element pid: 6262, elementOrHash.elementID: 4526094512.385>
+                Other, 0x1103c2660, {{252.0, 432.3}, {61.3, 83.0}}, label: 'Avatar: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons, status: Focused' <AX element pid: 6262, elementOrHash.elementID: 4526289808.386>
+                  Image, 0x1103c2780, {{252.0, 432.3}, {61.3, 82.3}} <AX element pid: 6262, elementOrHash.elementID: 4526098960.396>
+                Image, 0x1103c28a0, {{234.7, 465.3}, {95.7, 65.7}} <AX element pid: 6262, elementOrHash.elementID: 4526104672.387>
+                Other, 0x1103c29c0, {{252.0, 432.3}, {61.3, 82.3}}, label: 'Avatar: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons, status: Focused' <AX element pid: 6262, elementOrHash.elementID: 4526423440.388>
+                  Image, 0x1103c2ae0, {{252.0, 432.3}, {61.3, 82.3}} <AX element pid: 6262, elementOrHash.elementID: 4526105104.397>
+                Image, 0x1103c2d00, {{279.0, 419.0}, {6.3, 9.0}}, identifier: 'lock.fill', label: 'Lock' <AX element pid: 6262, elementOrHash.elementID: 4526423872.389>
+                StaticText, 0x110443bd0, {{289.6, 416.7}, {46.3, 13.3}}, label: 'Focused' <AX element pid: 6262, elementOrHash.elementID: 4526015776.390>
+              Image, 0x1104454e0, {{8.0, 274.3}, {386.0, 322.3}} <AX element pid: 6262, elementOrHash.elementID: 4524951872.262>
+              Other, 0x110445160, {{28.0, 604.7}, {346.0, 54.0}}, label: 'Study areas' <AX element pid: 6262, elementOrHash.elementID: 4523997424.263>
+                Button, 0x110445850, {{28.0, 604.7}, {168.0, 54.0}}, identifier: 'study.area.1', label: 'Area 1, 4 people · You', Selected <AX element pid: 6262, elementOrHash.elementID: 4523845824.301>
+                  StaticText, 0x110445bc0, {{89.8, 614.0}, {44.3, 18.0}}, label: 'Area 1' <AX element pid: 6262, elementOrHash.elementID: 4523859152.318>
+                  StaticText, 0x110445f30, {{71.5, 635.0}, {81.0, 14.3}}, label: '4 people · You' <AX element pid: 6262, elementOrHash.elementID: 4523842208.319>
+                Button, 0x1104462b0, {{206.0, 604.7}, {168.0, 54.0}}, identifier: 'study.area.2', label: 'Area 2, 4 people' <AX element pid: 6262, elementOrHash.elementID: 4524117504.302>
+                  StaticText, 0x110446630, {{266.8, 614.0}, {46.3, 18.0}}, label: 'Area 2' <AX element pid: 6262, elementOrHash.elementID: 4523883040.320>
+                  StaticText, 0x110446990, {{265.2, 635.0}, {49.7, 14.3}}, label: '4 people' <AX element pid: 6262, elementOrHash.elementID: 4523932272.321>
+              Image, 0x110446d10, {{44.7, 702.0}, {17.3, 22.0}}, identifier: 'book.closed', label: 'book.closed' <AX element pid: 6262, elementOrHash.elementID: 4524108960.264>
+              StaticText, 0x110447060, {{76.7, 698.7}, {119.7, 12.0}}, label: 'MIXED SUBJECTS' <AX element pid: 6262, elementOrHash.elementID: 4524109392.265>
+              StaticText, 0x110447400, {{76.7, 716.7}, {134.3, 18.0}}, label: 'Explain momentum' <AX element pid: 6262, elementOrHash.elementID: 4524109824.266>
+              Image, 0x110447750, {{26.0, 775.7}, {20.0, 18.7}}, identifier: 'books.vertical.fill', label: 'Bookshelf' <AX element pid: 6262, elementOrHash.elementID: 4524110256.267>
+              StaticText, 0x110447aa0, {{60.0, 778.3}, {134.3, 13.3}}, label: 'Growing your Library Hub' <AX element pid: 6262, elementOrHash.elementID: 4524128528.268>
+              ProgressIndicator, 0x110447e00, {{318.0, 783.0}, {60.0, 4.0}}, value: 0% <AX element pid: 6262, elementOrHash.elementID: 4524129392.269>
+                ProgressIndicator, 0x110448160, {{318.0, 773.0}, {60.0, 24.0}}, value: 0% <AX element pid: 6262, elementOrHash.elementID: 4524087776.303>
+              Button, 0x1104484d0, {{24.0, 827.3}, {353.3, 30.0}}, identifier: 'study.participants', label: 'In the room, 8 people, 7 focusing' <AX element pid: 6262, elementOrHash.elementID: 4524132224.270>
+                Other, 0x110448820, {{24.0, 827.3}, {30.0, 30.0}}, label: 'Portrait: Medium skin, Short Brown hair, Tee, Jeans, Sneakers' <AX element pid: 6262, elementOrHash.elementID: 4524130256.304>
+                  Image, 0x110448b80, {{26.3, 829.7}, {25.3, 25.3}} <AX element pid: 6262, elementOrHash.elementID: 4524129824.323>
+                Other, 0x110448f20, {{46.0, 827.3}, {30.0, 30.0}}, label: 'Portrait: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons' <AX element pid: 6262, elementOrHash.elementID: 4524131792.305>
+                  Image, 0x110449290, {{48.3, 829.7}, {25.3, 25.3}} <AX element pid: 6262, elementOrHash.elementID: 4524131360.324>
+                Other, 0x1104495e0, {{68.0, 827.3}, {30.0, 30.0}}, label: 'Portrait: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers' <AX element pid: 6262, elementOrHash.elementID: 4524133328.306>
+                  Image, 0x110449970, {{70.3, 829.7}, {25.3, 25.3}} <AX element pid: 6262, elementOrHash.elementID: 4524132896.325>
+                Other, 0x110449ce0, {{90.0, 827.3}, {30.0, 30.0}}, label: 'Portrait: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons' <AX element pid: 6262, elementOrHash.elementID: 4524111248.307>
+                  Image, 0x11044a040, {{92.3, 829.7}, {25.3, 25.3}} <AX element pid: 6262, elementOrHash.elementID: 4524133760.326>
+                StaticText, 0x11044a3c0, {{130.0, 835.2}, {71.7, 14.3}}, label: '7/8 focusing' <AX element pid: 6262, elementOrHash.elementID: 4524112352.308>
+                Image, 0x11044a730, {{371.3, 837.0}, {6.0, 10.3}}, identifier: 'chevron.right', label: 'Forward' <AX element pid: 6262, elementOrHash.elementID: 4524112784.309>
+              Image, 0x1100ad3f0, {{94.3, 890.7}, {11.7, 10.3}}, identifier: 'leaf', label: 'leaf' <AX element pid: 6262, elementOrHash.elementID: 4524134816.271>
+              StaticText, 0x1100ad510, {{112.8, 889.3}, {100.0, 13.3}}, label: 'Supportive session' <AX element pid: 6262, elementOrHash.elementID: 4524135248.272>
+              StaticText, 0x1100ad630, {{218.8, 889.3}, {3.3, 13.3}}, label: '·' <AX element pid: 6262, elementOrHash.elementID: 4524092976.273>
+              StaticText, 0x1100ad750, {{228.2, 889.3}, {80.7, 13.3}}, label: '1/1 breaks used' <AX element pid: 6262, elementOrHash.elementID: 4524093408.274>
+              Button, 0x1100ad870, {{120.0, 924.7}, {162.0, 14.3}}, identifier: 'study.interruption', label: 'I got interrupted · 0 reported', Disabled <AX element pid: 6262, elementOrHash.elementID: 4523898208.275>
+              StaticText, 0x1100ad990, {{27.7, 961.0}, {346.7, 30.3}}, label: 'The timer keeps running when you leave the app. Breaks and interruptions are self-reported; other app use is not tracked.' <AX element pid: 6262, elementOrHash.elementID: 4526313024.276>
+          Button, 0x1100adcb0, {{24.0, 778.0}, {354.0, 50.0}}, identifier: 'study.break', label: 'Back to focus' <AX element pid: 6262, elementOrHash.elementID: 4523902400.248>
+            Image, 0x1100addd0, {{144.7, 796.3}, {11.7, 13.3}}, identifier: 'play', label: 'Play' <AX element pid: 6262, elementOrHash.elementID: 4523900512.250>
+            StaticText, 0x1100adef0, {{144.7, 794.0}, {114.8, 18.0}}, label: 'Back to focus' <AX element pid: 6262, elementOrHash.elementID: 4523901968.251>
+  Window, 0x1100ae010, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4572395008.154>
+    Other, 0x1100ae130, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4523995744.156>
+      Other, 0x1100ae250, {{0.0, 0.0}, {402.0, 874.0}} <AX element pid: 6262, elementOrHash.elementID: 4529014224.158>

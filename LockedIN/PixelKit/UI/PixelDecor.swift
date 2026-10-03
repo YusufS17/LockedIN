@@ -171,6 +171,8 @@ struct PixelSpeechBubble: View {
     let text: String
     var icon: PixelIcon? = nil
     var tint: Color = Theme.Colour.surface
+    /// Border/tail stroke — status callouts recolour it (green focus, red distracted…).
+    var borderTint: Color = Theme.Colour.appShell
 
     var body: some View {
         HStack(spacing: Theme.Spacing.sm) {
@@ -185,11 +187,11 @@ struct PixelSpeechBubble: View {
         .padding(.horizontal, Theme.Spacing.md)
         .padding(.vertical, Theme.Spacing.sm)
         .background(PixelPanelShape(unit: 3).fill(tint))
-        .overlay(PixelPanelShape(unit: 3).stroke(Theme.Colour.appShell, lineWidth: 2))
+        .overlay(PixelPanelShape(unit: 3).stroke(borderTint, lineWidth: 2))
         .background(alignment: .bottomLeading) {
             BubbleTail()
                 .fill(tint)
-                .overlay(BubbleTail().stroke(Theme.Colour.appShell, lineWidth: 2))
+                .overlay(BubbleTail().stroke(borderTint, lineWidth: 2))
                 .frame(width: 14, height: 10)
                 .offset(x: 18, y: 8)
         }

@@ -1,14 +1,13 @@
 import SwiftUI
 
-// MARK: - PixelAvatarView — code-drawn pixel-art student sprite (v2 art, PixelKit renderer)
+// MARK: - PixelAvatarView — layered pixel-art student sprite
 //
-// A parametric full-body pixel character. The art is unchanged v2 (24×32 material-channel
-// grid, procedural top-left light shader, silhouette outline, blink/type/sip/phone/celebrate
-// frames) — but rendering now goes through PixelKit: each animation frame is baked ONCE to a
+// A parametric 48×64 pixel character with independent wardrobe materials and
+// blink/type/mug-steam/phone/celebrate frames. Each animation frame is baked ONCE to a
 // tiny UIImage and cached in SpriteBakery, then composited by SwiftUI with nearest-neighbour
 // scaling. Zero per-frame drawing work; a roomful of avatars is a handful of texture swaps.
 //
-// The animation loop is deterministic: blink every 18 ticks, typing every 2, sipping every 4
+// The animation loop is deterministic: blink every 18 ticks, typing every 2, mug steam every 4
 // → the whole cycle repeats every 36 frames, so at most 36 baked frames per (appearance,
 // status). Static renders (Reduce Motion / animated:false) show a phase where eyes are open.
 
@@ -21,27 +20,31 @@ struct PixelAvatarView: View {
 
     /// Room scenes pass an explicit pose; nil derives one from the status.
     var pose: AvatarPose? = nil
+    /// Desk hands share the body's canvas and clock, allowing furniture occlusion.
+    var layer: AvatarRenderLayer = .full
 
     private static let frameCount = 36   // LCM of all animation periods (18, 2, 4)
 
     var body: some View {
         ZStack(alignment: .bottom) {
             // Soft floor shadow under the feet (grounds the character).
-            Ellipse()
-                .fill(.black.opacity(0.16))
-                .frame(width: size * 20 / 48, height: size * 3.5 / 64)
-                .offset(y: size * 0.5 / 64)
+            if layer == .full {
+                Ellipse()
+                    .fill(.black.opacity(0.16))
+                    .frame(width: size * 20 / 48, height: size * 3.5 / 64)
+                    .offset(y: size * 0.5 / 64)
+            }
 
             PixelSpriteView(
-                cacheKey: Self.cacheKey(appearance: appearance, status: status, pose: resolvedPose),
+                cacheKey: Self.cacheKey(appearance: appearance, status: status, pose: resolvedPose) + "|\(layer.rawValue)",
                 frameCount: Self.frameCount,
                 build: { frame in
                     PixelRenderer.bake(
                         grid: AvatarSpriteV3.grid(appearance: appearance, pose: resolvedPose,
-                                                  status: status, frame: frame),
+                                                  status: status, frame: frame, layer: layer),
                         palette: .avatarV3(appearance),
                         rules: .avatarV3,
-                        outline: PixelRGBA(r: 31, g: 23, b: 20)   // Color(red:0.12, green:0.09, blue:0.08)
+                        outline: layer == .deskHands ? nil : PixelRGBA(r: 31, g: 23, b: 20)
                     )
                 },
                 animated: animated
@@ -58,7 +61,7 @@ struct PixelAvatarView: View {
 
     private static func cacheKey(appearance a: CharacterAppearance, status: AvatarStatus, pose: AvatarPose) -> String {
         // Style axes shape the grid; colour axes shape the palette. Both must key the bake.
-        "av3|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.topStyle).\(a.bottomStyle).\(a.shoeStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
+        "av3-tailored3|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.topStyle).\(a.bottomStyle).\(a.shoeStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
     }
 }
 

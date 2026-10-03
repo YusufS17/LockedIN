@@ -12,10 +12,16 @@
 			path = LockedIN;
 			sourceTree = "<group>";
 		};
+        C001000D /* UITests */ = {
+            isa = PBXFileSystemSynchronizedRootGroup;
+            path = UITests;
+            sourceTree = "<group>";
+        };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFileReference section */
 		B001000E /* LockedIN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LockedIN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        C001000E /* LockedINUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = LockedINUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +32,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+        C0010002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +40,7 @@
 			isa = PBXGroup;
 			children = (
 				B001000D /* LockedIN */,
+                C001000D /* UITests */,
 				B001000F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				B001000E /* LockedIN.app */,
+                C001000E /* LockedINUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,7 +77,26 @@
 			productReference = B001000E /* LockedIN.app */;
 			productType = "com.apple.product-type.application";
 		};
+        C0010001 /* LockedINUITests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = C0010010;
+            buildPhases = (C0010003, C0010002, C0010004);
+            buildRules = ();
+            dependencies = (C0010012);
+            fileSystemSynchronizedGroups = (C001000D);
+            name = LockedINUITests;
+            productName = LockedINUITests;
+            productReference = C001000E;
+            productType = "com.apple.product-type.bundle.ui-testing";
+        };
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+        C0010011 = {isa = PBXContainerItemProxy; containerPortal = B0010005; proxyType = 1; remoteGlobalIDString = B0010001; remoteInfo = LockedIN; };
+/* End PBXContainerItemProxy section */
+/* Begin PBXTargetDependency section */
+        C0010012 = {isa = PBXTargetDependency; target = B0010001; targetProxy = C0010011; };
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		B0010005 /* Project object */ = {
@@ -99,6 +127,7 @@
 			projectRoot = "";
 			targets = (
 				B0010001 /* LockedIN */,
+                C0010001 /* LockedINUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -111,6 +140,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+        C0010004 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -121,6 +151,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+        C0010003 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -306,6 +337,38 @@
 			};
 			name = Release;
 		};
+        C0010009 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                GENERATE_INFOPLIST_FILE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.lockedin.app.uitests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_TARGET_NAME = LockedIN;
+                SDKROOT = iphoneos;
+                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+            };
+            name = Debug;
+        };
+        C001000A = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                GENERATE_INFOPLIST_FILE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.lockedin.app.uitests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_TARGET_NAME = LockedIN;
+                SDKROOT = iphoneos;
+                SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+            };
+            name = Release;
+        };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +390,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+        C0010010 = {isa = XCConfigurationList; buildConfigurations = (C0010009, C001000A); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 /* End XCConfigurationList section */
 
 	};

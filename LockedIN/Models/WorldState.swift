@@ -76,6 +76,9 @@ struct WorldState: Codable, Equatable {
     var ownedCosmetics: Set<String> = []   // purchased premium avatar cosmetic ids
     var personalRoom: PersonalRoom = .seeded   // the customisable study room
     var ownedRoomItems: Set<String> = []   // purchased premium room item ids
+    // The local user's participant ID is created once per session roster and
+    // retained through the reveal. Save receipts alongside the resulting balances.
+    var sessionRewards: [UUID: RewardOutcome] = [:]
 
     var activeBuilding: WorldBuilding? {
         buildings.first { $0.id == activeBuildingID }
@@ -109,5 +112,6 @@ extension WorldState {
         self.ownedCosmetics  = try c.decodeIfPresent(Set<String>.self, forKey: .ownedCosmetics) ?? []
         self.personalRoom    = try c.decodeIfPresent(PersonalRoom.self, forKey: .personalRoom) ?? .seeded
         self.ownedRoomItems  = try c.decodeIfPresent(Set<String>.self, forKey: .ownedRoomItems) ?? []
+        self.sessionRewards = try c.decodeIfPresent([UUID: RewardOutcome].self, forKey: .sessionRewards) ?? [:]
     }
 }

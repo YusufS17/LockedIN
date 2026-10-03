@@ -25,13 +25,69 @@ struct RootView: View {
 
     var body: some View {
         // First-launch gate: real onboarding beats until completed, then Home.
+        #if DEBUG
+        if let screen = Self.smokeScreen {
+            SmokeRoomScreen(screen: screen)   // TEMP P4 QA harness — REMOVE before commit
+        } else if hasCompletedOnboarding {
+            HomeView()
+        } else {
+            OnboardingHostView()
+        }
+        #else
         if hasCompletedOnboarding {
             HomeView()
         } else {
             OnboardingHostView()
         }
+        #endif
     }
 }
+
+#if DEBUG
+extension RootView {
+    /// TEMP P4 QA — `-smoke-room <screen>` renders one room surface headlessly.
+    static var smokeScreen: String? {
+        let args = ProcessInfo.processInfo.arguments
+        guard let i = args.firstIndex(of: "-smoke-room"), i + 1 < args.count else { return nil }
+        return args[i + 1]
+    }
+}
+
+// TEMP P4 QA harness — REMOVE before commit.
+private struct SmokeRoomScreen: View {
+    @Environment(AppStore.self) private var appStore
+    let screen: String
+
+    var body: some View {
+        switch screen {
+        case "home":
+            HomeView()
+        case "avatar":
+            CharacterCustomizerView(initial: appStore.userCharacter, initialName: appStore.displayName, onSave: { _, _ in })
+        case "group":
+            GroupRoomView()
+        case "solo":
+            SoloRoomView()
+        case "live":
+            LiveSessionView(
+                config: .preset,
+                participants: SessionParticipant.makeRoster(
+                    userCharacter: appStore.userStudyCharacter,
+                    userName: "You",
+                    config: .preset),
+                onFinish: { _ in }, onCancel: {})
+        case "builder":
+            PersonalRoomBuilderView()
+        case "world":
+            WorldView()
+        case "first":
+            FirstRoomBeatView(appearance: .default, displayName: "You", onExplore: {})
+        default:
+            Text("unknown screen \(screen)")
+        }
+    }
+}
+#endif
 
 // MARK: - Preview
 

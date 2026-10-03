@@ -95,13 +95,13 @@ struct FirstRoomBeatView: View {
                 .frame(height: 240)
                 .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
 
-            // Avatar at desk slot (50% x, 58% y) — matches IsometricRoomView desk convention
+            // Avatar stands on the open front floor beside the desk (mockup 04).
             GeometryReader { geo in
-                AvatarView(appearance: appearance, status: .idle, size: 72)
-                    .position(
-                        x: geo.size.width  * 0.50,
-                        y: geo.size.height * 0.58
-                    )
+                let cell = RoomLayout.scale(in: geo.size)
+                let feet = RoomLayout.project(RoomLayout.heroStand, in: geo.size)
+                let h = 44 * cell
+                AvatarView(appearance: appearance, status: .idle, size: h)
+                    .position(x: feet.x, y: feet.y - h / 2)
                     .opacity(avatarVisible ? 1 : 0)
             }
             .frame(height: 240)

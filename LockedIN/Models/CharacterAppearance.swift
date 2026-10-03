@@ -151,6 +151,10 @@ extension CharacterAppearance {
         )
         // Preserve the exact stored legacy value (init derived it from topStyle).
         self.outfitStyle = outfit
+        // The legacy setter re-maps garments; restore the independent saved axes afterwards.
+        self.topStyle = try c.decodeIfPresent(TopStyle.self, forKey: .topStyle) ?? mapped.top
+        self.bottomStyle = try c.decodeIfPresent(BottomStyle.self, forKey: .bottomStyle) ?? mapped.bottom
+        self.shoeStyle = try c.decodeIfPresent(ShoeStyle.self, forKey: .shoeStyle) ?? mapped.shoes
     }
 }
 

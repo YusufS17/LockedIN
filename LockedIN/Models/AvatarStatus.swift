@@ -7,7 +7,7 @@ import SwiftUI
 // Phase 4 activates focused/deepFocus/onBreak/distracted/finished.
 // Non-colour-only overlays are required (ONB-03 accessibility).
 
-enum AvatarStatus: String, Equatable {
+enum AvatarStatus: String, Equatable, Codable {
     case idle
     case focused
     case deepFocus
@@ -20,9 +20,9 @@ enum AvatarStatus: String, Equatable {
         switch self {
         case .idle:       return "Idle"
         case .focused:    return "Focused"
-        case .deepFocus:  return "Deep"
-        case .onBreak:    return "Break"
-        case .distracted: return "!"
+        case .deepFocus:  return "Deep focus"
+        case .onBreak:    return "On break"
+        case .distracted: return "Distracted"
         case .finished:   return "Done"
         }
     }

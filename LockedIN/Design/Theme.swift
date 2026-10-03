@@ -4,7 +4,7 @@ import SwiftUI
 //
 // Foundational design tokens for LockedIN.
 // Playful-but-honest: warm amber study-room energy, honest controls, no dark patterns.
-// Keep lightweight — this is a 5h build, not a full design system (D-06).
+// Shared by the native product shell and its separately rendered pixel world.
 
 enum Theme {
 
@@ -13,8 +13,8 @@ enum Theme {
     enum Colour {
         // Backgrounds — warm CREAM "Version B" direction (mockup-matched).
         // Modern cream product layer that frames the pixel game layer.
-        static let background = Color(red: 0.957, green: 0.922, blue: 0.847)   // #F4EBD8 warm cream parchment
-        static let surface    = Color(red: 0.984, green: 0.961, blue: 0.910)   // #FBF5E8 lighter cream card
+        static let background = Color(red: 0.973, green: 0.953, blue: 0.914)   // #F8F3E9 soft cream
+        static let surface    = Color(red: 1.000, green: 0.984, blue: 0.953)   // #FFFBF3 warm ivory
         static let surfaceMid = Color(red: 0.929, green: 0.886, blue: 0.796)   // #EDE2CB deeper cream / nested
 
         // App shell + dark controls — charcoal near-black frame & primary pill buttons
@@ -31,6 +31,10 @@ enum Theme {
         // Semantic — commitment money (not coins; the two economies must stay distinct)
         static let moneyGreen = Color(red: 0.157, green: 0.620, blue: 0.345)   // #289E58 return/success (darker for cream)
         static let forfeitRed = Color(red: 0.804, green: 0.224, blue: 0.224)   // #CD3939 forfeit/warning (darker for cream)
+
+        // Semantic — focus statuses (live-room callouts, roster dots)
+        static let focusGreen    = Color(red: 0.306, green: 0.490, blue: 0.278) // #4E7D47 focused
+        static let deepFocusBlue = Color(red: 0.290, green: 0.435, blue: 0.647) // #4A6FA5 deep focus
 
         // Text — dark on cream
         static let textPrimary   = Color(red: 0.169, green: 0.149, blue: 0.125) // #2B2620 charcoal ink

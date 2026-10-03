@@ -1,0 +1,26 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "1371CDF3-B6D5-446D-9839-36C4CDF7C988.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "garments-restored_0_08F7DB37-1F49-4EA1-8FCA-88A0970CA03F.png",
+        "timestamp" : 1790998734.638
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "F283E6B7-F11C-42EF-B36A-5AE5FB01ECA2.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "garments-selected_0_BDCEDD02-781D-4B84-BD40-AA2FF169B5F2.png",
+        "timestamp" : 1790998681.065
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testIndependentGarmentsPersist()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testIndependentGarmentsPersist"
+  }
+]

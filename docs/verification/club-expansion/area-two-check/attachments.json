@@ -1,0 +1,89 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "E2FC1630-668B-4ADB-90B3-09A92344CBAE.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-08-results_0_A8B6AD19-463C-4D8D-9136-CB75088A1087.png",
+        "timestamp" : 1791018552.419
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "15869E2D-7630-4B8B-A7D1-1965E1B7B308.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-07b-other-area-during-break_0_34C1FC98-5E09-41F3-B719-24BDC889E04B.png",
+        "timestamp" : 1791018526.106
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "A68613F2-830D-4DFC-AEA7-1C052F3397A8.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-07-restored_0_99210210-A664-491F-9AA3-B65F9309A614.png",
+        "timestamp" : 1791018521.154
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "32B1BC5F-064E-470F-AC61-A485D1E64A26.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-06-break_0_E234FB7F-C31D-4908-94E2-C60B442CF0DF.png",
+        "timestamp" : 1791018508.202
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "79C906FA-BC60-4FBB-A85E-ECA598FDACCE.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-05-more-goals_0_3920BC59-4F21-4703-94A9-3E0D9ED02E42.png",
+        "timestamp" : 1791018499.267
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "89319C34-A789-4FEB-B0CB-148FC59470AB.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-04-shared-goals_0_9C801A9D-E7AF-43D9-A552-C28A3348C56D.png",
+        "timestamp" : 1791018492.4
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "7F75E902-D979-4516-9F88-14E624125C87.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-03-area-two_0_CBA7EE5A-F87B-4305-8C8C-DB415792CC09.png",
+        "timestamp" : 1791018481.71
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "07EC5EDC-BC69-466E-8339-790DAE69D6CA.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-02-area-one_0_45C9ABE2-35F5-4F55-8461-B79DEAA69F2E.png",
+        "timestamp" : 1791018478.375
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "5DA4238F-6617-4E78-BBD0-80936A3A4B1E",
+        "deviceName" : "iPhone 17",
+        "exportedFileName" : "6A8EEB19-A848-4720-B6A9-A03E004E078D.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "eight-01-setup_0_6360073E-5D94-4700-9921-9ECE05E4DA94.png",
+        "timestamp" : 1791018467.727
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testEightPersonClubAreasIntentAndRestoration()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testEightPersonClubAreasIntentAndRestoration"
+  }
+]

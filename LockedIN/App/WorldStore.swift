@@ -6,20 +6,20 @@ import Observation
 enum WorldPersistence {
     private static let key = "worldStateV1"
 
-    static func load() -> WorldState? {
-        guard let data = UserDefaults.standard.data(forKey: key),
+    static func load(defaults: UserDefaults = .standard) -> WorldState? {
+        guard let data = defaults.data(forKey: key),
               let state = try? JSONDecoder().decode(WorldState.self, from: data)
         else { return nil }
         return state
     }
 
-    static func save(_ state: WorldState) {
+    static func save(_ state: WorldState, defaults: UserDefaults = .standard) {
         if let data = try? JSONEncoder().encode(state) {
-            UserDefaults.standard.set(data, forKey: key)
+            defaults.set(data, forKey: key)
         }
     }
 
-    static func clear() { UserDefaults.standard.removeObject(forKey: key) }
+    static func clear(defaults: UserDefaults = .standard) { defaults.removeObject(forKey: key) }
 }
 
 // MARK: - WorldStore — the progression + world economy (persisted)
@@ -35,23 +35,32 @@ enum WorldPersistence {
 final class WorldStore {
 
     private(set) var state: WorldState
+    private let defaults: UserDefaults
 
-    init(state: WorldState? = nil) {
-        self.state = state ?? WorldPersistence.load() ?? .seeded
+    init(state: WorldState? = nil, defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        self.state = state ?? WorldPersistence.load(defaults: defaults) ?? .seeded
     }
 
     // MARK: - Apply a finished session
 
     /// Evaluates the user's result, banks the reward, persists, and returns the outcome
-    /// for the reveal. Call once per completed session.
+    /// for the reveal. Repeated results return the saved receipt without awarding again.
     @discardableResult
     func applySession(user: SessionParticipant, config: RoomConfig) -> RewardOutcome {
+        if let existing = state.sessionRewards[user.id] { return existing }
         let p = state.progression
         let outcome = RewardRules.evaluate(
             user: user, config: config,
             streakBefore: p.currentStreak, levelBefore: p.level, xpBefore: p.focusXP
         )
-        award(outcome)
+        // Do not seal a receipt for an unfinished snapshot or count it as a session.
+        if !config.quickDemo && !user.leftEarly && (user.focusedSeconds ?? 0) < config.sessionSeconds {
+            return outcome
+        }
+        state.sessionRewards[user.id] = outcome
+        if outcome.focusXP > 0 { award(outcome) }
+        WorldPersistence.save(state, defaults: defaults)
         return outcome
     }
 
@@ -62,7 +71,6 @@ final class WorldStore {
         state.progression.currentStreak = outcome.passed ? state.progression.currentStreak + 1 : 0
         state.progression.bestStreak = max(state.progression.bestStreak, state.progression.currentStreak)
         contribute(outcome.focusXP)
-        WorldPersistence.save(state)
     }
 
     /// Banks XP into the active building, rolling over level-ups and unlocking the next.
@@ -100,7 +108,7 @@ final class WorldStore {
         guard cost > 0, state.progression.coins >= cost else { return false }
         state.progression.coins -= cost
         state.ownedCosmetics.insert(id)
-        WorldPersistence.save(state)
+        WorldPersistence.save(state, defaults: defaults)
         return true
     }
 
@@ -119,7 +127,7 @@ final class WorldStore {
         guard cost > 0, state.progression.coins >= cost else { return false }
         state.progression.coins -= cost
         state.ownedRoomItems.insert(id)
-        WorldPersistence.save(state)
+        WorldPersistence.save(state, defaults: defaults)
         return true
     }
 
@@ -135,7 +143,7 @@ final class WorldStore {
             guard purchaseRoomItem(id) else { return .cannotAfford }
         }
         state.personalRoom.placements[item.slot.rawValue] = id
-        WorldPersistence.save(state)
+        WorldPersistence.save(state, defaults: defaults)
         return alreadyOwned ? .placed : .purchasedAndPlaced
     }
 
@@ -145,7 +153,7 @@ final class WorldStore {
     func setActiveBuilding(_ type: BuildingType) {
         guard state.buildings.contains(where: { $0.id == type.rawValue && $0.unlocked }) else { return }
         state.activeBuildingID = type.rawValue
-        WorldPersistence.save(state)
+        WorldPersistence.save(state, defaults: defaults)
     }
 
     /// Spend coins to begin building an unlocked-but-unbuilt (level 0) plot.
@@ -158,7 +166,7 @@ final class WorldStore {
         state.progression.coins -= cost
         state.buildings[idx].level = 1
         state.activeBuildingID = type.rawValue
-        WorldPersistence.save(state)
+        WorldPersistence.save(state, defaults: defaults)
         return true
     }
 
@@ -167,6 +175,6 @@ final class WorldStore {
     /// Reset all world/coin progress (used by onboarding reset / dev).
     func reset() {
         state = .seeded
-        WorldPersistence.clear()
+        WorldPersistence.clear(defaults: defaults)
     }
 }

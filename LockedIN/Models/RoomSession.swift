@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - RoomConfig — the commitment contract the user sets up
 
-struct RoomConfig: Equatable {
+struct RoomConfig: Equatable, Codable {
     var roomName: String
     var subject: String
     var focusMinutes: Int
@@ -11,6 +11,8 @@ struct RoomConfig: Equatable {
     var distractionLimit: Int     // permitted distraction events (count)
     var competitive: Bool         // competitive vs supportive (supportive hides negative titles)
     var quickDemo: Bool           // 20s timer for demoing
+
+    var goal: String = ""
 
     static let preset = RoomConfig(
         roomName: "Finals Focus Room",
@@ -37,17 +39,17 @@ struct RoomConfig: Equatable {
 
     /// Drop-in squad room — social, no stake, crowns a focus champion.
     static let groupRoom = RoomConfig(
-        roomName: "Drop-in Study Hall",
+        roomName: "The study club",
         subject: "Mixed subjects",
         focusMinutes: 25,
         stakePence: 0,
         breakAllowance: 1,
         distractionLimit: 3,
-        competitive: true,
+        competitive: false,
         quickDemo: false
     )
 
-    /// Whether this room puts real money on the line (drives the settlement card).
+    /// Whether this room uses a simulated test stake (drives the settlement card).
     var isStaked: Bool { stakePence > 0 }
 
     var sessionSeconds: Int { quickDemo ? 20 : max(1, focusMinutes) * 60 }
@@ -70,48 +72,85 @@ struct RoomConfig: Equatable {
     }
 }
 
+/// Text intentionally shown alongside a participant. Private outcome reviews and
+/// interruption history never belong here. Optional on old saved sessions.
+struct ParticipantStudyIntent: Codable, Equatable {
+    let subject: String
+    let goal: String
+
+    var isValid: Bool {
+        !subject.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        !goal.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        subject == subject.trimmingCharacters(in: .whitespacesAndNewlines) &&
+        goal == goal.trimmingCharacters(in: .whitespacesAndNewlines) &&
+        subject.count <= 40 && goal.count <= 120 &&
+        !subject.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) }) &&
+        !goal.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) })
+    }
+}
+
 // MARK: - SessionParticipant
 
-struct SessionParticipant: Identifiable {
-    let id = UUID()
+struct SessionParticipant: Identifiable, Codable, Equatable {
+    var id = UUID()
     let character: StudyCharacter
     let displayName: String
     let isUser: Bool
 
-    // Scripted behaviour (deterministic — no randomness, SES-04).
+    // User interruptions are self-reported; companion values remain deterministic demo data.
     var distractions: Int
     var leftEarly: Bool
+    /// User: percentage of planned timer completed. Companions: simulated values.
     var focusPct: Int
 
     // Live state during the session.
     var status: AvatarStatus = .focused
+    var focusedSeconds: Int? = nil
+    var recordedBreakSeconds: Int? = nil
+    var recordedBreakCount: Int? = nil
+    var studyIntent: ParticipantStudyIntent? = nil
 
     /// Solo roster — just the user, clean run.
     static func makeSolo(userCharacter: StudyCharacter, userName: String) -> [SessionParticipant] {
         [SessionParticipant(character: userCharacter, displayName: userName.isEmpty ? "You" : userName,
-                            isUser: true, distractions: 0, leftEarly: false, focusPct: 98)]
+                            isUser: true, distractions: 0, leftEarly: false, focusPct: 0)]
     }
 
-    /// Builds the deterministic demo roster: you + Maya (clean), Leo (1 distraction), Sam (cracks).
-    static func makeRoster(userCharacter: StudyCharacter, userName: String, config: RoomConfig) -> [SessionParticipant] {
-        [
-            SessionParticipant(character: userCharacter, displayName: userName.isEmpty ? "You" : userName,
-                               isUser: true, distractions: 0, leftEarly: false, focusPct: 97),
-            SessionParticipant(character: CharacterCatalog.character(id: "maya"), displayName: "Maya",
-                               isUser: false, distractions: 0, leftEarly: false, focusPct: 95),
-            SessionParticipant(character: CharacterCatalog.character(id: "leo"), displayName: "Leo",
-                               isUser: false, distractions: 1, leftEarly: false, focusPct: 88),
-            SessionParticipant(character: CharacterCatalog.character(id: "sam"), displayName: "Sam",
-                               isUser: false, distractions: config.distractionLimit + 1, leftEarly: false, focusPct: 61)
+    /// Seeded companions are always labelled simulated in the app. Roster UUIDs
+    /// are generated once at start and then retained by ActiveStudySession.
+    static func makeRoster(userCharacter: StudyCharacter, userName: String, config: RoomConfig,
+                           count: Int = 4) -> [SessionParticipant] {
+        let intents = [
+            ParticipantStudyIntent(subject: "Biology", goal: "Review cell division notes"),
+            ParticipantStudyIntent(subject: "Literature", goal: "Outline one essay paragraph"),
+            ParticipantStudyIntent(subject: "Maths", goal: "Practise five algebra problems"),
+            ParticipantStudyIntent(subject: "Computer science", goal: "Trace a sorting algorithm"),
+            ParticipantStudyIntent(subject: "History", goal: "Summarise the chapter"),
+            ParticipantStudyIntent(subject: "Design", goal: "Sketch three layout ideas"),
+            ParticipantStudyIntent(subject: "Languages", goal: "Practise new vocabulary")
         ]
+        var me = makeSolo(userCharacter: userCharacter, userName: userName)[0]
+        let intent = ParticipantStudyIntent(subject: config.subject, goal: config.goal)
+        me.studyIntent = intent.isValid ? intent : nil
+        var people = [me]
+        for index in 0..<(min(8, max(2, count)) - 1) {
+            let character = CharacterCatalog.all[index]
+            var person = SessionParticipant(character: character, displayName: character.name,
+                isUser: false, distractions: index == 2 ? config.distractionLimit + 1 : (index == 1 ? 1 : 0),
+                leftEarly: false, focusPct: index == 2 ? 61 : (index == 1 ? 88 : 95))
+            person.studyIntent = intents[index]
+            people.append(person)
+        }
+        return people
     }
+
 }
 
 // MARK: - ContractRules — deterministic pass/fail (SES-04)
 
 enum ContractRules {
     static func verdict(for participant: SessionParticipant, config: RoomConfig) -> SettlementVerdict {
-        (participant.leftEarly || participant.distractions > config.distractionLimit) ? .failed : .passed
+        (participant.leftEarly || (config.competitive && participant.distractions > config.distractionLimit)) ? .failed : .passed
     }
 }
 
@@ -123,6 +162,7 @@ struct ParticipantResult: Identifiable {
     let verdict: SettlementVerdict
     let returnedPence: Pence
     let forfeitedPence: Pence
+    var settlementFailed = false
 }
 
 struct SessionResult {
@@ -143,6 +183,14 @@ enum SettlementEngine {
     /// Authorises a hold per participant, settles each by deterministic verdict, and
     /// aggregates the result. Real Int-pence money through the service boundary (FND-02).
     static func run(config: RoomConfig, participants: [SessionParticipant], service: CommitmentService) async -> SessionResult {
+        if !config.isStaked {
+            let results = participants.map {
+                ParticipantResult(participant: $0, verdict: ContractRules.verdict(for: $0, config: config),
+                                  returnedPence: 0, forfeitedPence: 0)
+            }
+            return SessionResult(results: results, totalReturnedPence: 0, totalForfeitedPence: 0,
+                                 champion: nil, culprit: nil, firstToFold: nil, isTestMode: true)
+        }
         let contract = config.makeFrozenContract()
         var results: [ParticipantResult] = []
         var totalReturned = 0
@@ -163,13 +211,9 @@ enum SettlementEngine {
                                                  returnedPence: record.returnedMinorUnits,
                                                  forfeitedPence: record.forfeitedMinorUnits))
             } catch {
-                // Conservative fallback keeps money conserved even if the service errors.
-                let returned = verdict == .passed ? config.stakePence : 0
-                let forfeited = verdict == .passed ? 0 : config.stakePence
-                totalReturned += returned
-                totalForfeited += forfeited
+                // A service failure is not a settlement. Never invent returned/forfeited amounts.
                 results.append(ParticipantResult(participant: p, verdict: verdict,
-                                                 returnedPence: returned, forfeitedPence: forfeited))
+                                                 returnedPence: 0, forfeitedPence: 0, settlementFailed: true))
             }
         }
 

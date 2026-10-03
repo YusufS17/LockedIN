@@ -40,11 +40,11 @@ enum CharacterPersistence {
     ///
     /// Appearance is JSON-encoded; display name is stored as a plain string.
     /// Silent on encoding failure — avoids crashing on an edge-case encode error.
-    static func save(appearance: CharacterAppearance, displayName: String) {
+    static func save(appearance: CharacterAppearance, displayName: String, defaults: UserDefaults = .standard) {
         if let data = try? JSONEncoder().encode(appearance) {
-            UserDefaults.standard.set(data, forKey: PersistenceKeys.character)
+            defaults.set(data, forKey: PersistenceKeys.character)
         }
-        UserDefaults.standard.set(displayName, forKey: PersistenceKeys.displayName)
+        defaults.set(displayName, forKey: PersistenceKeys.displayName)
     }
 
     // MARK: - Load
@@ -56,13 +56,13 @@ enum CharacterPersistence {
     ///  - The stored character data is undecodable (corrupt / schema-changed after update)
     ///
     /// Never force-unwraps decode results (T-02-03: stale-data DoS threat mitigation).
-    static func load() -> PersistedIdentity? {
+    static func load(defaults: UserDefaults = .standard) -> PersistedIdentity? {
         guard
-            let data = UserDefaults.standard.data(forKey: PersistenceKeys.character),
+            let data = defaults.data(forKey: PersistenceKeys.character),
             let appearance = try? JSONDecoder().decode(CharacterAppearance.self, from: data)
         else { return nil }
 
-        let name = UserDefaults.standard.string(forKey: PersistenceKeys.displayName) ?? ""
+        let name = defaults.string(forKey: PersistenceKeys.displayName) ?? ""
         return PersistedIdentity(appearance: appearance, displayName: name)
     }
 }

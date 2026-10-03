@@ -46,7 +46,7 @@ struct Progression: Codable, Equatable {
 
 // MARK: - RewardOutcome — what a session earned
 
-struct RewardOutcome: Equatable {
+struct RewardOutcome: Codable, Equatable {
     let focusXP: Int
     let coins: Int
     let passed: Bool
@@ -55,8 +55,8 @@ struct RewardOutcome: Equatable {
     /// Itemised XP lines for the reveal ("Completed +60", "Clean focus +20", …).
     let breakdown: [Line]
 
-    struct Line: Equatable, Identifiable {
-        let id = UUID()
+    struct Line: Codable, Equatable, Identifiable {
+        var id = UUID()
         let label: String
         let xp: Int
     }
@@ -64,10 +64,8 @@ struct RewardOutcome: Equatable {
 
 // MARK: - RewardRules — deterministic, quality-weighted earning
 //
-// Rewards favour completion, low distraction, break discipline, focus quality, goals,
-// and capped streaks — never raw time grinding (VISION economy principle). Pure function
-// of the user's scripted result + config; no randomness (SES-04). Coins are a fixed
-// fraction of XP so they track effort, not luck.
+// Rewards use a completed timer and recorded breaks, with capped streaks.
+// Timer completion is not a measure of attention or other-app use.
 
 enum RewardRules {
 
@@ -79,27 +77,24 @@ enum RewardRules {
                          streakBefore: Int,
                          levelBefore: Int,
                          xpBefore: Int) -> RewardOutcome {
-        let passed = !user.leftEarly && user.distractions <= config.distractionLimit
+        // Walkthroughs and early exits must not mint completion rewards.
+        guard !config.quickDemo, !user.leftEarly, (user.focusedSeconds ?? 0) >= config.sessionSeconds else {
+            return RewardOutcome(focusXP: 0, coins: 0, passed: false,
+                                 leveledUp: false, newLevel: levelBefore,
+                                 breakdown: [.init(label: config.quickDemo ? "Demo — progress not saved" : "Session incomplete — no completion reward", xp: 0)])
+        }
+        let passed = !config.competitive || user.distractions <= config.distractionLimit
         var lines: [RewardOutcome.Line] = []
 
         // Completion is the backbone of the reward.
         lines.append(.init(label: passed ? "Session completed" : "Showed up", xp: passed ? 60 : 15))
 
-        // Focus quality — scales with focused %.
-        let focusXP = user.focusPct / 2          // 0…50
-        if focusXP > 0 { lines.append(.init(label: "Focus quality \(user.focusPct)%", xp: focusXP)) }
-
-        // Clean-focus bonus — no distractions at all.
-        if user.distractions == 0 {
-            lines.append(.init(label: "Clean focus — zero distractions", xp: 20))
-        } else {
-            // Distraction penalty, only over the agreed limit, capped.
-            let over = max(0, user.distractions - config.distractionLimit)
-            if over > 0 { lines.append(.init(label: "Over distraction limit", xp: -min(30, over * 10))) }
+        // This measures completed timer time, not attention or use of other apps.
+        let completion = min(100, max(0, (user.focusedSeconds ?? 0) * 100 / config.sessionSeconds))
+        lines.append(.init(label: "Planned timer completed", xp: completion / 2))
+        if let breaks = user.recordedBreakCount, breaks <= config.breakAllowance {
+            lines.append(.init(label: "Within your break allowance", xp: 10))
         }
-
-        // Break discipline — finished without bailing.
-        if passed { lines.append(.init(label: "Break discipline", xp: 10)) }
 
         // Streak bonus — capped so it can't dominate (anti-grind).
         let streakAfter = passed ? streakBefore + 1 : 0

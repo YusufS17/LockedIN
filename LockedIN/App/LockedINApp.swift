@@ -13,7 +13,7 @@ struct LockedINApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView().defaultAppStorage(appStore.defaults)
         }
         .environment(appStore)
     }
