@@ -1,15 +1,13 @@
 # LockedIN progress
 
-Last updated: 2026-10-03
+Last updated: 2026-10-04
 
-## Current work — refinement team complete, 2026-10-03
+## Current work — character concepts ready for review, 2026-10-04
 
-- Three agents completed avatar fabric/hair/shoes, safer adaptive editors and readable live/check-in/results. Root integrated, inspected real renders and fixed observed confirmation/wrapping/stat/header issues. [Changes, screenshots and exact evidence](docs/verification/CONTINUATION_TEAM.md).
-- Production-model integration and production/UI target builds passed. All six targeted UI journeys have passing evidence: normal and largest-text onboarding, largest-text full study/results, independent garments, saved solo reward/purchase and editor discard/large editors.
-- Final3 affected cases passed zero failures in212.059s. Subsequent compact-header editor-only recheck passed76.494s. Valid screenshot exports inspected, including scrolled room/catalogue/stat content. Initial failed runs and fixes documented.
-- Implementation/fixes saved in `4d75304`, `6bbb5ac`, `870ff27`, `bc34880`; evidence and handoff saved in Git. No remote push. Normal saves preserved.
-- No agents/builds/tests/exports remain running. Updated app launched Home with ordinary preferences via Debug render route; simulator available.
-- Next: smaller-phone layout acceptance and VoiceOver/Reduce Motion interaction checks; further avatar/reference craft; authenticated private-friends service afterwards. Final reference fidelity and real networking remain open.
+- User redirected work to generating and comparing visual concepts before implementing a selected style.
+- Generated two character comparison boards; inspected both. First styles too similar; second increases silhouette/detail contrast. PNGs and exact prompts saved in `docs/design/concepts/character-directions-2026-10-04/`.
+- Concepts only: no app code changes, no production sprite or measured pixel-grid claims. No agents/builds/generation jobs remain running.
+- Next: user selects a direction or combination; refine identities, seated poses and room context before implementing at user direction.
 
 ## Product direction
 
