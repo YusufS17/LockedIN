@@ -1,6 +1,6 @@
 ---
 status: character_concepts_awaiting_direction
-last_updated: "2026-10-04"
+last_updated: "2026-10-12"
 stopped_at: "Two generated character boards saved; user direction required before style implementation; no jobs running"
 ---
 
@@ -31,6 +31,8 @@ Continue building the native iPhone app, preserve existing work and make progres
 - Created the root progress overview and refreshed this handoff and the roadmap.
 
 ## Exact next action
+
+2026-10-12: Proposed B/C refinement generated and inspected; saved under `docs/design/concepts/character-refinement-2026-10-12/`. Four identities, standing/seated, expressions and room. Still unapproved; taller C proportions dominate. Next: feedback/refine before implementation. No app edits or jobs running. GitHub push still pending explicit destination confirmation after automatic review rejection.
 
 2026-10-04: User requested visual exploration before implementation. Two concept boards and exact prompts saved in `docs/design/concepts/character-directions-2026-10-04/`. First too similar; second stronger stylistic contrast. Concepts unapproved; generated native-size labels are not verified sprite dimensions. Next: refine user-selected direction, then build only when directed. No app edits or jobs running. Prior implementation evidence follows.
 

@@ -1,13 +1,13 @@
 # LockedIN progress
 
-Last updated: 2026-10-04
+Last updated: 2026-10-12
 
-## Current work — character concepts ready for review, 2026-10-04
+## Current work — character refinement ready, 2026-10-12
 
-- User redirected work to generating and comparing visual concepts before implementing a selected style.
-- Generated two character comparison boards; inspected both. First styles too similar; second increases silhouette/detail contrast. PNGs and exact prompts saved in `docs/design/concepts/character-directions-2026-10-04/`.
-- Concepts only: no app code changes, no production sprite or measured pixel-grid claims. No agents/builds/generation jobs remain running.
-- Next: user selects a direction or combination; refine identities, seated poses and room context before implementing at user direction.
+- Generated a proposed B/C character-family concept: four identities, standing/seated, expressions and shared room. Saved PNG and prompt in `docs/design/concepts/character-refinement-2026-10-12/` and inspected output.
+- B/C is an exploration assumption, not user-approved style. Result leans taller/detailed; invented personality labels are not product decisions. No app source changes.
+- Next: user feedback on proportions/detail, refine chosen direction, then implement when directed. No generation/build/agent jobs remain running.
+- Work is saved locally; GitHub upload remains pending explicit destination confirmation following prior automatic approval rejection.
 
 ## Product direction
 
