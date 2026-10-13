@@ -12,7 +12,8 @@ struct WorldView: View {
 
     @Environment(AppStore.self) private var appStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ReducedMotionPreference private var reduceMotion
 
     /// Coins to break ground on a new (unlocked, level-0) building.
     private let buildCost = 30
@@ -25,7 +26,16 @@ struct WorldView: View {
     private var world: WorldStore { appStore.world }
     private var p: Progression { world.state.progression }
 
-    private let columns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
+    private var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: 12),
+              count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
+    }
+
+    private var adaptiveRow: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: Theme.Spacing.md))
+            : AnyLayout(HStackLayout(spacing: Theme.Spacing.md))
+    }
 
     var body: some View {
         ZStack {
@@ -34,11 +44,26 @@ struct WorldView: View {
                 topBar
                 ScrollView {
                     VStack(spacing: Theme.Spacing.lg) {
-                        levelCard
-                        heroRoom
-                        customizeButtons
-                        districtSection
-                        statsRow
+                        if let issue = world.recoveryIssue {
+                            card {
+                                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+                                    Text("Your saved world needs attention")
+                                        .font(.headline)
+                                        .accessibilityAddTraits(.isHeader)
+                                    Text(issue.message)
+                                        .font(.body)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .foregroundStyle(Theme.Colour.textPrimary)
+                                .accessibilityIdentifier("world.recovery")
+                            }
+                        } else {
+                            levelCard
+                            heroRoom
+                            customizeButtons
+                            districtSection
+                            statsRow
+                        }
                     }
                     .padding(Theme.Spacing.lg)
                     .padding(.bottom, Theme.Spacing.xl)
@@ -59,7 +84,7 @@ struct WorldView: View {
     }
 
     private var customizeButtons: some View {
-        HStack(spacing: Theme.Spacing.md) {
+        adaptiveRow {
             customizeButton("Edit character", systemImage: "wand.and.stars") { showCustomizer = true }
             customizeButton("Customise room", systemImage: "house.fill") { showRoomBuilder = true }
         }
@@ -68,7 +93,7 @@ struct WorldView: View {
     private func customizeButton(_ title: String, systemImage: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Label(title, systemImage: systemImage)
-                .font(Theme.TypeScale.captionBold)
+                .font(.system(.caption, design: .rounded, weight: .bold))
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .frame(maxWidth: .infinity)
                 .padding(Theme.Spacing.md)
@@ -82,13 +107,14 @@ struct WorldView: View {
     // MARK: - Top bar
 
     private var topBar: some View {
-        StudioHeader(title: "Your growing world", subtitle: "Built with time you made for yourself", close: { dismiss() })
+        StudioHeader(title: "Your growing world", subtitle: "Built with time you made for yourself",
+                     closeIdentifier: "world.back", compactAtAccessibility: true, close: { dismiss() })
     }
 
     private var coinChip: some View {
         HStack(spacing: 4) {
             Image(systemName: "circle.fill").font(.system(size: 10)).foregroundStyle(Theme.Colour.accent)
-            Text("\(p.coins)").font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
+            Text("\(p.coins)").font(.system(.caption, design: .rounded, weight: .bold)).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
         }
         .padding(.horizontal, Theme.Spacing.sm)
         .padding(.vertical, 5)
@@ -100,23 +126,25 @@ struct WorldView: View {
 
     private var levelCard: some View {
         card {
-            HStack(spacing: Theme.Spacing.lg) {
+            adaptiveRow {
                 ZStack {
                     Circle().stroke(Theme.Colour.surfaceMid, lineWidth: 7).frame(width: 64, height: 64)
                     Circle().trim(from: 0, to: p.levelProgress)
                         .stroke(Theme.Colour.accent, style: StrokeStyle(lineWidth: 7, lineCap: .round))
                         .rotationEffect(.degrees(-90)).frame(width: 64, height: 64)
-                    Text("\(p.level)").font(Theme.TypeScale.title2).foregroundStyle(Theme.Colour.textPrimary)
+                    Text("\(p.level)").font(.system(.title2, design: .rounded, weight: .semibold)).foregroundStyle(Theme.Colour.textPrimary)
+                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 }
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Level \(p.level)").font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
+                    Text("Level \(p.level)").font(.system(.headline, design: .rounded, weight: .bold)).foregroundStyle(Theme.Colour.textPrimary)
                     Text("\(p.xpIntoLevel) / \(p.xpForThisLevel) Focus XP")
-                        .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary).monospacedDigit()
+                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary).monospacedDigit()
                     Text("\(p.focusXP) total XP earned")
-                        .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary).monospacedDigit()
+                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary).monospacedDigit()
                 }
-                Spacer()
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Level \(p.level). \(p.xpIntoLevel) of \(p.xpForThisLevel) Focus XP toward the next level. \(p.focusXP) total XP earned.")
         }
     }
 
@@ -137,13 +165,16 @@ struct WorldView: View {
         .frame(height: 200)
         .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
         .overlay(RoundedRectangle(cornerRadius: Theme.Radius.lg).strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Your personal study room and avatar")
         .overlay(alignment: .bottomLeading) {
             Text("\(appStore.displayName.isEmpty ? "Your" : appStore.displayName + "’s") Room")
-                .font(Theme.TypeScale.captionBold)
+                .font(.system(.caption, design: .rounded, weight: .bold))
                 .foregroundStyle(Theme.Colour.textPrimary)
                 .padding(.horizontal, Theme.Spacing.sm).padding(.vertical, 5)
                 .background(Capsule().fill(Theme.Colour.surface.opacity(0.92)))
                 .padding(Theme.Spacing.sm)
+                .accessibilityHidden(true)
         }
     }
 
@@ -151,9 +182,9 @@ struct WorldView: View {
 
     private var districtSection: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-            HStack(alignment: .top) {
+            adaptiveRow {
                 StudioSectionHeading(title: "Your district", detail: "Choose where your next session contributes.")
-                Spacer()
+                if !dynamicTypeSize.isAccessibilitySize { Spacer() }
                 StudioCoinBalance(coins: p.coins)
             }
             LazyVGrid(columns: columns, spacing: 12) {
@@ -197,18 +228,18 @@ struct WorldView: View {
                     }
                 }
                 Text(b.type.title)
-                    .font(Theme.TypeScale.captionBold)
+                    .font(.system(.caption, design: .rounded, weight: .bold))
                     .foregroundStyle(b.unlocked ? Theme.Colour.textPrimary : Theme.Colour.textSecondary)
-                    .lineLimit(1).minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 if !b.unlocked {
-                    Text("Locked").font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                    Text("Locked").font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                 } else if b.level == 0 {
                     Text("Build · \(buildCost) coins")
-                        .font(Theme.TypeScale.caption)
+                        .font(.caption)
                         .foregroundStyle(p.coins >= buildCost ? Theme.Colour.moneyGreen : Theme.Colour.forfeitRed)
                 } else {
-                    Text("Level \(b.level)").font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                    Text("Level \(b.level)").font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                     GeometryReader { geo in
                         ZStack(alignment: .leading) {
                             Capsule().fill(Theme.Colour.surfaceMid).frame(height: 6)
@@ -219,7 +250,7 @@ struct WorldView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 104)
+            .frame(minHeight: 104, alignment: .topLeading)
             .padding(Theme.Spacing.md)
             .background(Theme.Colour.surface)
             .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
@@ -234,6 +265,10 @@ struct WorldView: View {
         }
         .buttonStyle(.plain)
         .disabled(!b.unlocked)
+        .accessibilityElement(children: .ignore)
+        .accessibilityIdentifier("world.building.\(b.id)")
+        .accessibilityLabel(b.type.title)
+        .accessibilityValue(!b.unlocked ? "Locked" : canBuild ? "Build for \(buildCost) coins" : "Level \(b.level), \(b.progressXP) of \(b.requiredXP) XP")
         .accessibilityAddTraits(isActive ? .isSelected : [])
         .accessibilityHint(!b.unlocked ? "Level up your current building to unlock more plots" : canBuild ? "Build for \(buildCost) earned coins" : "Direct future session contributions here")
     }
@@ -251,7 +286,7 @@ struct WorldView: View {
     // MARK: - Stats
 
     private var statsRow: some View {
-        HStack(spacing: Theme.Spacing.md) {
+        adaptiveRow {
             stat("\(p.sessionsCompleted)", "Sessions")
             stat("\(p.currentStreak)", "Streak")
             stat("\(p.bestStreak)", "Best streak")
@@ -260,10 +295,12 @@ struct WorldView: View {
 
     private func stat(_ value: String, _ label: String) -> some View {
         VStack(spacing: 2) {
-            Text(value).font(Theme.TypeScale.title2).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
-            Text(label).font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+            Text(value).font(.system(.title2, design: .rounded, weight: .semibold)).foregroundStyle(Theme.Colour.textPrimary).monospacedDigit()
+            Text(label).font(.caption).foregroundStyle(Theme.Colour.textSecondary)
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label): \(value)")
         .padding(.vertical, Theme.Spacing.sm)
         .background(Theme.Colour.surface)
         .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.md))

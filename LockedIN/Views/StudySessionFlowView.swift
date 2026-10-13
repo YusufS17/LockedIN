@@ -28,10 +28,19 @@ struct StudySessionFlowView: View {
                     goalCheck(session)
                 case .results:
                     SettlementResultsView(config: session.config, participants: session.participants) {
-                        appStore.studySession.acknowledgeResults(id: session.id)
+                        // Keep the participant UUID and pending outcome if world saving is blocked.
+                        if appStore.world.recoveryIssue == nil {
+                            appStore.studySession.acknowledgeResults(id: session.id)
+                        }
                         dismiss()
                     }
                 }
+            } else if let issue = appStore.world.recoveryIssue {
+                VStack(spacing: 18) {
+                    Text("Your saved world needs attention").font(.title2.bold())
+                    Text(issue.message)
+                    Button("Return home") { dismiss() }.buttonStyle(StudioButtonStyle(primary: true))
+                }.padding(24)
             } else {
                 StudySetupView(config: $config, clubSize: $clubSize, group: group, onStart: start, onClose: { dismiss() })
             }
@@ -40,6 +49,7 @@ struct StudySessionFlowView: View {
     }
 
     private func start() {
+        guard appStore.world.recoveryIssue == nil else { return }
         let roster = group
             ? SessionParticipant.makeRoster(userCharacter: appStore.userStudyCharacter, userName: appStore.displayName, config: config, count: clubSize)
             : SessionParticipant.makeSolo(userCharacter: appStore.userStudyCharacter, userName: appStore.displayName)

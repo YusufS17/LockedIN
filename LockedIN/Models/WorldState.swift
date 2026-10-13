@@ -70,6 +70,8 @@ struct WorldBuilding: Codable, Equatable, Identifiable {
 // MARK: - WorldState — the persisted world aggregate
 
 struct WorldState: Codable, Equatable {
+    static let currentSchemaVersion = 1
+    var schemaVersion: Int = currentSchemaVersion
     var progression: Progression
     var buildings: [WorldBuilding]
     var activeBuildingID: String     // BuildingType.rawValue receiving contributions
@@ -106,6 +108,7 @@ struct WorldState: Codable, Equatable {
 extension WorldState {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.schemaVersion = try c.decodeIfPresent(Int.self, forKey: .schemaVersion) ?? Self.currentSchemaVersion
         self.progression     = try c.decodeIfPresent(Progression.self, forKey: .progression) ?? Progression()
         self.buildings       = try c.decodeIfPresent([WorldBuilding].self, forKey: .buildings) ?? WorldState.seeded.buildings
         self.activeBuildingID = try c.decodeIfPresent(String.self, forKey: .activeBuildingID) ?? BuildingType.libraryHub.rawValue

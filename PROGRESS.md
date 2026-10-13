@@ -2,15 +2,16 @@
 
 Last updated: 2026-10-13
 
-## Current work — engineering audit and maintenance, 2026-10-13
+## Current work — Phase 1 save protection and accessibility, 2026-10-13
 
-- Acting on the user's lead-engineer request. Three independent agent reviews completed: session/economy, UI/art/accessibility, and services/project/tooling. No subagents remain running.
-- Saved architecture, confirmed defects, remaining issues and milestone acceptance in [ENGINEERING_AUDIT.md](docs/ENGINEERING_AUDIT.md).
-- Implemented safe debug identity storage, catalogue/cost validation, simulated hold validation, monitor-generation isolation and Reduce Motion fixes. Preserved character art and participant/reward identities.
-- Clock, reward rules, persistent rewards, full study integration, study-area mapping and service checks pass; private-friends prototype's 83 fixture assertions pass. Debug app build and UI test-target build pass after required simulator-service access.
-- Runtime blocker: targeted avatar/decorating UI run timed out after 240s (exit124), with no completed assertions. Direct fallback launch succeeded; [actual Home screenshot](docs/verification/engineering-maintenance-2026-10-13/home.png) inspected. Editor journey and runtime Reduce Motion toggling remain unverified. [Evidence](docs/verification/engineering-maintenance-2026-10-13/README.md). No app-data reset.
-- Diff reviewed; build/model/service validation complete. Next: recover bounded runtime verification, then non-destructive world-save recovery and accessibility work. Character-style implementation still requires direction.
-- No agents/build/test/export jobs remain running. Simulator/app left open on Home using an isolated render fixture; timed-out UI fixture cleanup is unconfirmed. No remote push or deployment.
+- User authorised detailed phases/Builder/Verifier/QC agents, implementation, commits and push to configured origin `https://github.com/YusufS17/LockedIN`. [Active plan](.planning/PHASES_AND_AGENTS.md) defines phases, owners, acceptance and real decision gates.
+- Save/UI builders and QC/verifier finished their slices; no subagents remain running. Session/world/service checks and independent QC passed. Lead is completing final build/runtime checks.
+- Implemented original-byte preservation for unreadable/future world saves, blocked mutations, truthful Home/World/results recovery screens and pending-result retention. World accessibility now uses scalable fonts and adaptive layouts. Added disposable recovery and largest-text UI cases.
+- Added Phase2 actor wallet safety; concurrent checks (960 requests/120 disposable wallets) passed and independently rechecked. Final validation covers malformed/wrong-type sessions, receipt identity and fractional-break completion.
+- Final build-for-testing passed, including actor wallet and revised QA preferences/tests. Running: final targeted UI recheck under420s bound. First UI run reached World/decorating but failed tile navigation, then encountered launch/cleanup timeouts; bounded runner exited124 after600s. Bundle incomplete; no full UI pass claimed.
+- Improved UI test element lookup/scrolling and added reduced-motion preference only for namespaced Debug fixtures. Runtime checks remain open.
+- Previous13 milestones pushed successfully: origin/main moved c66d487 →285da60. Current Phase1/Phase2 slice is ready for reviewed checkpoint commit while runtime recheck runs. No deployment.
+- Next: independent QC, inspect runtime evidence, commit and non-force push; preserve exact remaining limits. Art direction/backend decisions remain gated.
 
 ## Product direction
 
@@ -35,7 +36,7 @@ This is a native SwiftUI iPhone app. Open `LockedIN.xcodeproj`, select LockedIN 
 
 | Check | Latest result |
 | --- | --- |
-| Debug iPhone Simulator build | Passed 2026-10-03, including final avatar/editor/study refinements |
+| Debug iPhone Simulator build | Passed 2026-10-13, including final save/session/accessibility/actor-wallet changes and UI target |
 | Focus clock regression checks | Passed |
 | Reward rules regression checks | Passed |
 | Persistent reward checks, legacy save migration and reset | Passed |

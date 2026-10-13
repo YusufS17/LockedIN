@@ -7,8 +7,9 @@ enum ForfeitConfig { static let destination = "British Red Cross" }
 struct ServiceBoundaryChecks {
     static func main() async throws {
         try await checkHolds()
+        try await checkConcurrentWalletOperations()
         await checkMonitoringReplacement()
-        print("PASS: authorised hold identity, rejected forgery, balance conservation, replay, monitor replacement and stop isolation (disposable fixtures only)")
+        print("PASS: authorised hold identity, rejected forgery, balance conservation, concurrent authorisation/duplicate settlement, replay, monitor replacement and stop isolation (disposable fixtures only)")
     }
 
     static func checkHolds() async throws {
@@ -45,6 +46,72 @@ struct ServiceBoundaryChecks {
         assert(forfeited.returnedMinorUnits == 0 && forfeited.forfeitedMinorUnits == 500)
         let finalBalance = await service.walletBalance(participantID: owner)
         assert(finalBalance == 1_500)
+    }
+
+    static func checkConcurrentWalletOperations() async throws {
+        // Both callers can afford a hold against the opening balance, but only one
+        // can afford it after the other succeeds. Repeat with fresh disposable wallets.
+        for _ in 0..<40 {
+            let service = MockCommitmentService()
+            let owner = UUID()
+            let contract = CommitmentContract(roomName: "Concurrent fixture", durationSeconds: 60,
+                stakeMinorUnits: 1_500, maxDistractionSeconds: 3, maxBreaks: 1)!.frozen()
+            let holds = await withTaskGroup(of: HoldReference?.self) { group in
+                for _ in 0..<8 {
+                    group.addTask {
+                        do {
+                            return try await service.authoriseHold(participantID: owner,
+                                amountMinorUnits: contract.stakeMinorUnits, contract: contract)
+                        } catch CommitmentServiceError.insufficientBalance(let available, let required) {
+                            assert(available == 500 && required == 1_500)
+                            return nil
+                        } catch { fatalError("Unexpected concurrent authorisation error: \(error)") }
+                    }
+                }
+                var authorised: [HoldReference] = []
+                for await hold in group { if let hold { authorised.append(hold) } }
+                return authorised
+            }
+            assert(holds.count == 1, "Concurrent requests overspent the simulated wallet")
+            let heldBalance = await service.walletBalance(participantID: owner)
+            assert(heldBalance == 500)
+            let returned = try await service.settle(holdRef: holds[0], verdict: .passed)
+            assert(returned.returnedMinorUnits + returned.forfeitedMinorUnits == contract.stakeMinorUnits)
+            let restoredBalance = await service.walletBalance(participantID: owner)
+            assert(restoredBalance == MockCommitmentService.startingBalance)
+        }
+
+        for verdict in [SettlementVerdict.passed, .failed] {
+            for _ in 0..<40 {
+                let service = MockCommitmentService()
+                let owner = UUID()
+                let contract = CommitmentContract(roomName: "Duplicate fixture", durationSeconds: 60,
+                    stakeMinorUnits: 500, maxDistractionSeconds: 3, maxBreaks: 1)!.frozen()
+                let hold = try await service.authoriseHold(participantID: owner,
+                    amountMinorUnits: contract.stakeMinorUnits, contract: contract)
+                let records = await withTaskGroup(of: SettlementRecord?.self) { group in
+                    for _ in 0..<8 {
+                        group.addTask {
+                            do { return try await service.settle(holdRef: hold, verdict: verdict) }
+                            catch CommitmentServiceError.holdNotFound(let id) {
+                                assert(id == hold.id)
+                                return nil
+                            } catch { fatalError("Unexpected concurrent settlement error: \(error)") }
+                        }
+                    }
+                    var settled: [SettlementRecord] = []
+                    for await record in group { if let record { settled.append(record) } }
+                    return settled
+                }
+                assert(records.count == 1, "A hold settled more than once concurrently")
+                let record = records[0]
+                assert(record.holdRef == hold && record.isTestMode)
+                assert(record.returnedMinorUnits + record.forfeitedMinorUnits == contract.stakeMinorUnits)
+                let balance = await service.walletBalance(participantID: owner)
+                assert(balance + record.forfeitedMinorUnits == MockCommitmentService.startingBalance)
+                assert(balance == (verdict == .passed ? 2_000 : 1_500))
+            }
+        }
     }
 
     static func checkMonitoringReplacement() async {

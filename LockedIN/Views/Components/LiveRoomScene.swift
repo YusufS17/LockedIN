@@ -25,7 +25,7 @@ struct LiveRoomScene: View {
         return areas[min(selectedArea, areas.count - 1)]
     }
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
 
     var body: some View {
         VStack(spacing: 8) {

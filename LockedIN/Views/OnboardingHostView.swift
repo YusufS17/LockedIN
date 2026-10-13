@@ -18,7 +18,7 @@ import SwiftUI
 struct OnboardingHostView: View {
 
     @Environment(AppStore.self) private var appStore
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @AppStorage(PersistenceKeys.onboarding) private var hasCompletedOnboarding = false
 
     enum Beat: Int { case splash = 0, valueProps, gallery, customizer, reveal, firstRoom }

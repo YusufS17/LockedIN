@@ -3,23 +3,71 @@ import Observation
 
 // MARK: - WorldPersistence — local-first world/coin save (CLAUDE.md: on-device only)
 
-enum WorldPersistence {
-    private static let key = "worldStateV1"
+enum WorldRecoveryIssue: Equatable {
+    case unreadableSave
+    case newerSaveVersion(Int)
 
-    static func load(defaults: UserDefaults = .standard) -> WorldState? {
-        guard let data = defaults.data(forKey: key),
-              let state = try? JSONDecoder().decode(WorldState.self, from: data)
-        else { return nil }
-        return state
+    var message: String {
+        switch self {
+        case .unreadableSave:
+            return "Your saved world could not be read. It has been kept safe. Progress and purchases are paused until it can be recovered."
+        case .newerSaveVersion:
+            return "Your world was saved by a newer version of LockedIN. Update the app to continue. Your save has been kept safe."
+        }
+    }
+}
+
+enum WorldPersistence {
+    static let persistenceKey = "worldStateV1"
+    private static let key = persistenceKey
+
+    enum LoadResult {
+        case missing
+        case loaded(WorldState)
+        case needsRecovery(WorldRecoveryIssue)
     }
 
-    static func save(_ state: WorldState, defaults: UserDefaults = .standard) {
-        if let data = try? JSONEncoder().encode(state) {
-            defaults.set(data, forKey: key)
+    static func loadResult(defaults: UserDefaults = .standard) -> LoadResult {
+        guard let object = defaults.object(forKey: key) else { return .missing }
+        guard let data = object as? Data else { return .needsRecovery(.unreadableSave) }
+        do {
+            // Read the version before decoding fields a future app may have changed.
+            guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                return .needsRecovery(.unreadableSave)
+            }
+            if let version = json["schemaVersion"] as? Int, version > WorldState.currentSchemaVersion {
+                return .needsRecovery(.newerSaveVersion(version))
+            }
+            // These three fields existed in the first world format. Optional later
+            // additions may migrate, but unrelated/empty JSON is not a fresh save.
+            guard ["progression", "buildings", "activeBuildingID"].allSatisfy({ json[$0] != nil && !(json[$0] is NSNull) }) else {
+                return .needsRecovery(.unreadableSave)
+            }
+            let state = try JSONDecoder().decode(WorldState.self, from: data)
+            guard state.schemaVersion == WorldState.currentSchemaVersion else {
+                return .needsRecovery(.unreadableSave)
+            }
+            return .loaded(state)
+        } catch {
+            return .needsRecovery(.unreadableSave)
         }
     }
 
-    static func clear(defaults: UserDefaults = .standard) { defaults.removeObject(forKey: key) }
+    static func load(defaults: UserDefaults = .standard) -> WorldState? {
+        if case .loaded(let state) = loadResult(defaults: defaults) { return state }
+        return nil
+    }
+
+    static func save(_ state: WorldState, defaults: UserDefaults = .standard) {
+        // Re-check immediately before writing, even if another store changed the save.
+        if case .needsRecovery = loadResult(defaults: defaults) { return }
+        if let data = try? JSONEncoder().encode(state) { defaults.set(data, forKey: key) }
+    }
+
+    static func clear(defaults: UserDefaults = .standard) {
+        if case .needsRecovery = loadResult(defaults: defaults) { return }
+        defaults.removeObject(forKey: key)
+    }
 }
 
 // MARK: - WorldStore — the progression + world economy (persisted)
@@ -35,11 +83,18 @@ enum WorldPersistence {
 final class WorldStore {
 
     private(set) var state: WorldState
+    private(set) var recoveryIssue: WorldRecoveryIssue?
     private let defaults: UserDefaults
 
     init(state: WorldState? = nil, defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        self.state = state ?? WorldPersistence.load(defaults: defaults) ?? .seeded
+        switch WorldPersistence.loadResult(defaults: defaults) {
+        case .missing: self.state = state ?? .seeded
+        case .loaded(let saved): self.state = state ?? saved
+        case .needsRecovery(let issue):
+            self.state = .seeded
+            self.recoveryIssue = issue
+        }
     }
 
     // MARK: - Apply a finished session
@@ -48,6 +103,11 @@ final class WorldStore {
     /// for the reveal. Repeated results return the saved receipt without awarding again.
     @discardableResult
     func applySession(user: SessionParticipant, config: RoomConfig) -> RewardOutcome {
+        guard canMutate else {
+            return RewardOutcome(focusXP: 0, coins: 0, passed: false, leveledUp: false,
+                                 newLevel: state.progression.level,
+                                 breakdown: [.init(label: "Progress not saved — existing save needs recovery", xp: 0)])
+        }
         if let existing = state.sessionRewards[user.id] { return existing }
         let p = state.progression
         let outcome = RewardRules.evaluate(
@@ -104,7 +164,7 @@ final class WorldStore {
     /// Buy a premium cosmetic with coins. Returns true if owned afterwards.
     @discardableResult
     func purchase(_ id: String) -> Bool {
-        guard CosmeticCatalog.contains(id) else { return false }
+        guard canMutate, CosmeticCatalog.contains(id) else { return false }
         if owns(id) { return true }
         let cost = CosmeticCatalog.cost(for: id)
         guard cost > 0, state.progression.coins >= cost else { return false }
@@ -125,7 +185,7 @@ final class WorldStore {
     /// Buy a premium room item with coins. Returns true if owned afterwards.
     @discardableResult
     func purchaseRoomItem(_ id: String) -> Bool {
-        guard RoomItemCatalog.item(id: id) != nil else { return false }
+        guard canMutate, RoomItemCatalog.item(id: id) != nil else { return false }
         if ownsRoomItem(id) { return true }
         let cost = RoomItemCatalog.cost(for: id)
         guard cost > 0, state.progression.coins >= cost else { return false }
@@ -136,11 +196,12 @@ final class WorldStore {
     }
 
     /// Outcome of trying to place a room item (drives the builder's feedback).
-    enum RoomItemResult { case placed, purchasedAndPlaced, cannotAfford }
+    enum RoomItemResult { case placed, purchasedAndPlaced, cannotAfford, saveUnavailable }
 
     /// Place an item in its slot — buying it first if it's premium and affordable.
     @discardableResult
     func selectRoomItem(_ id: String) -> RoomItemResult {
+        guard canMutate else { return .saveUnavailable }
         guard let item = RoomItemCatalog.item(id: id) else { return .cannotAfford }
         let alreadyOwned = ownsRoomItem(id)
         if !alreadyOwned {
@@ -155,7 +216,7 @@ final class WorldStore {
 
     /// Choose which unlocked building receives future contributions.
     func setActiveBuilding(_ type: BuildingType) {
-        guard state.buildings.contains(where: { $0.id == type.rawValue && $0.unlocked }) else { return }
+        guard canMutate, state.buildings.contains(where: { $0.id == type.rawValue && $0.unlocked }) else { return }
         state.activeBuildingID = type.rawValue
         WorldPersistence.save(state, defaults: defaults)
     }
@@ -163,7 +224,7 @@ final class WorldStore {
     /// Spend coins to begin building an unlocked-but-unbuilt (level 0) plot.
     @discardableResult
     func startBuilding(_ type: BuildingType, cost: Int) -> Bool {
-        guard cost >= 0,
+        guard canMutate, cost >= 0,
               let idx = state.buildings.firstIndex(where: { $0.id == type.rawValue }),
               state.buildings[idx].unlocked, state.buildings[idx].level == 0,
               state.progression.coins >= cost
@@ -175,10 +236,19 @@ final class WorldStore {
         return true
     }
 
+    /// Refresh the lock before every mutation so a newly unreadable save stays protected.
+    private var canMutate: Bool {
+        if case .needsRecovery(let issue) = WorldPersistence.loadResult(defaults: defaults) {
+            recoveryIssue = issue
+        }
+        return recoveryIssue == nil
+    }
+
     // MARK: - Debug
 
     /// Reset all world/coin progress (used by onboarding reset / dev).
     func reset() {
+        guard canMutate else { return }
         state = .seeded
         WorldPersistence.clear(defaults: defaults)
     }

@@ -7,7 +7,7 @@ struct ValuePropsView: View {
     let onContinue: () -> Void
     let onSkip: () -> Void
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @State private var visibleCards = 0
 
     var body: some View {

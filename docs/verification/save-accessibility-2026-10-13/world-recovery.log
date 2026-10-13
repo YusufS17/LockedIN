@@ -1,0 +1,1 @@
+PASS: duplicate rewards, persisted receipts/reload, distinct sessions, demo/exit isolation, legacy migration, reset, unreadable/wrong-type/future save preservation, mutation locks

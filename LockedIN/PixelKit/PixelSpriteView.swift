@@ -19,7 +19,7 @@ struct PixelSpriteView: View {
     var fps: Double = 6.25
     var animated: Bool = true
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
 
     private var isAnimating: Bool { animated && !reduceMotion && frameCount > 1 }
 

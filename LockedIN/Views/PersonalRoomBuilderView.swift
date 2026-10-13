@@ -18,6 +18,10 @@ struct PersonalRoomBuilderView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
                     if dynamicTypeSize.isAccessibilitySize { roomPreview }
+                    if let issue = world.recoveryIssue {
+                        Text(issue.message).font(.subheadline).modifier(StudioCard())
+                            .accessibilityIdentifier("world.recovery")
+                    }
                     StudioSectionHeading(title: "Make room for you", detail: "Choose a piece. See it in your space.")
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -80,7 +84,7 @@ struct PersonalRoomBuilderView: View {
                 .padding(.horizontal, 8)
             HStack(spacing: 7) {
                 Image(systemName: "checkmark.circle.fill").foregroundStyle(Theme.Colour.focusGreen)
-                Text("Your room saves as you decorate.")
+                Text(world.recoveryIssue == nil ? "Your room saves as you decorate." : "Preview only · saved room unavailable")
                 Spacer()
             }
             .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
@@ -98,6 +102,7 @@ struct PersonalRoomBuilderView: View {
             switch world.selectRoomItem(item.id) {
             case .placed: message = "\(item.name) placed. Saved to your room."
             case .purchasedAndPlaced: message = "\(item.name) unlocked and placed."
+            case .saveUnavailable: message = world.recoveryIssue?.message ?? "Your saved room is unavailable."
             case .cannotAfford: message = "\(item.name) needs \(item.cost) coins. You have \(world.state.progression.coins)."
             }
         } label: {
@@ -116,6 +121,7 @@ struct PersonalRoomBuilderView: View {
             .modifier(StudioSelectionTile(selected: selected))
         }
         .buttonStyle(.plain)
+        .disabled(world.recoveryIssue != nil)
         .accessibilityLabel("\(item.name), \(selected ? "placed" : owned ? "owned" : "\(item.cost) coins")")
         .accessibilityAddTraits(selected ? .isSelected : [])
         .accessibilityIdentifier("room.item.\(item.id)")

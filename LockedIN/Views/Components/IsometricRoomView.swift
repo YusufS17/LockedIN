@@ -17,7 +17,7 @@ import SwiftUI
 struct IsometricRoomView: View {
     var room: PersonalRoom = .seeded
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
 
     var body: some View {
         GeometryReader { geo in

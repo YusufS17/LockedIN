@@ -10,7 +10,7 @@ struct SettlementResultsView: View {
     var onDone: () -> Void
 
     @Environment(AppStore.self) private var appStore
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @State private var result: SessionResult?
@@ -83,12 +83,22 @@ struct SettlementResultsView: View {
                     coinReward
                 }.padding(.vertical, 16)
 
+                if let issue = appStore.world.recoveryIssue {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Your results are kept").font(.headline)
+                        Text(issue.message).font(.subheadline)
+                        if appStore.studySession.current?.user?.id == user?.id {
+                            Text("Your results are kept for later. Returning home will preserve this session.").font(.caption)
+                        }
+                    }.modifier(StudioCard())
+                    .accessibilityIdentifier("world.recovery")
+                }
                 if reveal >= 2 { summaryCard.transition(revealTransition) }
                 if config.competitive, reveal >= 3 { crowningCard(result).transition(revealTransition) }
                 if config.isStaked, reveal >= 4 { settlementCard(result).transition(revealTransition) }
                 if reveal >= 5 {
                     if (reward?.coins ?? 0) > 0 { roomUpgrade.transition(revealTransition) }
-                    worldCard.transition(revealTransition)
+                    if appStore.world.recoveryIssue == nil { worldCard.transition(revealTransition) }
                 }
                 if reveal >= 6 { actions.transition(revealTransition) }
             }
@@ -119,7 +129,7 @@ struct SettlementResultsView: View {
 
     private var coinReward: some View {
         VStack(spacing: 2) {
-            Text(config.quickDemo ? "Demo session · no coins saved" : ((reward?.coins ?? 0) > 0 ? "Saved to your room fund" : "Complete the planned time to earn coins"))
+            Text(appStore.world.recoveryIssue != nil ? "Reward not saved yet" : config.quickDemo ? "Demo session · no coins saved" : ((reward?.coins ?? 0) > 0 ? "Saved to your room fund" : "Complete the planned time to earn coins"))
                 .font(Theme.TypeScale.body)
                 .foregroundStyle(Theme.Colour.textSecondary)
             Text("+\(coinsShown) coins").accessibilityIdentifier("study.coins")
@@ -358,7 +368,7 @@ struct SettlementResultsView: View {
                     Button("Add to my room · \(item.cost) coins") {
                         switch appStore.world.selectRoomItem(item.id) {
                         case .placed, .purchasedAndPlaced: placedItemID = item.id
-                        case .cannotAfford: break
+                        case .cannotAfford, .saveUnavailable: break
                         }
                     }.buttonStyle(StudioButtonStyle(primary: true))
                     .accessibilityIdentifier("room.buySuggested")
@@ -377,7 +387,7 @@ struct SettlementResultsView: View {
             Button { onDone() } label: {
                 HStack {
                     PixelIconView(icon: .house, size: 20, tint: Theme.Colour.textPrimary)
-                    Text("Return to your room")
+                    Text(appStore.world.recoveryIssue == nil ? "Return to your room" : "Return home")
                     Spacer()
                     Image(systemName: "arrow.right")
                 }

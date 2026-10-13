@@ -35,14 +35,14 @@ Unimplemented: real authentication/invites/presence/reconnect, authoritative sha
 
 ## Remaining technical issues, ordered by priority
 
-1. World save corruption can silently fall back to a seeded world and subsequent mutations can overwrite the unreadable payload. Add non-destructive recovery semantics and disposable migration/corruption checks before expanding economy persistence.
-2. Session validation should be strengthened for contradictory result fields and stale checkpoint rollback. Current identity/rule protection and normal restoration tests do not establish resilience to every malformed payload or concurrent writer.
-3. World UI uses fixed-point `Theme.TypeScale` fonts and fixed-height district tiles. Extend accessibility typography/layouts and inspect largest-text world renders. Smaller-phone and VoiceOver journeys need dedicated acceptance.
+1. Addressed in Phase1: unreadable/wrong-type/future world payloads are preserved and mutations blocked, with recovery feedback and pending-results retention. Exhaustive economic-field validation and cross-writer transactions remain separate work.
+2. Addressed in Phase1: consistent recorded outcomes, wrong-type save protection, backward-compatible local checkpoint revisions and fractional-break completion checks. Concurrent independent writers remain unsupported.
+3. Phase1 implements semantic World fonts, adaptive layout/card height and descriptive accessibility labels. Largest-text runtime journey is under verification; smaller-phone and full VoiceOver journeys remain open.
 4. Legacy simulated stakes authorise at results and have no durable session-level settlement ledger. Keep explicitly simulated; do not extend them into real payments.
 5. Feature flags for test stakes, prize pools and sponsored rewards lack integrated readers. Do not present them as functional switches.
 6. Onboarding gallery backtracking can reset staged customisation when confirming the same base. Decide whether returning to the same selection should preserve the draft before changing product behaviour.
 7. Short animation tasks sometimes ignore cancellation. Review view-disappearance cleanup when touching those surfaces.
-8. Mock commitment balances/holds are mutable class dictionaries without actor or lock isolation. Current sequential fixture passes do not establish concurrent-call safety. Serialize this boundary and test concurrent authorisation/settlement before introducing concurrent clients.
+8. Addressed in the Phase2 service slice: mock commitment balances/holds are actor-isolated; concurrent overdraw and duplicate-settlement checks pass for both verdicts. Real payment and durable wallet storage remain unimplemented.
 9. Reward receipts have no pruning/archive policy and grow with completed sessions; retain deduplication guarantees when planning longer-term storage. Wall-clock adjustments also affect deadline timers.
 
 ## Milestones and acceptance
@@ -55,6 +55,6 @@ Unimplemented: real authentication/invites/presence/reconnect, authoritative sha
 | D — genuine private friends | Authenticated private membership, invites, shared intent, authoritative sessions and reconnect | Provider/account decision and service provisioning; two actual accounts/devices; identity/reward replay checks |
 | E — shared earned room and native focus | Persistent shared upgrades and supported focus controls | Server purchase/reward retry tests; platform capability review, permissions and physical-device verification |
 
-A is the current authorised implementation slice. B follows independently of art choice. C requires a real visual decision; D requires external service/account decisions. No deployment, remote push, production migration or real-payment work is authorised by this plan.
+The user subsequently authorised detailed phases/agents, implementation of the next phase, local commits and a push to origin on 2026-10-13. [Current phases and responsibilities](../.planning/PHASES_AND_AGENTS.md) now governs delivery. Save protection/accessibility/session validation is active. Art choice and backend provisioning remain real decision gates. Deployment, destructive resets, production migration and real-payment work remain outside this authorisation.
 
 Verification for this run is recorded in PROGRESS.md and .planning/STATE.md. Reproducible commands are in Tests/README.md. Local commits are not remote backup.

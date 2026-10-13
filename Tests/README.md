@@ -72,6 +72,24 @@ Compiles the actual pure mapping helper; checks balanced size1–8 areas, one oc
 bash Tests/run-service-checks.sh
 ```
 
-Compiles the actual mock commitment/focus services with a fixture for the charity-name constant. Uses a disposable temporary executable, in-memory wallets and generated participant IDs; no app preferences or real funds are touched. Checks forged hold references, unchanged balances after rejection, valid return/forfeit, duplicate settlement, repeated monitor replacement and independent participant cancellation. This does not establish real payment or native focus enforcement.
+Compiles the actual mock commitment/focus services with a fixture for the charity-name constant. Uses a disposable temporary executable, in-memory wallets and generated participant IDs; no app preferences or real funds are touched. Checks forged hold references, unchanged balances after rejection, valid return/forfeit, duplicate settlement, repeated monitor replacement and independent participant cancellation. Actor-isolated wallets are also exercised through competing authorisations and duplicate settlements for both verdicts (960 concurrent requests across 120 disposable wallets). This does not establish real payment or native focus enforcement.
 
 The production study integration suite also rejects unknown cosmetic/furniture IDs and negative building prices, verifies all supported wardrobe IDs, and checks valid construction persists after reload.
+
+## Save recovery and checkpoint validation
+
+```sh
+bash Tests/run-session-validation-checks.sh
+```
+
+Uses production session/store/model code with disposable preferences. Checks stale/equal checkpoint revisions, ordinary transitions, legacy version-1 UUID restoration, inconsistent result/configuration fields, unreadable-payload preservation and fractional-break completion checkpoints. Revision protection covers snapshots within one active store; it does not provide cross-process transactions.
+
+Persistent world regression checks now include unreadable/wrong-type/future saves, original payload preservation, valid legacy balance/receipt migration and blocked mutations even with sufficient funds. The Debug UI fixtures require both a `LockedIN.ui-tests.*` suite and reset; corrupt ordinary preferences cannot be seeded through these arguments.
+
+After build-for-testing, targeted runtime cases:
+
+```sh
+python3 Tests/run-ui-checks.py --device <existing-simulator-UUID> --timeout 600 --only-testing LockedINUITests/WorldAccessibilityTests/testLargestTextWorldDistrictAndRoomJourney --only-testing LockedINUITests/WorldRecoveryTests
+```
+
+These cover the largest-text World/decorating journey, recovery feedback, paused new sessions, hidden placeholder progress and pending-results retention after Home/relaunch. These disposable layout/recovery cases request the Debug-only reduced-motion preference to avoid perpetual animation during automation; ordinary app settings remain respected. This verifies reduced-motion rendering, not toggling the actual iOS setting. Inspect screenshots; compilation alone is not runtime acceptance.

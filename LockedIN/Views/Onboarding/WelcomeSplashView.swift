@@ -7,7 +7,7 @@ struct WelcomeSplashView: View {
     let onContinue: () -> Void
     let onSkip: () -> Void
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @State private var heroVisible = false
 
     var body: some View {

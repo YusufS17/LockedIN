@@ -53,7 +53,7 @@ private struct BreathingModifier: ViewModifier {
     let status: AvatarStatus
     let phase: Double
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     private var isAnimating: Bool { enabled && !reduceMotion }
 
     func body(content: Content) -> some View {

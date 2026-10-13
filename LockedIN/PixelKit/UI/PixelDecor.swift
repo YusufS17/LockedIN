@@ -54,7 +54,7 @@ struct PixelSparkle: View {
     var size: CGFloat = 14
     var phase: Double = 0
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
 
     var body: some View {
         if reduceMotion {

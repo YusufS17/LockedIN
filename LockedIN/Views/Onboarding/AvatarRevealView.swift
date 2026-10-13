@@ -8,7 +8,7 @@ struct AvatarRevealView: View {
     var initialName: String = ""
     let onConfirm: (String) -> Void
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @State private var name = ""
     @State private var burst = false
     @State private var avatarVisible = false

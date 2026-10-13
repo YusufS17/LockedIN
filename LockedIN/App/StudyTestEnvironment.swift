@@ -20,8 +20,34 @@ enum StudyTestEnvironment {
         if ProcessInfo.processInfo.arguments.contains("-ui-test-reset") {
             defaults.removePersistentDomain(forName: suiteName)
         }
+        // Corruption fixtures are Debug-only and require an isolated suite plus reset.
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("-ui-test-reset"), args.contains("-ui-test-world-corrupt") {
+            defaults.set(Data([0xFF, 0xFE]), forKey: WorldPersistence.persistenceKey)
+            if args.contains("-ui-test-pending-results") {
+                let now = Date()
+                let config = RoomConfig.solo
+                let roster = SessionParticipant.makeSolo(userCharacter: CharacterCatalog.first, userName: "Fixture")
+                var session = ActiveStudySession(config: config, participants: roster,
+                                                now: now.addingTimeInterval(-Double(config.sessionSeconds)))
+                session.update(at: now)
+                session.reviewGoal(.achieved)
+                if session.isValid, let data = try? JSONEncoder().encode(session) {
+                    defaults.set(data, forKey: StudySessionStore.persistenceKey)
+                }
+            }
+        }
         #endif
         return defaults
+    }
+
+    /// Keeps layout/recovery checks deterministic; never overrides ordinary user settings.
+    static var reducedMotionForChecks: Bool {
+        #if DEBUG
+        return suiteName != nil && ProcessInfo.processInfo.arguments.contains("-ui-test-reduce-motion")
+        #else
+        return false
+        #endif
     }
 
     static var restorationDate: Date {

@@ -12,8 +12,9 @@ import Foundation
 ///   `settle()` ensures `returnedMinorUnits + forfeitedMinorUnits == holdRef.amountMinorUnits`
 ///   for BOTH verdicts. Integer arithmetic only — no Double/Float/Decimal.
 ///
-/// NOT ObservableObject — plain class per CLAUDE.md (@Observable used in AppStore for UI state).
-final class MockCommitmentService: CommitmentService {
+/// Actor isolation keeps each balance/hold update atomic across concurrent callers.
+/// These operations contain no suspension points while modifying the wallet.
+actor MockCommitmentService: CommitmentService {
 
     // MARK: - Configuration
 
@@ -22,7 +23,7 @@ final class MockCommitmentService: CommitmentService {
 
     /// Named charity where forfeited stakes are donated in test mode (D-10).
     /// Derived from `ForfeitConfig.destination` — single source of truth (WR-02).
-    let forfeitDestination: String = ForfeitConfig.destination
+    nonisolated let forfeitDestination: String = ForfeitConfig.destination
 
     // MARK: - In-Memory State
 

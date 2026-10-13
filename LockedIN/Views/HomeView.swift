@@ -22,14 +22,24 @@ struct HomeView: View {
                         Button("Clear unreadable session", role: .destructive) { showRecoveryReset = true }
                     }.modifier(StudioCard())
                 }
+                if let issue = appStore.world.recoveryIssue {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Your saved world needs attention").font(.headline)
+                        Text(issue.message).font(.subheadline)
+                        if appStore.studySession.current != nil {
+                            Text("Your pending session is kept. Return to its results when your world is available again.").font(.caption)
+                        }
+                    }.modifier(StudioCard())
+                    .accessibilityIdentifier("world.recovery")
+                }
                 welcome
-                roomCard
+                if appStore.world.recoveryIssue == nil { roomCard }
                 routeLayout {
                     homeRoute("Edit avatar", detail: "Hair, clothes & you", icon: .shirt, destination: .avatar)
                     homeRoute("Decorate", detail: "Make room for you", icon: .house, destination: .decorate)
                 }
                 clubCard
-                progressCard
+                if appStore.world.recoveryIssue == nil { progressCard }
                 Text("A room that grows with you, one session at a time.")
                     .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
                     .frame(maxWidth: .infinity).multilineTextAlignment(.center).padding(.bottom, 8)
@@ -50,7 +60,8 @@ struct HomeView: View {
                 }
                 .buttonStyle(StudioButtonStyle(primary: true))
                 .accessibilityIdentifier("study.start")
-                .disabled(appStore.studySession.recoveryIssue != nil)
+                .disabled(appStore.studySession.recoveryIssue != nil ||
+                          (appStore.world.recoveryIssue != nil && appStore.studySession.current == nil))
                 Text(appStore.studySession.current?.config.subject ?? "Your pace. Your space.").font(.caption).foregroundStyle(Theme.Colour.textSecondary)
             }
             .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 8)
@@ -104,17 +115,17 @@ struct HomeView: View {
             Button { destination = .world } label: {
                 HStack(spacing: 5) {
                     PixelIconView(icon: .coin, size: 15, tint: Theme.Colour.testBadgeFg)
-                    Text("\(progression.coins)").monospacedDigit().font(.subheadline.weight(.semibold))
+                    Text(appStore.world.recoveryIssue == nil ? "\(progression.coins)" : "—").monospacedDigit().font(.subheadline.weight(.semibold))
                 }
                 .padding(.horizontal, 12).padding(.vertical, 9)
                 .frame(minWidth: 44, minHeight: 44)
                 .background(Theme.Colour.surface, in: Capsule())
             }
-            .accessibilityLabel("\(progression.coins) coins. View progress")
+            .accessibilityLabel(appStore.world.recoveryIssue == nil ? "\(progression.coins) coins. View progress" : "Saved world unavailable. View details")
             Menu {
                 Button("Your progress", systemImage: "chart.bar") { destination = .world }
                 Button("Test commitment demo", systemImage: "flask") { destination = .contract }
-                    .disabled(appStore.studySession.current != nil || appStore.studySession.recoveryIssue != nil)
+                    .disabled(appStore.studySession.current != nil || appStore.studySession.recoveryIssue != nil || appStore.world.recoveryIssue != nil)
             } label: {
                 Image(systemName: "ellipsis").font(.system(size: 18, weight: .bold)).frame(width: 44, height: 44)
             }
@@ -202,6 +213,7 @@ struct HomeView: View {
             .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 15))
             .overlay(RoundedRectangle(cornerRadius: 15).strokeBorder(Theme.Colour.cardBorder))
         }.buttonStyle(.plain)
+        .disabled(appStore.world.recoveryIssue != nil)
         .accessibilityLabel(title)
         .accessibilityHint(detail)
     }
@@ -234,7 +246,7 @@ struct HomeView: View {
             }.modifier(StudioCard())
         }.buttonStyle(.plain)
         .accessibilityIdentifier("study.club")
-        .disabled(appStore.studySession.recoveryIssue != nil)
+        .disabled(appStore.studySession.recoveryIssue != nil || appStore.world.recoveryIssue != nil)
     }
 
     private var clubLayout: AnyLayout {

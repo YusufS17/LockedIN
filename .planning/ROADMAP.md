@@ -8,6 +8,8 @@ Product target: [restored user direction](../docs/USER_DIRECTION.md), with the [
 
 Detailed implementation sequence: [Execution plan](EXECUTION_PLAN.md), authorised 2026-10-03. The room-spacing/chair slice is implemented and source-art inspected; solo and demo-club iPhone interaction acceptance passed; final art fidelity remains open.
 
+Active phases, Builder/Verifier/QC ownership and acceptance: [PHASES_AND_AGENTS.md](PHASES_AND_AGENTS.md). Phase1 save protection/session validation/accessibility is active; commits and non-force push authorised.
+
 Current engineering sequence and identified defects: [engineering audit and milestones](../docs/ENGINEERING_AUDIT.md), created after the lead-engineer request on 2026-10-13. Maintenance and save/accessibility safeguards precede unapproved art implementation and external-service work. Historical phase plans are reference only.
 
 ## Next delivery sequence

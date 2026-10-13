@@ -13,7 +13,7 @@ struct RoomFlowView: View {
 
     @Environment(AppStore.self) private var appStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
 
     enum Stage { case setup, session, results }
 

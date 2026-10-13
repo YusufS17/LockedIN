@@ -15,7 +15,7 @@ struct SparkleBurst: View {
     var colour: Color = Theme.Colour.sparkle
     var symbol: String = "sparkle"
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @State private var fired = false
 
     var body: some View {

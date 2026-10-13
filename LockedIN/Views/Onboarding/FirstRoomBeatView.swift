@@ -12,7 +12,7 @@ struct FirstRoomBeatView: View {
 
     // MARK: - State
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ReducedMotionPreference private var reduceMotion
     @State private var avatarVisible = false
 
     // MARK: - Body

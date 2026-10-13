@@ -12,7 +12,11 @@ final class StudySessionStore {
 
     init(defaults: UserDefaults = .standard, now: Date = Date()) {
         self.defaults = defaults
-        guard let data = defaults.data(forKey: Self.persistenceKey) else { return }
+        guard let object = defaults.object(forKey: Self.persistenceKey) else { return }
+        guard let data = object as? Data else {
+            recoveryIssue = "Your saved session couldn’t be restored. Your room and earned progress are safe."
+            return
+        }
         do {
             var session = try JSONDecoder().decode(ActiveStudySession.self, from: data)
             guard session.isValid else { throw CocoaError(.coderReadCorrupt) }
@@ -40,7 +44,11 @@ final class StudySessionStore {
         guard let previous = current, previous.id == session.id, session.isValid else { return }
         // Live checkpoints cannot rewrite a frozen outcome or its receipt identity.
         // Goal review has its own transition below.
-        guard previous.isRunning, previous.config == session.config,
+        guard previous.isRunning, session.revision > previous.revision,
+              session.breaksUsed >= previous.breaksUsed,
+              session.accumulatedBreakSeconds >= previous.accumulatedBreakSeconds,
+              (session.user?.distractions ?? 0) >= (previous.user?.distractions ?? 0),
+              previous.config == session.config,
               previous.startedAt == session.startedAt,
               previous.participants.count == session.participants.count else { return }
         guard zip(previous.participants, session.participants).allSatisfy({ old, new in
