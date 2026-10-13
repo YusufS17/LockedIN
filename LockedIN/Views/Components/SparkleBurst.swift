@@ -20,7 +20,7 @@ struct SparkleBurst: View {
 
     var body: some View {
         ZStack {
-            ForEach(0..<count, id: \.self) { i in
+            ForEach(0..<(reduceMotion ? 0 : count), id: \.self) { i in
                 let angle = Double(i) / Double(count) * 2 * .pi
                 let r = radius * (i.isMultiple(of: 2) ? 1 : 0.7)   // two-ring spread
                 Image(systemName: symbol)
@@ -34,6 +34,7 @@ struct SparkleBurst: View {
             }
         }
         .allowsHitTesting(false)
+        .accessibilityHidden(true)
         .onAppear { if trigger { play() } }
         .onChange(of: trigger) { _, now in if now { play() } }
     }

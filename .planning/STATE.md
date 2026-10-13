@@ -1,7 +1,7 @@
 ---
-status: character_concepts_awaiting_direction
-last_updated: "2026-10-12"
-stopped_at: "Two generated character boards saved; user direction required before style implementation; no jobs running"
+status: engineering_maintenance_runtime_blocked
+last_updated: "2026-10-13"
+stopped_at: "Engineering audit and maintenance fixes verified by build/model checks; UI runner timed out"
 ---
 
 # Current handoff
@@ -29,6 +29,16 @@ Continue building the native iPhone app, preserve existing work and make progres
 - Added isolated UserDefaults injection and `Tests/WorldRewardChecks.swift` to verify the real store/save/reward implementation with UI/catalog fixtures.
 - Rebuilt the app successfully and passed duplicate-reward, reload, distinct-session, demo/exit, migration and reset checks.
 - Created the root progress overview and refreshed this handoff and the roadmap.
+
+## Engineering continuation — 2026-10-13
+
+The user now requests lead-engineer ownership, whole-codebase review, a milestone plan, autonomous safe fixes, relevant tests and supported delegation. [Engineering audit and milestone plan](../docs/ENGINEERING_AUDIT.md) is the current implementation guide; older numbered phases remain historical.
+
+Three agent reviews are finished; no agents remain running. Maintenance changes protect debug identity fixtures, catalogue purchases/construction prices, authorised simulated holds and replacement focus monitors; avatar/sparkle motion now responds to Reduce Motion. Character concepts remain unapproved and are not production assets.
+
+Actual checks: clock, reward rules, persistent world rewards, production study integration, area mapping, simulated services and 83 private-friends fixtures passed. Debug app build and build-for-testing passed with simulator-service access; initial sandbox build failed at asset compilation because simulator services were unavailable. Bounded avatar/decorating UI case timed out after 240s (exit124) with no completed assertions. Direct fallback launch succeeded and actual [Home render](../docs/verification/engineering-maintenance-2026-10-13/home.png) was inspected; editor journey/runtime motion toggles remain pending. [Evidence](../docs/verification/engineering-maintenance-2026-10-13/README.md). No app-data reset, deployment or remote push.
+
+Next: recover bounded runtime acceptance, then preserve corrupt world payloads before mutations and improve world accessibility. Broader remaining work is prioritised in ENGINEERING_AUDIT.md. The historical October 12 character handoff below remains relevant for visual choice. No agents/build/test/export jobs remain running. App remains open on Home with isolated render preferences; timed-out UI suite cleanup is unconfirmed.
 
 ## Exact next action
 

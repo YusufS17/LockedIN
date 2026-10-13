@@ -21,6 +21,16 @@ enum CosmeticCatalog {
     static func cost(for id: String) -> Int { premium[id] ?? 0 }
     static func isPremium(_ id: String) -> Bool { premium[id] != nil }
 
+    /// Validate free options too; an unknown ID is not a free catalogue item.
+    static func contains(_ cosmeticID: String) -> Bool {
+        Accessory.allCases.contains { id(accessory: $0) == cosmeticID } ||
+        HairStyle.allCases.contains { id(hairStyle: $0) == cosmeticID } ||
+        HairColour.allCases.contains { id(hairColour: $0) == cosmeticID } ||
+        OutfitStyle.allCases.contains { id(outfit: $0) == cosmeticID } ||
+        SkinTone.allCases.contains { id(skin: $0) == cosmeticID } ||
+        AccentColour.allCases.contains { id(accent: $0) == cosmeticID }
+    }
+
     // MARK: - Stable id builders (one namespace per axis)
 
     static func id(accessory: Accessory) -> String   { "accessory.\(accessory.rawValue)" }

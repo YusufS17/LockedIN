@@ -65,3 +65,13 @@ Compiles the actual pure mapping helper; checks balanced size1–8 areas, one oc
 ## Editor discard and study readability refinements
 
 `testWardrobeDiscardProtectionAndLargeEditors` verifies Keep editing preserves a staged outfit, Discard restores the existing saved look, and both editors remain escapable at the largest accessibility size. `testHomeAndSetupAtLargestAccessibilitySize` now walks focus/break/relaunch/check-in/results and captures scrolled room/results content. UI fixture teardown launches a lightweight Debug cleanup surface and asserts it; onboarding tests avoid an unrelated initial Home launch. Ordinary user saves remain untouched. [Team evidence](../docs/verification/CONTINUATION_TEAM.md).
+
+## Simulated service boundary checks
+
+```sh
+bash Tests/run-service-checks.sh
+```
+
+Compiles the actual mock commitment/focus services with a fixture for the charity-name constant. Uses a disposable temporary executable, in-memory wallets and generated participant IDs; no app preferences or real funds are touched. Checks forged hold references, unchanged balances after rejection, valid return/forfeit, duplicate settlement, repeated monitor replacement and independent participant cancellation. This does not establish real payment or native focus enforcement.
+
+The production study integration suite also rejects unknown cosmetic/furniture IDs and negative building prices, verifies all supported wardrobe IDs, and checks valid construction persists after reload.

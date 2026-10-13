@@ -44,7 +44,7 @@ struct SpriteAvatarView: View {
 
 // MARK: - BreathingModifier — gentle idle life, flavoured by status
 //
-// A looping, autoreversing micro-animation: a slow breath for focus states, a relaxed
+// A clock-driven micro-animation: a slow breath for focus states, a relaxed
 // sway on break, and a tiny anxious jitter when distracted. Anchored at the feet so the
 // avatar appears to settle on the floor. Fully gated on Reduce Motion.
 
@@ -54,19 +54,18 @@ private struct BreathingModifier: ViewModifier {
     let phase: Double
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var animate = false
+    private var isAnimating: Bool { enabled && !reduceMotion }
 
     func body(content: Content) -> some View {
-        content
-            .scaleEffect(scale, anchor: .bottom)
-            .offset(x: xOffset, y: yOffset)
-            .rotationEffect(.degrees(tilt))
-            .onAppear {
-                guard enabled, !reduceMotion else { return }
-                withAnimation(.easeInOut(duration: period).repeatForever(autoreverses: true).delay(phase * period)) {
-                    animate = true
-                }
-            }
+        TimelineView(.animation(minimumInterval: 1 / 20, paused: !isAnimating)) { timeline in
+            let amount = isAnimating
+                ? (1 - cos((timeline.date.timeIntervalSinceReferenceDate / period + phase) * .pi)) / 2
+                : 0
+            content
+                .scaleEffect(1 + (scale - 1) * amount, anchor: .bottom)
+                .offset(x: xOffset * amount, y: yOffset * amount)
+                .rotationEffect(.degrees(tilt * amount))
+        }
     }
 
     // Per-status motion character.
@@ -79,7 +78,6 @@ private struct BreathingModifier: ViewModifier {
         }
     }
     private var scale: CGFloat {
-        guard animate else { return 1 }
         switch status {
         case .distracted: return 1.0
         case .onBreak:    return 1.02
@@ -87,15 +85,12 @@ private struct BreathingModifier: ViewModifier {
         }
     }
     private var yOffset: CGFloat {
-        guard animate else { return 0 }
         return status == .distracted ? 0 : -2
     }
     private var xOffset: CGFloat {
-        guard animate else { return 0 }
         return status == .distracted ? 1.5 : 0   // restless side-to-side
     }
     private var tilt: Double {
-        guard animate else { return 0 }
         return status == .onBreak ? 2.5 : 0       // relaxed sway
     }
 }

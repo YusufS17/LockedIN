@@ -97,12 +97,14 @@ final class WorldStore {
 
     /// Whether a cosmetic is usable: free items always, premium only once purchased.
     func owns(_ id: String) -> Bool {
-        CosmeticCatalog.cost(for: id) == 0 || state.ownedCosmetics.contains(id)
+        guard CosmeticCatalog.contains(id) else { return false }
+        return CosmeticCatalog.cost(for: id) == 0 || state.ownedCosmetics.contains(id)
     }
 
     /// Buy a premium cosmetic with coins. Returns true if owned afterwards.
     @discardableResult
     func purchase(_ id: String) -> Bool {
+        guard CosmeticCatalog.contains(id) else { return false }
         if owns(id) { return true }
         let cost = CosmeticCatalog.cost(for: id)
         guard cost > 0, state.progression.coins >= cost else { return false }
@@ -116,12 +118,14 @@ final class WorldStore {
 
     /// Whether a room item is usable: free items always, premium only once purchased.
     func ownsRoomItem(_ id: String) -> Bool {
-        RoomItemCatalog.cost(for: id) == 0 || state.ownedRoomItems.contains(id)
+        guard RoomItemCatalog.item(id: id) != nil else { return false }
+        return RoomItemCatalog.cost(for: id) == 0 || state.ownedRoomItems.contains(id)
     }
 
     /// Buy a premium room item with coins. Returns true if owned afterwards.
     @discardableResult
     func purchaseRoomItem(_ id: String) -> Bool {
+        guard RoomItemCatalog.item(id: id) != nil else { return false }
         if ownsRoomItem(id) { return true }
         let cost = RoomItemCatalog.cost(for: id)
         guard cost > 0, state.progression.coins >= cost else { return false }
@@ -159,7 +163,8 @@ final class WorldStore {
     /// Spend coins to begin building an unlocked-but-unbuilt (level 0) plot.
     @discardableResult
     func startBuilding(_ type: BuildingType, cost: Int) -> Bool {
-        guard let idx = state.buildings.firstIndex(where: { $0.id == type.rawValue }),
+        guard cost >= 0,
+              let idx = state.buildings.firstIndex(where: { $0.id == type.rawValue }),
               state.buildings[idx].unlocked, state.buildings[idx].level == 0,
               state.progression.coins >= cost
         else { return false }

@@ -2,21 +2,18 @@ import Foundation
 
 // MARK: - StudyCharacter — a pickable character in the curated gallery
 //
-// Asset-driven: `spriteAsset` names a pixel-art PNG (added to Assets.xcassets, e.g.
-// "char_maya"). If that image is present it is rendered as the real sprite; if not,
-// `SpriteAvatarView` falls back to the code-drawn `AvatarView(appearance:)` so the app
-// always works. Drop the real sprites in and they appear everywhere automatically.
-//
-// See .planning/reference/SPRITE-ASSETS-SPEC.md for the exact asset list + sizes.
+// SpriteAvatarView renders the editable appearance through PixelKit. Asset names
+// are retained as legacy metadata; adding a PNG does not switch the renderer.
+// Generated character boards are reference concepts, not production sprite layers.
 
 struct StudyCharacter: Identifiable, Equatable, Codable {
     let id: String                 // stable id, e.g. "maya" (persisted)
     let name: String               // default display name
-    let spriteAsset: String        // base sprite asset name (idle pose)
-    let fallback: CharacterAppearance  // code-drawn fallback until the sprite exists
+    let spriteAsset: String        // legacy base sprite asset name
+    let fallback: CharacterAppearance  // appearance used by the current PixelKit renderer
 
     /// Per-state sprite asset name, by convention "<spriteAsset>_<state>"
-    /// (e.g. "char_maya_focused"). Falls back to the base sprite if absent.
+    /// (e.g. "char_maya_focused"). Legacy metadata, not a renderer lookup.
     func poseAsset(for status: AvatarStatus) -> String {
         "\(spriteAsset)_\(status.assetSuffix)"
     }

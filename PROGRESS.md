@@ -1,13 +1,16 @@
 # LockedIN progress
 
-Last updated: 2026-10-12
+Last updated: 2026-10-13
 
-## Current work — character refinement ready, 2026-10-12
+## Current work — engineering audit and maintenance, 2026-10-13
 
-- Generated a proposed B/C character-family concept: four identities, standing/seated, expressions and shared room. Saved PNG and prompt in `docs/design/concepts/character-refinement-2026-10-12/` and inspected output.
-- B/C is an exploration assumption, not user-approved style. Result leans taller/detailed; invented personality labels are not product decisions. No app source changes.
-- Next: user feedback on proportions/detail, refine chosen direction, then implement when directed. No generation/build/agent jobs remain running.
-- Work is saved locally; GitHub upload remains pending explicit destination confirmation following prior automatic approval rejection.
+- Acting on the user's lead-engineer request. Three independent agent reviews completed: session/economy, UI/art/accessibility, and services/project/tooling. No subagents remain running.
+- Saved architecture, confirmed defects, remaining issues and milestone acceptance in [ENGINEERING_AUDIT.md](docs/ENGINEERING_AUDIT.md).
+- Implemented safe debug identity storage, catalogue/cost validation, simulated hold validation, monitor-generation isolation and Reduce Motion fixes. Preserved character art and participant/reward identities.
+- Clock, reward rules, persistent rewards, full study integration, study-area mapping and service checks pass; private-friends prototype's 83 fixture assertions pass. Debug app build and UI test-target build pass after required simulator-service access.
+- Runtime blocker: targeted avatar/decorating UI run timed out after 240s (exit124), with no completed assertions. Direct fallback launch succeeded; [actual Home screenshot](docs/verification/engineering-maintenance-2026-10-13/home.png) inspected. Editor journey and runtime Reduce Motion toggling remain unverified. [Evidence](docs/verification/engineering-maintenance-2026-10-13/README.md). No app-data reset.
+- Diff reviewed; build/model/service validation complete. Next: recover bounded runtime verification, then non-destructive world-save recovery and accessibility work. Character-style implementation still requires direction.
+- No agents/build/test/export jobs remain running. Simulator/app left open on Home using an isolated render fixture; timed-out UI fixture cleanup is unconfirmed. No remote push or deployment.
 
 ## Product direction
 

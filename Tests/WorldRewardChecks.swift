@@ -15,7 +15,10 @@ struct PersonalRoom: Codable, Equatable {
     var placements: [String: String] = [:]
     static let seeded = PersonalRoom()
 }
-enum CosmeticCatalog { static func cost(for id: String) -> Int { 0 } }
+enum CosmeticCatalog {
+    static func cost(for id: String) -> Int { 0 }
+    static func contains(_ id: String) -> Bool { false }
+}
 enum RoomItemCatalog {
     struct Item { let slot: Slot }
     enum Slot: String { case desk }

@@ -125,6 +125,48 @@ struct StudySessionChecks {
         assert(bought.state.progression.coins == beforePurchase - RoomItemCatalog.cost(for: "plant.cactus"))
         assert(bought.selectRoomItem("plant.cactus") == .placed)
         assert(bought.state.progression.coins == replayWorld.state.progression.coins)
+        // Unknown catalogue IDs must not masquerade as free, owned furniture.
+        let beforeUnknownItem = bought.state
+        assert(!bought.ownsRoomItem("plant.missing"))
+        assert(!bought.purchaseRoomItem("plant.missing"))
+        assert(bought.state == beforeUnknownItem)
+        assert(bought.ownsRoomItem("plant.fern"))
+        assert(bought.purchaseRoomItem("plant.fern"))
+        assert(!bought.owns("accessory.missing"))
+        assert(!bought.purchase("accessory.missing"))
+        assert(bought.state == beforeUnknownItem)
+        // Every ID produced by the existing wardrobe axes remains valid.
+        let cosmeticIDs = Accessory.allCases.map { CosmeticCatalog.id(accessory: $0) } +
+            HairStyle.allCases.map { CosmeticCatalog.id(hairStyle: $0) } +
+            HairColour.allCases.map { CosmeticCatalog.id(hairColour: $0) } +
+            OutfitStyle.allCases.map { CosmeticCatalog.id(outfit: $0) } +
+            SkinTone.allCases.map { CosmeticCatalog.id(skin: $0) } +
+            AccentColour.allCases.map { CosmeticCatalog.id(accent: $0) }
+        assert(cosmeticIDs.allSatisfy { CosmeticCatalog.contains($0) })
+        for cosmeticID in cosmeticIDs where CosmeticCatalog.cost(for: cosmeticID) == 0 {
+            assert(bought.owns(cosmeticID))
+            assert(bought.purchase(cosmeticID))
+        }
+        assert(bought.state == beforeUnknownItem)
+
+        // Invalid construction costs must not mint coins or change a plot.
+        var buildingFixture = WorldState.seeded
+        buildingFixture.progression.coins = 50
+        buildingFixture.buildings[1].unlocked = true
+        let buildingSuite = "LockedIN.building-checks.\(UUID().uuidString)"
+        let buildingDefaults = UserDefaults(suiteName: buildingSuite)!
+        defer { buildingDefaults.removePersistentDomain(forName: buildingSuite) }
+        let builder = WorldStore(state: buildingFixture, defaults: buildingDefaults)
+        assert(!builder.startBuilding(.languageCafe, cost: -10))
+        assert(builder.state == buildingFixture)
+        assert(!builder.startBuilding(.languageCafe, cost: 51))
+        assert(builder.state == buildingFixture)
+        assert(builder.startBuilding(.languageCafe, cost: 50))
+        assert(builder.state.progression.coins == 0)
+        assert(builder.state.activeBuildingID == BuildingType.languageCafe.rawValue)
+        assert(builder.state.buildings[1].level == 1)
+        assert(!builder.startBuilding(.languageCafe, cost: 0))
+        assert(WorldStore(defaults: buildingDefaults).state == builder.state)
         results.acknowledgeResults(id: UUID())
         assert(results.current != nil)
         results.acknowledgeResults(id: results.current!.id)

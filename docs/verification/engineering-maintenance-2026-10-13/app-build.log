@@ -1,0 +1,1075 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build CODE_SIGNING_ALLOWED=NO build
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'LockedIN' in project 'LockedIN' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/yusufsalih/Developer/LockedIN/LockedIN/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 88008a77c28035cd57532d43c07c7eec
+Build description path: /tmp/LockedIN-codex-build/Build/Intermediates.noindex/XCBuildData/88008a77c28035cd57532d43c07c7eec.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+    cd /Users/yusufsalih/Developer/LockedIN/LockedIN.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+
+CompileAssetCatalogVariant thinned /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app /Users/yusufsalih/Developer/LockedIN/LockedIN/Assets.xcassets (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/yusufsalih/Developer/LockedIN/LockedIN/Assets.xcassets --compile /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_dependencies_thinned --output-partial-info-plist /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 17.0 --platform iphonesimulator
+/* com.apple.actool.compilation-results */
+/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_generated_info.plist_thinned
+/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_output/thinned/Assets.car
+
+
+SwiftDriver LockedIN normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LockedIN -Onone -enforce-exclusivity\=checked @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/LockedIN-codex-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -sdk-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LockedIN-codex-build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-generated-files.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-own-target-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-project-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/arm64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-Swift.h -working-directory /Users/yusufsalih/Developer/LockedIN -experimental-emit-module-separately -disable-cmo
+
+SwiftDriver LockedIN normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LockedIN -Onone -enforce-exclusivity\=checked @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target x86_64-apple-ios17.0-simulator -g -module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/LockedIN-codex-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -sdk-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LockedIN-codex-build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-generated-files.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-own-target-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-project-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources-normal/x86_64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/x86_64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-Swift.h -working-directory /Users/yusufsalih/Developer/LockedIN -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_SwiftConcurrencyShims-A570CY5VIIMZJPFK1TB566BO6.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdarg-43W0PQ72UG1NP6U53TCJCK5BJ.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_float-8JEMFSLD6L4DUT2M3QZI2DM82.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_AvailabilityInternal-6N5CS09VWTJNGRUJIOEUG3W9A.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ptrauth-EYBT84HVK4LHZRF2ES46FV9E2.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stddef-D6W3V8ZQ5DNBRMHN9HPZ3ZLOU.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/DeveloperToolsSupport-1N2GSJFL5UEOMFXYYPCS4WV3D.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/SwiftShims-2DYQQZB5XHD69U7DRENWXH16S.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdbool-AAB8XXJ8U08DFE5XPZZYXZ9A7.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ptrcheck-D5GFKR7TTV4H4NLVYBI1A4D5A.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_SwiftConcurrencyShims-8IASQ3ZYNCMZFZD8J6GPZH8HT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/DeveloperToolsSupport-AG3AFJAZM2SE6LQYG6B057E5C.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_float-EFEDFS3E9JFGRTII00OOW7R81.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdarg-AT6RJ3GIP71TTSQ0Y7ZN8UIX3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/SwiftShims-7PMISHQ9ECP2KTOHKBGAF59WW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_AvailabilityInternal-BNIW49993Q3UU0BRVO6YN9AIT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ptrauth-BLCHP0GFSJTCMB1DX4O7C7265.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_DarwinFoundation1-A7BS6WDLV08W1OSVRWXQ3TGOK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ptrcheck-9MYE1MVVSDU8JB7F8GRBS5D1Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stddef-6H3K09M73GV78R1OKDCJ0LNOT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdbool-934TM6U5M9UTILH48QBSSDHUI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_DarwinFoundation1-202CEPHSDQJOTQ3PH55GORNVX.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_limits-A8M2YL6ST0EWL9N99TDBY2EU7.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_DarwinFoundation2-4F04E67DSPPMJ30N8Q85Y5YK6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_limits-8ZE6BT2FW7RKML5LMAH1W0MMW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_DarwinFoundation2-4X0KY6P8Q13CIX4J2TL20DMEF.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_tgmath-4J5K3AGTWDQQLTX43XTSAV9LB.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/sys_types-5SQNYZQXO3QKVINB19FYO6WMI.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdint-9LV84CGZZDE5X72WNU94067F2.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdatomic-4SNXYJO9IAKL2PO6Y1HJDJ0Q4.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_DarwinFoundation3-9OC3K43R08CGW6C6R6RHMKJ58.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/sys_types-2X21RQP2ZAE4HN1TF3P6FKCRA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_tgmath-17PZ4J7MG1TXSZNWZ0RX0RH7J.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdint-PJLUPFS0W2623ED3ADQBV0HA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_DarwinFoundation3-6U808GV56OPS0LSMBS2F0NDRZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_stdatomic-8M8UJ4CJLGPAD9BB1W74EMQB0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_intrinsics-EDX4X1BFOQFM9M9E74TXGSUUS.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_intrinsics-5WQN51751UPZO1V33HU2HQVEI.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_inttypes-7OM4I4FL62J4Y2DQULLCCZHW0.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Darwin-EJN6ZZ6D1PVQ4IKOGU33BIU59.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/_Builtin_inttypes-E2S4O2FJJ2M21TA4VT1CX62OT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Darwin-B7D3LCH3MCKD14WTQMH1W4Y5I.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/simd-5BD938N9F6HYL8HTT5DRKGMEC.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/MachO-ACADB8ZHQP54JSB1KK5URHSKR.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ObjectiveC-2YA3D9FJLHEA6BKK76JXOVMZP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ObjectiveC-71D9J8S0KAC7V5FZUD3CJ7T21.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/MachO-3A0WNYODFKC63J8AHWWVFL7KP.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/os_object-45YZ8JF90ZEDMR2JBVMHGXFJF.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/os_workgroup-BE4X48ZU4IWSJ2GLFLRVK5CNC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/os_object-457O1J6MQFDKRK815RJHOQZ6T.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Dispatch-A0JF8JR9NIJ8JK745OS51WR4Q.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/simd-6E2SQOKWDN6LCS0Q9AYJQMNE4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/os_workgroup-2VQXPTE0OTG0KD3IPFBSXJECV.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreFoundation-6LD4W0N7D4MUKOP9H7YRKO7T.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/XPC-EWVNS54SUTNBCPVEP570I9ILV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Dispatch-D5H4M7XMZ67Q3EL7GHCXTJBUL.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/os-2CH2AS8KFAHS1KQRN8DWD6EKI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/XPC-26YLPD30QTDWU8DNCN4EVBV0M.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreFoundation-5TI5ZE6PKA8D2W4H1WQH9L76R.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CFNetwork-2EK60V00MI4U18IWWUPCMTM6F.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreGraphics-1VZGKNOU4FRW4K63A80MNS5DO.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Security-15U7MTQ9VSLP81ZAHD8N7O6G5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/os-71S4XRRS5J7U5LBJKUV1KU1JT.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Foundation-7H1QUXRMDY6P2YPQYSQLXKXES.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ImageIO-CBI0VLG6066HX6RKIOMUAF70A.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreText-B208CXN7YSNXNFDNZCE72S1E4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CFNetwork-76DUK7GK9Q2OHUKBUU1QT7D9K.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreGraphics-85MIZAXQKKI97XDU5LNG3VNXR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Security-EAKLBQJC3SF54NHIL9WR4MU5W.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/ImageIO-235U0U3RKVKSDMUTCDXAMNAIE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreText-B4VRA35YWCL262D129JHUGTQO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Spatial-45ZDXI1MDMPRL1VZ2OPCRLIGI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Foundation-B6RXI3QR27GXE24R1LWESY5VH.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Spatial-7A7INXI9LD8ION6JJ8LR96H8M.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Accessibility-5IQUV6EP135AIHWCX0SYKSUIX.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UIUtilities-A19JAA37TDOAX78EASPQ64TUU.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Symbols-3FOK3CTNWFPZCJ24PY9BAN6LG.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/OSLog-9D744OIE1Y3DJ4FW4GU9N8DUV.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreTransferable-5IX09SMVI49GH170KC4BQDQK5.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UserNotifications-CFV8TIR0YLEKNFB49IM3QZQCT.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UniformTypeIdentifiers-DKCSA9MCH1LKN59U5W2YBQO93.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/FileProvider-8DRDYMEBQ396L853CVA9WOGRZ.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreData-DAZ6DYJXOXTCEDLMOCB8603OD.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/DataDetection-2CENS4C1CTU00U2UXDFJ8V450.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/IOSurface-7LCBJQBPE22L1SD5XVK7I3ZS1.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/OpenGLES-EV7X231IQPGLCGC2UP4YJFC3D.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Metal-1NAKCOFH5SPVXHCN802K3DB81.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/OpenGLES-D7FLO9Z9DTSLG9VUARN4CJL33.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreData-29J9ADO62I1CVRMILV3HT5YH4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UIUtilities-846S70AOL115EBEJZMOZ0M90S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/DataDetection-3QOC6O2W37JO19QQ795S8G2WA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/FileProvider-27H9ADGA174PK9F7UVLZHEJBL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreTransferable-4ASQYX1NXD5HF6DDDNTDY7Q98.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UniformTypeIdentifiers-DC59YV9P8ZMW27IE6Z3RV43OH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UserNotifications-52SFMK0BBD26OGIWQ6741Q9WX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Accessibility-CXGL5M1TL7XXSY9Z65KCAUVPF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Symbols-7U5X34BYF8EG7NS3CLJD2YNC7.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/IOSurface-2WB590LX4PJ1AFR0HQRH19VS4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/OSLog-8FZ0JFRRQL5ADPF50D046EUEH.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreVideo-3WBP3KBQ061NY22791IHSD5BU.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/Metal-DUI3HUPBXJRL2LUSYZOH97N12.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/QuartzCore-4ZOVGQVHMYQHWV5N70663ILH5.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreImage-2HS3PK6OLTMSYOHMU8VFYK41V.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/SwiftUICore-820T5LCBD7H2KQJ4PYJ0CVYCK.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UIKit-84BJ52DI98MG1OCCQD7ZCAB2F.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreVideo-ANDO6J49PKU4EXS8DA62102HW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/QuartzCore-AXDZ58R96ZQR1MRKHRINQVZ7A.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/CoreImage-BEEVLLYAGPPI1O2YRVTT3TUTQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/SwiftUICore-YZ1FKBPSSVD887WDSW77AWGA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/UIKit-7G3MJXQJVO4MIXT9HJTBNUQX7.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /tmp/LockedIN-codex-build/ModuleCache.noindex/SwiftUI-E214E6UQH2OH7H0CKHHNO5K7H.pcm
+
+SwiftCompile normal x86_64 Compiling\ AvatarView.swift,\ BrandLockHeader.swift,\ IsometricRoomView.swift,\ LiveRoomScene.swift,\ PixelAvatarView.swift,\ SparkleBurst.swift,\ SpriteAvatarView.swift,\ StudioComponents.swift,\ AvatarRevealView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/PixelAvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/StudioComponents.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/PixelAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/StudioComponents.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 Compiling\ PersonalRoomBuilderView.swift,\ RoomFlowView.swift,\ RoomSetupView.swift,\ SettlementResultsView.swift,\ SoloRoomView.swift,\ StudySessionFlowView.swift,\ StudySetupView.swift,\ WorldView.swift,\ GeneratedAssetSymbols.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySessionFlowView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySetupView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySessionFlowView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySetupView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftEmitModule normal x86_64 Emitting\ module\ for\ LockedIN (in target 'LockedIN' from project 'LockedIN')
+
+EmitSwiftModule normal x86_64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 Compiling\ CharacterGalleryView.swift,\ FirstRoomBeatView.swift,\ ValuePropsView.swift,\ WelcomeSplashView.swift,\ CharacterCustomizerView.swift,\ GroupRoomView.swift,\ HomeView.swift,\ LiveSessionView.swift,\ OnboardingHostView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/WelcomeSplashView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/WelcomeSplashView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 Compiling\ RoomComposer.swift,\ RoomFurnitureCore.swift,\ RoomFurnitureDecor.swift,\ RoomFurnitureWall.swift,\ RoomSpriteShell.swift,\ PixelButtonStyle.swift,\ PixelDecor.swift,\ PixelIcon.swift,\ PixelCore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomComposer.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureCore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureWall.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomSpriteShell.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelCore.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomComposer.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureCore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureWall.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomSpriteShell.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelCore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 Compiling\ PixelRenderer.swift,\ PixelShader.swift,\ PixelSpriteView.swift,\ SpriteBakery.swift,\ CharacterPersistence.swift,\ CommitmentService.swift,\ FocusControlAdapter.swift,\ MockCommitmentService.swift,\ MockFocusControlAdapter.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelRenderer.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelShader.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelSpriteView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/SpriteBakery.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CommitmentService.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/FocusControlAdapter.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockCommitmentService.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockFocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelRenderer.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelShader.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelSpriteView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/SpriteBakery.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CommitmentService.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/FocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockCommitmentService.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockFocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 Compiling\ AvatarStatus.swift,\ CharacterAppearance.swift,\ CommitmentContract.swift,\ Cosmetic.swift,\ FocusClock.swift,\ FocusEvent.swift,\ Money.swift,\ Participant.swift,\ ParticipantSettlementState.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/AvatarStatus.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CharacterAppearance.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CommitmentContract.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Cosmetic.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusClock.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusEvent.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Money.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Participant.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ParticipantSettlementState.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/AvatarStatus.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CharacterAppearance.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CommitmentContract.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Cosmetic.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusClock.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusEvent.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Money.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Participant.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ParticipantSettlementState.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftExplicitDependencyGeneratePcm arm64 /tmp/LockedIN-codex-build/ModuleCache.noindex/SwiftUI-D9MAYVQ5EUEQR9VWFPSYWYCT1.pcm
+
+SwiftDriverJobDiscovery normal x86_64 Emitting module for LockedIN (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriver\ Compilation\ Requirements LockedIN normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LockedIN -Onone -enforce-exclusivity\=checked @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target x86_64-apple-ios17.0-simulator -g -module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/LockedIN-codex-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -sdk-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LockedIN-codex-build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-generated-files.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-own-target-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-project-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources-normal/x86_64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/x86_64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-Swift.h -working-directory /Users/yusufsalih/Developer/LockedIN -experimental-emit-module-separately -disable-cmo
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ LockedIN (in target 'LockedIN' from project 'LockedIN')
+
+EmitSwiftModule normal arm64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.swiftmodule /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.swiftmodule
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for LockedIN (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriver\ Compilation\ Requirements LockedIN normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LockedIN -Onone -enforce-exclusivity\=checked @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/LockedIN-codex-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -sdk-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LockedIN-codex-build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-generated-files.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-own-target-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-project-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/arm64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-Swift.h -working-directory /Users/yusufsalih/Developer/LockedIN -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.swiftdoc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftdoc (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftdoc /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.swiftdoc
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.abi.json /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.abi.json (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.abi.json /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.abi.json
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftsourceinfo (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftsourceinfo /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo
+
+SwiftMergeGeneratedHeaders /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/LockedIN-Swift.h /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-Swift.h /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-Swift.h (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-swiftHeaderTool -arch arm64 /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-Swift.h -arch x86_64 /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-Swift.h -o /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/LockedIN-Swift.h
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.swiftmodule /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.swiftdoc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftdoc (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftdoc /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.abi.json (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.abi.json /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftsourceinfo (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftsourceinfo /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftCompile normal arm64 Compiling\ AvatarStatus.swift,\ CharacterAppearance.swift,\ CommitmentContract.swift,\ Cosmetic.swift,\ FocusClock.swift,\ FocusEvent.swift,\ Money.swift,\ Participant.swift,\ ParticipantSettlementState.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/AvatarStatus.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CharacterAppearance.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CommitmentContract.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Cosmetic.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusClock.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusEvent.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Money.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Participant.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ParticipantSettlementState.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/AvatarStatus.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CharacterAppearance.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/CommitmentContract.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Cosmetic.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusClock.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/FocusEvent.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Money.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Participant.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ParticipantSettlementState.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 Compiling\ CharacterGalleryView.swift,\ FirstRoomBeatView.swift,\ ValuePropsView.swift,\ WelcomeSplashView.swift,\ CharacterCustomizerView.swift,\ GroupRoomView.swift,\ HomeView.swift,\ LiveSessionView.swift,\ OnboardingHostView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/WelcomeSplashView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/WelcomeSplashView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal x86_64 Compiling PixelRenderer.swift, PixelShader.swift, PixelSpriteView.swift, SpriteBakery.swift, CharacterPersistence.swift, CommitmentService.swift, FocusControlAdapter.swift, MockCommitmentService.swift, MockFocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 Compiling\ PersonalRoom.swift,\ Progression.swift,\ RoomSession.swift,\ SettlementRecord.swift,\ StudyAreaLayout.swift,\ StudyCharacter.swift,\ WorldState.swift,\ AvatarPortraitView.swift,\ AvatarSpriteV3.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/PersonalRoom.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/RoomSession.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/SettlementRecord.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyAreaLayout.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyCharacter.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarPortraitView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarSpriteV3.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/PersonalRoom.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/RoomSession.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/SettlementRecord.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyAreaLayout.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyCharacter.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarPortraitView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarSpriteV3.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal x86_64 Compiling AvatarStatus.swift, CharacterAppearance.swift, CommitmentContract.swift, Cosmetic.swift, FocusClock.swift, FocusEvent.swift, Money.swift, Participant.swift, ParticipantSettlementState.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 Compiling\ AppStore.swift,\ LockedINApp.swift,\ RootView.swift,\ StudySessionStore.swift,\ StudyTestEnvironment.swift,\ WorldStore.swift,\ FeatureFlags.swift,\ MoneyLabel.swift,\ Theme.swift,\ ActiveStudySession.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/LockedINApp.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudySessionStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudyTestEnvironment.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/FeatureFlags.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/MoneyLabel.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/Theme.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ActiveStudySession.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/LockedINApp.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudySessionStore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudyTestEnvironment.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/FeatureFlags.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/MoneyLabel.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/Theme.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ActiveStudySession.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal x86_64 Compiling RoomComposer.swift, RoomFurnitureCore.swift, RoomFurnitureDecor.swift, RoomFurnitureWall.swift, RoomSpriteShell.swift, PixelButtonStyle.swift, PixelDecor.swift, PixelIcon.swift, PixelCore.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriverJobDiscovery normal x86_64 Compiling AvatarView.swift, BrandLockHeader.swift, IsometricRoomView.swift, LiveRoomScene.swift, PixelAvatarView.swift, SparkleBurst.swift, SpriteAvatarView.swift, StudioComponents.swift, AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 Compiling\ PixelRenderer.swift,\ PixelShader.swift,\ PixelSpriteView.swift,\ SpriteBakery.swift,\ CharacterPersistence.swift,\ CommitmentService.swift,\ FocusControlAdapter.swift,\ MockCommitmentService.swift,\ MockFocusControlAdapter.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelRenderer.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelShader.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelSpriteView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/SpriteBakery.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CommitmentService.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/FocusControlAdapter.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockCommitmentService.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockFocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelRenderer.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelShader.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelSpriteView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/SpriteBakery.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CommitmentService.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/FocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockCommitmentService.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/MockFocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 Compiling\ AppStore.swift,\ LockedINApp.swift,\ RootView.swift,\ StudySessionStore.swift,\ StudyTestEnvironment.swift,\ WorldStore.swift,\ FeatureFlags.swift,\ MoneyLabel.swift,\ Theme.swift,\ ActiveStudySession.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/LockedINApp.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudySessionStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudyTestEnvironment.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/FeatureFlags.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/MoneyLabel.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/Theme.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ActiveStudySession.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/LockedINApp.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudySessionStore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/StudyTestEnvironment.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/FeatureFlags.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/MoneyLabel.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/Theme.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/ActiveStudySession.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling PersonalRoom.swift, Progression.swift, RoomSession.swift, SettlementRecord.swift, StudyAreaLayout.swift, StudyCharacter.swift, WorldState.swift, AvatarPortraitView.swift, AvatarSpriteV3.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 Compiling\ AvatarView.swift,\ BrandLockHeader.swift,\ IsometricRoomView.swift,\ LiveRoomScene.swift,\ PixelAvatarView.swift,\ SparkleBurst.swift,\ SpriteAvatarView.swift,\ StudioComponents.swift,\ AvatarRevealView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/PixelAvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/StudioComponents.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/PixelAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/StudioComponents.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling AppStore.swift, LockedINApp.swift, RootView.swift, StudySessionStore.swift, StudyTestEnvironment.swift, WorldStore.swift, FeatureFlags.swift, MoneyLabel.swift, Theme.swift, ActiveStudySession.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 Compiling\ PersonalRoom.swift,\ Progression.swift,\ RoomSession.swift,\ SettlementRecord.swift,\ StudyAreaLayout.swift,\ StudyCharacter.swift,\ WorldState.swift,\ AvatarPortraitView.swift,\ AvatarSpriteV3.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/PersonalRoom.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/RoomSession.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/SettlementRecord.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyAreaLayout.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyCharacter.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarPortraitView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarSpriteV3.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/PersonalRoom.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/RoomSession.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/SettlementRecord.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyAreaLayout.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/StudyCharacter.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarPortraitView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarSpriteV3.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling AvatarStatus.swift, CharacterAppearance.swift, CommitmentContract.swift, Cosmetic.swift, FocusClock.swift, FocusEvent.swift, Money.swift, Participant.swift, ParticipantSettlementState.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 Compiling\ PersonalRoomBuilderView.swift,\ RoomFlowView.swift,\ RoomSetupView.swift,\ SettlementResultsView.swift,\ SoloRoomView.swift,\ StudySessionFlowView.swift,\ StudySetupView.swift,\ WorldView.swift,\ GeneratedAssetSymbols.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySessionFlowView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySetupView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySessionFlowView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySetupView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling PixelRenderer.swift, PixelShader.swift, PixelSpriteView.swift, SpriteBakery.swift, CharacterPersistence.swift, CommitmentService.swift, FocusControlAdapter.swift, MockCommitmentService.swift, MockFocusControlAdapter.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 Compiling\ RoomComposer.swift,\ RoomFurnitureCore.swift,\ RoomFurnitureDecor.swift,\ RoomFurnitureWall.swift,\ RoomSpriteShell.swift,\ PixelButtonStyle.swift,\ PixelDecor.swift,\ PixelIcon.swift,\ PixelCore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomComposer.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureCore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureWall.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomSpriteShell.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelCore.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomComposer.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureCore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureWall.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomSpriteShell.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/PixelCore.swift (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    
+
+SwiftDriverJobDiscovery normal x86_64 Compiling PersonalRoomBuilderView.swift, RoomFlowView.swift, RoomSetupView.swift, SettlementResultsView.swift, SoloRoomView.swift, StudySessionFlowView.swift, StudySetupView.swift, WorldView.swift, GeneratedAssetSymbols.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriverJobDiscovery normal x86_64 Compiling CharacterGalleryView.swift, FirstRoomBeatView.swift, ValuePropsView.swift, WelcomeSplashView.swift, CharacterCustomizerView.swift, GroupRoomView.swift, HomeView.swift, LiveSessionView.swift, OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriverJobDiscovery normal x86_64 Compiling AppStore.swift, LockedINApp.swift, RootView.swift, StudySessionStore.swift, StudyTestEnvironment.swift, WorldStore.swift, FeatureFlags.swift, MoneyLabel.swift, Theme.swift, ActiveStudySession.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriverJobDiscovery normal x86_64 Compiling PersonalRoom.swift, Progression.swift, RoomSession.swift, SettlementRecord.swift, StudyAreaLayout.swift, StudyCharacter.swift, WorldState.swift, AvatarPortraitView.swift, AvatarSpriteV3.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriver\ Compilation LockedIN normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LockedIN -Onone -enforce-exclusivity\=checked @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target x86_64-apple-ios17.0-simulator -g -module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/LockedIN-codex-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -sdk-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LockedIN-codex-build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-generated-files.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-own-target-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-project-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources-normal/x86_64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/x86_64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-Swift.h -working-directory /Users/yusufsalih/Developer/LockedIN -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN.debug.dylib normal x86_64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target x86_64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/tmp/LockedIN-codex-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F/tmp/LockedIN-codex-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -filelist /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.LinkFileList -install_name @rpath/LockedIN.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN.debug.dylib
+
+SwiftDriverJobDiscovery normal arm64 Compiling RoomComposer.swift, RoomFurnitureCore.swift, RoomFurnitureDecor.swift, RoomFurnitureWall.swift, RoomSpriteShell.swift, PixelButtonStyle.swift, PixelDecor.swift, PixelIcon.swift, PixelCore.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriverJobDiscovery normal arm64 Compiling AvatarView.swift, BrandLockHeader.swift, IsometricRoomView.swift, LiveRoomScene.swift, PixelAvatarView.swift, SparkleBurst.swift, SpriteAvatarView.swift, StudioComponents.swift, AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriverJobDiscovery normal arm64 Compiling CharacterGalleryView.swift, FirstRoomBeatView.swift, ValuePropsView.swift, WelcomeSplashView.swift, CharacterCustomizerView.swift, GroupRoomView.swift, HomeView.swift, LiveSessionView.swift, OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
+
+ConstructStubExecutorLinkFileList /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-ExecutorLinkFileList-normal-x86_64.txt (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    construct-stub-executor-link-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-ExecutorLinkFileList-normal-x86_64.txt
+note: Using stub executor library with Swift entry point. (in target 'LockedIN' from project 'LockedIN')
+
+Ld /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN normal x86_64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target x86_64-apple-ios17.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-DebugDylibPath-normal-x86_64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-DebugDylibInstallName-normal-x86_64.txt -Xlinker -filelist -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-ExecutorLinkFileList-normal-x86_64.txt /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN.debug.dylib -o /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN
+
+SwiftDriverJobDiscovery normal arm64 Compiling PersonalRoomBuilderView.swift, RoomFlowView.swift, RoomSetupView.swift, SettlementResultsView.swift, SoloRoomView.swift, StudySessionFlowView.swift, StudySetupView.swift, WorldView.swift, GeneratedAssetSymbols.swift (in target 'LockedIN' from project 'LockedIN')
+
+SwiftDriver\ Compilation LockedIN normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LockedIN -Onone -enforce-exclusivity\=checked @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/LockedIN-codex-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/LockedIN-codex-build/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -sdk-module-cache-path /tmp/LockedIN-codex-build/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule -validate-clang-modules-once -clang-build-session-file /tmp/LockedIN-codex-build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-generated-files.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-own-target-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-all-target-headers.hmap -Xcc -iquote -Xcc /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-project-headers.hmap -Xcc -I/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources-normal/arm64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources/arm64 -Xcc -I/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-Swift.h -working-directory /Users/yusufsalih/Developer/LockedIN -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN.debug.dylib normal arm64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/tmp/LockedIN-codex-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F/tmp/LockedIN-codex-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -filelist /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.LinkFileList -install_name @rpath/LockedIN.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule @/tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN.debug.dylib
+
+CreateUniversalBinary /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/LockedIN.debug.dylib normal arm64\ x86_64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN.debug.dylib /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN.debug.dylib -output /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/LockedIN.debug.dylib
+
+ConstructStubExecutorLinkFileList /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-ExecutorLinkFileList-normal-arm64.txt (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    construct-stub-executor-link-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'LockedIN' from project 'LockedIN')
+
+Ld /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN normal arm64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -F/tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN-ExecutorLinkFileList-normal-arm64.txt /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN.debug.dylib -o /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN
+
+CreateUniversalBinary /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/LockedIN normal arm64\ x86_64 (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/Binary/LockedIN /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/Binary/LockedIN -output /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/LockedIN
+
+LinkAssetCatalog /Users/yusufsalih/Developer/LockedIN/LockedIN/Assets.xcassets (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-linkAssetCatalog --thinned /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_output/thinned --thinned-dependencies /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_generated_info.plist_thinned --unthinned /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_output/unthinned --unthinned-dependencies /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_generated_info.plist_unthinned --output /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app --plist-output /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_generated_info.plist
+note: Emplaced /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Assets.car (in target 'LockedIN' from project 'LockedIN')
+
+ProcessInfoPlistFile /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Info.plist /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/empty-LockedIN.plist (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-infoPlistUtility /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/empty-LockedIN.plist -producttype com.apple.product-type.application -genpkginfo /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/assetcatalog_generated_info.plist -o /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Info.plist
+
+CopySwiftLibs /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/LockedIN.debug.dylib --scan-folder /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Frameworks --scan-folder /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/PlugIns --scan-folder /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/SystemExtensions --scan-folder /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name LockedIN --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk --xcode-version 17C529 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.lockedin.app --output /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app --target-triple arm64-apple-ios17.0-simulator --target-triple x86_64-apple-ios17.0-simulator --binary-file /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/LockedIN --dependency-file /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN_dependency_info.dat --dependency-file /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN_dependency_info.dat --stringsdata-file /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --stringsdata-file /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.SwiftFileList --source-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.SwiftFileList --metadata-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN.DependencyMetadataFileList --static-metadata-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.SwiftConstValuesFileList --swift-const-vals-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-10-13 00:51:16.650 appintentsmetadataprocessor[70578:1526416] Starting appintentsmetadataprocessor export
+2026-10-13 00:51:16.697 appintentsmetadataprocessor[70578:1526416] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+AppIntentsSSUTraining (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Info.plist --temp-dir-path /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/ssu --bundle-id com.lockedin.app --product-path /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app --extracted-metadata-path /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app/Metadata.appintents --metadata-file-list /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/LockedIN.DependencyMetadataFileList --archive-ssu-assets
+2026-10-13 00:51:16.894 appintentsnltrainingprocessor[70585:1526480] Parsing options for appintentsnltrainingprocessor
+2026-10-13 00:51:16.903 appintentsnltrainingprocessor[70585:1526480] No AppShortcuts found - Skipping.
+
+RegisterExecutionPolicyException /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-RegisterExecutionPolicyException /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app
+
+Validate /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    builtin-validationUtility /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app -shallow-bundle -infoplist-subpath Info.plist
+
+Touch /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app (in target 'LockedIN' from project 'LockedIN')
+    cd /Users/yusufsalih/Developer/LockedIN
+    /usr/bin/touch -c /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app
+
+** BUILD SUCCEEDED **
+

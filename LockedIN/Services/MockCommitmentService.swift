@@ -71,8 +71,11 @@ final class MockCommitmentService: CommitmentService {
         holdRef: HoldReference,
         verdict: SettlementVerdict
     ) async throws -> SettlementRecord {
-        guard activeHolds[holdRef.id] != nil else {
+        guard let authorisedHold = activeHolds[holdRef.id] else {
             throw CommitmentServiceError.holdNotFound(holdRef.id)
+        }
+        guard authorisedHold == holdRef else {
+            throw CommitmentServiceError.invalidHoldReference(holdRef.id)
         }
 
         // Remove the hold — it is now being settled.
@@ -128,6 +131,7 @@ enum CommitmentServiceError: Error, LocalizedError {
     case invalidAmount(String)
     case insufficientBalance(available: MinorUnits, required: MinorUnits)
     case holdNotFound(UUID)
+    case invalidHoldReference(UUID)
 
     var errorDescription: String? {
         switch self {
@@ -137,6 +141,8 @@ enum CommitmentServiceError: Error, LocalizedError {
             return "Insufficient balance: have \(available)p, need \(required)p"
         case .holdNotFound(let id):
             return "Hold not found: \(id)"
+        case .invalidHoldReference(let id):
+            return "Hold reference does not match its authorisation: \(id)"
         }
     }
 }

@@ -89,13 +89,20 @@ struct PersistenceSelfCheckView: View {
     }
 
     private func runSelfCheck() async {
+        let suite = "LockedIN.persistence-self-check.\(UUID().uuidString)"
+        guard let defaults = UserDefaults(suiteName: suite) else {
+            result = "Could not create isolated self-check storage."
+            return
+        }
+        defer { defaults.removePersistentDomain(forName: suite) }
+
         var passes: [String] = []
         var failures: [String] = []
 
-        // 1. nil-on-clean-state: remove any existing character data before checking
-        UserDefaults.standard.removeObject(forKey: PersistenceKeys.character)
-        UserDefaults.standard.removeObject(forKey: PersistenceKeys.displayName)
-        if CharacterPersistence.load() == nil {
+        // 1. Verify a fresh disposable suite; never touch the saved user identity.
+        defaults.removeObject(forKey: PersistenceKeys.character)
+        defaults.removeObject(forKey: PersistenceKeys.displayName)
+        if CharacterPersistence.load(defaults: defaults) == nil {
             passes.append("nil on clean state")
         } else {
             failures.append("FAIL: expected nil on clean state, got non-nil")
@@ -110,8 +117,8 @@ struct PersistenceSelfCheckView: View {
             accentColour: .teal
         )
         let testName = "RoundTripTestUser"
-        CharacterPersistence.save(appearance: testAppearance, displayName: testName)
-        if let loaded = CharacterPersistence.load() {
+        CharacterPersistence.save(appearance: testAppearance, displayName: testName, defaults: defaults)
+        if let loaded = CharacterPersistence.load(defaults: defaults) {
             if loaded.appearance == testAppearance {
                 passes.append("appearance round-trip match")
             } else {
@@ -127,16 +134,16 @@ struct PersistenceSelfCheckView: View {
         }
 
         // 3. Corrupt data: inject undecodable bytes → load() must return nil (T-02-03)
-        UserDefaults.standard.set(Data([0xFF, 0xFE, 0x00]), forKey: PersistenceKeys.character)
-        if CharacterPersistence.load() == nil {
+        defaults.set(Data([0xFF, 0xFE, 0x00]), forKey: PersistenceKeys.character)
+        if CharacterPersistence.load(defaults: defaults) == nil {
             passes.append("nil on corrupt data (T-02-03 safe)")
         } else {
             failures.append("FAIL: expected nil on corrupt data, got non-nil")
         }
 
         // Clean up after self-check
-        UserDefaults.standard.removeObject(forKey: PersistenceKeys.character)
-        UserDefaults.standard.removeObject(forKey: PersistenceKeys.displayName)
+        defaults.removeObject(forKey: PersistenceKeys.character)
+        defaults.removeObject(forKey: PersistenceKeys.displayName)
 
         let summary = failures.isEmpty
             ? "PASS ✓ — \(passes.count) checks: \(passes.joined(separator: ", "))"

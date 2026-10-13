@@ -1,12 +1,14 @@
 # Active roadmap: LockedIN
 
-Updated: 2026-10-03. Current status: [PROGRESS.md](../PROGRESS.md). Exact handoff: [STATE.md](STATE.md).
+Updated: 2026-10-13. Current status: [PROGRESS.md](../PROGRESS.md). Exact handoff: [STATE.md](STATE.md).
 
 This roadmap supersedes the June hackathon sequence, preserved in [archive/ROADMAP-2026-06-13.md](archive/ROADMAP-2026-06-13.md). Product rationale and baseline gaps remain in [PRODUCT_AUDIT.md](../docs/PRODUCT_AUDIT.md). No overall completion percentage is claimed.
 
 Product target: [restored user direction](../docs/USER_DIRECTION.md), with the [original supplied brief](../docs/PRODUCT_BRIEF_ORIGINAL.md) retained as source. Visual quality and eventual real friend sessions are required outcomes.
 
 Detailed implementation sequence: [Execution plan](EXECUTION_PLAN.md), authorised 2026-10-03. The room-spacing/chair slice is implemented and source-art inspected; solo and demo-club iPhone interaction acceptance passed; final art fidelity remains open.
+
+Current engineering sequence and identified defects: [engineering audit and milestones](../docs/ENGINEERING_AUDIT.md), created after the lead-engineer request on 2026-10-13. Maintenance and save/accessibility safeguards precede unapproved art implementation and external-service work. Historical phase plans are reference only.
 
 ## Next delivery sequence
 
