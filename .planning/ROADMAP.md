@@ -8,7 +8,7 @@ Product target: [restored user direction](../docs/USER_DIRECTION.md), with the [
 
 Detailed implementation sequence: [Execution plan](EXECUTION_PLAN.md), authorised 2026-10-03. The room-spacing/chair slice is implemented and source-art inspected; solo and demo-club iPhone interaction acceptance passed; final art fidelity remains open.
 
-Active phases, Builder/Verifier/QC ownership and acceptance: [PHASES_AND_AGENTS.md](PHASES_AND_AGENTS.md). Phase1 save protection/session validation/accessibility is locally verified; Phase2 wallet safety slice also checked. Implementation/evidence pushed through d37d43b; continue remaining offline-beta work.
+Active phases, Builder/Verifier/QC ownership and acceptance: [PHASES_AND_AGENTS.md](PHASES_AND_AGENTS.md). Phase1 and Phase2 wallet safety are verified. Phase2 onboarding, lifecycle and essential save-semantics implementation now builds and passes model checks; new compact/OS accessibility runtime acceptance is blocked by simulator runner/destination discovery. See the current handoff and evidence before closing Phase2.
 
 Current engineering sequence and identified defects: [engineering audit and milestones](../docs/ENGINEERING_AUDIT.md), created after the lead-engineer request on 2026-10-13. Maintenance and save/accessibility safeguards precede unapproved art implementation and external-service work. Historical phase plans are reference only.
 

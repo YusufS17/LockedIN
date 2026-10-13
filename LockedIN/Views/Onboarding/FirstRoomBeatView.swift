@@ -40,12 +40,15 @@ struct FirstRoomBeatView: View {
             }
         }
         .preferredColorScheme(.light)
-        .onAppear {
-            Task {
-                try? await Task.sleep(for: .seconds(0.3))
-                withAnimation(reduceMotion ? nil : .easeIn(duration: 0.4)) {
-                    avatarVisible = true
-                }
+        .task {
+            guard !Task.isCancelled else { return }
+            if !reduceMotion {
+                do { try await Task.sleep(for: .seconds(0.3)) }
+                catch { return }
+            }
+            guard !Task.isCancelled else { return }
+            withAnimation(reduceMotion ? nil : .easeIn(duration: 0.4)) {
+                avatarVisible = true
             }
         }
     }

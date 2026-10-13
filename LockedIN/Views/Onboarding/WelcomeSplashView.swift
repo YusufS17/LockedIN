@@ -45,8 +45,14 @@ struct WelcomeSplashView: View {
                 .background(Theme.Colour.background)
             }
         }
-        .onAppear {
-            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.6).delay(0.15)) {
+        .task {
+            guard !Task.isCancelled else { return }
+            if !reduceMotion {
+                do { try await Task.sleep(for: .seconds(0.15)) }
+                catch { return }
+            }
+            guard !Task.isCancelled else { return }
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.6)) {
                 heroVisible = true
             }
         }

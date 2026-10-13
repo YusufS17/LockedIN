@@ -76,6 +76,30 @@ Compiles the actual mock commitment/focus services with a fixture for the charit
 
 The production study integration suite also rejects unknown cosmetic/furniture IDs and negative building prices, verifies all supported wardrobe IDs, and checks valid construction persists after reload.
 
+## World semantic safety and storage lifetime
+
+```sh
+bash Tests/run-world-semantic-checks.sh
+```
+
+Compiles actual world/store/reward/catalogue sources with a fixture for the charity-name constant and disposable preferences. Checks invalid essential counters/receipts, duplicate or missing buildings, inactive/unknown targets and unnormalised banked XP preserve their original bytes and block mutations. Exercises extreme supported values, overflow-safe bounded level calculation, ordinary curve thresholds, unknown catalogue metadata retention and limit-reaching reward rollback without a new receipt. This does not test power-loss durability, independent writers or automatic repair. [Storage lifetime policy](../docs/STORAGE_LIFETIME.md) records numerical boundaries and permanent receipt retention.
+
+## Phase 2 onboarding, compact phone and system accessibility
+
+After `build-for-testing`, run targeted groups on an existing simulator:
+
+```sh
+python3 Tests/run-ui-checks.py --device <existing-simulator-UUID> --timeout 600 --test-timeout 300 --only-testing LockedINUITests/OnboardingBacktrackingTests
+python3 Tests/run-ui-checks.py --device <existing-compact-simulator-UUID> --timeout 600 --test-timeout 300 --only-testing LockedINUITests/CompactOfflineBetaTests
+python3 Tests/run-ui-checks.py --device <existing-simulator-UUID> --timeout 600 --test-timeout 300 --only-testing LockedINUITests/SystemAccessibilityTests
+```
+
+Onboarding checks customise a base, return to the gallery, preserve the same-base outfit, cancel/confirm replacement, exercise editor discard protection and verify saved identity after relaunch. Compact acceptance requires a phone width of 375 points or less (the existing iPhone16e is suitable); it walks study/break/restoration/goal/results/reward replay/purchase and saved decorating. These cases use disposable preferences and injected clock advance, with screenshot attachments for visual inspection. They do not establish real-time study or physical-device soak.
+
+The system accessibility case uses the actual Simulator Settings UI to toggle Reduce Motion and checks the app’s real environment response; teardown restores the original switch value. It also requests XCTest’s visible-element sufficient-description audit. It does not verify VoiceOver spoken order/navigation or comprehensive accessibility. If interrupted before teardown, confirm and restore the original Motion setting manually; never reset app data. These new runtime cases are pending until actual passing evidence is recorded.
+
+`--timeout` bounds the whole subprocess run. `--test-timeout` supplies Xcode’s per-case execution allowance (default 180 seconds), with maximum allowance at least 240 seconds; the overall bound still applies. Use positive whole seconds and allow enough overall time for startup and cleanup. Timeout exit 124 is a blocked run, not a passing interaction check. The runner prints the log and `.xcresult` paths and stops only its own process group.
+
 ## Save recovery and checkpoint validation
 
 ```sh

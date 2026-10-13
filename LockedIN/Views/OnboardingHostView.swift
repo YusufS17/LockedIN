@@ -23,6 +23,7 @@ struct OnboardingHostView: View {
 
     enum Beat: Int { case splash = 0, valueProps, gallery, customizer, reveal, firstRoom }
     @State private var beat: Beat = .splash
+    @State private var hasChosenBase = false
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -38,7 +39,13 @@ struct OnboardingHostView: View {
                     .transition(beatTransition)
 
             case .gallery:
-                CharacterGalleryView(onContinue: { go(.customizer) })
+                CharacterGalleryView(
+                    preserveCurrentLook: hasChosenBase || CharacterPersistence.load(defaults: appStore.defaults) != nil,
+                    onContinue: {
+                        hasChosenBase = true
+                        go(.customizer)
+                    }
+                )
                     .transition(beatTransition)
 
             case .customizer:

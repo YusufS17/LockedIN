@@ -24,6 +24,7 @@ struct RootView: View {
     // MARK: - Body
 
     var body: some View {
+        Group {
         // First-launch gate: real onboarding beats until completed, then Home.
         #if DEBUG
         if StudyTestEnvironment.suiteName != nil &&
@@ -43,6 +44,15 @@ struct RootView: View {
             OnboardingHostView()
         }
         #endif
+        }
+        .overlay(alignment: .bottomTrailing) {
+            #if DEBUG
+            if StudyTestEnvironment.suiteName != nil &&
+                ProcessInfo.processInfo.arguments.contains("-ui-test-motion-status") {
+                MotionStateProbe()
+            }
+            #endif
+        }
     }
 }
 
@@ -53,6 +63,18 @@ extension RootView {
         let args = ProcessInfo.processInfo.arguments
         guard let i = args.firstIndex(of: "-smoke-room"), i + 1 < args.count else { return nil }
         return args[i + 1]
+    }
+}
+
+/// Reports the same live system preference used by the renderer. Only visible
+/// in a namespaced Debug fixture; this does not change the iOS setting.
+private struct MotionStateProbe: View {
+    @ReducedMotionPreference private var reduceMotion
+    var body: some View {
+        Text(reduceMotion ? "Motion reduced" : "Motion enabled")
+            .font(.caption2).padding(6)
+            .background(Theme.Colour.surface)
+            .accessibilityIdentifier("qa.motion.mode")
     }
 }
 

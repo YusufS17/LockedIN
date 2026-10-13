@@ -6,6 +6,7 @@ import Observation
 enum WorldRecoveryIssue: Equatable {
     case unreadableSave
     case newerSaveVersion(Int)
+    case progressionLimit
 
     var message: String {
         switch self {
@@ -13,6 +14,8 @@ enum WorldRecoveryIssue: Equatable {
             return "Your saved world could not be read. It has been kept safe. Progress and purchases are paused until it can be recovered."
         case .newerSaveVersion:
             return "Your world was saved by a newer version of LockedIN. Update the app to continue. Your save has been kept safe."
+        case .progressionLimit:
+            return "Your saved progress has reached this version’s supported limit. Your world and pending result have been kept safe. Update the app to continue earning."
         }
     }
 }
@@ -44,7 +47,7 @@ enum WorldPersistence {
                 return .needsRecovery(.unreadableSave)
             }
             let state = try JSONDecoder().decode(WorldState.self, from: data)
-            guard state.schemaVersion == WorldState.currentSchemaVersion else {
+            guard state.schemaVersion == WorldState.currentSchemaVersion, state.hasValidEssentialValues else {
                 return .needsRecovery(.unreadableSave)
             }
             return .loaded(state)
@@ -118,8 +121,16 @@ final class WorldStore {
         if !config.quickDemo && !user.leftEarly && (user.focusedSeconds ?? 0) < config.sessionSeconds {
             return outcome
         }
+        let beforeAward = state
         state.sessionRewards[user.id] = outcome
         if outcome.focusXP > 0 { award(outcome) }
+        guard state.hasValidEssentialValues else {
+            state = beforeAward
+            recoveryIssue = .progressionLimit
+            return RewardOutcome(focusXP: 0, coins: 0, passed: false, leveledUp: false,
+                                 newLevel: state.progression.level,
+                                 breakdown: [.init(label: "Progress not saved — supported limit reached", xp: 0)])
+        }
         WorldPersistence.save(state, defaults: defaults)
         return outcome
     }

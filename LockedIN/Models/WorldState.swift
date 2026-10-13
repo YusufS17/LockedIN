@@ -86,6 +86,30 @@ struct WorldState: Codable, Equatable {
         buildings.first { $0.id == activeBuildingID }
     }
 
+    /// Leave arithmetic headroom for the next reward and building threshold.
+    /// Ownership metadata is retained even if a future/retired catalogue ID is unknown.
+    var hasValidEssentialValues: Bool {
+        let maximum = Int.max / 4
+        let counters = [progression.focusXP, progression.coins, progression.sessionsCompleted,
+                        progression.currentStreak, progression.bestStreak]
+        guard counters.allSatisfy({ (0...maximum).contains($0) }),
+              progression.bestStreak >= progression.currentStreak,
+              buildings.count == BuildingType.allCases.count,
+              Set(buildings.map(\.type)) == Set(BuildingType.allCases),
+              let activeBuilding, activeBuilding.unlocked else { return false }
+        guard buildings.allSatisfy({ building in
+            (0...(Int.max / 600)).contains(building.level) &&
+            (0...maximum).contains(building.progressXP) &&
+            building.progressXP < building.requiredXP &&
+            (building.level == 0 || building.unlocked)
+        }) else { return false }
+        return sessionRewards.values.allSatisfy { receipt in
+            (0...maximum).contains(receipt.focusXP) && (0...maximum).contains(receipt.coins) &&
+            (1...maximum).contains(receipt.newLevel) &&
+            receipt.breakdown.allSatisfy { (0...maximum).contains($0.xp) }
+        }
+    }
+
     /// Fresh world: Library Hub unlocked + active, everything else locked.
     static var seeded: WorldState {
         let buildings = BuildingType.allCases.map { type in

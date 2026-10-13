@@ -7,9 +7,20 @@ import signal
 import subprocess
 import tempfile
 
+def positive_seconds(value):
+    try:
+        seconds = int(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError("Use a positive whole number of seconds") from error
+    if seconds <= 0:
+        raise argparse.ArgumentTypeError("Use a positive whole number of seconds")
+    return seconds
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--device', required=True, help='Existing simulator UUID')
-parser.add_argument('--timeout', type=int, default=900)
+parser.add_argument('--timeout', type=positive_seconds, default=900)
+parser.add_argument('--test-timeout', type=positive_seconds, default=180, help='Per-case allowance, bounded overall by --timeout')
 parser.add_argument('--only-testing', action='append', help='Optional target/class/method to rerun a specific check')
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
@@ -19,7 +30,8 @@ command = [
     '-configuration', 'Debug', '-sdk', 'iphonesimulator', '-derivedDataPath', '/tmp/LockedIN-codex-build',
     '-destination', f'platform=iOS Simulator,id={args.device}', '-destination-timeout', '20',
     '-parallel-testing-enabled', 'NO', '-test-timeouts-enabled', 'YES',
-    '-default-test-execution-time-allowance', '180', '-maximum-test-execution-time-allowance', '240',
+    '-default-test-execution-time-allowance', str(args.test_timeout),
+    '-maximum-test-execution-time-allowance', str(max(240, args.test_timeout)),
     '-resultBundlePath', str(output / 'OfflineLoop.xcresult'),
     'CODE_SIGNING_ALLOWED=NO', 'test-without-building',
 ]

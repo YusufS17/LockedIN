@@ -19,14 +19,29 @@ struct Progression: Codable, Equatable {
     /// Total XP required to *reach* level `level` (level ≥ 1).
     static func xpToReach(level: Int) -> Int {
         let l = max(1, level)
-        return 100 * (l - 1) * l / 2
+        // Divide first; saturate unsupported levels instead of trapping on corrupt input.
+        let a = l.isMultiple(of: 2) ? l / 2 : l
+        let b = l.isMultiple(of: 2) ? l - 1 : (l - 1) / 2
+        let product = a.multipliedReportingOverflow(by: b)
+        guard !product.overflow else { return Int.max }
+        let xp = product.partialValue.multipliedReportingOverflow(by: 100)
+        return xp.overflow ? Int.max : xp.partialValue
     }
 
     /// Current level derived from total XP.
     var level: Int {
-        var l = 1
-        while Progression.xpToReach(level: l + 1) <= focusXP { l += 1 }
-        return l
+        // Binary search bounds both runtime and arithmetic for enormous decoded XP.
+        let target = max(0, focusXP)
+        var lower = 1
+        var upper = 1
+        while Self.xpToReach(level: upper) < target && upper < Int.max / 2 { upper *= 2 }
+        while lower < upper {
+            let middle = lower + (upper - lower + 1) / 2
+            let threshold = Self.xpToReach(level: middle)
+            if threshold != Int.max && threshold <= target { lower = middle }
+            else { upper = middle - 1 }
+        }
+        return lower
     }
 
     /// XP accumulated within the current level.

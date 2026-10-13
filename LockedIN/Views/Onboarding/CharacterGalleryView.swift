@@ -5,9 +5,11 @@ import SwiftUI
 struct CharacterGalleryView: View {
 
     @Environment(AppStore.self) private var appStore
+    var preserveCurrentLook = false
     var onContinue: () -> Void
 
     @State private var selectedID = CharacterCatalog.first.id
+    @State private var showsReplacementConfirmation = false
 
     private let columns = [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)]
 
@@ -33,6 +35,16 @@ struct CharacterGalleryView: View {
         }
         .onAppear {
             selectedID = appStore.selectedCharacterID
+        }
+        .alert("Replace your customised look?", isPresented: $showsReplacementConfirmation) {
+            Button("Use new starting look", role: .destructive) { applySelection() }
+                .accessibilityIdentifier("onboarding.replaceLook")
+            Button("Keep my look", role: .cancel) {
+                selectedID = appStore.selectedCharacterID
+            }
+            .accessibilityIdentifier("onboarding.keepLook")
+        } message: {
+            Text("This replaces your outfit with \(selected.name)'s starting look. Your name and unlocked items stay saved.")
         }
     }
 
@@ -105,8 +117,20 @@ struct CharacterGalleryView: View {
 
     /// Commit the base pick; naming + persistence happen at the reveal beat.
     private func confirm() {
+        if preserveCurrentLook && selectedID != appStore.selectedCharacterID &&
+            appStore.userCharacter != appStore.selectedCharacter.fallback {
+            showsReplacementConfirmation = true
+            return
+        }
+        applySelection()
+    }
+
+    private func applySelection() {
+        // Revisiting the same base is navigation, not a request to reset the outfit.
+        if !preserveCurrentLook || selectedID != appStore.selectedCharacterID {
+            appStore.userCharacter = selected.fallback
+        }
         appStore.selectedCharacterID = selectedID
-        appStore.userCharacter = selected.fallback
         onContinue()
     }
 }

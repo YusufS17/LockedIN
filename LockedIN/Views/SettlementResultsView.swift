@@ -14,6 +14,11 @@ struct SettlementResultsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @State private var result: SessionResult?
+    // Settlement is a recorded operation, independent of cancellable decoration.
+    // Keep the same operation if SwiftUI restarts the presentation task.
+    // This cache lasts for this view identity; legacy simulated stakes still have
+    // no durable settlement receipt across view destruction or app relaunch.
+    @State private var settlementTask: Task<SessionResult, Never>?
     @State private var reward: RewardOutcome?   // real XP/coins awarded + persisted
     @State private var reveal = 0          // staged reveal index (0 = nothing yet)
     @State private var coinsShown = 0      // animated coin count-up
@@ -402,48 +407,71 @@ struct SettlementResultsView: View {
 
     // MARK: - Reveal driver
 
+    @MainActor
     private func settleAndReveal() async {
-        let settled = await SettlementEngine.run(
-            config: config, participants: participants, service: appStore.commitmentService
-        )
-        withAnimation(reduceMotion ? nil : .default) { result = settled }
+        guard !Task.isCancelled else { return }
 
-        // Award real, persisted Focus XP + coins for the user's session (once).
-        if reward == nil, let me = participants.first(where: { $0.isUser }) {
+        // Persist earned progress before any decorative delay. WorldStore deduplicates
+        // by participant UUID, and keeps recovery-blocked results for a later retry.
+        if reward == nil, let me = user {
             reward = appStore.world.applySession(user: me, config: config)
         }
+        if result == nil {
+            if settlementTask == nil {
+                let sessionConfig = config
+                let roster = participants
+                let service = appStore.commitmentService
+                settlementTask = Task {
+                    await SettlementEngine.run(config: sessionConfig, participants: roster, service: service)
+                }
+            }
+            guard let operation = settlementTask else { return }
+            let settled = await operation.value
+            // The operation completes even if the page disappears; its result is
+            // consumed if this same view identity appears again without another hold.
+            guard !Task.isCancelled else { return }
+            withAnimation(reduceMotion ? nil : .default) { result = settled }
+        }
+
         let coinTarget = config.quickDemo ? 0 : (reward?.coins ?? 0)
-        let coinStep = max(1, coinTarget / 18)
-        if reduceMotion {
+        let target = appStore.world.state.activeBuilding?.progress ?? 0
+        // If presentation was interrupted, resume with the complete result rather
+        // than replaying coin totals or incrementing the reveal beyond its end.
+        if reduceMotion || reveal > 0 {
             coinsShown = coinTarget
-            worldFill = appStore.world.state.activeBuilding?.progress ?? 0
+            worldFill = target
             reveal = 6
             return
         }
 
-        // Stage 1: trophy + coin count-up.
-        await step(0.25) { advance() }                       // reveal 1
-        for c in stride(from: 0, through: coinTarget, by: coinStep) {
-            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.05)) { coinsShown = min(c, coinTarget) }
-            try? await Task.sleep(for: .seconds(0.03))
+        do {
+            try Task.checkCancellation()
+            advance(to: 1)
+            try await Task.sleep(for: .seconds(0.25))
+            let coinStep = max(1, coinTarget / 18)
+            for c in stride(from: 0, through: coinTarget, by: coinStep) {
+                try Task.checkCancellation()
+                withAnimation(.easeOut(duration: 0.05)) { coinsShown = min(c, coinTarget) }
+                try await Task.sleep(for: .seconds(0.03))
+            }
+            try Task.checkCancellation()
+            coinsShown = coinTarget
+            for stage in 2...6 {
+                try Task.checkCancellation()
+                advance(to: stage)
+                try await Task.sleep(for: .seconds(0.28))
+            }
+            try Task.checkCancellation()
+            withAnimation(.easeInOut(duration: 0.8)) { worldFill = target }
+        } catch {
+            // SwiftUI cancels the reveal when this view disappears. The saved
+            // reward and settlement operation above are unaffected.
+            return
         }
-        coinsShown = coinTarget
-
-        // Stages 2–6: cards cascade in.
-        for _ in 2...6 { await step(0.28) { advance() } }
-
-        // World bar fills to the active building's real progress.
-        let target = appStore.world.state.activeBuilding?.progress ?? 0
-        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.8)) { worldFill = target }
     }
 
-    private func advance() {
-        withAnimation(reduceMotion ? nil : .spring(response: 0.45, dampingFraction: 0.8)) { reveal += 1 }
-    }
-
-    private func step(_ seconds: Double, _ body: () -> Void) async {
-        body()
-        try? await Task.sleep(for: .seconds(reduceMotion ? 0 : seconds))
+    private func advance(to stage: Int) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.45, dampingFraction: 0.8)) { reveal = stage }
     }
 
     private var revealTransition: AnyTransition {

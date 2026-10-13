@@ -1,7 +1,7 @@
 ---
-status: phase1_verified_phase2_service_complete
+status: phase2_implemented_runtime_blocked
 last_updated: "2026-10-13"
-stopped_at: "Phase1 and Phase2 wallet slice verified and pushed; continue remaining offline-beta acceptance"
+stopped_at: "Phase2 onboarding, lifecycle and save semantics implemented; runtime destination/startup acceptance blocked"
 ---
 
 # Current handoff
@@ -30,17 +30,17 @@ Continue building the native iPhone app, preserve existing work and make progres
 - Rebuilt the app successfully and passed duplicate-reward, reload, distinct-session, demo/exit, migration and reset checks.
 - Created the root progress overview and refreshed this handoff and the roadmap.
 
-## Active phase — 2026-10-13, final handoff
+## Active phase — 2026-10-13 continuation
 
-[Detailed phases and agent responsibilities](PHASES_AND_AGENTS.md) governs delivery; follow-on packets live under engineering-phases/. User authorised next-phase implementation, delegation, commits and ordinary push to existing origin `https://github.com/YusufS17/LockedIN`. This supersedes historical push-destination blockers. Deployment, destructive resets, production changes and real payments remain outside scope.
+User authorised safe autonomous phases, delegation, commits and ordinary push to existing origin `https://github.com/YusufS17/LockedIN`. [Phase responsibilities](PHASES_AND_AGENTS.md); [Phase2 packet](engineering-phases/02-offline-beta.md). Deployment, destructive resets, production changes and real payments remain outside scope.
 
-Phase1 is locally verified: non-destructive world-save locks and honest recovery surfaces; pending results/participant UUID retained; malformed/wrong-type session protection, compatible checkpoint revisions and exact fractional breaks; semantic/adaptive World layout and correct native Button/disabled state. Phase2 wallet concurrency slice also implemented and independently checked; remaining Phase2 work is open.
+Phase1 and Phase2 wallet safety previously verified/pushed through57fe90e. New Phase2 implementation: preserve same-base onboarding edits and confirm customised-base replacement; cancellable onboarding/results/World reveals; persist rewards before decorative awaits; semantic world validation, overflow-safe bounded XP calculation and unsupported-growth rollback. Receipt participant UUIDs remain retained indefinitely. Save durability/independent writers/automatic recovery and legacy simulated-stake settlement across complete view destruction remain limitations.
 
-Checks passed: final app/UI build, world recovery/reward/migration checks, dedicated session validation, production study integration and actor/service fixtures. All3 targeted UI journeys have passing evidence across revised runs: World109.861s (final affected case), pending results40.471s, unreadable world35.332s. Earlier timeout/failed grouping attempts and compile error/fix are recorded. Actual ordinary World, largest-text World and recovery screenshots inspected. [Durable evidence](../docs/verification/save-accessibility-2026-10-13/README.md).
+App/UI build and final UI-target rebuild passed. Dedicated semantic and independent service checks passed, as did affected existing world/reward/study integration. Whitespace/diff reviewed. [Evidence](../docs/verification/offline-beta-phase2-2026-10-13/README.md). Compact group and system test stalled before assertions, then a defensive test-setup correction rebuilt successfully; focused recheck failed Xcode destination discovery (exit70). New UI journeys are compiled, not runtime-verified. Full VoiceOver and physical-device soak remain pending. No user saves/simulator data erased.
 
-Actual GitHub push confirmed through source/evidence commit d37d43b, including implementation d82004d and the earlier13 pending milestones. Final handoff notes are saved separately with this update. No deployment. No agents/build/test/export jobs remain running. Existing iPhone17 simulator/app left on ordinary World using isolated render suite LockedIN.ui-tests.phase1-normal-world. Passing UI test suites cleaned up; older timed-out fixture cleanup unconfirmed. Ordinary user saves never reset.
+Next concrete action: recover Xcode/simulator discovery without erasure, run compact backtracking/offline persistence/largest-text and actual Settings motion/description groups serially, then inspect/export real renders. Phase2 remains open. Unapproved Phase3 character direction and Phase4 backend/account provisioning require real decisions; concept PNGs are not production assets.
 
-Next concrete slice: Phase2 onboarding same-base backtracking and short-task cancellation, then compact-phone, full VoiceOver and actual system Reduce Motion toggle acceptance. Current tests use a Debug-only reduced-motion fixture; this does not verify toggling the OS setting. Automatic corrupt-world repair, independent writers, exhaustive world semantic validation and physical-device soak remain open. Phase3 character direction and Phase4 backend/account provisioning require real decisions; do independent authorised engineering first.
+Git and final fallback status will be recorded below after milestone preservation.
 
 ## Engineering continuation — 2026-10-13
 

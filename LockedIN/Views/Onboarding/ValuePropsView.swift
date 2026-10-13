@@ -146,13 +146,18 @@ struct ValuePropsView: View {
     // MARK: - Animation
 
     private func animateIn() async {
+        guard !Task.isCancelled else { return }
         if reduceMotion {
             visibleCards = 3
             return
         }
         for i in 1...3 {
+            guard !Task.isCancelled else { return }
+            // A returning page keeps the cards it already revealed.
+            guard visibleCards < i else { continue }
             withAnimation(.easeOut(duration: 0.45)) { visibleCards = i }
-            try? await Task.sleep(for: .seconds(0.35))
+            do { try await Task.sleep(for: .seconds(0.35)) }
+            catch { return }
         }
     }
 }

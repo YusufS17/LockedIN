@@ -21,6 +21,7 @@ struct WorldView: View {
     @State private var showCustomizer = false
     @State private var showRoomBuilder = false
     @State private var burstBuildingID: String?   // tile to flourish after build/focus
+    @State private var burstRevision = UUID()
     @State private var districtMessage: String?
 
     private var world: WorldStore { appStore.world }
@@ -70,6 +71,14 @@ struct WorldView: View {
                 }
             }
         }
+        .task(id: burstRevision) {
+            guard burstBuildingID != nil, !Task.isCancelled else { return }
+            do { try await Task.sleep(for: .seconds(0.5)) }
+            catch { return }
+            guard !Task.isCancelled else { return }
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.2)) { burstBuildingID = nil }
+        }
+        .onDisappear { burstBuildingID = nil }
         .fullScreenCover(isPresented: $showCustomizer) {
             CharacterCustomizerView(initial: appStore.userCharacter, initialName: appStore.displayName) { appearance, name in
                 appStore.userCharacter = appearance
@@ -276,10 +285,8 @@ struct WorldView: View {
     private func celebrate(_ id: String) {
         guard !reduceMotion else { return }
         withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) { burstBuildingID = id }
-        Task {
-            try? await Task.sleep(for: .seconds(0.5))
-            withAnimation(.easeOut(duration: 0.2)) { burstBuildingID = nil }
-        }
+        // A new tap cancels the previous reset, including another tap on this tile.
+        burstRevision = UUID()
     }
 
     // MARK: - Stats

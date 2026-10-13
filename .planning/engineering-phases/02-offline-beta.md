@@ -14,3 +14,9 @@ Prerequisite: Phase1 code and production-model checks, plus truthful documentati
 Finish: usable local beta with complete study → results → earned item → relaunch evidence, accessible controls, no save erasure, no duplicate progress. A compile is not enough. Physical-device soak acceptance requires an available signed device; do independent simulator/model work first.
 
 Decision/limit: full multiplayer and native enforcement are later phases; simulations remain labelled. No real payments or deployment.
+
+## 2026-10-13 continuation
+
+Implemented: same-base onboarding look preservation and explicit customised-base replacement; cancellable short reveals and persisted reward before decoration; semantic world counter/building/receipt validation with bounded level arithmetic and growth rollback; documented indefinite receipt retention and save durability limits. Dedicated semantic, existing reward/world/study integration and service regressions passed. App/UI build passed.
+
+Runtime acceptance remains blocked on the existing compact iPhone16e: backtracking and relaunch, complete solo/results/earned-upgrade persistence, largest-text onboarding, plus actual Settings Reduce Motion and visible-element description checks. The Settings check restores its initial value and does not establish VoiceOver traversal. Full VoiceOver and physical-device soak remain separate acceptance gates. Initial runner/startup attempts stalled without assertions; after a test-setup fix and successful rebuild, Xcode destination discovery failed (exit70). Actual outcomes are recorded in `docs/verification/offline-beta-phase2-2026-10-13/README.md`. No simulator save erasure.

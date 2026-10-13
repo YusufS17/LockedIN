@@ -42,15 +42,21 @@ struct AvatarRevealView: View {
                 .background(Theme.Colour.background)
             }
         }
-        .onAppear {
-            name = initialName
-            withAnimation(reduceMotion ? nil : .spring(duration: 0.5, bounce: 0.35).delay(0.1)) {
+        .onAppear { name = initialName }
+        .task {
+            guard !Task.isCancelled else { return }
+            if !reduceMotion {
+                do { try await Task.sleep(for: .seconds(0.1)) }
+                catch { return }
+            }
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.5, bounce: 0.35)) {
                 avatarVisible = true
             }
-            Task {
-                try? await Task.sleep(for: .seconds(0.35))
-                burst = true
-            }
+            guard !reduceMotion else { return }
+            do { try await Task.sleep(for: .seconds(0.25)) }
+            catch { return }
+            guard !Task.isCancelled else { return }
+            burst = true
         }
 
     }

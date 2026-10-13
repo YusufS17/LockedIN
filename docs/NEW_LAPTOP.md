@@ -23,9 +23,9 @@ Windows/Linux can edit project files and inspect design artifacts but cannot run
 
 Tell your coding assistant:
 
-> Read AGENTS.md, PROGRESS.md, .planning/STATE.md and .planning/PHASES_AND_AGENTS.md. Act as lead engineer, preserve existing saves and code, and continue the next authorised offline-beta slice with Builder/Verifier/QC responsibilities. Phase1 save/accessibility work and Phase2 wallet concurrency are verified; evidence is in docs/verification/save-accessibility-2026-10-13/. Real character-style and backend/account decisions still require input. No deployment or destructive resets.
+> Read AGENTS.md, PROGRESS.md, .planning/STATE.md and .planning/PHASES_AND_AGENTS.md. Act as lead engineer, preserve existing saves and code, and continue the next authorised offline-beta slice with Builder/Verifier/QC responsibilities. Phase1 and Phase2 wallet/model checks are verified; Phase2 onboarding/lifecycle/save-semantics now builds. Read docs/verification/offline-beta-phase2-2026-10-13/README.md for the runtime blocker. Real character-style and backend/account decisions still require input. No deployment or destructive resets.
 
-Current next work: preserve onboarding edits when returning to the same base, review short-task cancellation, then compact-phone/VoiceOver/real Reduce Motion toggle checks. The original character boards remain unapproved concepts. Actual source/evidence has been pushed to GitHub through d37d43b; clone/pull the latest branch for current handoff notes. Earlier CONTINUATION_TEAM.md evidence remains historical.
+Current next work: recover Xcode/simulator destination discovery without erasing data, then verify compact onboarding backtracking, offline results/upgrade persistence, largest text and actual Settings Reduce Motion. Full VoiceOver/device soak remains open. The original character boards remain unapproved concepts. Clone/pull the latest branch and use PROGRESS.md for the actual GitHub receipt; earlier continuation evidence is historical.
 
 ## What transfers and what does not
 

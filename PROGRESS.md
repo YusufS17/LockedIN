@@ -2,15 +2,13 @@
 
 Last updated: 2026-10-13
 
-## Current work — Phase1 verified; Phase2 service slice complete, 2026-10-13
+## Current work — Phase2 offline beta, 2026-10-13
 
-- [Detailed phases and Builder/Verifier/QC roles](.planning/PHASES_AND_AGENTS.md), with Phase2–6 work packets, saved and implemented against the current architecture.
-- Phase1: unreadable/future world saves preserved, blocked mutations and honest recovery UI, pending results retained, malformed/wrong-type sessions protected, monotonic checkpoints and exact fractional breaks, accessible World layouts and native Button/disabled semantics.
-- Phase2 service slice: actor-isolated simulated wallets;960 concurrent requests across120 disposable scenarios pass, independently rechecked. Other Phase2 acceptance remains open.
-- Final app/UI target build, world recovery/rewards, production study integration, dedicated session validation and service checks pass. All3 targeted UI journeys have passing evidence across revised runs: World109.861s, pending results40.471s, unreadable world35.332s. Earlier timeout/failure attempts are recorded, not claimed passed. [Evidence and inspected renders](docs/verification/save-accessibility-2026-10-13/README.md).
-- GitHub upload confirmed: prior13 milestones, implementation d82004d and final native-button fix/inspected runtime evidence d37d43b pushed to origin/main. Final handoff notes are saved with this update; no deployment.
-- No agents/build/test/export jobs remain running. App/simulator left open on ordinary World using an isolated render fixture. Passing UI suites cleaned up; older timed-out fixture cleanup unconfirmed. No user data erasure or deployment.
-- Next: remaining Phase2 offline beta checks — compact-phone/VoiceOver/actual Reduce Motion toggle and onboarding backtracking/task cleanup. Character direction and backend account decisions still gate Phases3/4. Corrupt-world automatic repair and independent writer transactions remain unimplemented.
+- Onboarding Builder finished same-base outfit preservation and explicit replacement confirmation. Lifecycle Builder finished scoped cancellable reveals and result persistence before animation. QC reviewed changes and implemented world semantic/overflow protection. No agents remain running.
+- App/UI build and corrected UI-target rebuild passed. Dedicated semantic, service, world reward, reward-rule and production study integration checks passed; diff whitespace passed. Receipt retention/storage limits saved.
+- Compact and separate system UI runs stalled before assertions; only owned groups stopped. Defensive Settings test-setup correction rebuilt; focused recheck failed Xcode destination discovery (exit70). UI journeys/actual OS toggles remain unverified. [Evidence](docs/verification/offline-beta-phase2-2026-10-13/README.md).
+- Direct compact app launch refused (FBS error4); lead is attempting explicit compiled-app installation for a render fallback. Existing iPhone17 shut down without data erasure. User saves preserved; initial runner fixture cleanup unconfirmed.
+- Preparing reviewed milestone commit/push; GitHub currently remains at57fe90e. Next: resolve simulator/Xcode runtime discovery without erasure and complete compact/largest-text/backtracking/persistence/motion renders. Full VoiceOver/device soak, art and backend gates remain open.
 
 ## Product direction
 
