@@ -7,8 +7,8 @@ Last updated: 2026-10-13
 - Onboarding Builder finished same-base outfit preservation and explicit replacement confirmation. Lifecycle Builder finished scoped cancellable reveals and result persistence before animation. QC reviewed changes and implemented world semantic/overflow protection. No agents remain running.
 - App/UI build and corrected UI-target rebuild passed. Dedicated semantic, service, world reward, reward-rule and production study integration checks passed; diff whitespace passed. Receipt retention/storage limits saved.
 - Compact and separate system UI runs stalled before assertions; only owned groups stopped. Defensive Settings test-setup correction rebuilt; focused recheck failed Xcode destination discovery (exit70). UI journeys/actual OS toggles remain unverified. [Evidence](docs/verification/offline-beta-phase2-2026-10-13/README.md).
-- Direct compact app launch refused (FBS error4); lead is attempting explicit compiled-app installation for a render fallback. Existing iPhone17 shut down without data erasure. User saves preserved; initial runner fixture cleanup unconfirmed.
-- Preparing reviewed milestone commit/push; GitHub currently remains at57fe90e. Next: resolve simulator/Xcode runtime discovery without erasure and complete compact/largest-text/backtracking/persistence/motion renders. Full VoiceOver/device soak, art and backend gates remain open.
+- Direct compact launch refused (FBS error4); explicit compiled-app install stalled and only that client was stopped (exit143). No current app render claimed. Existing compact simulator remains booted; installation/fixture state unconfirmed. User saves preserved. No agents/build/test/install/export jobs remain running.
+- Implementation milestone320297f committed, pushed to existing GitHub main and remote hash confirmed. Final handoff/log normalisation follows in a separate commit. Next: resolve simulator/Xcode runtime discovery without erasure and complete compact/largest-text/backtracking/persistence/motion renders. Full VoiceOver/device soak, art and backend gates remain open.
 
 ## Product direction
 
@@ -41,7 +41,7 @@ This is a native SwiftUI iPhone app. Open `LockedIN.xcodeproj`, select LockedIN 
 | Production-model integration | Passed, including restoration, receipt replay and catalogue purchases |
 | App screenshots and interaction walkthrough | Earlier seven-case baseline plus six targeted refinement journeys have passing evidence; final3 affected + editor-only rechecks passed; actual renders inspected |
 
-Latest build log: `/tmp/LockedIN-continuation-editor-build.log` (temporary and may disappear). Durable continuation screenshots/logs are linked in the current work section. Reproducible regression commands are in [Tests/README.md](Tests/README.md).
+Latest build and runtime blocker logs are saved in [Phase2 evidence](docs/verification/offline-beta-phase2-2026-10-13/README.md). Historical continuation screenshots remain available; no new passing runtime screenshots are claimed. Reproducible regression commands are in [Tests/README.md](Tests/README.md).
 
 ## Still unfinished
 

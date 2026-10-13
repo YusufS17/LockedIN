@@ -29,7 +29,7 @@ In flight operation:   <DVTOperationGroup: 0x7f821cde7ca0; state = AREfc>
                                      <XCTHOperationGroup: 0x7f821e273d80>
                                          <XCTHOperationGroup: 0x7f821e55db50>
                                              <IDERunOperation: 0x7f821e554e80; state = aReF!c, blocking { XCTHTestOperationCoordinator processing delay, Blocking finish to allow restarting of crashed test operations., Waiting for -runningDidFinish call. }>
-                                             worker: <IDERunOperationWorkerGroup: 0x7f821e5549b0, unfinished subworkers : 
+                                             worker: <IDERunOperationWorkerGroup: 0x7f821e5549b0, unfinished subworkers :
 					<_IDEInstalliPhoneSimulatorWorker: 0x7f821e1ab5f0 -- ExtensionIdentifier: Xcode.IDEiPhoneSimulatorSupport.DeviceService.Install>
 					<IDELaunchiPhoneSimulatorLauncher: 0x7f821e5544a0 -- ExtensionIdentifier: Xcode.IDEiPhoneSimulatorSupport.Launch>
 				 >
@@ -464,4 +464,3 @@ Test session results, code coverage, and logs:
 	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-3bovw1p3/OfflineLoop.xcresult
 
 ** TEST EXECUTE INTERRUPTED **
-

@@ -40,7 +40,7 @@ App/UI build and final UI-target rebuild passed. Dedicated semantic and independ
 
 Next concrete action: recover Xcode/simulator discovery without erasure, run compact backtracking/offline persistence/largest-text and actual Settings motion/description groups serially, then inspect/export real renders. Phase2 remains open. Unapproved Phase3 character direction and Phase4 backend/account provisioning require real decisions; concept PNGs are not production assets.
 
-Git and final fallback status will be recorded below after milestone preservation.
+Implementation milestone320297f pushed to existing GitHub main and verified with git ls-remote. Final handoff/log-normalisation is a subsequent commit. Direct compact launch failed FBS code4; explicit install stalled and only its client stopped (exit143), completion unconfirmed. No agents/build/test/export/install clients remain running. Existing iPhone16e remains booted; current app and fixture state unconfirmed. No new current app render. No service kill, app-data reset or deployment.
 
 ## Engineering continuation — 2026-10-13
 

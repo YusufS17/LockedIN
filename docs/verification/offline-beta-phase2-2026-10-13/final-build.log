@@ -61,24 +61,24 @@ SwiftEmitModule normal arm64 Emitting\ module\ for\ LockedINUITests (in target '
 
 EmitSwiftModule normal arm64 (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftEmitModule normal x86_64 Emitting\ module\ for\ LockedINUITests (in target 'LockedINUITests' from project 'LockedIN')
 EmitSwiftModule normal x86_64 (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 Compiling\ SystemAccessibilityTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 Compiling\ SystemAccessibilityTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 CopySwiftLibs /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.app (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
@@ -161,4 +161,3 @@ ProcessInfoPlistFile /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimula
     builtin-infoPlistUtility /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedINUITests.build/empty-LockedINUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedINUITests.build/ProductTypeInfoPlistAdditions.plist -o /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedINUITests-Runner.app/PlugIns/LockedINUITests.xctest/Info.plist
 
 ** TEST BUILD SUCCEEDED **
-

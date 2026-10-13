@@ -11,7 +11,7 @@ Same-base onboarding preserves customised appearance; a different base asks befo
 - Initial app/UI build and final UI-target rebuild passed: [build](build.log), [final build](final-build.log). Only informational AppIntents metadata warnings.
 - Dedicated world-semantic checks passed (QC): essential invalid values, extreme accepted values, payload preservation, growth rollback, 1,000 normal level boundaries. Service concurrency checks independently passed. See QC record.
 - Existing affected world, reward rules and production study integration passed: [world](world.log), [reward](reward.log), [study](study.log).
-- Whitespace review passed.
+- Source whitespace review passed. Saved Xcode stdout logs have trailing whitespace/blank endings normalised; diagnostic text and outcomes retained. Final complete-change whitespace check passed after normalisation.
 
 ## Runtime acceptance blocked
 
@@ -22,3 +22,9 @@ QC identified a possible discovery issue: Settings XCUIApplication was initializ
 New targeted tests are compiled but unverified: customised-base backtracking/replacement/relaunch; compact study → break restoration → results replay → earned rug → relaunch; actual Settings Reduce Motion toggles and visible-element description audit. Settings test restores its initial value when executed; no evidence that this test reached a setting mutation, and no OS-toggle/audit pass claimed. Full VoiceOver traversal and physical-device soak remain pending. Initial runner fixture cleanup cannot be confirmed; no ordinary user save or simulator data was reset.
 
 Next: recover Xcode/simulator destination discovery without erasing data; run the three new groups plus largest-text onboarding serially, export screenshots and inspect actual renders before closing Phase2. No deployment. Phase3 character direction and Phase4 real backend/account decisions remain open.
+
+## Final fallback and handoff
+
+Direct `simctl launch` with namespaced render preferences failed with FBSOpenApplicationServiceErrorDomain code4 (request to open app failed). Explicit install of the compiled app then stalled for about three minutes; only that simctl client was terminated (exit143). Installation completion is unconfirmed. No current app render or passed runtime journey is claimed. No agents/build/test/export/install clients remain running; existing compact simulator remains booted, current app/fixture state unconfirmed. No reset, service kill or deployment.
+
+Implementation milestone `320297fe6d1b2fa9af6712e56bff4a47ce2d1c40` was pushed to existing GitHub main and confirmed with `git ls-remote`. Final handoff/log whitespace normalisation is saved in a subsequent commit; these cosmetic log changes do not alter test results.

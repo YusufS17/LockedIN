@@ -85,25 +85,25 @@ SwiftEmitModule normal arm64 Emitting\ module\ for\ LockedIN (in target 'LockedI
 
 EmitSwiftModule normal arm64 (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 Compiling\ FirstRoomBeatView.swift,\ ValuePropsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 Compiling\ AvatarRevealView.swift,\ CharacterGalleryView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Emitting module for LockedIN (in target 'LockedIN' from project 'LockedIN')
 
@@ -116,11 +116,11 @@ SwiftDriverJobDiscovery normal arm64 Compiling FirstRoomBeatView.swift, ValuePro
 SwiftCompile normal arm64 Compiling\ RootView.swift,\ WorldStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftsourceinfo (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
@@ -131,15 +131,15 @@ SwiftDriverJobDiscovery normal arm64 Compiling AvatarRevealView.swift, Character
 SwiftCompile normal arm64 Compiling\ BrandLockHeader.swift,\ IsometricRoomView.swift,\ LiveRoomScene.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/arm64-apple-ios-simulator.swiftmodule /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/arm64/LockedIN.swiftmodule (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
@@ -162,35 +162,35 @@ SwiftDriver LockedIN normal x86_64 com.apple.xcode.tools.swift.compiler (in targ
 SwiftCompile normal arm64 Compiling\ RoomFurnitureDecor.swift,\ PixelButtonStyle.swift,\ PixelDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftEmitModule normal x86_64 Emitting\ module\ for\ LockedIN (in target 'LockedIN' from project 'LockedIN')
 EmitSwiftModule normal x86_64 (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling BrandLockHeader.swift, IsometricRoomView.swift, LiveRoomScene.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal arm64 Compiling\ LiveSessionView.swift,\ PersonalRoomBuilderView.swift,\ RoomFlowView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling RoomFurnitureDecor.swift, PixelButtonStyle.swift, PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -198,15 +198,15 @@ SwiftCompile normal arm64 Compiling\ PixelAvatarView.swift,\ SparkleBurst.swift,
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/PixelAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Emitting module for LockedIN (in target 'LockedIN' from project 'LockedIN')
 
@@ -219,15 +219,15 @@ SwiftDriverJobDiscovery normal arm64 Compiling PixelAvatarView.swift, SparkleBur
 SwiftCompile normal arm64 Compiling\ CharacterCustomizerView.swift,\ GroupRoomView.swift,\ HomeView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedIN.swiftmodule/x86_64-apple-ios-simulator.swiftmodule /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedIN.build/Objects-normal/x86_64/LockedIN.swiftmodule (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
@@ -251,17 +251,17 @@ SwiftCompile normal arm64 Compiling\ StudySessionFlowView.swift /Users/yusufsali
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySessionFlowView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 Compiling\ RoomSetupView.swift,\ SoloRoomView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling StudySessionFlowView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -270,11 +270,11 @@ SwiftDriverJobDiscovery normal arm64 Compiling RoomSetupView.swift, SoloRoomView
 SwiftCompile normal arm64 Compiling\ Progression.swift,\ WorldState.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriver LockedINUITests normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
@@ -292,19 +292,19 @@ SwiftCompile normal arm64 Compiling\ WelcomeSplashView.swift /Users/yusufsalih/D
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/WelcomeSplashView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 Compiling\ AppStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftEmitModule normal arm64 Emitting\ module\ for\ LockedINUITests (in target 'LockedINUITests' from project 'LockedIN')
 
 EmitSwiftModule normal arm64 (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling AppStore.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -312,7 +312,7 @@ SwiftEmitModule normal x86_64 Emitting\ module\ for\ LockedINUITests (in target 
 
 EmitSwiftModule normal x86_64 (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Emitting module for LockedINUITests (in target 'LockedINUITests' from project 'LockedIN')
 
@@ -330,7 +330,7 @@ SwiftCompile normal arm64 Compiling\ CompactOfflineBetaTests.swift /Users/yusufs
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/UITests/CompactOfflineBetaTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedINUITests.swiftmodule/x86_64-apple-ios-simulator.swiftmodule /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedINUITests.build/Objects-normal/x86_64/LockedINUITests.swiftmodule (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
@@ -369,48 +369,48 @@ Copy /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedINUITe
 SwiftCompile normal arm64 Compiling\ OnboardingBacktrackingTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/OnboardingBacktrackingTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/UITests/OnboardingBacktrackingTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 Compiling\ SystemAccessibilityTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling WelcomeSplashView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ OnboardingBacktrackingTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/OnboardingBacktrackingTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/UITests/OnboardingBacktrackingTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling OnboardingBacktrackingTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ CompactOfflineBetaTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/CompactOfflineBetaTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/UITests/CompactOfflineBetaTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 
 SwiftCompile normal arm64 Compiling\ SystemAccessibilityTests.swift /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift (in target 'LockedINUITests' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling OnboardingBacktrackingTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 
 SwiftCompile normal arm64 Compiling\ PixelIcon.swift,\ CharacterPersistence.swift,\ AvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling CompactOfflineBetaTests.swift (in target 'LockedINUITests' from project 'LockedIN')
 
@@ -427,20 +427,20 @@ SwiftDriver\ Compilation LockedINUITests normal arm64 com.apple.xcode.tools.swif
 SwiftCompile normal arm64 Compiling\ SettlementResultsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 Compiling\ OnboardingHostView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling PixelIcon.swift, CharacterPersistence.swift, AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal arm64 Compiling\ WorldView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -448,15 +448,15 @@ SwiftCompile normal arm64 Compiling\ MoneyLabel.swift,\ AvatarPortraitView.swift
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/MoneyLabel.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarPortraitView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomComposer.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -464,7 +464,7 @@ SwiftCompile normal arm64 Compiling\ LockedINApp.swift /Users/yusufsalih/Develop
 
 SwiftCompile normal arm64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/LockedINApp.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling MoneyLabel.swift, AvatarPortraitView.swift, RoomComposer.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -480,22 +480,22 @@ SwiftCompile normal x86_64 Compiling\ OnboardingHostView.swift /Users/yusufsalih
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 Compiling\ Progression.swift,\ WorldState.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/Progression.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Models/WorldState.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 Compiling\ WorldView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/WorldView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling Progression.swift, WorldState.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -503,7 +503,7 @@ SwiftCompile normal x86_64 Compiling\ AppStore.swift /Users/yusufsalih/Developer
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/AppStore.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling OnboardingHostView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -511,15 +511,15 @@ SwiftCompile normal x86_64 Compiling\ MoneyLabel.swift,\ AvatarPortraitView.swif
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Design/MoneyLabel.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Avatar/AvatarPortraitView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomComposer.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling AppStore.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -527,11 +527,11 @@ SwiftCompile normal x86_64 Compiling\ RoomSetupView.swift,\ SoloRoomView.swift /
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomSetupView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SoloRoomView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling MoneyLabel.swift, AvatarPortraitView.swift, RoomComposer.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -539,18 +539,18 @@ SwiftCompile normal x86_64 Compiling\ LiveRoomScene.swift,\ PixelAvatarView.swif
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/LiveRoomScene.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/PixelAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling RoomSetupView.swift, SoloRoomView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ PersonalRoomBuilderView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/PersonalRoomBuilderView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling WorldView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -558,17 +558,17 @@ SwiftCompile normal x86_64 Compiling\ HomeView.swift /Users/yusufsalih/Developer
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/HomeView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 Compiling\ RootView.swift,\ WorldStore.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/RootView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling PersonalRoomBuilderView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -577,15 +577,15 @@ SwiftDriverJobDiscovery normal x86_64 Compiling LiveRoomScene.swift, PixelAvatar
 SwiftCompile normal x86_64 Compiling\ RoomFurnitureDecor.swift,\ PixelButtonStyle.swift,\ PixelDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/Room/RoomFurnitureDecor.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelButtonStyle.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling RootView.swift, WorldStore.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -593,7 +593,7 @@ SwiftCompile normal x86_64 Compiling\ LockedINApp.swift /Users/yusufsalih/Develo
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/App/LockedINApp.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling HomeView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -601,7 +601,7 @@ SwiftCompile normal x86_64 Compiling\ StudySessionFlowView.swift /Users/yusufsal
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/StudySessionFlowView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling LockedINApp.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -610,28 +610,28 @@ SwiftDriverJobDiscovery normal x86_64 Compiling StudySessionFlowView.swift (in t
 SwiftCompile normal x86_64 Compiling\ AvatarRevealView.swift,\ CharacterGalleryView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/AvatarRevealView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 Compiling\ SparkleBurst.swift,\ SpriteAvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SparkleBurst.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/SpriteAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling RoomFurnitureDecor.swift, PixelButtonStyle.swift, PixelDecor.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ CharacterCustomizerView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/CharacterCustomizerView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling SparkleBurst.swift, SpriteAvatarView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -639,11 +639,11 @@ SwiftCompile normal x86_64 Compiling\ BrandLockHeader.swift,\ IsometricRoomView.
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/BrandLockHeader.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/IsometricRoomView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling AvatarRevealView.swift, CharacterGalleryView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -651,18 +651,18 @@ SwiftCompile normal x86_64 Compiling\ GroupRoomView.swift,\ RoomFlowView.swift /
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/GroupRoomView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/RoomFlowView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling BrandLockHeader.swift, IsometricRoomView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ LiveSessionView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/LiveSessionView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling GroupRoomView.swift, RoomFlowView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -670,29 +670,29 @@ SwiftCompile normal x86_64 Compiling\ WelcomeSplashView.swift /Users/yusufsalih/
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/WelcomeSplashView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling CharacterCustomizerView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ PixelIcon.swift,\ CharacterPersistence.swift,\ AvatarView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/PixelKit/UI/PixelIcon.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Services/CharacterPersistence.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Components/AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling WelcomeSplashView.swift (in target 'LockedIN' from project 'LockedIN')
 
 SwiftCompile normal x86_64 Compiling\ SettlementResultsView.swift /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/SettlementResultsView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling LiveSessionView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -700,11 +700,11 @@ SwiftCompile normal x86_64 Compiling\ FirstRoomBeatView.swift,\ ValuePropsView.s
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/FirstRoomBeatView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftCompile normal x86_64 /Users/yusufsalih/Developer/LockedIN/LockedIN/Views/Onboarding/ValuePropsView.swift (in target 'LockedIN' from project 'LockedIN')
     cd /Users/yusufsalih/Developer/LockedIN
-    
+
 
 SwiftDriverJobDiscovery normal x86_64 Compiling PixelIcon.swift, CharacterPersistence.swift, AvatarView.swift (in target 'LockedIN' from project 'LockedIN')
 
@@ -793,4 +793,3 @@ ProcessInfoPlistFile /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimula
     builtin-infoPlistUtility /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedINUITests.build/empty-LockedINUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /tmp/LockedIN-codex-build/Build/Intermediates.noindex/LockedIN.build/Debug-iphonesimulator/LockedINUITests.build/ProductTypeInfoPlistAdditions.plist -o /tmp/LockedIN-codex-build/Build/Products/Debug-iphonesimulator/LockedINUITests-Runner.app/PlugIns/LockedINUITests.xctest/Info.plist
 
 ** TEST BUILD SUCCEEDED **
-
