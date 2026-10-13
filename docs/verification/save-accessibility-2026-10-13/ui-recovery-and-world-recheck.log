@@ -1,0 +1,339 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=5DA4238F-6617-4E78-BBD0-80936A3A4B1E" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-50sd0s4h/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/WorldAccessibilityTests/testLargestTextWorldDistrictAndRoomJourney" "-only-testing:LockedINUITests/WorldRecoveryTests"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-50sd0s4h/OfflineLoop.xcresult
+
+2026-10-13 02:43:52.128037+0100 LockedINUITests-Runner[43082:1883453] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-13 02:43:59.669.
+Test Suite 'LockedINUITests.xctest' started at 2026-10-13 02:43:59.672.
+Test Suite 'WorldAccessibilityTests' started at 2026-10-13 02:43:59.672.
+Test Case '-[LockedINUITests.WorldAccessibilityTests testLargestTextWorldDistrictAndRoomJourney]' started.
+    t =     0.02s Start Test at 2026-10-13 02:43:59.695
+    t =     1.65s Set Up
+    t =     1.77s     Open com.lockedin.app
+    t =     1.77s         Launch com.lockedin.app
+    t =    14.99s             Setting up automation session
+    t =    20.98s             Wait for com.lockedin.app to idle
+    t =    25.57s     Waiting 30.0s for "study.start" Button to exist
+    t =    26.57s         Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    26.57s             Checking existence of `"study.start" Button`
+    t =    26.89s Tap "0 coins. View progress" Button
+    t =    26.90s     Wait for com.lockedin.app to idle
+    t =    26.91s     Find the "0 coins. View progress" Button
+    t =    27.04s     Check for interrupting elements affecting "0 coins. View progress" Button
+    t =    27.21s     Synthesize event
+    t =    28.01s     Wait for com.lockedin.app to idle
+    t =    28.87s Waiting 15.0s for "world.back" Button to exist
+    t =    29.88s     Checking `Expect predicate `existsNoRetry == 1` for object "world.back" Button`
+    t =    29.88s         Checking existence of `"world.back" Button`
+    t =    30.11s Find the Target Application 'com.lockedin.app'
+    t =    30.96s Added attachment named 'world-largest-header'
+    t =    30.96s Checking existence of `"Customise room" Button`
+    t =    31.12s Find the "Customise room" Button
+    t =    31.28s Checking existence of `"Customise room" Button`
+    t =    31.42s Find the "Customise room" Button
+    t =    31.55s Find the ScrollView (First Match)
+    t =    31.64s Press ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.70] for 0.1 seconds, then drag to ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.35] with velocity of 250.00 pixels per second, and then hold for 0.1 seconds 
+    t =    31.64s     Wait for com.lockedin.app to idle
+    t =    31.65s     Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    31.70s     Check for interrupting elements affecting ScrollView
+    t =    31.84s     Synthesize event
+    t =    31.85s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    31.93s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    32.00s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    32.13s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    32.21s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    33.51s     Wait for com.lockedin.app to idle
+    t =    33.54s Checking existence of `"Customise room" Button`
+    t =    33.73s Find the "Customise room" Button
+    t =    33.93s Checking existence of `"Customise room" Button`
+    t =    34.09s Find the "Customise room" Button
+    t =    34.25s Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    34.30s Press ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.70] for 0.1 seconds, then drag to ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.35] with velocity of 250.00 pixels per second, and then hold for 0.1 seconds 
+    t =    34.30s     Wait for com.lockedin.app to idle
+    t =    34.31s     Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    34.36s     Check for interrupting elements affecting ScrollView
+    t =    34.49s     Synthesize event
+    t =    34.50s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    34.56s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    34.62s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    34.68s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    34.74s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    36.04s     Wait for com.lockedin.app to idle
+    t =    36.06s Checking existence of `"Customise room" Button`
+    t =    36.23s Find the "Customise room" Button
+    t =    36.45s Find the "Customise room" Button
+    t =    36.68s Find the Target Application 'com.lockedin.app'
+    t =    36.93s Tap "Customise room" Button
+    t =    36.93s     Wait for com.lockedin.app to idle
+    t =    37.17s     Find the "Customise room" Button
+    t =    37.33s     Check for interrupting elements affecting "Customise room" Button
+    t =    37.47s     Synthesize event
+    t =    37.81s     Wait for com.lockedin.app to idle
+    t =    38.49s Waiting 15.0s for "room.done" Button to exist
+    t =    39.50s     Checking `Expect predicate `existsNoRetry == 1` for object "room.done" Button`
+    t =    39.50s         Checking existence of `"room.done" Button`
+    t =    39.84s Tap "room.done" Button
+    t =    39.84s     Wait for com.lockedin.app to idle
+    t =    39.85s     Find the "room.done" Button
+    t =    40.11s     Check for interrupting elements affecting "room.done" Button
+    t =    40.31s     Synthesize event
+    t =    40.64s     Wait for com.lockedin.app to idle
+    t =    41.02s Waiting 15.0s for "world.back" Button to exist
+    t =    42.02s     Checking `Expect predicate `existsNoRetry == 1` for object "world.back" Button`
+    t =    42.02s         Checking existence of `"world.back" Button`
+    t =    42.18s Checking existence of `"world.building.libraryHub" Any`
+    t =    42.68s Find the "world.building.libraryHub" Any
+    t =    43.11s Checking existence of `"world.building.libraryHub" Other`
+    t =    43.49s Find the "world.building.libraryHub" Other
+    t =    44.05s Find the ScrollView (First Match)
+    t =    44.12s Press ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.70] for 0.1 seconds, then drag to ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.35] with velocity of 250.00 pixels per second, and then hold for 0.1 seconds 
+    t =    44.12s     Wait for com.lockedin.app to idle
+    t =    44.13s     Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    44.19s     Check for interrupting elements affecting ScrollView
+    t =    44.35s     Synthesize event
+    t =    44.36s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    44.42s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    44.50s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    44.57s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    44.66s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    45.98s     Wait for com.lockedin.app to idle
+    t =    45.99s Checking existence of `"world.building.libraryHub" Other`
+    t =    46.36s Find the "world.building.libraryHub" Other
+    t =    46.74s Checking existence of `"world.building.libraryHub" Other`
+    t =    47.21s Find the "world.building.libraryHub" Other
+    t =    47.98s Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    48.04s Press ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.70] for 0.1 seconds, then drag to ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.35] with velocity of 250.00 pixels per second, and then hold for 0.1 seconds 
+    t =    48.04s     Wait for com.lockedin.app to idle
+    t =    48.05s     Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    48.10s     Check for interrupting elements affecting ScrollView
+    t =    48.25s     Synthesize event
+    t =    48.26s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    48.31s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    48.37s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    48.43s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    48.50s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    49.81s     Wait for com.lockedin.app to idle
+    t =    49.83s Checking existence of `"world.building.libraryHub" Other`
+    t =    50.24s Find the "world.building.libraryHub" Other
+    t =    51.77s Find the "world.building.libraryHub" Other
+    t =    52.21s Find the Target Application 'com.lockedin.app'
+    t =    52.36s Checking existence of `"world.building.libraryHub" Other`
+    t =    52.70s Find the "world.building.libraryHub" Other
+    t =    53.05s Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    53.11s Press ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.70] for 0.1 seconds, then drag to ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.35] with velocity of 250.00 pixels per second, and then hold for 0.1 seconds 
+    t =    53.11s     Wait for com.lockedin.app to idle
+    t =    53.12s     Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    53.17s     Check for interrupting elements affecting ScrollView
+    t =    53.38s     Synthesize event
+    t =    53.39s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    53.59s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    53.65s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    53.71s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    53.77s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    55.08s     Wait for com.lockedin.app to idle
+    t =    55.10s Checking existence of `"world.building.libraryHub" Other`
+    t =    55.46s Find the "world.building.libraryHub" Other
+    t =    55.81s Find the "world.building.libraryHub" Other
+    t =    56.17s Find the Target Application 'com.lockedin.app'
+    t =    56.30s Find the "world.building.libraryHub" Other
+    t =    56.65s Find the "world.building.libraryHub" Other
+    t =    57.01s Tap "world.building.libraryHub" Other
+    t =    57.01s     Wait for com.lockedin.app to idle
+    t =    57.03s     Find the "world.building.libraryHub" Other
+    t =    57.37s     Check for interrupting elements affecting "world.building.libraryHub" Other
+    t =    57.62s     Synthesize event
+    t =    57.95s     Wait for com.lockedin.app to idle
+    t =    57.97s Checking existence of `"Your next session will help grow Library Hub." StaticText`
+    t =    58.21s Find the Target Application 'com.lockedin.app'
+    t =    58.79s Added attachment named 'world-largest-library'
+    t =    58.79s Checking existence of `"world.building.languageCafe" Any`
+    t =    59.32s Find the "world.building.languageCafe" Any
+    t =    59.88s Find the "world.building.languageCafe" Other
+    t =    61.00s Find the Target Application 'com.lockedin.app'
+    t =    61.20s Checking existence of `"world.building.languageCafe" Other`
+    t =    61.71s Find the "world.building.languageCafe" Other
+    t =    62.17s Find the ScrollView (First Match)
+    t =    62.24s Press ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.70] for 0.1 seconds, then drag to ScrollView at {{0.0, 273.3}, {402.0, 600.7}}[0.50, 0.35] with velocity of 250.00 pixels per second, and then hold for 0.1 seconds 
+    t =    62.24s     Wait for com.lockedin.app to idle
+    t =    62.25s     Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    62.30s     Check for interrupting elements affecting ScrollView
+    t =    62.56s     Synthesize event
+    t =    62.57s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    62.63s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    62.69s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    62.73s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    62.79s         Find the ScrollView at {{0.0, 273.3}, {402.0, 600.7}}
+    t =    64.09s     Wait for com.lockedin.app to idle
+    t =    64.10s Checking existence of `"world.building.languageCafe" Other`
+    t =    64.41s Find the "world.building.languageCafe" Other
+    t =    64.78s Find the "world.building.languageCafe" Other
+    t =    65.15s Find the Target Application 'com.lockedin.app'
+    t =    65.28s Find the "world.building.languageCafe" Other
+    t =    65.61s Find the "world.building.languageCafe" Other
+/Users/yusufsalih/Developer/LockedIN/UITests/WorldAccessibilityTests.swift:75: error: -[LockedINUITests.WorldAccessibilityTests testLargestTextWorldDistrictAndRoomJourney] : XCTAssertFalse failed
+    t =    67.48s Tear Down
+    t =    67.49s     Terminate com.lockedin.app:43153
+    t =    69.50s     Open com.lockedin.app
+    t =    69.51s         Launch com.lockedin.app
+    t =    70.88s             Setting up automation session
+    t =    76.68s             Wait for com.lockedin.app to idle
+    t =    79.13s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    80.15s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    80.15s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    80.43s     Terminate com.lockedin.app:43306
+Test Case '-[LockedINUITests.WorldAccessibilityTests testLargestTextWorldDistrictAndRoomJourney]' failed (81.883 seconds).
+Test Suite 'WorldAccessibilityTests' failed at 2026-10-13 02:45:21.580.
+	 Executed 1 test, with 1 failure (0 unexpected) in 81.883 (81.908) seconds
+Test Suite 'WorldRecoveryTests' started at 2026-10-13 02:45:21.583.
+Test Case '-[LockedINUITests.WorldRecoveryTests testPendingResultsSurviveReturningHomeWhenWorldCannotSave]' started.
+    t =     0.00s Start Test at 2026-10-13 02:45:21.587
+    t =     0.28s Set Up
+    t =     0.29s Open com.lockedin.app
+    t =     0.29s     Launch com.lockedin.app
+    t =     1.10s         Setting up automation session
+    t =     4.59s         Wait for com.lockedin.app to idle
+    t =     7.95s Waiting 30.0s for "study.start" Button to exist
+    t =     8.96s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =     8.97s         Checking existence of `"study.start" Button`
+    t =     9.82s Find the "study.start" Button
+    t =     9.94s Find the "study.start" Button
+    t =    10.18s Tap "study.start" Button
+    t =    10.18s     Wait for com.lockedin.app to idle
+    t =    10.19s     Find the "study.start" Button
+    t =    10.30s     Check for interrupting elements affecting "study.start" Button
+    t =    10.46s     Synthesize event
+    t =    10.84s     Wait for com.lockedin.app to idle
+    t =    11.90s Waiting 15.0s for "Your results are kept" StaticText to exist
+    t =    12.92s     Checking `Expect predicate `existsNoRetry == 1` for object "Your results are kept" StaticText`
+    t =    12.92s         Checking existence of `"Your results are kept" StaticText`
+    t =    13.12s Checking existence of `"Reward not saved yet" StaticText`
+    t =    13.26s Find the "study.coins" StaticText
+    t =    13.43s Checking existence of `"study.done" Button`
+    t =    13.58s Find the "study.done" Button
+    t =    13.79s Swipe up ScrollView (First Match)
+    t =    13.79s     Wait for com.lockedin.app to idle
+    t =    13.84s     Find the ScrollView (First Match)
+    t =    13.88s     Check for interrupting elements affecting ScrollView
+    t =    14.03s     Synthesize event
+    t =    14.52s     Wait for com.lockedin.app to idle
+    t =    15.11s Checking existence of `"study.done" Button`
+    t =    15.24s Find the "study.done" Button
+    t =    15.46s Find the "study.done" Button
+    t =    15.63s Find the Target Application 'com.lockedin.app'
+    t =    16.13s Added attachment named 'recovery-results-kept'
+    t =    16.14s Tap "study.done" Button
+    t =    16.14s     Wait for com.lockedin.app to idle
+    t =    16.35s     Find the "study.done" Button
+    t =    16.49s     Check for interrupting elements affecting "study.done" Button
+    t =    16.60s     Synthesize event
+    t =    16.94s     Wait for com.lockedin.app to idle
+    t =    17.27s Waiting 15.0s for "study.start" Button to exist
+    t =    18.29s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    18.29s         Checking existence of `"study.start" Button`
+    t =    18.36s Find the "study.start" Button
+    t =    18.42s Terminate com.lockedin.app:43326
+    t =    19.43s Open com.lockedin.app
+    t =    19.43s     Launch com.lockedin.app
+    t =    20.19s         Setting up automation session
+    t =    25.10s         Wait for com.lockedin.app to idle
+    t =    27.73s Waiting 30.0s for "study.start" Button to exist
+    t =    28.74s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    28.74s         Checking existence of `"study.start" Button`
+    t =    28.91s Find the "study.start" Button
+    t =    29.00s Tap "study.start" Button
+    t =    29.00s     Wait for com.lockedin.app to idle
+    t =    29.01s     Find the "study.start" Button
+    t =    29.09s     Check for interrupting elements affecting "study.start" Button
+    t =    29.19s     Synthesize event
+    t =    29.54s     Wait for com.lockedin.app to idle
+    t =    30.03s Waiting 15.0s for "Your results are kept" StaticText to exist
+    t =    31.05s     Checking `Expect predicate `existsNoRetry == 1` for object "Your results are kept" StaticText`
+    t =    31.05s         Checking existence of `"Your results are kept" StaticText`
+    t =    31.23s Tear Down
+    t =    31.23s     Terminate com.lockedin.app:43364
+    t =    32.25s     Open com.lockedin.app
+    t =    32.25s         Launch com.lockedin.app
+    t =    32.89s             Setting up automation session
+    t =    36.28s             Wait for com.lockedin.app to idle
+    t =    38.21s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    39.21s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    39.21s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    39.26s     Terminate com.lockedin.app:43382
+Test Case '-[LockedINUITests.WorldRecoveryTests testPendingResultsSurviveReturningHomeWhenWorldCannotSave]' passed (40.471 seconds).
+Test Case '-[LockedINUITests.WorldRecoveryTests testUnreadableWorldPausesNewStudyAndHidesSeededProgress]' started.
+    t =     0.00s Start Test at 2026-10-13 02:46:02.066
+    t =     0.26s Set Up
+    t =     0.27s Open com.lockedin.app
+    t =     0.27s     Launch com.lockedin.app
+    t =     0.71s         Setting up automation session
+    t =     4.11s         Wait for com.lockedin.app to idle
+    t =     9.01s Waiting 30.0s for "study.start" Button to exist
+    t =    10.03s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    10.04s         Checking existence of `"study.start" Button`
+    t =    10.21s Checking existence of `"Your saved world needs attention" StaticText`
+    t =    10.28s Find the "study.start" Button
+    t =    10.34s Checking existence of `"Your study room" StaticText`
+    t =    10.42s Find the Target Application 'com.lockedin.app'
+    t =    10.79s Added attachment named 'recovery-home'
+    t =    10.80s Tap "Saved world unavailable. View details" Button
+    t =    10.80s     Wait for com.lockedin.app to idle
+    t =    10.80s     Find the "Saved world unavailable. View details" Button
+    t =    10.88s     Check for interrupting elements affecting "Saved world unavailable. View details" Button
+    t =    10.97s     Synthesize event
+    t =    11.33s     Wait for com.lockedin.app to idle
+    t =    11.52s Waiting 15.0s for "world.back" Button to exist
+    t =    12.52s     Checking `Expect predicate `existsNoRetry == 1` for object "world.back" Button`
+    t =    12.52s         Checking existence of `"world.back" Button`
+    t =    14.30s Checking existence of `"Your saved world needs attention" StaticText`
+    t =    14.40s Checking existence of `"world.building.libraryHub" Button`
+    t =    14.57s Find the Target Application 'com.lockedin.app'
+    t =    15.09s Added attachment named 'recovery-world'
+    t =    15.09s Tap "world.back" Button
+    t =    15.09s     Wait for com.lockedin.app to idle
+    t =    15.11s     Find the "world.back" Button
+    t =    15.19s     Check for interrupting elements affecting "world.back" Button
+    t =    15.29s     Synthesize event
+    t =    15.61s     Wait for com.lockedin.app to idle
+    t =    15.96s Terminate com.lockedin.app:43401
+    t =    17.00s Open com.lockedin.app
+    t =    17.00s     Launch com.lockedin.app
+    t =    17.66s         Setting up automation session
+    t =    22.64s         Wait for com.lockedin.app to idle
+    t =    24.67s Waiting 30.0s for "study.start" Button to exist
+    t =    25.68s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    25.68s         Checking existence of `"study.start" Button`
+    t =    25.91s Find the "study.start" Button
+    t =    25.99s Tear Down
+    t =    25.99s     Terminate com.lockedin.app:43429
+    t =    27.01s     Open com.lockedin.app
+    t =    27.01s         Launch com.lockedin.app
+    t =    27.67s             Setting up automation session
+    t =    31.39s             Wait for com.lockedin.app to idle
+    t =    33.14s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    34.14s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    34.15s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    34.21s     Terminate com.lockedin.app:43485
+Test Case '-[LockedINUITests.WorldRecoveryTests testUnreadableWorldPausesNewStudyAndHidesSeededProgress]' passed (35.332 seconds).
+Test Suite 'WorldRecoveryTests' passed at 2026-10-13 02:46:37.399.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 75.803 (75.816) seconds
+Test Suite 'LockedINUITests.xctest' failed at 2026-10-13 02:46:37.404.
+	 Executed 3 tests, with 1 failure (0 unexpected) in 157.686 (157.732) seconds
+Test Suite 'Selected tests' failed at 2026-10-13 02:46:37.406.
+	 Executed 3 tests, with 1 failure (0 unexpected) in 157.686 (157.737) seconds
+2026-10-13 02:47:26.554 xcodebuild[42999:1882487] [MT] IDETestOperationsObserverDebug: 249.121 elapsed -- Testing started completed.
+2026-10-13 02:47:26.555 xcodebuild[42999:1882487] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-13 02:47:26.555 xcodebuild[42999:1882487] [MT] IDETestOperationsObserverDebug: 249.121 sec, +249.121 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-50sd0s4h/OfflineLoop.xcresult
+
+** TEST EXECUTE FAILED **
+
+Testing started

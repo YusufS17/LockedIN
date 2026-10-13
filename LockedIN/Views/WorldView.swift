@@ -265,7 +265,6 @@ struct WorldView: View {
         }
         .buttonStyle(.plain)
         .disabled(!b.unlocked)
-        .accessibilityElement(children: .ignore)
         .accessibilityIdentifier("world.building.\(b.id)")
         .accessibilityLabel(b.type.title)
         .accessibilityValue(!b.unlocked ? "Locked" : canBuild ? "Build for \(buildCost) coins" : "Level \(b.level), \(b.progressXP) of \(b.requiredXP) XP")

@@ -2,16 +2,15 @@
 
 Last updated: 2026-10-13
 
-## Current work — Phase 1 save protection and accessibility, 2026-10-13
+## Current work — Phase1 verified; Phase2 service slice complete, 2026-10-13
 
-- User authorised detailed phases/Builder/Verifier/QC agents, implementation, commits and push to configured origin `https://github.com/YusufS17/LockedIN`. [Active plan](.planning/PHASES_AND_AGENTS.md) defines phases, owners, acceptance and real decision gates.
-- Save/UI builders and QC/verifier finished their slices; no subagents remain running. Session/world/service checks and independent QC passed. Lead is completing final build/runtime checks.
-- Implemented original-byte preservation for unreadable/future world saves, blocked mutations, truthful Home/World/results recovery screens and pending-result retention. World accessibility now uses scalable fonts and adaptive layouts. Added disposable recovery and largest-text UI cases.
-- Added Phase2 actor wallet safety; concurrent checks (960 requests/120 disposable wallets) passed and independently rechecked. Final validation covers malformed/wrong-type sessions, receipt identity and fractional-break completion.
-- Final build-for-testing passed, including actor wallet and revised QA preferences/tests. Running: final targeted UI recheck under420s bound. First UI run reached World/decorating but failed tile navigation, then encountered launch/cleanup timeouts; bounded runner exited124 after600s. Bundle incomplete; no full UI pass claimed.
-- Improved UI test element lookup/scrolling and added reduced-motion preference only for namespaced Debug fixtures. Runtime checks remain open.
-- Previous13 milestones pushed successfully: origin/main moved c66d487 →285da60. Current Phase1/Phase2 slice is ready for reviewed checkpoint commit while runtime recheck runs. No deployment.
-- Next: independent QC, inspect runtime evidence, commit and non-force push; preserve exact remaining limits. Art direction/backend decisions remain gated.
+- [Detailed phases and Builder/Verifier/QC roles](.planning/PHASES_AND_AGENTS.md), with Phase2–6 work packets, saved and implemented against the current architecture.
+- Phase1: unreadable/future world saves preserved, blocked mutations and honest recovery UI, pending results retained, malformed/wrong-type sessions protected, monotonic checkpoints and exact fractional breaks, accessible World layouts and native Button/disabled semantics.
+- Phase2 service slice: actor-isolated simulated wallets;960 concurrent requests across120 disposable scenarios pass, independently rechecked. Other Phase2 acceptance remains open.
+- Final app/UI target build, world recovery/rewards, production study integration, dedicated session validation and service checks pass. All3 targeted UI journeys have passing evidence across revised runs: World109.861s, pending results40.471s, unreadable world35.332s. Earlier timeout/failure attempts are recorded, not claimed passed. [Evidence and inspected renders](docs/verification/save-accessibility-2026-10-13/README.md).
+- Prior13 milestones plus implementation d82004d pushed to origin/main. Final native-button fix/evidence follow-up is being committed and pushed under this authorised request; actual upload receipt will be added to the final handoff.
+- No agents/build/test/export jobs remain running. App/simulator left open on ordinary World using an isolated render fixture. Passing UI suites cleaned up; older timed-out fixture cleanup unconfirmed. No user data erasure or deployment.
+- Next: remaining Phase2 offline beta checks — compact-phone/VoiceOver/actual Reduce Motion toggle and onboarding backtracking/task cleanup. Character direction and backend account decisions still gate Phases3/4. Corrupt-world automatic repair and independent writer transactions remain unimplemented.
 
 ## Product direction
 

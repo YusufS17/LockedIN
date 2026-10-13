@@ -63,6 +63,7 @@ final class WorldAccessibilityTests: XCTestCase {
 
         let library = app.descendants(matching: .any).matching(identifier: "world.building.libraryHub").firstMatch
         reveal(library)
+        XCTAssertEqual(library.elementType, .button)
         XCTAssertEqual(library.label, "Library Hub")
         XCTAssertTrue(library.isSelected)
         library.tap()
@@ -71,6 +72,7 @@ final class WorldAccessibilityTests: XCTestCase {
 
         let cafe = app.descendants(matching: .any).matching(identifier: "world.building.languageCafe").firstMatch
         reveal(cafe)
+        XCTAssertEqual(cafe.elementType, .button)
         XCTAssertEqual(cafe.value as? String, "Locked")
         XCTAssertFalse(cafe.isEnabled)
         // Accessibility sizes use one full-width column, preserving room for names.
