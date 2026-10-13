@@ -1,7 +1,7 @@
 ---
-status: phase1_verification
+status: phase1_verified_phase2_service_complete
 last_updated: "2026-10-13"
-stopped_at: "Phase 1 integrated; final validation, build and runtime verification in progress; push authorised"
+stopped_at: "Phase1 and Phase2 wallet slice verified and pushed; continue remaining offline-beta acceptance"
 ---
 
 # Current handoff
@@ -30,11 +30,17 @@ Continue building the native iPhone app, preserve existing work and make progres
 - Rebuilt the app successfully and passed duplicate-reward, reload, distinct-session, demo/exit, migration and reset checks.
 - Created the root progress overview and refreshed this handoff and the roadmap.
 
-## Active phase — 2026-10-13
+## Active phase — 2026-10-13, final handoff
 
-[Detailed phases and agent responsibilities](PHASES_AND_AGENTS.md) is the active plan. User authorised next-phase implementation, delegation, commits and push to existing origin `https://github.com/YusufS17/LockedIN`; remote fetched successfully. This supersedes older statements that push requires destination confirmation. Deployment/destructive changes/production data remain unapproved.
+[Detailed phases and agent responsibilities](PHASES_AND_AGENTS.md) governs delivery; follow-on packets live under engineering-phases/. User authorised next-phase implementation, delegation, commits and ordinary push to existing origin `https://github.com/YusufS17/LockedIN`. This supersedes historical push-destination blockers. Deployment, destructive resets, production changes and real payments remain outside scope.
 
-Phase1 implements non-destructive world-save recovery, pending-result retention, monotonic session checkpoints/consistent outcomes and accessible World layouts. Builders finished their slices; QC/verifier and lead integration verification are running. New tests use disposable suites. Final build-for-testing/model/runtime checks and commit/push evidence are pending. Do not claim completion from previous screenshots or fixture passes.
+Phase1 is locally verified: non-destructive world-save locks and honest recovery surfaces; pending results/participant UUID retained; malformed/wrong-type session protection, compatible checkpoint revisions and exact fractional breaks; semantic/adaptive World layout and correct native Button/disabled state. Phase2 wallet concurrency slice also implemented and independently checked; remaining Phase2 work is open.
+
+Checks passed: final app/UI build, world recovery/reward/migration checks, dedicated session validation, production study integration and actor/service fixtures. All3 targeted UI journeys have passing evidence across revised runs: World109.861s (final affected case), pending results40.471s, unreadable world35.332s. Earlier timeout/failed grouping attempts and compile error/fix are recorded. Actual ordinary World, largest-text World and recovery screenshots inspected. [Durable evidence](../docs/verification/save-accessibility-2026-10-13/README.md).
+
+Actual GitHub push confirmed through source/evidence commit d37d43b, including implementation d82004d and the earlier13 pending milestones. Final handoff notes are saved separately with this update. No deployment. No agents/build/test/export jobs remain running. Existing iPhone17 simulator/app left on ordinary World using isolated render suite LockedIN.ui-tests.phase1-normal-world. Passing UI test suites cleaned up; older timed-out fixture cleanup unconfirmed. Ordinary user saves never reset.
+
+Next concrete slice: Phase2 onboarding same-base backtracking and short-task cancellation, then compact-phone, full VoiceOver and actual system Reduce Motion toggle acceptance. Current tests use a Debug-only reduced-motion fixture; this does not verify toggling the OS setting. Automatic corrupt-world repair, independent writers, exhaustive world semantic validation and physical-device soak remain open. Phase3 character direction and Phase4 backend/account provisioning require real decisions; do independent authorised engineering first.
 
 ## Engineering continuation — 2026-10-13
 
@@ -82,7 +88,7 @@ Run the three regression executables using [Tests/README.md](../Tests/README.md)
 
 ## Important implementation constraints
 
-- Accumulated pre-existing work was preserved in local recovery commit `e2af5a1`; implementation polish is in `175271e`. Nothing was pushed. Preserve all saves and later edits.
+- Accumulated pre-existing work was preserved in recovery commit `e2af5a1`; implementation polish is in `175271e`. These were initially local; the active handoff above records their subsequent GitHub upload. Preserve all saves and later edits.
 - Reward receipt identity is the user's participant UUID, created per session roster. Future session restoration must retain it; rebuilding the roster creates a different identity.
 - Receipts and balances are saved in one world payload. ActiveStudySession is persisted separately until results acknowledgment; a replay keeps the participant UUID and reuses the receipt. Tests cover normal save/reload, not power-loss durability or concurrent writers.
 - User results now report recorded timer completion and self-reported breaks/interruptions, not attention/app usage. Companion values remain seeded; never describe them as real friends.

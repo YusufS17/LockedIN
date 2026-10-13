@@ -23,9 +23,9 @@ Windows/Linux can edit project files and inspect design artifacts but cannot run
 
 Tell your coding assistant:
 
-> Read AGENTS.md, PROGRESS.md and .planning/STATE.md before working. We are exploring character art directions. Review docs/design/concepts/character-directions-2026-10-04/. Two generated comparison boards are saved with exact prompts. Wait for my choice before implementing a character style. Preserve existing app code and saves.
+> Read AGENTS.md, PROGRESS.md, .planning/STATE.md and .planning/PHASES_AND_AGENTS.md. Act as lead engineer, preserve existing saves and code, and continue the next authorised offline-beta slice with Builder/Verifier/QC responsibilities. Phase1 save/accessibility work and Phase2 wallet concurrency are verified; evidence is in docs/verification/save-accessibility-2026-10-13/. Real character-style and backend/account decisions still require input. No deployment or destructive resets.
 
-Current next step: choose/refine a visual direction, including multiple identities, seated poses and room context. Concepts are not implemented sprites; printed sprite dimensions are illustrative. Previous app build and simulator verification evidence is saved in docs/verification/CONTINUATION_TEAM.md.
+Current next work: preserve onboarding edits when returning to the same base, review short-task cancellation, then compact-phone/VoiceOver/real Reduce Motion toggle checks. The original character boards remain unapproved concepts. Actual source/evidence has been pushed to GitHub through d37d43b; clone/pull the latest branch for current handoff notes. Earlier CONTINUATION_TEAM.md evidence remains historical.
 
 ## What transfers and what does not
 

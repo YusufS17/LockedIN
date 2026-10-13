@@ -8,7 +8,7 @@ Last updated: 2026-10-13
 - Phase1: unreadable/future world saves preserved, blocked mutations and honest recovery UI, pending results retained, malformed/wrong-type sessions protected, monotonic checkpoints and exact fractional breaks, accessible World layouts and native Button/disabled semantics.
 - Phase2 service slice: actor-isolated simulated wallets;960 concurrent requests across120 disposable scenarios pass, independently rechecked. Other Phase2 acceptance remains open.
 - Final app/UI target build, world recovery/rewards, production study integration, dedicated session validation and service checks pass. All3 targeted UI journeys have passing evidence across revised runs: World109.861s, pending results40.471s, unreadable world35.332s. Earlier timeout/failure attempts are recorded, not claimed passed. [Evidence and inspected renders](docs/verification/save-accessibility-2026-10-13/README.md).
-- Prior13 milestones plus implementation d82004d pushed to origin/main. Final native-button fix/evidence follow-up is being committed and pushed under this authorised request; actual upload receipt will be added to the final handoff.
+- GitHub upload confirmed: prior13 milestones, implementation d82004d and final native-button fix/inspected runtime evidence d37d43b pushed to origin/main. Final handoff notes are saved with this update; no deployment.
 - No agents/build/test/export jobs remain running. App/simulator left open on ordinary World using an isolated render fixture. Passing UI suites cleaned up; older timed-out fixture cleanup unconfirmed. No user data erasure or deployment.
 - Next: remaining Phase2 offline beta checks — compact-phone/VoiceOver/actual Reduce Motion toggle and onboarding backtracking/task cleanup. Character direction and backend account decisions still gate Phases3/4. Corrupt-world automatic repair and independent writer transactions remain unimplemented.
 
@@ -55,7 +55,7 @@ Latest build log: `/tmp/LockedIN-continuation-editor-build.log` (temporary and m
 ## Continue from here
 
 1. Read [current handoff](.planning/STATE.md) for exact recovery context and constraints.
-2. Follow the [active roadmap](.planning/ROADMAP.md), starting with the remaining directional art and private-friends integration gates.
+2. Follow the [current phase/agent plan](.planning/PHASES_AND_AGENTS.md), continuing remaining Phase2 offline-beta acceptance before the gated art/backend phases.
 3. Use the [implementation summary](docs/INTERFACE_PASS.md) for screen details and Debug preview arguments.
 4. Consult the [product audit](docs/PRODUCT_AUDIT.md) for rationale and outstanding architecture gaps; it records the earlier baseline, not the latest completion status.
 

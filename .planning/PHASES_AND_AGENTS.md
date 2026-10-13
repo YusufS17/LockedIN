@@ -14,7 +14,7 @@ Active plan, 2026-10-13. The user requests detailed phases, Builder/Verifier/QC 
 
 Builders do not approve their own work alone. Lead serialises simulator/build operations to reduce contention. Verifier/QC can reuse an available agent slot; role names describe responsibilities, not claims of always-running agents. At most four simultaneous agents including lead. No background work is claimed after agents finish.
 
-## Phase 1 — save protection, reliable outcomes and accessible world (active)
+## Phase 1 — save protection, reliable outcomes and accessible world (locally verified)
 
 **1A World save protection:** distinguish missing, valid legacy/current, unreadable/wrong-type and future-version payloads. Preserve unreadable bytes. Block progression, purchases, placements and reset until recovery. Give clear UI feedback without showing a seeded world as recovered progress. Keep pending results/participant UUID when reward saving is unavailable.
 
@@ -24,7 +24,9 @@ Builders do not approve their own work alone. Lead serialises simulator/build op
 
 **Acceptance:** production-model checks, compatibility/replay tests, app/test-target build, clean diff, independent QC; inspect ordinary/largest-text renders and affected journeys. Simulator timeouts leave interaction acceptance open. No automatic data erasure.
 
-**Current ownership:** save_builder owns WorldStore/WorldState + existing economy integration tests; accessibility_builder owns WorldView + dedicated UI tests; qc_verifier owns ActiveStudySession/StudySessionStore + dedicated validation tests and later independent review; lead owns recovery call-site integration, planning, build/runtime orchestration and Git.
+**Completed implementation ownership:** save_builder owns WorldStore/WorldState + existing economy integration tests; accessibility_builder owns WorldView + dedicated UI tests; qc_verifier owns ActiveStudySession/StudySessionStore + dedicated validation tests and later independent review; lead owns recovery call-site integration, planning, build/runtime orchestration and Git.
+
+**Verification outcome:** model/store/service checks and final app/UI build pass. All3 targeted journeys have passing evidence across revised runs; actual normal/large-text/recovery captures inspected. Earlier failures/timeouts and remaining full accessibility/device limits are recorded in [evidence](../docs/verification/save-accessibility-2026-10-13/README.md). Source/evidence pushed through d37d43b; no jobs remain running.
 
 ## Phase 2 — offline beta acceptance and remaining engineering hardening
 
