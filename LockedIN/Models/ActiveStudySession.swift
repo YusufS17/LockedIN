@@ -50,19 +50,21 @@ struct ActiveStudySession: Codable, Equatable, Identifiable {
         }
     }
 
+    var hasExhaustedRevisions: Bool { revision == Int.max - 11 && phase != .results }
+
     var isRunning: Bool { phase == .focusing || phase == .onBreak }
     var user: SessionParticipant? { participants.first(where: \.isUser) }
     var isValid: Bool {
         version == 1 && revision >= 0 && revision < Int.max - 10 && config.stakePence == 0 &&
         config.distractionLimit >= 0 && (1...180).contains(config.focusMinutes) &&
-        startedAt.timeIntervalSince1970.isFinite &&
-        (endedAt.map { $0.timeIntervalSince1970.isFinite && $0 >= startedAt } ?? true) &&
-        (breakStartedAt.map { $0.timeIntervalSince1970.isFinite && $0 >= startedAt } ?? true) &&
+        FocusClock.isRepresentableDate(startedAt) &&
+        (endedAt.map { FocusClock.isRepresentableDate($0) && $0 >= startedAt } ?? true) &&
+        (breakStartedAt.map { FocusClock.isRepresentableDate($0) && $0 >= startedAt } ?? true) &&
         config.breakAllowance >= 0 && config.breakAllowance <= 10 &&
         participants.count >= 1 && participants.count <= 8 &&
         participants.filter(\.isUser).count == 1 &&
         Set(participants.map(\.id)).count == participants.count &&
-        participants.allSatisfy { ($0.studyIntent?.isValid ?? true) && $0.distractions >= 0 && (0...100).contains($0.focusPct) } &&
+        participants.allSatisfy { ($0.studyIntent?.isValid ?? true) && $0.distractions >= 0 && $0.distractions < Int.max && (0...100).contains($0.focusPct) } &&
         clock.isValid && clock.duration == Double(config.sessionSeconds) &&
         clock.isPaused == (phase != .focusing) &&
         breaksUsed >= 0 && breaksUsed <= config.breakAllowance &&
@@ -90,15 +92,35 @@ struct ActiveStudySession: Codable, Equatable, Identifiable {
     }
 
     private mutating func recordChange(from previous: Self) {
-        if self != previous { checkpointRevision = revision + 1 }
+        // Saturate at the existing largest supported revision. Nested transitions
+        // can record more than one change; saturation preserves a valid successor.
+        if self != previous { checkpointRevision = min(revision + 1, Int.max - 11) }
+    }
+
+    /// Validate the effective snapshot before a restore or a live time transition.
+    /// A running break must include its elapsed interval in the conversion bound.
+    func isValid(at now: Date) -> Bool {
+        isValid && FocusClock.isRepresentableDate(now) && breakTotal(at: now) != nil &&
+        FocusClock.isRepresentableDate(now.addingTimeInterval(clock.duration))
+    }
+
+    private func breakTotal(at now: Date) -> TimeInterval? {
+        guard FocusClock.isRepresentableDate(now) else { return nil }
+        let elapsed = breakStartedAt.map { max(0, now.timeIntervalSince($0)) } ?? 0
+        let total = accumulatedBreakSeconds + elapsed
+        guard total.isFinite, total >= 0, total < Double(Int.max) else { return nil }
+        return total
     }
 
     func breakSeconds(at now: Date) -> Int {
-        Int((accumulatedBreakSeconds + (breakStartedAt.map { max(0, now.timeIntervalSince($0)) } ?? 0)).rounded(.down))
+        guard let total = breakTotal(at: now) else { return Int.max }
+        return Int(total.rounded(.down))
     }
 
     /// Expiry is determined by the saved deadline, not the number of UI ticks.
     mutating func update(at now: Date) {
+        guard revision < Int.max - 11, isValid(at: now), now >= startedAt,
+              (breakStartedAt.map { now >= $0 } ?? true) else { return }
         let previous = self
         defer { recordChange(from: previous) }
         guard isRunning else { return }
@@ -113,12 +135,15 @@ struct ActiveStudySession: Codable, Equatable, Identifiable {
     }
 
     mutating func toggleBreak(at now: Date) {
+        guard revision < Int.max - 11, isValid(at: now), now >= startedAt,
+              (breakStartedAt.map { now >= $0 } ?? true) else { return }
         let previous = self
         defer { recordChange(from: previous) }
         update(at: now)
         guard isRunning, let me = participants.firstIndex(where: \.isUser) else { return }
         if phase == .onBreak {
-            accumulatedBreakSeconds += breakStartedAt.map { max(0, now.timeIntervalSince($0)) } ?? 0
+            guard let total = breakTotal(at: now) else { return }
+            accumulatedBreakSeconds = total
             breakStartedAt = nil
             clock.resume(at: now)
             phase = .focusing
@@ -134,14 +159,19 @@ struct ActiveStudySession: Codable, Equatable, Identifiable {
 
     /// Explicit self-report only. No claim to detect app usage or interruptions.
     mutating func reportInterruption(at now: Date) {
+        guard revision < Int.max - 11, isValid(at: now), now >= startedAt,
+              (breakStartedAt.map { now >= $0 } ?? true) else { return }
         let previous = self
         defer { recordChange(from: previous) }
         update(at: now)
         guard phase == .focusing, let me = participants.firstIndex(where: \.isUser) else { return }
+        guard participants[me].distractions < Int.max - 1 else { return }
         participants[me].distractions += 1
     }
 
     mutating func finish(leaving: Bool, at now: Date) {
+        guard revision < Int.max - 11, isValid(at: now), now >= startedAt,
+              (breakStartedAt.map { now >= $0 } ?? true) else { return }
         let previous = self
         defer { recordChange(from: previous) }
         guard isRunning, leaving || clock.remaining(at: now) == 0 else { return }
@@ -150,7 +180,8 @@ struct ActiveStudySession: Codable, Equatable, Identifiable {
         let breaks = breakSeconds(at: now)
         clock.pause(at: now)
         // Keep fractional history monotonic; only the displayed receipt rounds down.
-        accumulatedBreakSeconds += breakStartedAt.map { max(0, now.timeIntervalSince($0)) } ?? 0
+        guard let total = breakTotal(at: now) else { return }
+        accumulatedBreakSeconds = total
         breakStartedAt = nil
         endedAt = now
         for i in participants.indices {
@@ -171,7 +202,7 @@ struct ActiveStudySession: Codable, Equatable, Identifiable {
     mutating func reviewGoal(_ answer: GoalReview) {
         let previous = self
         defer { recordChange(from: previous) }
-        guard phase == .goalCheck else { return }
+        guard revision < Int.max - 11, isValid, phase == .goalCheck else { return }
         goalReview = answer
         phase = .results
     }

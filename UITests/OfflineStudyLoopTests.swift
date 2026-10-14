@@ -8,8 +8,11 @@ final class OfflineStudyLoopTests: XCTestCase {
         continueAfterFailure = false
         suite = "LockedIN.ui-tests.\(UUID().uuidString)"
         app = XCUIApplication()
-        // Onboarding tests launch their own first-run configuration.
-        if !name.contains("testOnboarding") { launch(reset: true) }
+        // These cases launch their own configuration in the test body. Avoid
+        // an extra Home launch before largest-text acceptance on slow simulators.
+        if !name.contains("testOnboarding") && !name.contains("testHomeAndSetupAtLargestAccessibilitySize") {
+            launch(reset: true)
+        }
     }
 
     override func tearDownWithError() throws {
@@ -147,9 +150,23 @@ final class OfflineStudyLoopTests: XCTestCase {
         capture("accessibility-check-in-largest")
         tap("study.review.partly")
         XCTAssertTrue(app.staticTexts["study.coins"].waitForExistence(timeout: 15))
+        let earnedCoins = app.staticTexts["study.coins"]
+        let settledReward = expectation(for: NSPredicate(format: "label == %@", "+15 coins"),
+                                        evaluatedWith: earnedCoins)
+        wait(for: [settledReward], timeout: 15)
+        XCTAssertEqual(earnedCoins.label, "+15 coins")
         capture("accessibility-results-largest")
         app.swipeUp()
         capture("accessibility-result-details-largest")
+        // The first earned reward buys the ten-coin Teal rug in this isolated save.
+        tap("room.buySuggested")
+        let confirmation = app.staticTexts["room.purchaseConfirmation"]
+        XCTAssertTrue(confirmation.waitForExistence(timeout: 15))
+        XCTAssertEqual(confirmation.label, "Teal is in your room.")
+        capture("accessibility-earned-upgrade-largest")
+        tap("study.done")
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.buttons["study.start"].label.contains("Start studying"))
     }
 
     func testStudyRestoreGoalRewardAndUpgrade() {

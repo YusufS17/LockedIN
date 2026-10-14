@@ -94,7 +94,7 @@ python3 Tests/run-ui-checks.py --device <existing-compact-simulator-UUID> --time
 python3 Tests/run-ui-checks.py --device <existing-simulator-UUID> --timeout 600 --test-timeout 300 --only-testing LockedINUITests/SystemAccessibilityTests
 ```
 
-Onboarding checks customise a base, return to the gallery, preserve the same-base outfit, cancel/confirm replacement, exercise editor discard protection and verify saved identity after relaunch. Compact acceptance requires a phone width of 375 points or less (the existing iPhone16e is suitable); it walks study/break/restoration/goal/results/reward replay/purchase and saved decorating. These cases use disposable preferences and injected clock advance, with screenshot attachments for visual inspection. They do not establish real-time study or physical-device soak.
+Onboarding checks customise a base, return to the gallery, preserve the same-base outfit, cancel/confirm replacement, exercise editor discard protection and verify saved identity after relaunch. Compact acceptance requires a phone width of 390 points or less (the existing iPhone16e reports390×844); it walks study/break/restoration/goal/results/reward replay/purchase and saved decorating. These cases use disposable preferences and injected clock advance, with screenshot attachments for visual inspection. They do not establish real-time study or physical-device soak.
 
 The system accessibility case uses the actual Simulator Settings UI to toggle Reduce Motion and checks the app’s real environment response; teardown restores the original switch value. It also requests XCTest’s visible-element sufficient-description audit. It does not verify VoiceOver spoken order/navigation or comprehensive accessibility. If interrupted before teardown, confirm and restore the original Motion setting manually; never reset app data. These new runtime cases are pending until actual passing evidence is recorded.
 
@@ -117,3 +117,13 @@ python3 Tests/run-ui-checks.py --device <existing-simulator-UUID> --timeout 600 
 ```
 
 These cover the largest-text World/decorating journey, recovery feedback, paused new sessions, hidden placeholder progress and pending-results retention after Home/relaunch. These disposable layout/recovery cases request the Debug-only reduced-motion preference to avoid perpetual animation during automation; ordinary app settings remain respected. This verifies reduced-motion rendering, not toggling the actual iOS setting. Inspect screenshots; compilation alone is not runtime acceptance.
+
+## Restored-session numeric safety
+
+```sh
+bash Tests/run-session-numeric-checks.sh
+```
+
+Compiles production clock/session/store/appearance sources with a charity-name constant fixture and disposable preferences. Exercises interruption saturation, accumulated plus active break conversion bounds, extreme timestamps, unsafe transition no-ops, supported-revision exhaustion recovery and original byte preservation, backward-clock tolerance, fractional legacy restoration and receipt participant UUID replay. An exhausted non-results revision enters recovery; completed results at the limit can still be acknowledged. No power-loss or physical-device guarantee.
+
+The largest-text `testHomeAndSetupAtLargestAccessibilitySize` now verifies the saved reward and actual suggested rug purchase/confirmation, waits for animated coin totals with a bounded predicate, and returns Home. Compile success alone is not render acceptance.

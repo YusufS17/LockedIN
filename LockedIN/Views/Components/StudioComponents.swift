@@ -13,6 +13,8 @@ struct StudioButtonStyle: ButtonStyle {
             .padding(.vertical, 12)
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, minHeight: 52)
+            // Match the tappable region to the painted surface, including label gaps.
+            .contentShape(RoundedRectangle(cornerRadius: 14))
             .background(primary ? Theme.Colour.accent : Theme.Colour.surface,
                         in: RoundedRectangle(cornerRadius: 14))
             .overlay(RoundedRectangle(cornerRadius: 14)

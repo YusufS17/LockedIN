@@ -35,6 +35,16 @@ struct StudySessionFlowView: View {
                         dismiss()
                     }
                 }
+            } else if let issue = appStore.studySession.recoveryIssue {
+                ScrollView {
+                    VStack(spacing: 18) {
+                        Text("Your saved session needs attention").font(.title2.bold())
+                        Text(issue).fixedSize(horizontal: false, vertical: true)
+                        Button("Return home") { dismiss() }
+                            .buttonStyle(StudioButtonStyle(primary: true))
+                            .accessibilityIdentifier("study.recovery.home")
+                    }.frame(maxWidth: .infinity).padding(24)
+                }
             } else if let issue = appStore.world.recoveryIssue {
                 VStack(spacing: 18) {
                     Text("Your saved world needs attention").font(.title2.bold())

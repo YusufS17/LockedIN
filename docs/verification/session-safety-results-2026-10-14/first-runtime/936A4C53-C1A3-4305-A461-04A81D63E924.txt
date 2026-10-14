@@ -1,0 +1,5 @@
+Query chain:
+ →Find: Target Application 'com.lockedin.app'
+  ↪︎Find: Descendants matching type Any
+    ↪︎Find: Elements matching predicate '"study.goal" IN identifiers'
+      ↪︎Find: First Match

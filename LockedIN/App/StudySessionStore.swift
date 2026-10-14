@@ -6,6 +6,7 @@ import Observation
 @Observable
 final class StudySessionStore {
     static let persistenceKey = "lockedin.activeStudySession.v1"
+    private static let revisionLimitMessage = "Your saved session has reached the supported checkpoint revision limit. It has been kept safe. Your room and earned progress are unchanged."
     private(set) var current: ActiveStudySession?
     private(set) var recoveryIssue: String?
     private let defaults: UserDefaults
@@ -19,10 +20,21 @@ final class StudySessionStore {
         }
         do {
             var session = try JSONDecoder().decode(ActiveStudySession.self, from: data)
-            guard session.isValid else { throw CocoaError(.coderReadCorrupt) }
+            guard session.isValid(at: now) else { throw CocoaError(.coderReadCorrupt) }
+            guard !session.hasExhaustedRevisions else {
+                recoveryIssue = Self.revisionLimitMessage
+                return
+            }
+            let savedSnapshot = session
             session.update(at: now)
+            guard session.isValid else { throw CocoaError(.coderReadCorrupt) }
+            guard !session.hasExhaustedRevisions else {
+                recoveryIssue = Self.revisionLimitMessage
+                return
+            }
             current = session
-            persist()
+            // A no-op restore need not rewrite otherwise valid original bytes.
+            if session != savedSnapshot { persist() }
         } catch {
             // Preserve the original payload; do not silently erase a failed recovery.
             recoveryIssue = "Your saved session couldn’t be restored. Your room and earned progress are safe."
@@ -57,6 +69,12 @@ final class StudySessionStore {
             old.studyIntent == new.studyIntent
         }) else { return }
         guard previous != session else { return }
+        guard !session.hasExhaustedRevisions else {
+            // Keep the previous persisted bytes, rather than save an unadvanceable journey.
+            recoveryIssue = Self.revisionLimitMessage
+            current = nil
+            return
+        }
         current = session
         persist()
     }

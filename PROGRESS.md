@@ -1,14 +1,15 @@
 # LockedIN progress
 
-Last updated: 2026-10-13
+Last updated: 2026-10-14
 
-## Current work — Phase2 offline beta, 2026-10-13
+## Current work — restored-session safety and results readability, 2026-10-14
 
-- Onboarding Builder finished same-base outfit preservation and explicit replacement confirmation. Lifecycle Builder finished scoped cancellable reveals and result persistence before animation. QC reviewed changes and implemented world semantic/overflow protection. No agents remain running.
-- App/UI build and corrected UI-target rebuild passed. Dedicated semantic, service, world reward, reward-rule and production study integration checks passed; diff whitespace passed. Receipt retention/storage limits saved.
-- Compact and separate system UI runs stalled before assertions; only owned groups stopped. Defensive Settings test-setup correction rebuilt; focused recheck failed Xcode destination discovery (exit70). UI journeys/actual OS toggles remain unverified. [Evidence](docs/verification/offline-beta-phase2-2026-10-13/README.md).
-- Direct compact launch refused (FBS error4); explicit compiled-app install stalled and only that client was stopped (exit143). No current app render claimed. Existing compact simulator remains booted; installation/fixture state unconfirmed. User saves preserved. No agents/build/test/install/export jobs remain running.
-- Implementation milestone320297f committed, pushed to existing GitHub main and remote hash confirmed. Final handoff/log normalisation follows in a separate commit. Next: resolve simulator/Xcode runtime discovery without erasure and complete compact/largest-text/backtracking/persistence/motion renders. Full VoiceOver/device soak, art and backend gates remain open.
+- Persistence Builder completed interruption/break/date conversion safety, backward-clock tolerance, revision-limit recovery and dedicated production-source tests. Dedicated checks passed.
+- UI Builder completed larger-text earned rewards/building progress/purchase confirmation and extended actual largest-text purchase journey with bounded animated-label wait.
+- QC independently reviewed both source diffs; lead made session recovery scrollable. Builder jobs finished; QC is doing the final read-only integrated review while lead runs compact ordinary/largest-text journeys.
+- Existing session-validation/study/clock checks and app/UI builds passed. Initial largest-text run timed out; normal simulator restart recovered actual runtime. Rerun exposed centre-tap failure on wrapped Start studying; screenshot/event reviewed with UI Builder and shared button hit surface fixed. Affected app/UI rebuild passed; ordinary compact and largest-text journeys are now running serially. Actual compact viewport is390×844; incorrect375-point test bound corrected.
+- Clean starting tree at88d7140; changes not yet committed. No save erasure, deployment, art rewrite or backend provisioning.
+- Follow-up risk: damaged/future avatar identity can be overwritten by editor saves. Protection requires separate implementation; character style/backend account decisions and full VoiceOver/device soak remain open.
 
 ## Product direction
 

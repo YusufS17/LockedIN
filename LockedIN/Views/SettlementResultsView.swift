@@ -135,7 +135,9 @@ struct SettlementResultsView: View {
     private var coinReward: some View {
         VStack(spacing: 2) {
             Text(appStore.world.recoveryIssue != nil ? "Reward not saved yet" : config.quickDemo ? "Demo session · no coins saved" : ((reward?.coins ?? 0) > 0 ? "Saved to your room fund" : "Complete the planned time to earn coins"))
-                .font(Theme.TypeScale.body)
+                .font(.body)
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.Colour.textSecondary)
             Text("+\(coinsShown) coins").accessibilityIdentifier("study.coins")
                 .font(.system(.title, design: .rounded, weight: .heavy))
@@ -144,7 +146,8 @@ struct SettlementResultsView: View {
                 .contentTransition(.numericText())
             if let reward, reward.leveledUp, reveal >= 2 {
                 Label("Level \(reward.newLevel) reached!", systemImage: "star.fill")
-                    .font(Theme.TypeScale.captionBold)
+                    .font(.system(.caption, design: .rounded, weight: .bold))
+                    .fixedSize(horizontal: false, vertical: true)
                     .foregroundStyle(Theme.Colour.moneyGreen)
                     .transition(.scale.combined(with: .opacity))
             }
@@ -324,14 +327,16 @@ struct SettlementResultsView: View {
                         .background(Theme.Colour.surfaceMid.opacity(0.6), in: RoundedRectangle(cornerRadius: 12))
                         .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Theme.Colour.cardBorder.opacity(0.7)))
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(type.title).font(Theme.TypeScale.headline).foregroundStyle(Theme.Colour.textPrimary)
+                        Text(type.title).font(.system(.headline, design: .rounded, weight: .bold))
+                            .fixedSize(horizontal: false, vertical: true).foregroundStyle(Theme.Colour.textPrimary)
                         Text("Level \(building?.level ?? 1) · \(Int(worldFill * 100))% to next")
-                            .font(Theme.TypeScale.caption).foregroundStyle(Theme.Colour.textSecondary)
+                            .font(.caption).fixedSize(horizontal: false, vertical: true).foregroundStyle(Theme.Colour.textSecondary)
                     }
-                    Spacer()
+                    if !dynamicTypeSize.isAccessibilitySize { Spacer() }
                     if let reward {
                         Text("+\(reward.focusXP) XP")
-                            .font(Theme.TypeScale.captionBold)
+                            .font(.system(.caption, design: .rounded, weight: .bold))
+                            .fixedSize(horizontal: false, vertical: true)
                             .foregroundStyle(Theme.Colour.testBadgeFg)
                     }
                 }
@@ -344,7 +349,7 @@ struct SettlementResultsView: View {
                 }
                 .frame(height: 10)
                 Text("Your session grows your saved personal world.")
-                    .font(Theme.TypeScale.caption)
+                    .font(.caption).fixedSize(horizontal: false, vertical: true)
                     .foregroundStyle(Theme.Colour.textSecondary)
             }
         }
@@ -355,7 +360,10 @@ struct SettlementResultsView: View {
             VStack(alignment: .leading, spacing: 14) {
                 cardTitle("MAKE IT YOURS")
                 if let placedItemID, let item = RoomItemCatalog.item(id: placedItemID) {
-                    Text("\(item.name) is in your room.").accessibilityIdentifier("room.purchaseConfirmation").font(Theme.TypeScale.headline)
+                    Text("\(item.name) is in your room.")
+                        .accessibilityIdentifier("room.purchaseConfirmation")
+                        .font(.system(.headline, design: .rounded, weight: .bold))
+                        .fixedSize(horizontal: false, vertical: true)
                     PersonalRoomScene(room: appStore.world.state.personalRoom, character: appStore.userStudyCharacter)
                         .aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height, contentMode: .fit)
                 } else if let item = suggestedItem {
@@ -365,9 +373,11 @@ struct SettlementResultsView: View {
                                 .frame(width: 64, height: 72)
                         }
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("\(item.name) \(item.slot.title.lowercased())").font(Theme.TypeScale.headline)
+                            Text("\(item.name) \(item.slot.title.lowercased())")
+                                .font(.system(.headline, design: .rounded, weight: .bold))
+                                .fixedSize(horizontal: false, vertical: true)
                             Text("You have \(appStore.world.state.progression.coins) coins saved.")
-                                .font(Theme.TypeScale.caption)
+                                .font(.caption).fixedSize(horizontal: false, vertical: true)
                         }
                     }
                     Button("Add to my room · \(item.cost) coins") {
@@ -379,7 +389,7 @@ struct SettlementResultsView: View {
                     .accessibilityIdentifier("room.buySuggested")
                 } else {
                     Text("Your coins are saved. Find your next upgrade in Decorate.")
-                        .font(Theme.TypeScale.body)
+                        .font(.body).fixedSize(horizontal: false, vertical: true)
                 }
             }
         }

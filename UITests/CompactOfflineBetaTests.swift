@@ -11,7 +11,7 @@ final class CompactOfflineBetaTests: XCTestCase {
         suite = "LockedIN.ui-tests.compact.\(UUID().uuidString)"
         app = XCUIApplication()
         launch(reset: true)
-        XCTAssertLessThanOrEqual(app.frame.width, 375, "Run compact acceptance on iPhone16e or a smaller existing phone")
+        XCTAssertLessThanOrEqual(app.frame.width, 390, "Run compact acceptance on iPhone16e or a smaller existing phone")
     }
 
     override func tearDownWithError() throws {

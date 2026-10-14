@@ -20,13 +20,17 @@ enum StudyTestEnvironment {
         if ProcessInfo.processInfo.arguments.contains("-ui-test-reset") {
             defaults.removePersistentDomain(forName: suiteName)
         }
-        // Corruption fixtures are Debug-only and require an isolated suite plus reset.
+        // Saved-state fixtures are Debug-only and require an isolated suite plus reset.
         let args = ProcessInfo.processInfo.arguments
-        if args.contains("-ui-test-reset"), args.contains("-ui-test-world-corrupt") {
-            defaults.set(Data([0xFF, 0xFE]), forKey: WorldPersistence.persistenceKey)
+        if args.contains("-ui-test-reset") {
+            if args.contains("-ui-test-world-corrupt") {
+                defaults.set(Data([0xFF, 0xFE]), forKey: WorldPersistence.persistenceKey)
+            }
             if args.contains("-ui-test-pending-results") {
                 let now = Date()
-                let config = RoomConfig.solo
+                var config = RoomConfig.solo
+                config.subject = "Study"
+                config.goal = "Review one paragraph"
                 let roster = SessionParticipant.makeSolo(userCharacter: CharacterCatalog.first, userName: "Fixture")
                 var session = ActiveStudySession(config: config, participants: roster,
                                                 now: now.addingTimeInterval(-Double(config.sessionSeconds)))

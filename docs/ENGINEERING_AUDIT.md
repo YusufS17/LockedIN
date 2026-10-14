@@ -58,3 +58,13 @@ Unimplemented: real authentication/invites/presence/reconnect, authoritative sha
 The user subsequently authorised detailed phases/agents, implementation of the next phase, local commits and a push to origin on 2026-10-13. [Current phases and responsibilities](../.planning/PHASES_AND_AGENTS.md) now governs delivery. Save protection/accessibility/session validation is active. Art choice and backend provisioning remain real decision gates. Deployment, destructive resets, production migration and real-payment work remain outside this authorisation.
 
 Verification for this run is recorded in PROGRESS.md and .planning/STATE.md. Reproducible commands are in Tests/README.md. Local commits are not remote backup.
+
+## 2026-10-14 continuation
+
+Reproduced source-level remaining crash risks: loader accepted interruption count Int.max then incremented it; a stored near-limit break total plus live elapsed time could trap during integer conversion; enormous finite dates could create unsafe durations. Implemented guarded conversions/combined totals, bounded dates, post-restoration validation and non-destructive recovery. Valid backward-clock snapshots remain readable and time transitions pause safely. Exhausted supported revisions now enter honest recovery while retaining raw bytes; completed results can acknowledge. Dedicated production-source regression, existing session validation, study integration and clock checks passed.
+
+Results earned-message, personal building contribution and upgrade confirmation used fixed font sizes. Switched to scalable semantic styles/wrapping and expanded largest-text UI purchase acceptance; compile/runtime evidence is recorded separately.
+
+Next identified risk from identity audit: CharacterPersistence conflates missing with damaged/wrong-type/future avatar data, AppStore displays default/blank identity, and editor/onboarding save can overwrite original appearance/name. Empty JSON loads a default appearance; unknown future fields can be dropped. This needs typed load/recovery and guarded identity saves plus honest UI feedback; not fixed by session/world recovery. No automatic reset or appearance clamping should be used as recovery.
+
+Runtime on the actual iPhone16e showed a390×844 viewport; corrected the prior unexecuted375-point compact-test assumption. Largest-text Start studying centre tap landed between wrapped text lines and did not navigate despite enabled state; screenshot/event inspected independently, then shared StudioButtonStyle received an explicit rounded painted-surface content shape. Same centre-tap normal/largest journeys are the acceptance regression. Duplicate initial Home launch removed from the largest-text test setup after observed timeout; no production launch change.

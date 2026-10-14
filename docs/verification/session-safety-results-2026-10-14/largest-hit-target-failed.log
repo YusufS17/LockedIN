@@ -1,0 +1,116 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=DB03CCDF-9915-45BD-B3C0-3A68C136313C" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 420 -maximum-test-execution-time-allowance 420 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-is615cc8/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/OfflineStudyLoopTests/testHomeAndSetupAtLargestAccessibilitySize"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-is615cc8/OfflineLoop.xcresult
+
+2026-10-14 01:18:35.565316+0100 LockedINUITests-Runner[36946:2420227] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-14 01:18:45.699.
+Test Suite 'LockedINUITests.xctest' started at 2026-10-14 01:18:45.700.
+Test Suite 'OfflineStudyLoopTests' started at 2026-10-14 01:18:45.701.
+Test Case '-[LockedINUITests.OfflineStudyLoopTests testHomeAndSetupAtLargestAccessibilitySize]' started.
+    t =     0.01s Start Test at 2026-10-14 01:18:45.709
+    t =     5.35s Set Up
+    t =     5.42s Terminate com.lockedin.app:0
+    t =     5.43s Open com.lockedin.app
+    t =     5.43s     Launch com.lockedin.app
+    t =    21.20s         Setting up automation session
+    t =    24.08s         Wait for com.lockedin.app to idle
+    t =    29.80s Waiting 30.0s for "study.start" Button to exist
+    t =    30.84s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    30.84s         Checking existence of `"study.start" Button`
+    t =    31.86s Find the Target Application 'com.lockedin.app'
+    t =    32.55s Added attachment named 'accessibility-home-largest'
+    t =    32.56s Waiting 15.0s for "study.start" Button to exist
+    t =    33.58s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    33.58s         Checking existence of `"study.start" Button`
+    t =    33.60s Find the "study.start" Button
+    t =    33.90s Find the "study.start" Button
+    t =    34.23s Tap "study.start" Button
+    t =    34.23s     Wait for com.lockedin.app to idle
+    t =    34.38s     Find the "study.start" Button
+    t =    34.40s     Check for interrupting elements affecting "study.start" Button
+    t =    34.79s     Synthesize event
+    t =    35.35s     Wait for com.lockedin.app to idle
+    t =    35.45s Waiting 15.0s for "study.goal" Any to exist
+    t =    36.47s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    36.47s         Checking existence of `"study.goal" Any`
+    t =    36.81s         Capturing element debug description
+    t =    37.53s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    37.53s         Checking existence of `"study.goal" Any`
+    t =    37.90s         Capturing element debug description
+    t =    38.50s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    38.50s         Checking existence of `"study.goal" Any`
+    t =    38.82s         Capturing element debug description
+    t =    39.45s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    39.45s         Checking existence of `"study.goal" Any`
+    t =    39.73s         Capturing element debug description
+    t =    40.45s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    40.45s         Checking existence of `"study.goal" Any`
+    t =    40.77s         Capturing element debug description
+    t =    41.49s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    41.49s         Checking existence of `"study.goal" Any`
+    t =    41.81s         Capturing element debug description
+    t =    42.45s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    42.45s         Checking existence of `"study.goal" Any`
+    t =    42.79s         Capturing element debug description
+    t =    43.50s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    43.51s         Checking existence of `"study.goal" Any`
+    t =    43.87s         Capturing element debug description
+    t =    44.48s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    44.48s         Checking existence of `"study.goal" Any`
+    t =    44.79s         Capturing element debug description
+    t =    45.50s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    45.50s         Checking existence of `"study.goal" Any`
+    t =    45.82s         Capturing element debug description
+    t =    46.54s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    46.54s         Checking existence of `"study.goal" Any`
+    t =    46.86s         Capturing element debug description
+    t =    47.47s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    47.48s         Checking existence of `"study.goal" Any`
+    t =    47.79s         Capturing element debug description
+    t =    48.50s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    48.51s         Checking existence of `"study.goal" Any`
+    t =    48.84s         Capturing element debug description
+    t =    49.45s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    49.45s         Checking existence of `"study.goal" Any`
+    t =    49.88s         Capturing element debug description
+    t =    50.45s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    50.45s         Checking existence of `"study.goal" Any`
+    t =    50.75s         Capturing element debug description
+    t =    50.75s     Checking existence of `"study.goal" Any`
+    t =    50.99s Collecting debug information to assist test failure triage
+    t =    50.99s     Requesting snapshot of accessibility hierarchy for app with pid 36988
+/Users/yusufsalih/Developer/LockedIN/UITests/OfflineStudyLoopTests.swift:132: error: -[LockedINUITests.OfflineStudyLoopTests testHomeAndSetupAtLargestAccessibilitySize] : XCTAssertTrue failed
+    t =    52.17s Tear Down
+    t =    52.17s     Terminate com.lockedin.app:36988
+    t =    53.23s     Open com.lockedin.app
+    t =    53.23s         Launch com.lockedin.app
+    t =    53.66s             Setting up automation session
+    t =    55.66s             Wait for com.lockedin.app to idle
+    t =    57.09s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    58.11s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    58.11s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    58.17s     Terminate com.lockedin.app:37029
+Test Case '-[LockedINUITests.OfflineStudyLoopTests testHomeAndSetupAtLargestAccessibilitySize]' failed (59.484 seconds).
+Test Suite 'OfflineStudyLoopTests' failed at 2026-10-14 01:19:45.193.
+	 Executed 1 test, with 1 failure (0 unexpected) in 59.484 (59.493) seconds
+Test Suite 'LockedINUITests.xctest' failed at 2026-10-14 01:19:45.196.
+	 Executed 1 test, with 1 failure (0 unexpected) in 59.484 (59.496) seconds
+Test Suite 'Selected tests' failed at 2026-10-14 01:19:45.198.
+	 Executed 1 test, with 1 failure (0 unexpected) in 59.484 (59.499) seconds
+2026-10-14 01:20:19.822 xcodebuild[36779:2416377] [MT] IDETestOperationsObserverDebug: 179.817 elapsed -- Testing started completed.
+2026-10-14 01:20:19.825 xcodebuild[36779:2416377] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-14 01:20:19.825 xcodebuild[36779:2416377] [MT] IDETestOperationsObserverDebug: 179.817 sec, +179.817 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-is615cc8/OfflineLoop.xcresult
+
+** TEST EXECUTE FAILED **
+
+Testing started
