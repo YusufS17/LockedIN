@@ -1,10 +1,18 @@
 ---
-status: phase2_implemented_runtime_blocked
-last_updated: "2026-10-13"
-stopped_at: "Phase2 onboarding, lifecycle and save semantics implemented; runtime destination/startup acceptance blocked"
+status: phase2_partial_runtime_verified
+last_updated: "2026-10-15"
+stopped_at: "Crash recovery complete; session safety and compact/largest-text reward journeys verified"
 ---
 
 # Current handoff
+
+## Latest recovery checkpoint — 2026-10-15
+
+Recovered all pre-crash uncommitted work in `12d379d` before new work. Rebuilt app/UI target successfully. Dedicated numeric and session-validation production regressions passed. Existing compact iPhone16e/iOS26.3 discovery recovered with simulator service access; no data reset.
+
+Four UI cases passed with disposable preferences: compact full study/break/relaunch/results/replay/world/purchase/decorating persistence156.420s; largest-text ordinary-animation centre tap24.942s; largest-text seeded results/purchase/relaunch76.789s; largest-text full study/purchase97.851s. Screenshots exported and actual reward/confirmation renders inspected. The clock-advance fixture is not a real25-minute soak. [Evidence](../docs/verification/session-safety-results-2026-10-14/README.md). No build/test/export jobs or agents remain running. No remote push during this recovery run.
+
+Next: protect corrupt/future avatar identity from editor overwrite with raw payload/name preservation and legacy compatibility; then remaining Phase2 accessibility acceptance. Full VoiceOver, device soak, final reference fidelity and authenticated multiplayer remain open. Historical blocked runtime paragraphs below are superseded only for these four completed cases.
 
 ## Read first
 

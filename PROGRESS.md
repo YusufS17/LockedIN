@@ -1,15 +1,14 @@
 # LockedIN progress
 
-Last updated: 2026-10-14
+Last updated: 2026-10-15
 
-## Current work — restored-session safety and results readability, 2026-10-14
+## Current work — recovered milestone verified, 2026-10-15
 
-- Persistence Builder completed interruption/break/date conversion safety, backward-clock tolerance, revision-limit recovery and dedicated production-source tests. Dedicated checks passed.
-- UI Builder completed larger-text earned rewards/building progress/purchase confirmation and extended actual largest-text purchase journey with bounded animated-label wait.
-- QC independently reviewed both source diffs; lead made session recovery scrollable. Builder jobs finished; QC is doing the final read-only integrated review while lead runs compact ordinary/largest-text journeys.
-- Existing session-validation/study/clock checks and app/UI builds passed. Initial largest-text run timed out; normal simulator restart recovered actual runtime. Rerun exposed centre-tap failure on wrapped Start studying; screenshot/event reviewed with UI Builder and shared button hit surface fixed. Affected app/UI rebuild passed; ordinary compact and largest-text journeys are now running serially. Actual compact viewport is390×844; incorrect375-point test bound corrected.
-- Clean starting tree at88d7140; changes not yet committed. No save erasure, deployment, art rewrite or backend provisioning.
-- Follow-up risk: damaged/future avatar identity can be overwritten by editor saves. Protection requires separate implementation; character style/backend account decisions and full VoiceOver/device soak remain open.
+- Recovered safety/readability edits preserved in local checkpoint `12d379d`. No remote push in this recovery run.
+- App/UI build, dedicated numeric safety and session-validation regressions passed.
+- Four actual iPhone16e UI cases passed: compact complete study/purchase/relaunch; largest-text centre tap; largest-text recorded results/purchase/relaunch; largest-text full study-to-purchase. Actual reward/confirmation renders inspected. [Evidence](docs/verification/session-safety-results-2026-10-14/README.md).
+- All build/test/export jobs completed; no agents running. No save erasure or deployment.
+- Next concrete slice: protect damaged/future avatar identity from editor overwrite, preserving legacy appearance/name; then remaining Phase2 accessibility acceptance. Full VoiceOver/device soak and unapproved character/backend decisions remain open.
 
 ## Product direction
 

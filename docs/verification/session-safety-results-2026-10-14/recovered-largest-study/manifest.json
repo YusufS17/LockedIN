@@ -1,0 +1,89 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "A7C944E3-F01A-43E0-B120-12CB0657CC82.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-earned-upgrade-largest_0_A093EB4E-27CA-4319-BB7D-2FA8CEF3F776.png",
+        "timestamp" : 1791944630.782
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "1D881AFF-C20B-4241-BA30-83E8D5AF9CCF.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-result-details-largest_0_CBC7E816-FFAB-4DCE-87E9-6D2B71311327.png",
+        "timestamp" : 1791944615.072
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "5216F1BD-E785-4832-A994-CFD241156C5E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-results-largest_0_0A2B67A9-49FA-4E14-A268-5A00BBDD5B8A.png",
+        "timestamp" : 1791944610.677
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "2BA4089B-A5D0-4885-961C-2CEE0B13249F.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-check-in-largest_0_FF63159B-0436-4DE4-BC20-727B6930EE22.png",
+        "timestamp" : 1791944601.347
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "B9AFB568-A359-4507-94BE-F86125BF0498.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-break-largest_0_4D689A69-B6D0-49F5-8D6F-29F2A0F3DB8E.png",
+        "timestamp" : 1791944586.861
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "1BFED0B6-AE13-4FD2-8273-83971FA103BF.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-room-largest_0_A66DCF8B-FEDC-4EF6-9A82-F79158BA6E0E.png",
+        "timestamp" : 1791944580.682
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "831424C8-04D7-454D-817B-A195A737ECAA.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-focus-largest_0_B428C1C9-6726-4234-8727-8E87BBD1A449.png",
+        "timestamp" : 1791944575.797
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "6A64F4A2-ED3E-487B-B359-0B02CE760BCE.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-setup-largest_0_F94F2D29-D4B7-4DE3-8BB5-E746CC608602.png",
+        "timestamp" : 1791944570.003
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "7665ED21-B8B9-43B3-A4F2-516E3C11FF1D.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "accessibility-home-largest_0_8B0C2B4D-A959-4AA5-9D32-BD9BF7347867.png",
+        "timestamp" : 1791944559.72
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testHomeAndSetupAtLargestAccessibilitySize()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testHomeAndSetupAtLargestAccessibilitySize"
+  }
+]

@@ -1,6 +1,6 @@
 # Active roadmap: LockedIN
 
-Updated: 2026-10-13. Current status: [PROGRESS.md](../PROGRESS.md). Exact handoff: [STATE.md](STATE.md).
+Updated: 2026-10-15. Current status: [PROGRESS.md](../PROGRESS.md). Exact handoff: [STATE.md](STATE.md).
 
 This roadmap supersedes the June hackathon sequence, preserved in [archive/ROADMAP-2026-06-13.md](archive/ROADMAP-2026-06-13.md). Product rationale and baseline gaps remain in [PRODUCT_AUDIT.md](../docs/PRODUCT_AUDIT.md). No overall completion percentage is claimed.
 
@@ -101,3 +101,7 @@ Recovered and committed the accumulated app work; a three-agent polish pass impr
 ## Next refinement team — verified
 
 Avatar fabric/hair/shoe detail, safer adaptive editors and live/check-in/results readability are implemented. Six targeted journeys have passing evidence, including normal/largest-text onboarding, saved solo upgrade and independent garments. Final3 affected cases and subsequent compact-editor recheck passed; actual/scrolled renders inspected. [Evidence](../docs/verification/CONTINUATION_TEAM.md). Next: smaller iPhone layout acceptance and VoiceOver/Reduce Motion interaction checks, continued reference craft. Real friend networking and original-reference fidelity gates remain open.
+
+## Crash recovery verification — 2026-10-15
+
+Restored-session numeric safety and scalable results/purchase confirmation verified after crash recovery. App/UI build and numeric/session-validation checks passed; compact complete offline purchase persistence plus three largest-text UI cases passed. Actual renders inspected. [Evidence](../docs/verification/session-safety-results-2026-10-14/README.md). This supersedes compact/largest-text runtime blockers for these cases; full Phase2, VoiceOver/device soak and identity protection remain open.

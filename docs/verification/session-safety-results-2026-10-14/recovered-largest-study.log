@@ -1,0 +1,266 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=DB03CCDF-9915-45BD-B3C0-3A68C136313C" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 240 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-bbqk1hh7/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/OfflineStudyLoopTests/testHomeAndSetupAtLargestAccessibilitySize"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-bbqk1hh7/OfflineLoop.xcresult
+
+2026-10-14 03:22:25.829034+0100 LockedINUITests-Runner[13025:126523] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-14 03:22:28.635.
+Test Suite 'LockedINUITests.xctest' started at 2026-10-14 03:22:28.636.
+Test Suite 'OfflineStudyLoopTests' started at 2026-10-14 03:22:28.636.
+Test Case '-[LockedINUITests.OfflineStudyLoopTests testHomeAndSetupAtLargestAccessibilitySize]' started.
+    t =     0.00s Start Test at 2026-10-14 03:22:28.638
+    t =     0.26s Set Up
+    t =     0.28s Terminate com.lockedin.app:0
+    t =     0.28s Open com.lockedin.app
+    t =     0.28s     Launch com.lockedin.app
+    t =     1.92s         Setting up automation session
+    t =     4.72s         Wait for com.lockedin.app to idle
+    t =     8.45s Waiting 30.0s for "study.start" Button to exist
+    t =     9.47s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =     9.48s         Checking existence of `"study.start" Button`
+    t =    10.51s Find the Target Application 'com.lockedin.app'
+    t =    11.08s Added attachment named 'accessibility-home-largest'
+    t =    11.09s Waiting 15.0s for "study.start" Button to exist
+    t =    12.11s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    12.11s         Checking existence of `"study.start" Button`
+    t =    12.16s Find the "study.start" Button
+    t =    12.47s Find the "study.start" Button
+    t =    12.75s Tap "study.start" Button
+    t =    12.75s     Wait for com.lockedin.app to idle
+    t =    12.85s     Find the "study.start" Button
+    t =    12.87s     Check for interrupting elements affecting "study.start" Button
+    t =    13.12s     Synthesize event
+    t =    13.66s     Wait for com.lockedin.app to idle
+    t =    14.11s Waiting 15.0s for "study.goal" Any to exist
+    t =    15.15s     Checking `Expect predicate `existsNoRetry == 1` for object "study.goal" Any`
+    t =    15.15s         Checking existence of `"study.goal" Any`
+    t =    15.33s Tap "study.goal" Any
+    t =    15.33s     Wait for com.lockedin.app to idle
+    t =    15.34s     Find the "study.goal" Any
+    t =    15.46s     Check for interrupting elements affecting "study.goal" TextField
+    t =    15.58s     Synthesize event
+    t =    15.60s         Scroll element to visible
+    t =    15.60s         Find the "study.goal" TextField
+    t =    15.79s         Computed hit point {47, 414.00000000000028} after scrolling to visible
+    t =    16.09s     Wait for com.lockedin.app to idle
+    t =    17.17s Type 'Review my notes' into "study.goal" TextField
+    t =    17.17s     Wait for com.lockedin.app to idle
+    t =    17.49s     Find the "study.goal" TextField
+    t =    17.75s     Check for interrupting elements affecting "study.goal" TextField
+    t =    17.94s     Synthesize event
+    t =    18.41s     Wait for com.lockedin.app to idle
+    t =    18.42s Checking existence of `"Done" Button`
+    t =    18.62s Tap "Done" Button
+    t =    18.62s     Wait for com.lockedin.app to idle
+    t =    18.62s     Find the "Done" Button
+    t =    18.80s     Check for interrupting elements affecting "Done" Button
+    t =    18.95s     Synthesize event
+    t =    19.33s     Wait for com.lockedin.app to idle
+    t =    20.87s Find the Target Application 'com.lockedin.app'
+    t =    21.37s Added attachment named 'accessibility-setup-largest'
+    t =    21.37s Waiting 15.0s for "study.begin" Button to exist
+    t =    22.42s     Checking `Expect predicate `existsNoRetry == 1` for object "study.begin" Button`
+    t =    22.43s         Checking existence of `"study.begin" Button`
+    t =    22.48s Find the "study.begin" Button
+    t =    22.74s Find the "study.begin" Button
+    t =    23.05s Tap "study.begin" Button
+    t =    23.05s     Wait for com.lockedin.app to idle
+    t =    23.17s     Find the "study.begin" Button
+    t =    23.20s     Check for interrupting elements affecting "study.begin" Button
+    t =    23.71s     Synthesize event
+    t =    24.13s     Wait for com.lockedin.app to idle
+    t =    24.51s Waiting 15.0s for "study.break" Button to exist
+    t =    25.54s     Checking `Expect predicate `existsNoRetry == 1` for object "study.break" Button`
+    t =    25.54s         Checking existence of `"study.break" Button`
+    t =    26.81s Find the Target Application 'com.lockedin.app'
+    t =    27.16s Added attachment named 'accessibility-focus-largest'
+    t =    27.16s Swipe up Target Application 'com.lockedin.app'
+    t =    27.16s     Wait for com.lockedin.app to idle
+    t =    27.33s     Find the Target Application 'com.lockedin.app'
+    t =    27.90s     Check for interrupting elements affecting "LockedIN" Application
+    t =    28.06s     Synthesize event
+    t =    28.96s     Wait for com.lockedin.app to idle
+    t =    31.72s Find the Target Application 'com.lockedin.app'
+    t =    32.05s Added attachment named 'accessibility-room-largest'
+    t =    32.05s Swipe down Target Application 'com.lockedin.app'
+    t =    32.05s     Wait for com.lockedin.app to idle
+    t =    32.06s     Find the Target Application 'com.lockedin.app'
+    t =    32.18s     Check for interrupting elements affecting "LockedIN" Application
+    t =    32.29s     Synthesize event
+    t =    32.73s     Wait for com.lockedin.app to idle
+    t =    33.47s Waiting 15.0s for "study.break" Button to exist
+    t =    34.51s     Checking `Expect predicate `existsNoRetry == 1` for object "study.break" Button`
+    t =    34.51s         Checking existence of `"study.break" Button`
+    t =    34.59s Find the "study.break" Button
+    t =    35.06s Find the "study.break" Button
+    t =    35.55s Tap "study.break" Button
+    t =    35.55s     Wait for com.lockedin.app to idle
+    t =    35.55s     Find the "study.break" Button
+    t =    35.58s     Check for interrupting elements affecting "study.break" Button
+    t =    36.18s     Synthesize event
+    t =    36.75s     Wait for com.lockedin.app to idle
+    t =    37.50s Find the Target Application 'com.lockedin.app'
+    t =    38.22s Added attachment named 'accessibility-break-largest'
+    t =    38.23s Waiting 15.0s for "study.break" Button to exist
+    t =    39.23s     Checking `Expect predicate `existsNoRetry == 1` for object "study.break" Button`
+    t =    39.23s         Checking existence of `"study.break" Button`
+    t =    39.32s Find the "study.break" Button
+    t =    39.84s Find the "study.break" Button
+    t =    40.36s Tap "study.break" Button
+    t =    40.36s     Wait for com.lockedin.app to idle
+    t =    40.37s     Find the "study.break" Button
+    t =    40.64s     Check for interrupting elements affecting "study.break" Button
+    t =    41.43s     Synthesize event
+    t =    42.23s     Wait for com.lockedin.app to idle
+    t =    42.26s Terminate com.lockedin.app:13042
+    t =    43.33s Open com.lockedin.app
+    t =    43.33s     Launch com.lockedin.app
+    t =    43.76s         Setting up automation session
+    t =    45.71s         Wait for com.lockedin.app to idle
+    t =    48.42s Waiting 15.0s for "study.start" Button to exist
+    t =    49.43s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    49.43s         Checking existence of `"study.start" Button`
+    t =    49.55s Find the "study.start" Button
+    t =    49.73s Find the "study.start" Button
+    t =    50.05s Tap "study.start" Button
+    t =    50.05s     Wait for com.lockedin.app to idle
+    t =    50.16s     Find the "study.start" Button
+    t =    50.19s     Check for interrupting elements affecting "study.start" Button
+    t =    50.78s     Synthesize event
+    t =    51.37s     Wait for com.lockedin.app to idle
+    t =    52.27s Find the Target Application 'com.lockedin.app'
+    t =    52.71s Added attachment named 'accessibility-check-in-largest'
+    t =    52.71s Waiting 15.0s for "study.review.partly" Button to exist
+    t =    53.73s     Checking `Expect predicate `existsNoRetry == 1` for object "study.review.partly" Button`
+    t =    53.73s         Checking existence of `"study.review.partly" Button`
+    t =    53.86s Find the "study.review.partly" Button
+    t =    54.13s Swipe up ScrollView (First Match)
+    t =    54.13s     Wait for com.lockedin.app to idle
+    t =    54.14s     Find the ScrollView (First Match)
+    t =    54.17s     Check for interrupting elements affecting ScrollView
+    t =    54.30s     Synthesize event
+    t =    54.78s     Wait for com.lockedin.app to idle
+    t =    56.92s Find the "study.review.partly" Button
+    t =    57.02s Find the "study.review.partly" Button
+    t =    57.20s Tap "study.review.partly" Button
+    t =    57.20s     Wait for com.lockedin.app to idle
+    t =    57.37s     Find the "study.review.partly" Button
+    t =    57.51s     Check for interrupting elements affecting "study.review.partly" Button
+    t =    57.90s     Synthesize event
+    t =    58.31s     Wait for com.lockedin.app to idle
+    t =    58.37s Waiting 15.0s for "study.coins" StaticText to exist
+    t =    59.42s     Checking `Expect predicate `existsNoRetry == 1` for object "study.coins" StaticText`
+    t =    59.42s         Checking existence of `"study.coins" StaticText`
+    t =    60.61s Checking `Expect predicate `label == "+15 coins"` for object "study.coins" StaticText`
+    t =    60.61s     Find the "study.coins" StaticText
+    t =    60.75s Find the "study.coins" StaticText
+    t =    61.57s Find the Target Application 'com.lockedin.app'
+    t =    62.04s Added attachment named 'accessibility-results-largest'
+    t =    62.04s Swipe up Target Application 'com.lockedin.app'
+    t =    62.04s     Wait for com.lockedin.app to idle
+    t =    62.05s     Find the Target Application 'com.lockedin.app'
+    t =    62.24s     Check for interrupting elements affecting "LockedIN" Application
+    t =    62.66s     Synthesize event
+    t =    63.20s     Wait for com.lockedin.app to idle
+    t =    66.00s Find the Target Application 'com.lockedin.app'
+    t =    66.44s Added attachment named 'accessibility-result-details-largest'
+    t =    66.44s Waiting 15.0s for "room.buySuggested" Button to exist
+    t =    67.48s     Checking `Expect predicate `existsNoRetry == 1` for object "room.buySuggested" Button`
+    t =    67.48s         Checking existence of `"room.buySuggested" Button`
+    t =    67.56s Find the "room.buySuggested" Button
+    t =    67.85s Swipe up ScrollView (First Match)
+    t =    67.85s     Wait for com.lockedin.app to idle
+    t =    67.95s     Find the ScrollView (First Match)
+    t =    68.19s     Check for interrupting elements affecting ScrollView
+    t =    68.71s     Synthesize event
+    t =    69.52s     Wait for com.lockedin.app to idle
+    t =    71.57s Find the "room.buySuggested" Button
+    t =    71.66s Swipe up ScrollView (First Match)
+    t =    71.66s     Wait for com.lockedin.app to idle
+    t =    71.67s     Find the ScrollView (First Match)
+    t =    71.69s     Check for interrupting elements affecting ScrollView
+    t =    71.90s     Synthesize event
+    t =    72.67s     Wait for com.lockedin.app to idle
+    t =    74.77s Find the "room.buySuggested" Button
+    t =    74.93s Swipe up ScrollView (First Match)
+    t =    74.93s     Wait for com.lockedin.app to idle
+    t =    74.93s     Find the ScrollView (First Match)
+    t =    75.16s     Check for interrupting elements affecting ScrollView
+    t =    75.58s     Synthesize event
+    t =    76.24s     Wait for com.lockedin.app to idle
+    t =    78.35s Find the "room.buySuggested" Button
+    t =    78.46s Find the "room.buySuggested" Button
+    t =    78.56s Tap "room.buySuggested" Button
+    t =    78.56s     Wait for com.lockedin.app to idle
+    t =    78.66s     Find the "room.buySuggested" Button
+    t =    78.73s     Check for interrupting elements affecting "room.buySuggested" Button
+    t =    79.24s     Synthesize event
+    t =    79.79s     Wait for com.lockedin.app to idle
+    t =    79.80s Waiting 15.0s for "room.purchaseConfirmation" StaticText to exist
+    t =    80.86s     Checking `Expect predicate `existsNoRetry == 1` for object "room.purchaseConfirmation" StaticText`
+    t =    80.86s         Checking existence of `"room.purchaseConfirmation" StaticText`
+    t =    80.99s Find the "room.purchaseConfirmation" StaticText
+    t =    81.81s Find the Target Application 'com.lockedin.app'
+    t =    82.14s Added attachment named 'accessibility-earned-upgrade-largest'
+    t =    82.15s Waiting 15.0s for "study.done" Button to exist
+    t =    83.23s     Checking `Expect predicate `existsNoRetry == 1` for object "study.done" Button`
+    t =    83.23s         Checking existence of `"study.done" Button`
+    t =    83.31s Find the "study.done" Button
+    t =    83.41s Swipe up ScrollView (First Match)
+    t =    83.41s     Wait for com.lockedin.app to idle
+    t =    83.41s     Find the ScrollView (First Match)
+    t =    83.45s     Check for interrupting elements affecting ScrollView
+    t =    83.55s     Synthesize event
+    t =    84.01s     Wait for com.lockedin.app to idle
+    t =    86.12s Find the "study.done" Button
+    t =    86.23s Swipe up ScrollView (First Match)
+    t =    86.23s     Wait for com.lockedin.app to idle
+    t =    86.24s     Find the ScrollView (First Match)
+    t =    86.27s     Check for interrupting elements affecting ScrollView
+    t =    86.43s     Synthesize event
+    t =    86.90s     Wait for com.lockedin.app to idle
+    t =    87.78s Find the "study.done" Button
+    t =    87.88s Find the "study.done" Button
+    t =    87.98s Tap "study.done" Button
+    t =    87.98s     Wait for com.lockedin.app to idle
+    t =    87.98s     Find the "study.done" Button
+    t =    88.05s     Check for interrupting elements affecting "study.done" Button
+    t =    88.45s     Synthesize event
+    t =    89.00s     Wait for com.lockedin.app to idle
+    t =    89.33s Waiting 15.0s for "study.start" Button to exist
+    t =    90.39s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    90.39s         Checking existence of `"study.start" Button`
+    t =    90.53s Find the "study.start" Button
+    t =    90.69s Tear Down
+    t =    90.69s     Terminate com.lockedin.app:13125
+    t =    91.70s     Open com.lockedin.app
+    t =    91.71s         Launch com.lockedin.app
+    t =    92.13s             Setting up automation session
+    t =    93.99s             Wait for com.lockedin.app to idle
+    t =    95.41s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    96.43s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    96.43s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    96.48s     Terminate com.lockedin.app:13185
+Test Case '-[LockedINUITests.OfflineStudyLoopTests testHomeAndSetupAtLargestAccessibilitySize]' passed (97.851 seconds).
+Test Suite 'OfflineStudyLoopTests' passed at 2026-10-14 03:24:06.490.
+	 Executed 1 test, with 0 failures (0 unexpected) in 97.851 (97.854) seconds
+Test Suite 'LockedINUITests.xctest' passed at 2026-10-14 03:24:06.493.
+	 Executed 1 test, with 0 failures (0 unexpected) in 97.851 (97.857) seconds
+Test Suite 'Selected tests' passed at 2026-10-14 03:24:06.495.
+	 Executed 1 test, with 0 failures (0 unexpected) in 97.851 (97.860) seconds
+2026-10-14 03:24:36.918 xcodebuild[13005:126056] [MT] IDETestOperationsObserverDebug: 136.953 elapsed -- Testing started completed.
+2026-10-14 03:24:36.918 xcodebuild[13005:126056] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-14 03:24:36.918 xcodebuild[13005:126056] [MT] IDETestOperationsObserverDebug: 136.953 sec, +136.953 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-bbqk1hh7/OfflineLoop.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started
