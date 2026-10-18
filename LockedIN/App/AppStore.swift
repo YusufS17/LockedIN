@@ -97,6 +97,7 @@ final class AppStore {
         self.studySession = StudySessionStore(defaults: defaults, now: StudyTestEnvironment.restorationDate)
         self.commitmentService = commitmentService
         self.focusAdapter = focusAdapter
+        self.displayName = CharacterPersistence.savedDisplayName(defaults: defaults)
         // Restore persisted identity on start (ONB-04).
         // Falls back to .default / "" if no data saved or data is corrupt (T-02-03).
         if let saved = CharacterPersistence.load(defaults: defaults) {

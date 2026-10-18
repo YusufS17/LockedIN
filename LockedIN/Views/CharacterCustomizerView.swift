@@ -80,6 +80,21 @@ struct CharacterCustomizerView: View {
     // MARK: - Body
 
     var body: some View {
+        if let issue = CharacterPersistence.recoveryIssue(defaults: appStore.defaults) {
+            VStack(spacing: 24) {
+                StudioHeader(title: "Saved avatar", subtitle: "Your original is preserved", closeIdentifier: "avatar.close", compactAtAccessibility: true, close: requestClose)
+                ScrollView {
+                    Text(issue).font(.body).padding(24)
+                        .accessibilityIdentifier("avatar.recovery")
+                }
+            }
+            .background(Theme.Colour.background)
+        } else {
+            editorBody
+        }
+    }
+
+    private var editorBody: some View {
         VStack(spacing: 0) {
             StudioHeader(title: "Your wardrobe", subtitle: "A character that feels like you", closeIdentifier: "avatar.close", compactAtAccessibility: true, close: requestClose)
             if !dynamicTypeSize.isAccessibilitySize {
@@ -414,6 +429,7 @@ struct CharacterCustomizerView: View {
     }
 
     private func save() {
+        guard CharacterPersistence.recoveryIssue(defaults: appStore.defaults) == nil else { return }
         onSave(appearance, initialName.trimmingCharacters(in: .whitespaces))
         if onBack == nil { dismiss() }
     }

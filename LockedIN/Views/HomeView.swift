@@ -82,9 +82,9 @@ struct HomeView: View {
             case .contract: RoomFlowView()
             case .avatar:
                 CharacterCustomizerView(initial: appStore.userCharacter, initialName: appStore.displayName) { appearance, name in
+                    guard CharacterPersistence.save(appearance: appearance, displayName: name, defaults: appStore.defaults) else { return }
                     appStore.userCharacter = appearance
                     appStore.displayName = name
-                    CharacterPersistence.save(appearance: appearance, displayName: name, defaults: appStore.defaults)
                 }
             }
         }

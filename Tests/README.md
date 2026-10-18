@@ -127,3 +127,9 @@ bash Tests/run-session-numeric-checks.sh
 Compiles production clock/session/store/appearance sources with a charity-name constant fixture and disposable preferences. Exercises interruption saturation, accumulated plus active break conversion bounds, extreme timestamps, unsafe transition no-ops, supported-revision exhaustion recovery and original byte preservation, backward-clock tolerance, fractional legacy restoration and receipt participant UUID replay. An exhausted non-results revision enters recovery; completed results at the limit can still be acknowledged. No power-loss or physical-device guarantee.
 
 The largest-text `testHomeAndSetupAtLargestAccessibilitySize` now verifies the saved reward and actual suggested rug purchase/confirmation, waits for animated coin totals with a bounded predicate, and returns Home. Compile success alone is not render acceptance.
+
+## Avatar identity preservation
+
+`bash Tests/run-study-session-checks.sh` also checks exact preservation of unreadable/wrong-type/future-field/unknown-enum avatar payloads and separate names when writes are rejected, malformed name protection, supported legacy outfit migration and independent garments. Fixtures use disposable preferences. Identity protection is scoped to the stored appearance/name; it does not establish cross-process transactions or automatic recovery.
+
+After build-for-testing, run `LockedINUITests/WorldRecoveryTests/testUnreadableAvatarCannotBeOverwrittenAfterRelaunch` for the recovery explanation, absence of Save, close action and relaunch protection. Use `LockedINUITests/OfflineStudyLoopTests/testAvatarAndDecoratingPersist` for ordinary editor persistence. Compile success alone does not verify these screens.

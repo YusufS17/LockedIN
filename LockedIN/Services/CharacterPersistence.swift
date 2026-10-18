@@ -20,7 +20,7 @@ enum PersistenceKeys {
 // Caseless enum used as a namespace (same pattern as Money.swift utility enum).
 //
 // Security:
-//  - T-02-03 (DoS/crash): try? on all decode operations — failure silently returns nil;
+//  - T-02-03 (DoS/crash): try? on all decode operations — failure returns nil;
 //    caller falls back to CharacterAppearance.default. No force-unwrap.
 //  - T-02-05 (logging): display name and appearance are never printed/logged here.
 
@@ -34,36 +34,50 @@ enum CharacterPersistence {
         let displayName: String
     }
 
-    // MARK: - Save
+    // MARK: - Protected identity storage
 
-    /// Persists the user's chosen appearance and display name to UserDefaults.
-    ///
-    /// Appearance is JSON-encoded; display name is stored as a plain string.
-    /// Silent on encoding failure — avoids crashing on an edge-case encode error.
-    static func save(appearance: CharacterAppearance, displayName: String, defaults: UserDefaults = .standard) {
-        if let data = try? JSONEncoder().encode(appearance) {
-            defaults.set(data, forKey: PersistenceKeys.character)
-        }
+    /// Refuse to replace unreadable or newer identity data, including its separate name.
+    @discardableResult
+    static func save(appearance: CharacterAppearance, displayName: String, defaults: UserDefaults = .standard) -> Bool {
+        guard recoveryIssue(defaults: defaults) == nil,
+              let data = try? JSONEncoder().encode(appearance) else { return false }
+        defaults.set(data, forKey: PersistenceKeys.character)
         defaults.set(displayName, forKey: PersistenceKeys.displayName)
+        return true
     }
 
-    // MARK: - Load
+    static let recoveryMessage = "Your saved avatar could not be opened by this version of LockedIN. Editing is paused to keep your original look and name safe. Try opening it with the latest version."
 
-    /// Loads persisted identity from UserDefaults.
-    ///
-    /// Returns `nil` if:
-    ///  - No character data has been written yet (clean state / first launch)
-    ///  - The stored character data is undecodable (corrupt / schema-changed after update)
-    ///
-    /// Never force-unwraps decode results (T-02-03: stale-data DoS threat mitigation).
+    /// Missing wardrobe axes are supported legacy data. Unknown fields or enum values
+    /// may belong to a newer app; do not silently decode and discard them on save.
+    static func recoveryIssue(defaults: UserDefaults = .standard) -> String? {
+        if let name = defaults.object(forKey: PersistenceKeys.displayName), !(name is String) {
+            return recoveryMessage
+        }
+        guard let raw = defaults.object(forKey: PersistenceKeys.character) else { return nil }
+        guard let data = raw as? Data, supportedAppearance(data) != nil else { return recoveryMessage }
+        return nil
+    }
+
+    private static func supportedAppearance(_ data: Data) -> CharacterAppearance? {
+        let required: Set<String> = ["skinTone", "hairStyle", "hairColour", "outfitStyle", "accentColour"]
+        let supported = required.union(["faceStyle", "topStyle", "bottomStyle", "shoeStyle", "accessory"])
+        guard let fields = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+              required.isSubset(of: Set(fields.keys)), Set(fields.keys).isSubset(of: supported),
+              fields.values.allSatisfy({ $0 is String }) else { return nil }
+        return try? JSONDecoder().decode(CharacterAppearance.self, from: data)
+    }
+
+    /// The separate name remains available even when appearance recovery is needed.
+    static func savedDisplayName(defaults: UserDefaults = .standard) -> String {
+        defaults.object(forKey: PersistenceKeys.displayName) as? String ?? ""
+    }
+
     static func load(defaults: UserDefaults = .standard) -> PersistedIdentity? {
-        guard
-            let data = defaults.data(forKey: PersistenceKeys.character),
-            let appearance = try? JSONDecoder().decode(CharacterAppearance.self, from: data)
-        else { return nil }
-
-        let name = defaults.string(forKey: PersistenceKeys.displayName) ?? ""
-        return PersistedIdentity(appearance: appearance, displayName: name)
+        guard recoveryIssue(defaults: defaults) == nil,
+              let data = defaults.data(forKey: PersistenceKeys.character),
+              let appearance = supportedAppearance(data) else { return nil }
+        return PersistedIdentity(appearance: appearance, displayName: savedDisplayName(defaults: defaults))
     }
 }
 

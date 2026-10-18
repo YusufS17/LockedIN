@@ -32,6 +32,37 @@ struct StudySessionChecks {
         CharacterPersistence.save(appearance: appearance, displayName: "Fixture", defaults: defaults)
         assert(CharacterPersistence.load(defaults: defaults)?.appearance == appearance)
         assert(CharacterPersistence.load(defaults: defaults)?.displayName == "Fixture")
+        // Damaged/future identity must retain exact original payload and separate name.
+        let validIdentity = defaults.data(forKey: PersistenceKeys.character)!
+        defaults.removeObject(forKey: PersistenceKeys.character)
+        assert(CharacterPersistence.savedDisplayName(defaults: defaults) == "Fixture")
+        assert(CharacterPersistence.save(appearance: appearance, displayName: "Fixture", defaults: defaults))
+        var futureFields = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
+        futureFields["futureAccessory"] = "cape"
+        var unknownEnum = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
+        unknownEnum["hairStyle"] = "future-style"
+        let unsafeIdentities: [Any] = [Data([0xFF]), "wrong storage type", Data("{}".utf8),
+            try JSONSerialization.data(withJSONObject: futureFields),
+            try JSONSerialization.data(withJSONObject: unknownEnum)]
+        for raw in unsafeIdentities {
+            defaults.set(raw, forKey: PersistenceKeys.character)
+            assert(CharacterPersistence.load(defaults: defaults) == nil)
+            assert(CharacterPersistence.recoveryIssue(defaults: defaults) != nil)
+            assert(!CharacterPersistence.save(appearance: .default, displayName: "Replacement", defaults: defaults))
+            assert((defaults.object(forKey: PersistenceKeys.character) as! NSObject).isEqual(raw))
+            assert(CharacterPersistence.savedDisplayName(defaults: defaults) == "Fixture")
+        }
+        var legacyFields = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
+        for key in ["faceStyle", "topStyle", "bottomStyle", "shoeStyle", "accessory"] { legacyFields.removeValue(forKey: key) }
+        defaults.set(try JSONSerialization.data(withJSONObject: legacyFields), forKey: PersistenceKeys.character)
+        let legacy = CharacterPersistence.load(defaults: defaults)!
+        assert(legacy.appearance.topStyle == CharacterAppearance.wardrobe(for: appearance.outfitStyle).top)
+        assert(legacy.displayName == "Fixture")
+        assert(CharacterPersistence.save(appearance: appearance, displayName: "Fixture", defaults: defaults))
+        defaults.set(42, forKey: PersistenceKeys.displayName)
+        assert(!CharacterPersistence.save(appearance: .default, displayName: "Replacement", defaults: defaults))
+        assert(defaults.integer(forKey: PersistenceKeys.displayName) == 42)
+        defaults.set("Fixture", forKey: PersistenceKeys.displayName)
         let character = StudyCharacter(id: "you", name: "Test", spriteAsset: "char_you", fallback: appearance)
         let roster = SessionParticipant.makeSolo(userCharacter: character, userName: "Test")
         let id = roster[0].id

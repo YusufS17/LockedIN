@@ -23,6 +23,10 @@ enum StudyTestEnvironment {
         // Saved-state fixtures are Debug-only and require an isolated suite plus reset.
         let args = ProcessInfo.processInfo.arguments
         if args.contains("-ui-test-reset") {
+            if args.contains("-ui-test-avatar-corrupt") {
+                defaults.set(Data([0xFF, 0xFE]), forKey: PersistenceKeys.character)
+                defaults.set("Saved student", forKey: PersistenceKeys.displayName)
+            }
             if args.contains("-ui-test-world-corrupt") {
                 defaults.set(Data([0xFF, 0xFE]), forKey: WorldPersistence.persistenceKey)
             }

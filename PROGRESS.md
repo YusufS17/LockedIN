@@ -1,14 +1,13 @@
 # LockedIN progress
 
-Last updated: 2026-10-15
+Last updated: 2026-10-18
 
-## Current work — recovered milestone verified, 2026-10-15
+## Current work — avatar save protection, 2026-10-18
 
-- Recovered safety/readability edits preserved in local checkpoint `12d379d`. No remote push in this recovery run.
-- App/UI build, dedicated numeric safety and session-validation regressions passed.
-- Four actual iPhone16e UI cases passed: compact complete study/purchase/relaunch; largest-text centre tap; largest-text recorded results/purchase/relaunch; largest-text full study-to-purchase. Actual reward/confirmation renders inspected. [Evidence](docs/verification/session-safety-results-2026-10-14/README.md).
-- All build/test/export jobs completed; no agents running. No save erasure or deployment.
-- Next concrete slice: protect damaged/future avatar identity from editor overwrite, preserving legacy appearance/name; then remaining Phase2 accessibility acceptance. Full VoiceOver/device soak and unapproved character/backend decisions remain open.
+- Implemented preservation of damaged/newer avatar payloads and separate saved names; unsafe editor writes are rejected. Supported legacy wardrobe migration remains available.
+- Wardrobe now explains when the original save cannot be edited. Added disposable persistence regressions and relaunch UI coverage.
+- Production study/model checks and app/UI build passed with approved compiler/simulator access. Targeted UI run stalled at launch with Mach error -308 and was bounded; no passing UI assertions or current screen inspection. [Evidence](docs/verification/avatar-preservation-2026-10-18/README.md).
+- No agents running. No remote push. Next: recover bounded simulator launch, inspect the recovery screen and recheck ordinary wardrobe persistence; then remaining Phase2 accessibility acceptance.
 
 ## Product direction
 

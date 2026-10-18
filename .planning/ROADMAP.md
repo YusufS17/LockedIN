@@ -105,3 +105,7 @@ Avatar fabric/hair/shoe detail, safer adaptive editors and live/check-in/results
 ## Crash recovery verification — 2026-10-15
 
 Restored-session numeric safety and scalable results/purchase confirmation verified after crash recovery. App/UI build and numeric/session-validation checks passed; compact complete offline purchase persistence plus three largest-text UI cases passed. Actual renders inspected. [Evidence](../docs/verification/session-safety-results-2026-10-14/README.md). This supersedes compact/largest-text runtime blockers for these cases; full Phase2, VoiceOver/device soak and identity protection remain open.
+
+## Avatar preservation — 2026-10-18
+
+Damaged/newer avatar save overwrite protection implemented; legacy wardrobe compatibility and raw identity preservation passed production model checks. App/UI build passed. Simulator launch failed/stalled, so the protected wardrobe render and ordinary editor recheck remain open. [Evidence](../docs/verification/avatar-preservation-2026-10-18/README.md). Phase2 remains open.

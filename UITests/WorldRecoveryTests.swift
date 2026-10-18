@@ -33,6 +33,22 @@ final class WorldRecoveryTests: XCTestCase {
         add(attachment)
     }
 
+    func testUnreadableAvatarCannotBeOverwrittenAfterRelaunch() {
+        for seed in [true, false] {
+            app.launchArguments = ["-smoke-room", "home", "-ui-test-suite", suite, "-ui-test-reduce-motion"]
+            if seed { app.launchArguments += ["-ui-test-reset", "-ui-test-avatar-corrupt"] }
+            app.launch()
+            XCTAssertTrue(app.buttons["Edit avatar"].waitForExistence(timeout: 30))
+            app.buttons["Edit avatar"].tap()
+            XCTAssertTrue(app.staticTexts["avatar.recovery"].waitForExistence(timeout: 15))
+            XCTAssertFalse(app.buttons["Save avatar"].exists)
+            capture("avatar-preserved-\(seed ? "initial" : "relaunch")")
+            app.buttons["avatar.close"].tap()
+            XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+            app.terminate()
+        }
+    }
+
     func testUnreadableWorldPausesNewStudyAndHidesSeededProgress() {
         launch(seed: true, pendingResults: false)
         XCTAssertTrue(app.staticTexts["Your saved world needs attention"].exists)

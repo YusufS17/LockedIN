@@ -1,10 +1,16 @@
 ---
 status: phase2_partial_runtime_verified
-last_updated: "2026-10-15"
-stopped_at: "Crash recovery complete; session safety and compact/largest-text reward journeys verified"
+last_updated: "2026-10-18"
+stopped_at: "Avatar preservation built/model-verified; UI launch blocked"
 ---
 
 # Current handoff
+
+## Avatar preservation continuation — 2026-10-18
+
+Implemented a persistence-level guard against replacing unreadable, wrong-type or newer-field/enum avatar saves and malformed name values. Kept supported legacy outfit migration and separate name restoration. Home/World/onboarding only apply completed saves; the wardrobe presents an explanation with a working close action instead of editing a fallback avatar. Debug seed is limited to disposable reset suites.
+
+Production study integration passed with exact payload/name preservation, future field/enum rejection and legacy compatibility checks. App/UI build-for-testing passed after approved simulator access (initial sandbox attempt failed at runtime discovery; initial model run blocked compiler plugin). Targeted avatar recovery/relaunch and ordinary avatar/decorating persistence UI run blocked at simulator launch with Mach error -308, then bounded shutdown; no completed assertions or inspected current render. [Evidence](../docs/verification/avatar-preservation-2026-10-18/README.md). No agents, remote push or data erasure. Next: recover bounded simulator launch and inspect the protected wardrobe, then remaining Phase2 accessibility acceptance.
 
 ## Latest recovery checkpoint — 2026-10-15
 

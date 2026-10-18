@@ -1,0 +1,5 @@
+Final build-for-testing log excerpts. Full local log: /tmp/LockedIN-avatar-protection-build.log
+
+2026-10-18 23:05:01.604 appintentsmetadataprocessor[67627:451611] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+2026-10-18 23:05:02.918 appintentsmetadataprocessor[67638:451691] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+** TEST BUILD SUCCEEDED **
