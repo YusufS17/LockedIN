@@ -95,3 +95,8 @@ Started the authorised phase plan. Added projected stool/cushioned/padded chairs
 ## Offline-loop implementation — active goal, 2026-10-03
 
 The user explicitly activated a goal to complete and verify the offline loop. Added saved sessions/restore, private goal check, truthful user summaries, affordable room upgrade action, incomplete-result protection and honest simulated-settlement errors. Fixed separate garment restoration. Production-model integration checks pass, including an actual earned catalogue purchase and reload. App/UI target compilation passes; iPhone interaction evidence is still pending. [Current evidence](docs/verification/OFFLINE_LOOP.md) · [Reproducible checks](Tests/README.md).
+
+
+## Git backup — 2026-11-14
+
+Implementation/evidence milestone `1c1c7b9` committed and successfully pushed to existing `origin/main` (`88d7140..1c1c7b9`). This includes the three previously local recovery milestones. No force push or deployment. Subsequent handoff-only commit records this successful backup. No agents/build/test clients remain running; simulator fixture cleanup after timeout remains unconfirmed.

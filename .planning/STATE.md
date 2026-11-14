@@ -152,3 +152,8 @@ Projected stool/chair variants; reduced shelf size; shared-study perimeter furni
 ## Completed offline-loop goal checkpoint
 
 New files: ActiveStudySession, StudySessionStore, StudySessionFlowView, StudyTestEnvironment, actual-model StudySessionChecks, isolated OfflineStudyLoopTests and bounded UI runner. Solo/group share the saved flow; legacy optional test stakes remain outside restoration. WorldStore rejects unfinished snapshots; results show private goal review and paid-on-tap catalogue upgrade. CharacterAppearance decode now preserves independent garment axes. See OFFLINE_LOOP.md for commands and evidence. No subagents are running.
+
+
+## Git backup — 2026-11-14
+
+Implementation/evidence milestone `1c1c7b9` committed and successfully pushed to existing `origin/main` (`88d7140..1c1c7b9`). This includes the three previously local recovery milestones. No force push or deployment. Subsequent handoff-only commit records this successful backup. No agents/build/test clients remain running; simulator fixture cleanup after timeout remains unconfirmed.
