@@ -1,10 +1,20 @@
 ---
 status: phase2_partial_runtime_verified
-last_updated: "2026-10-18"
-stopped_at: "Avatar preservation built/model-verified; UI launch blocked"
+last_updated: "2026-11-14"
+stopped_at: "Offline recovery fixes reviewed and built; simulator acceptance blocked"
 ---
 
 # Current handoff
+
+## Autonomous continuation — 2026-11-14
+
+User requests autonomous phases, building and review agents; permission requests remain enforced by session controls unless changed by user. Read [saved delivery plan](AUTONOMOUS_DELIVERY_2026-11-14.md). Initial tree clean at `3f31f3b`; no pre-existing edits to checkpoint.
+
+Implemented protected-identity incomplete-onboarding route to Home using a temporary preview without saving appearance/name; painted interruption tap region; compact regression assertions for edge tap/count/break/relaunch and pinned setup test-helper correction. Two agents completed implementation/cross-review, lead independently reviewed source/preferences/fixtures. Production study integration passed (including original identity bytes/name and legacy compatibility); app/UI build and final helper rebuild passed; whitespace passed.
+
+Runtime group: compact failed with XCTest active-app AX attribute timeout before new assertions, ordinary wardrobe then stalled at launch; overall timeout600s exit124. Focused onboarding retry: simulator denied app launch (FBS code1 / FBProcessExit64), bounded240s exit124. No passing current UI journeys/recovery render. Actual setup screenshot inspected and saved. [Evidence](../docs/verification/offline-recovery-2026-11-14/README.md). No agents/build/test clients remain running; app/fixture teardown after timeout unconfirmed. No simulator/user data erased. GitHub fetch succeeded (no divergence); final Git status below records commit/push outcome.
+
+Next concrete action: bounded launch recovery without data reset; run new incomplete-onboarding recovery, protected wardrobe/ordinary persistence and corrected compact loop serially, inspect captures. Remaining VoiceOver/system motion/device acceptance, approved character direction and authenticated multiplayer remain open. Do not repeat stalled simulator commands for an entire session.
 
 ## Avatar preservation continuation — 2026-10-18
 

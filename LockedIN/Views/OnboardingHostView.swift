@@ -26,6 +26,33 @@ struct OnboardingHostView: View {
     @State private var hasChosenBase = false
 
     var body: some View {
+        if let issue = CharacterPersistence.recoveryIssue(defaults: appStore.defaults) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    Text("Your saved avatar is preserved")
+                        .font(.title2.bold())
+                    Text(issue)
+                        .accessibilityIdentifier("onboarding.avatarRecovery")
+                    Text("You can enter your room with a temporary avatar preview. Your original saved look and name stay untouched, and avatar editing stays paused.")
+                        .fixedSize(horizontal: false, vertical: true)
+                    Button("Continue with a temporary preview") {
+                        // Complete only the introduction. Never replace the protected identity.
+                        complete()
+                    }
+                    .buttonStyle(StudioButtonStyle(primary: true))
+                    .accessibilityIdentifier("onboarding.avatarRecovery.continue")
+                }
+                .padding(24)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .foregroundStyle(Theme.Colour.textPrimary)
+            .background(Theme.Colour.background.ignoresSafeArea())
+        } else {
+            onboardingBody
+        }
+    }
+
+    private var onboardingBody: some View {
         ZStack(alignment: .topTrailing) {
             Theme.Colour.background.ignoresSafeArea()
 

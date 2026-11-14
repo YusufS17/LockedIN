@@ -209,6 +209,7 @@ struct LiveSessionView: View {
                     .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 8 : 0)
                     .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 14))
                     .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Theme.Colour.cardBorder))
+                    .contentShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("I got interrupted, \(session.user?.distractions ?? 0) reported")

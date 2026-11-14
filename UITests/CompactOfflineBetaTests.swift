@@ -48,7 +48,7 @@ final class CompactOfflineBetaTests: XCTestCase {
         let button = app.buttons[identifier].firstMatch
         XCTAssertTrue(button.waitForExistence(timeout: 15), "Missing \(identifier)")
         // Pinned actions are already visible; content routes need to clear the dock.
-        if !["study.start", "study.break", "room.done", "world.back"].contains(identifier) { reveal(button) }
+        if !["study.start", "study.begin", "study.break", "room.done", "world.back"].contains(identifier) { reveal(button) }
         button.tap()
     }
 
@@ -70,15 +70,24 @@ final class CompactOfflineBetaTests: XCTestCase {
         capture("compact-setup")
         tap("study.begin")
         XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
+        let interruption = app.buttons["study.interruption"]
+        XCTAssertEqual(interruption.label, "I got interrupted, 0 reported")
+        // The whole painted control must work, including padding beside the icon.
+        interruption.coordinate(withNormalizedOffset: CGVector(dx: 0.1, dy: 0.5)).tap()
+        XCTAssertEqual(interruption.label, "I got interrupted, 1 reported")
         capture("compact-focus")
         tap("study.break")
         XCTAssertEqual(app.buttons["study.break"].label, "Back to focus")
+        XCTAssertFalse(interruption.isEnabled)
         capture("compact-break")
         app.terminate()
         launch()
         tap("study.start")
         XCTAssertEqual(app.buttons["study.break"].label, "Back to focus")
+        XCTAssertEqual(interruption.label, "I got interrupted, 1 reported")
+        XCTAssertFalse(interruption.isEnabled)
         tap("study.break")
+        XCTAssertTrue(interruption.isEnabled)
         app.terminate()
         launch(elapsed: 1600)
         tap("study.start")

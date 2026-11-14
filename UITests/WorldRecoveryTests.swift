@@ -49,6 +49,32 @@ final class WorldRecoveryTests: XCTestCase {
         }
     }
 
+    func testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar() {
+        // No smoke route: exercise the actual incomplete-onboarding gate.
+        app.launchArguments = ["-ui-test-suite", suite, "-ui-test-reset",
+                               "-ui-test-avatar-corrupt", "-ui-test-reduce-motion"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["onboarding.avatarRecovery"].waitForExistence(timeout: 30))
+        capture("onboarding-avatar-recovery")
+        app.buttons["onboarding.avatarRecovery.continue"].tap()
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts["Hey, Saved student."].exists)
+        app.terminate()
+
+        // The introduction is complete, but the original invalid payload and name
+        // still require recovery rather than becoming a newly saved default avatar.
+        app.launchArguments = ["-ui-test-suite", suite, "-ui-test-reduce-motion"]
+        app.launch()
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 30))
+        XCTAssertTrue(app.staticTexts["Hey, Saved student."].exists)
+        app.buttons["Edit avatar"].tap()
+        XCTAssertTrue(app.staticTexts["avatar.recovery"].waitForExistence(timeout: 15))
+        XCTAssertFalse(app.buttons["Save avatar"].exists)
+        capture("onboarding-avatar-preserved-after-relaunch")
+        app.buttons["avatar.close"].tap()
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+    }
+
     func testUnreadableWorldPausesNewStudyAndHidesSeededProgress() {
         launch(seed: true, pendingResults: false)
         XCTAssertTrue(app.staticTexts["Your saved world needs attention"].exists)

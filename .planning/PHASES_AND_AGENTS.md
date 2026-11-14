@@ -67,3 +67,12 @@ Verify current platform capabilities/entitlements from primary Apple documentati
 ## Commit and push policy
 
 Each meaningful slice: builder completion → verifier checks → QC diff → lead integration → saved evidence/handoff → local commit → ordinary non-force push. Fetch before pushing; inspect outgoing changes; stop for divergent history rather than overwrite it. Record the actual remote head. Existing pending local milestones are included in the user's push request. Never describe a local commit as remote backup.
+
+
+## November 14 continuation
+
+Current bounded delivery: [autonomous phase plan](AUTONOMOUS_DELIVERY_2026-11-14.md).
+Two requested agents completed implementation and independent cross-review of the
+onboarding identity-recovery route and interruption hit area. Lead integrates,
+serialises simulator checks, saves evidence and commits. Current actual acceptance
+is recorded in PROGRESS/STATE and the linked verification evidence.

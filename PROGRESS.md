@@ -1,13 +1,15 @@
 # LockedIN progress
 
-Last updated: 2026-10-18
+Last updated: 2026-11-14
 
-## Current work — avatar save protection, 2026-10-18
+## Current work — offline beta recovery, 2026-11-14
 
-- Implemented preservation of damaged/newer avatar payloads and separate saved names; unsafe editor writes are rejected. Supported legacy wardrobe migration remains available.
-- Wardrobe now explains when the original save cannot be edited. Added disposable persistence regressions and relaunch UI coverage.
-- Production study/model checks and app/UI build passed with approved compiler/simulator access. Targeted UI run stalled at launch with Mach error -308 and was bounded; no passing UI assertions or current screen inspection. [Evidence](docs/verification/avatar-preservation-2026-10-18/README.md).
-- No agents running. No remote push. Next: recover bounded simulator launch, inspect the recovery screen and recheck ordinary wardrobe persistence; then remaining Phase2 accessibility acceptance.
+- Saved [autonomous phase plan](.planning/AUTONOMOUS_DELIVERY_2026-11-14.md); recovered clean checkpoint `3f31f3b`.
+- Fixed protected-avatar incomplete-onboarding trap with an explicit temporary-preview route preserving original appearance/name. Expanded interruption tile hit region and added break/relaunch regression; corrected compact test helper for pinned setup action.
+- Two agents completed independent cross-review; lead reviewed final source/diff. Production study integration and both app/UI builds passed. Whitespace check passed.
+- Runtime group bounded at 600s after compact accessibility-service timeout; focused recovery retry bounded at 240s after simulator app-launch denial. No new passing UI journeys or recovery render. Actual readable setup render inspected. [Evidence](docs/verification/offline-recovery-2026-11-14/README.md).
+- No agents/build/test clients running; fixture cleanup after timeout unconfirmed. No app-data erasure. Next: recover bounded simulator launch, verify new onboarding route/ordinary wardrobe and corrected compact loop, then remaining accessibility acceptance.
+- GitHub fetch succeeded without divergence. Local milestone commit and push status recorded in the final handoff below.
 
 ## Product direction
 

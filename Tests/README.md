@@ -133,3 +133,18 @@ The largest-text `testHomeAndSetupAtLargestAccessibilitySize` now verifies the s
 `bash Tests/run-study-session-checks.sh` also checks exact preservation of unreadable/wrong-type/future-field/unknown-enum avatar payloads and separate names when writes are rejected, malformed name protection, supported legacy outfit migration and independent garments. Fixtures use disposable preferences. Identity protection is scoped to the stored appearance/name; it does not establish cross-process transactions or automatic recovery.
 
 After build-for-testing, run `LockedINUITests/WorldRecoveryTests/testUnreadableAvatarCannotBeOverwrittenAfterRelaunch` for the recovery explanation, absence of Save, close action and relaunch protection. Use `LockedINUITests/OfflineStudyLoopTests/testAvatarAndDecoratingPersist` for ordinary editor persistence. Compile success alone does not verify these screens.
+
+
+## Protected identity during incomplete onboarding
+
+`WorldRecoveryTests/testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar`
+uses the actual first-launch gate with a disposable unreadable-avatar fixture. It
+checks the explicit temporary-preview route to Home, retained saved name, relaunch
+routing and continued wardrobe protection. The recovery action completes only the
+introduction; it does not save a replacement appearance or name. Exact payload
+preservation remains covered by production study-model checks.
+
+The compact full-loop regression also taps the interruption tile's painted padding,
+checks one reported interruption survives break/relaunch and confirms reporting is
+disabled during breaks. Runtime evidence for the November continuation is recorded
+in `docs/verification/offline-recovery-2026-11-14/`.
