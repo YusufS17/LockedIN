@@ -2,14 +2,13 @@
 
 Last updated: 2026-11-15
 
-## Current work — offline beta acceptance, 2026-11-15
+## Current work — visual reset concepts, 2026-11-15
 
-- Resumed clean checkpoint `417e96e`; saved current [evidence and screenshots](docs/verification/offline-beta-2026-11-15/README.md).
-- Fixed results attribution/stale building fill: session-earned XP is separate from current selected destination/progress. Added isolated two-destination/relaunch/reward-replay regression; no save schema or receipt identity change.
-- App/UI builds and independent source/fixture review passed. Current runtime passes: onboarding identity recovery58.336s, ordinary wardrobe/decorating70.791s, protected-avatar relaunch33.495s, compact full-loop142.628s, destination-change/replay52.903s, final largest-text results/purchase100.348s, actual system Reduce Motion/visible-description audit59.647s. Exported actual renders inspected; whitespace passed.
-- Earlier compact Start centre tap did not navigate; later same single-tap full loop passed, cause remains unexplained. Initial Settings test tapped row space; fixed target/value observation, final check passed and original Motion setting restored. Full VoiceOver, device soak and final art acceptance remain open.
-- No agents/build/test clients running. Completed test cleanup passed; isolated direct-render cleanup performed. App relaunched with ordinary preferences, no user data reset. Next: remaining onboarding backtracking + largest-text World acceptance and VoiceOver/device work; monitor unreproduced navigation miss.
-- GitHub fetched without divergence; final commit/backup status recorded below.
+- User rejected current visuals and supplied detailed onboarding/creator/navigation/focus corrections. Saved [requirements and build phases](docs/design/concepts/visual-reset-2026-11-15/README.md) and unmodified current-app screenshots.
+- Generated/shown two distinct four-screen proposals (Pixel Apartment / Studio Blocks) plus a three-family character comparison. PNGs, exact prompts, provenance and known concept deviations saved in the project. These are unapproved mockups; no app visual implementation changed.
+- Proposed Room/Friends/Profile tabs, shorter onboarding straight into creator, numbered skins/yellow starter, free identity features and unavailable future outfit sections last. Confirmed current multiplayer/shielding remain unimplemented; checked Apple authorization/entitlement path.
+- No agents/build/test/image jobs running at handoff. Docs/artifact-only checks: inspected all generated outputs, saved copies and whitespace check. No app build/tests warranted for this concept milestone.
+- Next: choose/refine room direction and character family, then implement the saved phases while preserving identities, session UUIDs and receipts. Prior offline-beta runtime evidence remains in the handoff.
 
 ## Product direction
 

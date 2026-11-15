@@ -1,10 +1,20 @@
 ---
 status: phase2_partial_runtime_verified
 last_updated: "2026-11-15"
-stopped_at: "Current identity, compact/results and actual motion acceptance passed"
+stopped_at: "New visual reset concepts delivered; user direction choice pending"
 ---
 
 # Current handoff
+
+## Visual reset — 2026-11-15, later user review
+
+User provided detailed rejection/corrections plus actual screenshots and asks for new mockups. Read [saved requirements and phases](../docs/design/concepts/visual-reset-2026-11-15/README.md) and `DIRECTION.md` beside it. Three generated concept images shown in chat: A Pixel Apartment, B Studio Blocks, C character-family comparison. Exact prompts/provenance/copies saved; baseline user screenshots preserved separately. A starter is too peach; B mistakenly carries onboarding bar into Room, both recorded. None is an approved production art direction or native implementation.
+
+No Swift/app changes in this milestone. New UI intent supersedes six-step intro/current art as target: no skip/dots/badges/gallery; concise top progress; direct creator, numbered skins/yellow initial only for new identities, M/F presentation/Randomize/free hair+faces+glasses, future outfits/accessories at end without coin checkout; Room/Friends/Profile; immersive correctly layered focus with short status. Preserve all existing saves/outfits/unlocks/participant UUIDs/receipts during implementation.
+
+Multiplayer is still unimplemented. First social scope: private membership/invites, shared sessions, timer and explicitly shared working/break statuses, reconnect, two-account/device verification. Native shielding is separate authorized Apple framework work, requiring distribution entitlement approval and actual-device testing. Do not expose friends' private app/screen activity or turn concept presence into claims of real networking.
+
+Next: user chooses room direction and character family (lead recommendation A + Hotel Pixel family1); refine actual phone creator/focus, then build saved phases. No agents/build/test/image jobs running. Docs/artifact-only milestone; no app tests run. Existing offline acceptance below remains valid only for those earlier screens/code.
 
 ## Offline beta continuation — 2026-11-15
 

@@ -48,3 +48,19 @@ Do not claim native blocking or tracking before implementation and device verifi
 5. Deliver private friend sessions with genuine shared room state, then verified native focus controls.
 
 Timer/reward reliability supports this work; it does not establish the visual or multiplayer goals. A successful build is not proof of a polished product.
+
+
+## Visual reset requested — 2026-11-15
+
+The user rejects the current character/UI direction after hands-on app review. New
+[explicit corrections](design/concepts/visual-reset-2026-11-15/DIRECTION.md) govern
+onboarding, creator, tab structure and immersive focus. Eleven inline actual-app
+screenshots plus an additional supplied screenshot path are preserved as available
+under `design/references/current-app-2026-11-15/`. They show problems, not the target.
+
+Current deliverable is [three new visual concept boards](design/concepts/visual-reset-2026-11-15/README.md)
+shown in chat: two four-screen directions and a character-family comparison. New
+proposals remain unapproved; refine the chosen direction before broad visual
+implementation. This supersedes earlier assumptions that existing character art or
+six-step onboarding should be retained as the design target. Preserve existing
+identity/progression data while changing presentation and onboarding for new users.
