@@ -64,3 +64,8 @@ proposals remain unapproved; refine the chosen direction before broad visual
 implementation. This supersedes earlier assumptions that existing character art or
 six-step onboarding should be retained as the design target. Preserve existing
 identity/progression data while changing presentation and onboarding for new users.
+
+
+### Visual choice confirmed
+
+2026-11-15: user selected **A — Pixel Apartment** as the best direction. It is now the working art/UI target. B is not selected; no specific character-workshop family choice is inferred. See current ART_DIRECTION.md.

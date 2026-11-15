@@ -1,10 +1,14 @@
 ---
 status: phase2_partial_runtime_verified
 last_updated: "2026-11-15"
-stopped_at: "New visual reset concepts delivered; user direction choice pending"
+stopped_at: "User selected A — Pixel Apartment; phone-size refinement next"
 ---
 
 # Current handoff
+
+## Visual direction selected — 2026-11-15
+
+User explicitly selected **A — Pixel Apartment** as the best direction. [Art direction](../docs/design/ART_DIRECTION.md) and [concept packet](../docs/design/concepts/visual-reset-2026-11-15/README.md) updated. Use A's depicted character style as baseline; no separate workshop-family selection is inferred. Prior corrections remain requirements. Next: refine creator and immersive focus at actual phone aspect ratio, then build saved phases preserving identity/progression/session UUIDs/receipts and separate runtime art layers. No app edits, agents/build/image jobs running in this preference-recording milestone. Documentation check only.
 
 ## Visual reset — 2026-11-15, later user review
 

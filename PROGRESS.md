@@ -2,13 +2,12 @@
 
 Last updated: 2026-11-15
 
-## Current work — visual reset concepts, 2026-11-15
+## Current work — Pixel Apartment direction selected, 2026-11-15
 
-- User rejected current visuals and supplied detailed onboarding/creator/navigation/focus corrections. Saved [requirements and build phases](docs/design/concepts/visual-reset-2026-11-15/README.md) and unmodified current-app screenshots.
-- Generated/shown two distinct four-screen proposals (Pixel Apartment / Studio Blocks) plus a three-family character comparison. PNGs, exact prompts, provenance and known concept deviations saved in the project. These are unapproved mockups; no app visual implementation changed.
-- Proposed Room/Friends/Profile tabs, shorter onboarding straight into creator, numbered skins/yellow starter, free identity features and unavailable future outfit sections last. Confirmed current multiplayer/shielding remain unimplemented; checked Apple authorization/entitlement path.
-- No agents/build/test/image jobs running at handoff. Docs/artifact-only checks: inspected all generated outputs, saved copies and whitespace check. No app build/tests warranted for this concept milestone.
-- Next: choose/refine room direction and character family, then implement the saved phases while preserving identities, session UUIDs and receipts. Prior offline-beta runtime evidence remains in the handoff.
+- User explicitly selected **A — Pixel Apartment**. Updated art direction, user direction and concept packet; B and separate character-workshop alternatives are not selected.
+- Working target: richly furnished evening pixel apartments, amber light, compact creator, Room/Friends/Profile tabs and immersive focus with correct seated layering. Detailed prior corrections still apply; preserve all existing identities/progression/receipt UUIDs.
+- No app edits or running agents/build/image jobs in this preference-recording milestone. Documentation whitespace check passed.
+- Next concrete deliverable: phone-size creator and focus refinements using A's depicted character style, then native onboarding/creator/navigation implementation per saved phases. Concept PNG remains reference, not an interactive implementation.
 
 ## Product direction
 

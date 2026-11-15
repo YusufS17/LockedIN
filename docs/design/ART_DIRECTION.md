@@ -1,5 +1,12 @@
 # LockedIN visual direction
 
+## Selected direction — 2026-11-15
+
+The user explicitly prefers **A — Pixel Apartment** from the [visual reset board](concepts/visual-reset-2026-11-15/a-pixel-apartment.png). This is now the lead visual direction: richly furnished evening apartments, dark blue/charcoal architecture, amber lighting, crisp original pixel characters, compact controls and full-screen immersive focus. The creator, Room/Friends/Profile navigation and focus composition shown in A are the working baseline. A separate character-workshop family was not explicitly selected; do not substitute a different family based on the lead's earlier recommendation.
+
+Apply the [detailed user corrections](concepts/visual-reset-2026-11-15/DIRECTION.md), including a genuinely yellow initial character for new users, numbered skin choices and no coin checkout in the creator. Approval of the concept is not acceptance of generated layout/text deviations or proof of production sprite readiness. Keep furniture, room, character and seated occlusion as independent interactive layers. Next: refine creator/focus at actual phone aspect ratio, then implement the saved phases without resetting existing identities/progress.
+
+
 Source: six images supplied by the user in chat on 2026-09-27, visually inspected, plus the recovered local mockup set. [Saved reference inventory](references/README.md). Interpretation below is a working reading of the references, not a claim of user approval of a new design.
 
 ## What the images communicate
