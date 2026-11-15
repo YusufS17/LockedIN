@@ -1,0 +1,97 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=DB03CCDF-9915-45BD-B3C0-3A68C136313C" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-bj8kqjnn/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/WorldRecoveryTests/testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-bj8kqjnn/OfflineLoop.xcresult
+
+2026-11-15 01:08:44.143494+0000 LockedINUITests-Runner[69787:3879804] [Default] Running tests...
+2026-11-15 01:08:44.479538+0000 LockedINUITests-Runner[69787:3880169] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2026-11-15 01:08:44.623743+0000 LockedINUITests-Runner[69787:3880168] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-15 01:08:46.967.
+Test Suite 'LockedINUITests.xctest' started at 2026-11-15 01:08:46.984.
+Test Suite 'WorldRecoveryTests' started at 2026-11-15 01:08:46.984.
+Test Case '-[LockedINUITests.WorldRecoveryTests testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar]' started.
+    t =     0.00s Start Test at 2026-11-15 01:08:46.988
+    t =     1.68s Set Up
+    t =     1.74s Open com.lockedin.app
+    t =     1.75s     Launch com.lockedin.app
+    t =     1.75s         Terminate com.lockedin.app:69560
+    t =    15.58s         Setting up automation session
+    t =    22.08s         Wait for com.lockedin.app to idle
+    t =    24.74s Waiting 30.0s for "onboarding.avatarRecovery" StaticText to exist
+    t =    25.76s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.avatarRecovery" StaticText`
+    t =    25.76s         Checking existence of `"onboarding.avatarRecovery" StaticText`
+    t =    25.93s Find the Target Application 'com.lockedin.app'
+    t =    26.35s Added attachment named 'onboarding-avatar-recovery'
+    t =    26.36s Tap "onboarding.avatarRecovery.continue" Button
+    t =    26.36s     Wait for com.lockedin.app to idle
+    t =    26.37s     Find the "onboarding.avatarRecovery.continue" Button
+    t =    26.40s     Check for interrupting elements affecting "onboarding.avatarRecovery.continue" Button
+    t =    26.54s     Synthesize event
+    t =    27.28s     Wait for com.lockedin.app to idle
+    t =    29.14s Waiting 15.0s for "study.start" Button to exist
+    t =    30.16s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    30.16s         Checking existence of `"study.start" Button`
+    t =    30.32s Checking existence of `"Hey, Saved student." StaticText`
+    t =    30.39s Terminate com.lockedin.app:69853
+    t =    31.40s Open com.lockedin.app
+    t =    31.40s     Launch com.lockedin.app
+    t =    32.07s         Setting up automation session
+    t =    35.81s         Wait for com.lockedin.app to idle
+    t =    38.85s Waiting 30.0s for "study.start" Button to exist
+    t =    39.86s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    39.86s         Checking existence of `"study.start" Button`
+    t =    40.13s Checking existence of `"Hey, Saved student." StaticText`
+    t =    40.33s Tap "Edit avatar" Button
+    t =    40.33s     Wait for com.lockedin.app to idle
+    t =    40.35s     Find the "Edit avatar" Button
+    t =    40.48s     Check for interrupting elements affecting "Edit avatar" Button
+    t =    40.61s     Synthesize event
+    t =    40.96s     Wait for com.lockedin.app to idle
+    t =    41.07s Waiting 15.0s for "avatar.recovery" StaticText to exist
+    t =    42.09s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.recovery" StaticText`
+    t =    42.09s         Checking existence of `"avatar.recovery" StaticText`
+    t =    42.30s Checking existence of `"Save avatar" Button`
+    t =    42.47s Find the Target Application 'com.lockedin.app'
+    t =    43.56s Added attachment named 'onboarding-avatar-preserved-after-relaunch'
+    t =    43.56s Tap "avatar.close" Button
+    t =    43.56s     Wait for com.lockedin.app to idle
+    t =    43.57s     Find the "avatar.close" Button
+    t =    43.70s     Check for interrupting elements affecting "avatar.close" Button
+    t =    43.82s     Synthesize event
+    t =    44.18s     Wait for com.lockedin.app to idle
+    t =    44.53s Waiting 15.0s for "study.start" Button to exist
+    t =    45.56s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    45.56s         Checking existence of `"study.start" Button`
+    t =    45.67s Tear Down
+    t =    45.68s     Terminate com.lockedin.app:69905
+    t =    46.68s     Open com.lockedin.app
+    t =    46.69s         Launch com.lockedin.app
+    t =    47.34s             Setting up automation session
+    t =    53.16s             Wait for com.lockedin.app to idle
+    t =    55.07s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    56.09s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    56.09s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    56.19s     Terminate com.lockedin.app:70002
+Test Case '-[LockedINUITests.WorldRecoveryTests testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar]' passed (58.336 seconds).
+Test Suite 'WorldRecoveryTests' passed at 2026-11-15 01:09:45.328.
+	 Executed 1 test, with 0 failures (0 unexpected) in 58.336 (58.344) seconds
+Test Suite 'LockedINUITests.xctest' passed at 2026-11-15 01:09:45.333.
+	 Executed 1 test, with 0 failures (0 unexpected) in 58.336 (58.349) seconds
+Test Suite 'Selected tests' passed at 2026-11-15 01:09:45.335.
+	 Executed 1 test, with 0 failures (0 unexpected) in 58.336 (58.368) seconds
+2026-11-15 01:09:46.273 xcodebuild[69665:3878568] [MT] IDETestOperationsObserverDebug: 90.570 elapsed -- Testing started completed.
+2026-11-15 01:09:46.275 xcodebuild[69665:3878568] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-15 01:09:46.275 xcodebuild[69665:3878568] [MT] IDETestOperationsObserverDebug: 90.570 sec, +90.570 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-bj8kqjnn/OfflineLoop.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

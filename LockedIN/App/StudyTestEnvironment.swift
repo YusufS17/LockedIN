@@ -30,6 +30,23 @@ enum StudyTestEnvironment {
             if args.contains("-ui-test-world-corrupt") {
                 defaults.set(Data([0xFF, 0xFE]), forKey: WorldPersistence.persistenceKey)
             }
+            if args.contains("-ui-test-world-destinations"), !args.contains("-ui-test-world-corrupt") {
+                var world = WorldState.seeded
+                world.progression.focusXP = 300
+                world.progression.sessionsCompleted = 3
+                if let library = world.buildings.firstIndex(where: { $0.type == .libraryHub }),
+                   let cafe = world.buildings.firstIndex(where: { $0.type == .languageCafe }) {
+                    // The pending 120-XP result takes Library to 50%; Cafe stays 70%.
+                    // Distinct values expose stale progress after changing destination.
+                    world.buildings[library].progressXP = 55
+                    world.buildings[cafe].level = 1
+                    world.buildings[cafe].unlocked = true
+                    world.buildings[cafe].progressXP = 245
+                    if world.hasValidEssentialValues, let data = try? JSONEncoder().encode(world) {
+                        defaults.set(data, forKey: WorldPersistence.persistenceKey)
+                    }
+                }
+            }
             if args.contains("-ui-test-pending-results") {
                 let now = Date()
                 var config = RoomConfig.solo

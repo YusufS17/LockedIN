@@ -1,0 +1,119 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=DB03CCDF-9915-45BD-B3C0-3A68C136313C" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-8ax1rjxh/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/SystemAccessibilityTests"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-8ax1rjxh/OfflineLoop.xcresult
+
+2026-11-15 01:21:26.083567+0000 LockedINUITests-Runner[72990:3910330] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-15 01:21:28.742.
+Test Suite 'LockedINUITests.xctest' started at 2026-11-15 01:21:28.743.
+Test Suite 'SystemAccessibilityTests' started at 2026-11-15 01:21:28.744.
+Test Case '-[LockedINUITests.SystemAccessibilityTests testActualSystemReduceMotionAndElementDescriptions]' started.
+    t =     0.00s Start Test at 2026-11-15 01:21:28.746
+    t =     0.23s Set Up
+    t =     0.26s Open com.apple.Preferences
+    t =     0.26s     Launch com.apple.Preferences
+    t =     0.54s         Setting up automation session
+    t =     4.23s         Wait for com.apple.Preferences to idle
+    t =    10.10s Checking existence of `"Accessibility" StaticText`
+    t =    10.58s Find the "Accessibility" StaticText
+    t =    11.40s Tap "Accessibility" StaticText
+    t =    11.40s     Wait for com.apple.Preferences to idle
+    t =    11.41s     Find the "Accessibility" StaticText
+    t =    11.61s     Check for interrupting elements affecting "Accessibility" StaticText
+    t =    11.78s     Synthesize event
+    t =    12.11s     Wait for com.apple.Preferences to idle
+    t =    14.97s Checking existence of `"Motion" StaticText`
+    t =    15.53s Find the "Motion" StaticText
+    t =    16.21s Tap "Motion" StaticText
+    t =    16.21s     Wait for com.apple.Preferences to idle
+    t =    16.93s     Find the "Motion" StaticText
+    t =    17.15s     Check for interrupting elements affecting "Motion" StaticText
+    t =    17.29s     Synthesize event
+    t =    17.62s     Wait for com.apple.Preferences to idle
+    t =    17.80s Waiting 15.0s for "Reduce Motion" Switch to exist
+    t =    18.83s     Checking `Expect predicate `existsNoRetry == 1` for object "Reduce Motion" Switch`
+    t =    18.83s         Checking existence of `"Reduce Motion" Switch`
+    t =    18.97s Find the "Reduce Motion" Switch
+    t =    19.05s Find the "REDUCE_MOTION" Switch
+    t =    19.12s Open com.lockedin.app
+    t =    19.12s     Launch com.lockedin.app
+    t =    21.17s         Setting up automation session
+    t =    23.96s         Wait for com.lockedin.app to idle
+    t =    27.07s Waiting 30.0s for "world.back" Button to exist
+    t =    28.09s     Checking `Expect predicate `existsNoRetry == 1` for object "world.back" Button`
+    t =    28.09s         Checking existence of `"world.back" Button`
+    t =    28.28s Open com.apple.Preferences
+    t =    28.28s     Activate com.apple.Preferences
+    t =    28.37s         Wait for com.apple.Preferences to idle
+    t =    28.39s Waiting 15.0s for "Reduce Motion" Switch to exist
+    t =    29.40s     Checking `Expect predicate `existsNoRetry == 1` for object "Reduce Motion" Switch`
+    t =    29.40s         Checking existence of `"Reduce Motion" Switch`
+    t =    29.58s Find the "Reduce Motion" Switch
+    t =    29.70s Find the "REDUCE_MOTION" Switch
+    t =    29.82s Open com.lockedin.app
+    t =    29.83s     Activate com.lockedin.app
+    t =    29.92s         Wait for com.lockedin.app to idle
+    t =    30.00s Waiting 15.0s for "qa.motion.mode" StaticText to exist
+    t =    31.03s     Checking `Expect predicate `existsNoRetry == 1` for object "qa.motion.mode" StaticText`
+    t =    31.03s         Checking existence of `"qa.motion.mode" StaticText`
+    t =    32.23s Checking `Expect predicate `label == "Motion enabled"` for object "qa.motion.mode" StaticText`
+    t =    32.23s     Find the "qa.motion.mode" StaticText
+    t =    32.30s Find the Target Application 'com.lockedin.app'
+    t =    32.79s Added attachment named 'system-motion-enabled'
+    t =    32.79s Open com.apple.Preferences
+    t =    32.79s     Activate com.apple.Preferences
+    t =    32.87s         Wait for com.apple.Preferences to idle
+    t =    33.12s Waiting 15.0s for "Reduce Motion" Switch to exist
+    t =    34.13s     Checking `Expect predicate `existsNoRetry == 1` for object "Reduce Motion" Switch`
+    t =    34.13s         Checking existence of `"Reduce Motion" Switch`
+    t =    34.26s Find the "Reduce Motion" Switch
+    t =    34.35s Tap "REDUCE_MOTION" Switch
+    t =    34.35s     Wait for com.apple.Preferences to idle
+    t =    34.35s     Find the "REDUCE_MOTION" Switch
+    t =    34.45s     Check for interrupting elements affecting "REDUCE_MOTION" Switch
+    t =    34.56s     Synthesize event
+    t =    34.89s     Wait for com.apple.Preferences to idle
+    t =    34.90s Find the "REDUCE_MOTION" Switch
+/Users/yusufsalih/Developer/LockedIN/UITests/SystemAccessibilityTests.swift:48: error: -[LockedINUITests.SystemAccessibilityTests testActualSystemReduceMotionAndElementDescriptions] : XCTAssertEqual failed: ("Optional("0")") is not equal to ("Optional("1")")
+    t =    35.57s Tear Down
+    t =    35.57s     Open com.apple.Preferences
+    t =    35.57s         Activate com.apple.Preferences
+    t =    35.60s             Wait for com.apple.Preferences to idle
+    t =    35.61s     Waiting 15.0s for "Reduce Motion" Switch to exist
+    t =    36.63s         Checking `Expect predicate `existsNoRetry == 1` for object "Reduce Motion" Switch`
+    t =    36.63s             Checking existence of `"Reduce Motion" Switch`
+    t =    36.71s     Find the "Reduce Motion" Switch
+    t =    36.77s     Find the "REDUCE_MOTION" Switch
+    t =    36.82s     Terminate com.lockedin.app:73045
+    t =    37.84s     Open com.lockedin.app
+    t =    37.84s         Launch com.lockedin.app
+    t =    38.28s             Setting up automation session
+    t =    40.05s             Wait for com.lockedin.app to idle
+    t =    41.43s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    42.45s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    42.45s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    42.50s     Terminate com.lockedin.app:73137
+    t =    43.50s     Terminate com.apple.Preferences:73007
+Test Case '-[LockedINUITests.SystemAccessibilityTests testActualSystemReduceMotionAndElementDescriptions]' failed (44.682 seconds).
+Test Suite 'SystemAccessibilityTests' failed at 2026-11-15 01:22:13.435.
+	 Executed 1 test, with 1 failure (0 unexpected) in 44.682 (44.691) seconds
+Test Suite 'LockedINUITests.xctest' failed at 2026-11-15 01:22:13.437.
+	 Executed 1 test, with 1 failure (0 unexpected) in 44.682 (44.694) seconds
+Test Suite 'Selected tests' failed at 2026-11-15 01:22:13.439.
+	 Executed 1 test, with 1 failure (0 unexpected) in 44.682 (44.697) seconds
+2026-11-15 01:22:45.033 xcodebuild[72967:3909905] [MT] IDETestOperationsObserverDebug: 85.108 elapsed -- Testing started completed.
+2026-11-15 01:22:45.033 xcodebuild[72967:3909905] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-15 01:22:45.033 xcodebuild[72967:3909905] [MT] IDETestOperationsObserverDebug: 85.108 sec, +85.108 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-8ax1rjxh/OfflineLoop.xcresult
+
+** TEST EXECUTE FAILED **
+
+Testing started

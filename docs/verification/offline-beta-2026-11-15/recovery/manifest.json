@@ -1,0 +1,26 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "00701047-5A6A-4D5F-8E98-289BD2AA399E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-avatar-preserved-after-relaunch_0_486C1741-7B2B-4338-9D62-F655C9896E5C.png",
+        "timestamp" : 1794704970.544
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "9A5AE004-463C-4F52-8B5F-17C861CF6666.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-avatar-recovery_0_79D476BE-8CDE-45A6-8B65-39F1F0A5C782.png",
+        "timestamp" : 1794704953.337
+      }
+    ],
+    "testIdentifier" : "WorldRecoveryTests/testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/WorldRecoveryTests/testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar"
+  }
+]

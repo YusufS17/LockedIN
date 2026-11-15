@@ -148,3 +148,17 @@ The compact full-loop regression also taps the interruption tile's painted paddi
 checks one reported interruption survives break/relaunch and confirms reporting is
 disabled during breaks. Runtime evidence for the November continuation is recorded
 in `docs/verification/offline-recovery-2026-11-14/`.
+
+
+## Results and current study destination
+
+`ResultsReadabilityTests/testResultsKeepSessionEarningsWhenStudyDestinationChanges`
+uses a scoped Debug world fixture (`-ui-test-world-destinations`, accepted only with
+a namespaced suite and reset). Two unlocked buildings start with distinct valid
+progress. The test completes the recorded result, changes the destination through
+World, returns and relaunches, then checks current building progress and unchanged
+session XP/coin receipt. This detects stale progress and repeated contribution to
+a newly selected destination; it does not establish multiplayer history.
+
+Current session earnings and current world progress are deliberately separate on
+the results screen. Existing receipts have no historical destination record.

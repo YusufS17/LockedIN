@@ -22,7 +22,6 @@ struct SettlementResultsView: View {
     @State private var reward: RewardOutcome?   // real XP/coins awarded + persisted
     @State private var reveal = 0          // staged reveal index (0 = nothing yet)
     @State private var coinsShown = 0      // animated coin count-up
-    @State private var worldFill: Double = 0
     @State private var showWorld = false
     @State private var placedItemID: String?
 
@@ -311,46 +310,59 @@ struct SettlementResultsView: View {
         }
     }
 
-    // MARK: - World contribution (real — banks Focus XP into the active building)
+    // MARK: - Session earnings and current world destination
 
     private var worldCard: some View {
         let building = appStore.world.state.activeBuilding
-        let type = building?.type ?? .libraryHub
+        let earnedXP = reward?.focusXP ?? 0
         return card {
             VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                cardTitle("WORLD CONTRIBUTION")
-                (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 10)) : AnyLayout(HStackLayout(spacing: 10))) {
-                    Image(systemName: type.symbol)
-                        .font(.system(size: 22, weight: .bold))
-                        .foregroundStyle(type.tint)
-                        .frame(width: 56, height: 62)
-                        .background(Theme.Colour.surfaceMid.opacity(0.6), in: RoundedRectangle(cornerRadius: 12))
-                        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Theme.Colour.cardBorder.opacity(0.7)))
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(type.title).font(.system(.headline, design: .rounded, weight: .bold))
-                            .fixedSize(horizontal: false, vertical: true).foregroundStyle(Theme.Colour.textPrimary)
-                        Text("Level \(building?.level ?? 1) · \(Int(worldFill * 100))% to next")
-                            .font(.caption).fixedSize(horizontal: false, vertical: true).foregroundStyle(Theme.Colour.textSecondary)
+                cardTitle("SESSION FOCUS XP")
+                Text(earnedXP > 0 ? "+\(earnedXP) Focus XP earned this session" : "No Focus XP earned this session")
+                    .font(.system(.headline, design: .rounded, weight: .bold))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .foregroundStyle(Theme.Colour.textPrimary)
+                    .accessibilityIdentifier("study.focusXP")
+                Divider()
+                cardTitle("CURRENT WORLD PROGRESS")
+                if let building {
+                    let type = building.type
+                    (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 10)) : AnyLayout(HStackLayout(spacing: 10))) {
+                        Image(systemName: type.symbol)
+                            .font(.system(size: 22, weight: .bold))
+                            .foregroundStyle(type.tint)
+                            .frame(width: 56, height: 62)
+                            .background(Theme.Colour.surfaceMid.opacity(0.6), in: RoundedRectangle(cornerRadius: 12))
+                            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Theme.Colour.cardBorder.opacity(0.7)))
+                            .accessibilityHidden(true)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(type.title).font(.system(.headline, design: .rounded, weight: .bold))
+                                .fixedSize(horizontal: false, vertical: true).foregroundStyle(Theme.Colour.textPrimary)
+                                .accessibilityLabel("Next study destination: \(type.title)")
+                                .accessibilityIdentifier("study.world.destination")
+                            Text("Level \(building.level) · \(Int(building.progress * 100))% to next")
+                                .font(.caption).fixedSize(horizontal: false, vertical: true).foregroundStyle(Theme.Colour.textSecondary)
+                                .accessibilityIdentifier("study.world.progress")
+                        }
+                        if !dynamicTypeSize.isAccessibilitySize { Spacer() }
                     }
-                    if !dynamicTypeSize.isAccessibilitySize { Spacer() }
-                    if let reward {
-                        Text("+\(reward.focusXP) XP")
-                            .font(.system(.caption, design: .rounded, weight: .bold))
-                            .fixedSize(horizontal: false, vertical: true)
-                            .foregroundStyle(Theme.Colour.testBadgeFg)
+                    GeometryReader { geo in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Theme.Colour.surfaceMid).frame(height: 10)
+                            Capsule().fill(type.tint)
+                                .frame(width: geo.size.width * building.progress, height: 10)
+                        }
                     }
+                    .frame(height: 10)
+                    .accessibilityHidden(true)
+                    Text("Your next completed session will contribute here.")
+                        .font(.caption).fixedSize(horizontal: false, vertical: true)
+                        .foregroundStyle(Theme.Colour.textSecondary)
+                } else {
+                    Text("Earned Focus XP stays banked in your saved world. Choose a study destination in View world.")
+                        .font(.caption).fixedSize(horizontal: false, vertical: true)
+                        .foregroundStyle(Theme.Colour.textSecondary)
                 }
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        Capsule().fill(Theme.Colour.surfaceMid).frame(height: 10)
-                        Capsule().fill(type.tint)
-                            .frame(width: geo.size.width * worldFill, height: 10)
-                    }
-                }
-                .frame(height: 10)
-                Text("Your session grows your saved personal world.")
-                    .font(.caption).fixedSize(horizontal: false, vertical: true)
-                    .foregroundStyle(Theme.Colour.textSecondary)
             }
         }
     }
@@ -444,12 +456,10 @@ struct SettlementResultsView: View {
         }
 
         let coinTarget = config.quickDemo ? 0 : (reward?.coins ?? 0)
-        let target = appStore.world.state.activeBuilding?.progress ?? 0
         // If presentation was interrupted, resume with the complete result rather
         // than replaying coin totals or incrementing the reveal beyond its end.
         if reduceMotion || reveal > 0 {
             coinsShown = coinTarget
-            worldFill = target
             reveal = 6
             return
         }
@@ -472,7 +482,6 @@ struct SettlementResultsView: View {
                 try await Task.sleep(for: .seconds(0.28))
             }
             try Task.checkCancellation()
-            withAnimation(.easeInOut(duration: 0.8)) { worldFill = target }
         } catch {
             // SwiftUI cancels the reveal when this view disappears. The saved
             // reward and settlement operation above are unaffected.

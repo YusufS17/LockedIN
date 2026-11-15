@@ -119,3 +119,20 @@ tap region and compact-test pinned-button correction. Independent cross-review,
 production study-model integration and app/UI compilation passed. Runtime acceptance
 remains separate; see [current evidence](../docs/verification/offline-recovery-2026-11-14/README.md).
 No broader accessibility, final art or real multiplayer gate is closed by this slice.
+
+
+## Offline beta acceptance continuation — 2026-11-15
+
+Protected-avatar incomplete-onboarding continuation/relaunch, blocked wardrobe
+relaunch and ordinary avatar/decorating persistence now have passing current
+simulator evidence. The corrected compact full-loop (including interruption padding
+tap, break/relaunch, rewards and purchased rug) and results destination-change/replay
+regression passed. Results separate session XP from current building progress.
+[Evidence](../docs/verification/offline-beta-2026-11-15/README.md). An earlier centre-tap
+navigation miss remains documented; later pass does not establish its cause.
+Full Phase2 accessibility/device and final visual/multiplayer gates remain open.
+
+Final November15 checks also passed actual system Reduce Motion response with
+original-setting restoration and visible-element descriptions, plus maximum-text
+XP/destination card wrapping/purchase/relaunch. Full VoiceOver/device acceptance
+remains open; see linked evidence for exact failures and passing cases.

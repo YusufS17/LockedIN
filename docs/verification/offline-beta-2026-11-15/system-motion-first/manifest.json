@@ -1,0 +1,53 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "65F6CCC2-5156-458F-BE0C-48A4423966E3",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Synthesized Event 2026-11-15 at 01.22.03 am",
+        "timestamp" : 1794705723.636
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "87864FE1-62BC-4E7E-8277-E598786A4241.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "system-motion-enabled_0_58FA49D5-0FB4-4A1C-BCC3-7B079159FAF5.png",
+        "timestamp" : 1794705721.533
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "3653033D-707E-4109-BD02-34C0EBE602C1",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Synthesized Event 2026-11-15 at 01.21.46 am",
+        "timestamp" : 1794705706.365
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "FE0D320D-76AF-48C3-9804-7F53A83F842F",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Synthesized Event 2026-11-15 at 01.21.40 am",
+        "timestamp" : 1794705700.855
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "FA2822F2-605C-4545-80DA-29508B7F0871.mp4",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Screen Recording 2026-11-15 at 01.21.28 am.mp4",
+        "timestamp" : 1794705688.973
+      }
+    ],
+    "testIdentifier" : "SystemAccessibilityTests/testActualSystemReduceMotionAndElementDescriptions()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/SystemAccessibilityTests/testActualSystemReduceMotionAndElementDescriptions"
+  }
+]

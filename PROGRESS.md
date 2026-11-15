@@ -1,15 +1,15 @@
 # LockedIN progress
 
-Last updated: 2026-11-14
+Last updated: 2026-11-15
 
-## Current work — offline beta recovery, 2026-11-14
+## Current work — offline beta acceptance, 2026-11-15
 
-- Saved [autonomous phase plan](.planning/AUTONOMOUS_DELIVERY_2026-11-14.md); recovered clean checkpoint `3f31f3b`.
-- Fixed protected-avatar incomplete-onboarding trap with an explicit temporary-preview route preserving original appearance/name. Expanded interruption tile hit region and added break/relaunch regression; corrected compact test helper for pinned setup action.
-- Two agents completed independent cross-review; lead reviewed final source/diff. Production study integration and both app/UI builds passed. Whitespace check passed.
-- Runtime group bounded at 600s after compact accessibility-service timeout; focused recovery retry bounded at 240s after simulator app-launch denial. No new passing UI journeys or recovery render. Actual readable setup render inspected. [Evidence](docs/verification/offline-recovery-2026-11-14/README.md).
-- No agents/build/test clients running; fixture cleanup after timeout unconfirmed. No app-data erasure. Next: recover bounded simulator launch, verify new onboarding route/ordinary wardrobe and corrected compact loop, then remaining accessibility acceptance.
-- GitHub fetch succeeded without divergence. Local milestone commit and push status recorded in the final handoff below.
+- Resumed clean checkpoint `417e96e`; saved current [evidence and screenshots](docs/verification/offline-beta-2026-11-15/README.md).
+- Fixed results attribution/stale building fill: session-earned XP is separate from current selected destination/progress. Added isolated two-destination/relaunch/reward-replay regression; no save schema or receipt identity change.
+- App/UI builds and independent source/fixture review passed. Current runtime passes: onboarding identity recovery58.336s, ordinary wardrobe/decorating70.791s, protected-avatar relaunch33.495s, compact full-loop142.628s, destination-change/replay52.903s, final largest-text results/purchase100.348s, actual system Reduce Motion/visible-description audit59.647s. Exported actual renders inspected; whitespace passed.
+- Earlier compact Start centre tap did not navigate; later same single-tap full loop passed, cause remains unexplained. Initial Settings test tapped row space; fixed target/value observation, final check passed and original Motion setting restored. Full VoiceOver, device soak and final art acceptance remain open.
+- No agents/build/test clients running. Completed test cleanup passed; isolated direct-render cleanup performed. App relaunched with ordinary preferences, no user data reset. Next: remaining onboarding backtracking + largest-text World acceptance and VoiceOver/device work; monitor unreproduced navigation miss.
+- GitHub fetched without divergence; final commit/backup status recorded below.
 
 ## Product direction
 

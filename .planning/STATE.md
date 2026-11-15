@@ -1,10 +1,22 @@
 ---
 status: phase2_partial_runtime_verified
-last_updated: "2026-11-14"
-stopped_at: "Offline recovery fixes reviewed and built; simulator acceptance blocked"
+last_updated: "2026-11-15"
+stopped_at: "Current identity, compact/results and actual motion acceptance passed"
 ---
 
 # Current handoff
+
+## Offline beta continuation — 2026-11-15
+
+Resumed clean `417e96e`. Automatic approval review now enabled by session environment; no agent edits to permission settings. Follow [phase plan](AUTONOMOUS_DELIVERY_2026-11-14.md).
+
+Results had falsely paired session XP with whichever building is currently selected, and retained the old progress fill after changing destination. UI now separates immutable session earnings from observed current destination/progress. No save-schema or receipt-UUID change. New isolated Debug fixture/regression uses Library50% and Cafe70%, changes destination via World, reopens results and relaunches, verifying120XP/15coins remain the original receipt with no second contribution. Results test helper correctly treats actions as scroll content. Settings test targets the actual trailing switch when AX exposes a whole row and observes a bounded value update after one tap, including restoration.
+
+Independent builder/reviewer cross-check and lead diff/render inspection complete. App/UI builds passed. Current UI passes: incomplete-onboarding recovery58.336s; protected wardrobe relaunch33.495s; ordinary avatar/decorating70.791s; complete compact interruption/break/relaunch/results/purchase142.628s; changed-destination/replay52.903s; final maximum-text XP/progress/purchase/relaunch100.348s; actual Reduce Motion + visible-element sufficient-description audit59.647s. Original system setting restored. [Evidence/screenshots](../docs/verification/offline-beta-2026-11-15/README.md).
+
+Keep limits: first compact centre tap did not open setup; later unchanged single-tap journey passed, source review found no concrete cause. Initial system toggle hit blank row space and failed; corrected test passed. Do not call all runs passing or all accessibility complete. Full VoiceOver, physical-device soak, final art and real friends remain open.
+
+No agents/build/test clients remain running. Completed fixture cleanup assertions passed; direct isolated-render cleanup launched and app reopened with ordinary preferences, no test flags or user data reset. Git fetch clean/no divergence; final commit/push status below. Next concrete action: onboarding backtracking/largest-text World affected acceptance, VoiceOver navigation/device checks and monitor initial navigation miss. Character choice/backend provisioning remain later dependencies.
 
 ## Autonomous continuation — 2026-11-14
 

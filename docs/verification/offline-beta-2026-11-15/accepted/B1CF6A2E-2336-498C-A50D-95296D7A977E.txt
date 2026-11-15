@@ -1,0 +1,129 @@
+Optional(Attributes: Application, 0x10ea5d2e0, pid: 72466, label: 'LockedIN'
+Element subtree:
+ →Application, 0x10ea5d2e0, pid: 72466, label: 'LockedIN'
+    Window (Main), 0x10ed5c0f0, {{0.0, 0.0}, {390.0, 844.0}}
+      Other, 0x10ed5b350, {{0.0, 0.0}, {390.0, 844.0}}
+        Other, 0x10ed5f9a0, {{0.0, 0.0}, {390.0, 844.0}}
+          Other, 0x10ed5f850, {{0.0, 0.0}, {390.0, 844.0}}
+            Other, 0x10ed5ddb0, {{0.0, 0.0}, {390.0, 844.0}}
+              ScrollView, 0x10ed5fac0, {{0.0, 0.0}, {390.0, 844.0}}
+                Other, 0x10ed5fbe0, {{0.0, 47.0}, {390.0, 985.0}}
+                  Image, 0x10ed5fd00, {{26.3, 73.0}, {11.3, 16.3}}, identifier: 'lock.fill', label: 'Lock'
+                  StaticText, 0x10ed5fe20, {{47.0, 69.5}, {87.7, 23.0}}, label: 'LockedIN'
+                  Button, 0x10ed5ff40, {{250.7, 59.0}, {63.3, 44.0}}, label: '15 coins. View progress'
+                    Image, 0x10ed60060, {{262.7, 73.7}, {15.0, 15.0}}
+                    StaticText, 0x10ed60180, {{282.7, 72.0}, {19.3, 18.0}}, label: '15'
+                  Button, 0x10ed602a0, {{322.0, 59.0}, {44.0, 44.0}}, label: 'More options'
+                    Button, 0x10ed603c0, {{322.0, 59.0}, {44.0, 44.0}}
+                      Image, 0x10ed604e0, {{335.3, 79.0}, {17.3, 4.0}}, identifier: 'ellipsis', label: 'More'
+                  StaticText, 0x10ed60600, {{110.0, 121.0}, {182.7, 13.3}}, label: 'WELCOME TO YOUR CORNER'
+                  StaticText, 0x10ed60720, {{110.0, 138.3}, {172.7, 64.7}}, label: 'Make yourself at home.'
+                  StaticText, 0x10ed60840, {{110.0, 207.0}, {193.7, 14.3}}, label: 'A little focus. A world of your own.'
+                  StaticText, 0x10ed60960, {{40.0, 255.3}, {127.7, 20.3}}, label: 'Your study room'
+                  StaticText, 0x10ec4e990, {{312.7, 262.3}, {27.3, 13.3}}, label: 'Level 2'
+                  StaticText, 0x10ec4d010, {{40.0, 278.7}, {148.0, 14.3}}, label: 'Built one session at a time'
+                  Other, 0x10ec4ca60, {{28.0, 293.0}, {334.0, 279.0}}, label: 'Your furnished study room and custom avatar'
+                    Image, 0x10ec4e570, {{28.0, 293.0}, {334.0, 279.0}}
+                    Other, 0x10ec4f7e0, {{218.9, 445.8}, {62.2, 83.6}}, label: 'Avatar: Medium skin, Short Brown hair, Tee, Jeans, Sneakers, status: Idle'
+                      Image, 0x10ec4f900, {{218.9, 445.8}, {62.2, 82.9}}
+                  StaticText, 0x10ec4fa20, {{72.3, 585.9}, {145.2, 14.3}}, label: '1 sessions completed'
+                  StaticText, 0x10ec4fb40, {{229.7, 585.9}, {88.2, 14.3}}, label: '15 to spend'
+                  Button, 0x10ec4fc60, {{24.0, 632.3}, {165.0, 73.3}}, label: 'Edit avatar'
+                    Image, 0x10ec4fd80, {{37.0, 656.3}, {25.0, 25.0}}
+                    StaticText, 0x10ed60a80, {{72.0, 645.2}, {75.0, 18.0}}, label: 'Edit avatar'
+                    StaticText, 0x10ed60ba0, {{72.0, 666.2}, {69.0, 26.3}}, label: 'Hair, clothes & you'
+                  Button, 0x10eb60ef0, {{201.0, 632.3}, {165.0, 73.3}}, label: 'Decorate'
+                    Image, 0x10eb61750, {{214.0, 656.3}, {25.0, 25.0}}
+                    StaticText, 0x10eb61870, {{249.0, 645.2}, {64.3, 18.0}}, label: 'Decorate'
+                    StaticText, 0x10eb61990, {{249.0, 666.2}, {61.3, 26.3}}, label: 'Make room for you'
+                  Button, 0x10eb61ab0, {{24.0, 723.7}, {342.0, 126.0}}, identifier: 'study.club', label: 'A LITTLE COMPANY, DEMO, The study club, 2–8 seats · simulated companions'
+                    StaticText, 0x10eb61bd0, {{42.0, 745.6}, {133.0, 13.3}}, label: 'A LITTLE COMPANY'
+                    StaticText, 0x10eb61cf0, {{313.7, 745.6}, {27.3, 13.3}}, label: 'DEMO'
+                    Other, 0x10eb61e10, {{42.0, 785.3}, {38.0, 38.0}}, label: 'Portrait: Dark skin, Long Black hair, Jumper, Chinos, Slip-ons'
+                      Image, 0x10eb61f30, {{45.0, 791.0}, {32.0, 26.7}}
+                    Other, 0x10eb62050, {{72.0, 785.3}, {38.0, 38.0}}, label: 'Portrait: Light skin, Short Blonde hair, Hoodie, Joggers, Sneakers'
+                      Image, 0x10eb62170, {{75.0, 791.0}, {32.0, 26.7}}
+                    Other, 0x10eb62290, {{102.0, 785.3}, {38.0, 38.0}}, label: 'Portrait: Medium skin, Tied Brown hair, Shirt, Chinos, Slip-ons'
+                      Image, 0x10eb623b0, {{105.0, 791.0}, {32.0, 26.7}}
+                    StaticText, 0x10eb624d0, {{154.0, 776.9}, {115.7, 20.3}}, label: 'The study club'
+                    StaticText, 0x10eb625f0, {{154.0, 801.2}, {124.3, 30.3}}, label: '2–8 seats · simulated companions'
+                    Image, 0x10eb62710, {{335.7, 799.0}, {10.7, 10.7}}, identifier: 'arrow.up.right', label: 'arrow.up.right'
+                  Button, 0x10eb62830, {{24.0, 867.7}, {342.0, 124.0}}, label: 'LITTLE BY LITTLE, Look how far you’ve come., Progress to level 3, 20 / 200 XP to level 3, 1 sessions', value: 10%
+                    StaticText, 0x10eb62950, {{42.0, 885.6}, {133.0, 13.3}}, label: 'LITTLE BY LITTLE'
+                    Image, 0x10eb62a70, {{335.7, 887.7}, {11.0, 9.0}}, identifier: 'arrow.right', label: 'Right'
+                    StaticText, 0x10eb62c50, {{42.0, 910.9}, {211.3, 20.3}}, label: 'Look how far you’ve come.'
+                    ProgressIndicator, 0x10eb62d70, {{42.0, 943.3}, {306.0, 4.0}}, label: 'Progress to level 3', value: 10%
+                      ProgressIndicator, 0x10ed60cc0, {{42.0, 933.3}, {306.0, 24.0}}, value: 10%
+                    StaticText, 0x10ed60de0, {{42.0, 959.2}, {121.7, 14.3}}, label: '20 / 200 XP to level 3'
+                    StaticText, 0x10ed60f00, {{290.0, 959.2}, {58.0, 14.3}}, label: '1 sessions'
+                  StaticText, 0x10ed61020, {{52.8, 1009.6}, {284.3, 14.3}}, label: 'A room that grows with you, one session at a time.'
+              Button, 0x10ed61140, {{24.0, 727.7}, {342.0, 55.0}}, identifier: 'study.start', label: 'View your results'
+                Image, 0x10ed61260, {{41.3, 748.7}, {9.0, 10.0}}, identifier: 'play.fill', label: 'Play'
+                StaticText, 0x10ed61380, {{58.7, 744.7}, {120.7, 18.0}}, label: 'View your results'
+                Image, 0x10ed614a0, {{333.7, 748.0}, {14.3, 11.7}}, identifier: 'arrow.right', label: 'Right'
+              StaticText, 0x10ed615c0, {{164.7, 787.7}, {60.7, 14.3}}, label: 'Deep work'
+      Other, 0x10ed616e0, {{0.0, 0.0}, {390.0, 844.0}}
+        Other, 0x10ed61800, {{0.0, 0.0}, {390.0, 844.0}}
+          Other, 0x10ed61920, {{0.0, 0.0}, {390.0, 844.0}}
+            ScrollView, 0x10ed61a40, {{0.0, 0.0}, {390.0, 844.0}}
+              Other, 0x10ed61b60, {{0.0, -611.3}, {390.0, 1421.3}}
+                StaticText, 0x10ed61c80, {{91.2, -571.4}, {207.7, 13.3}}, label: 'A LITTLE TIME, WELL SPENT'
+                StaticText, 0x10ed61da0, {{76.0, -414.0}, {238.0, 40.7}}, label: 'Room complete'
+                StaticText, 0x10ed61ec0, {{55.3, -361.4}, {279.3, 18.0}}, label: 'One more small step towards your world.'
+                StaticText, 0x10ed61fe0, {{101.3, -331.4}, {187.3, 20.3}}, label: 'Saved to your room fund'
+                StaticText, 0x10ed62100, {{126.7, -309.0}, {136.7, 33.7}}, identifier: 'study.coins', label: '+15 coins'
+                StaticText, 0x10ed62220, {{135.0, -272.3}, {121.0, 14.4}}, label: 'Level 2 reached!'
+                Other, 0x10ed62340, {{48.0, -188.0}, {44.0, 44.0}}, label: 'Portrait: Medium skin, Short Brown hair, Tee, Jeans, Sneakers'
+                  Image, 0x10ed62460, {{51.7, -181.3}, {36.7, 30.7}}
+                StaticText, 0x10ed62580, {{104.0, -194.0}, {99.7, 13.3}}, label: 'YOUR SESSION'
+                StaticText, 0x10ed626a0, {{104.0, -176.6}, {84.0, 20.3}}, label: 'Deep work'
+                StaticText, 0x10ed627c0, {{104.0, -152.3}, {126.0, 14.3}}, label: 'Review one paragraph'
+                Other, 0x10ed628e0, {{62.7, -94.7}, {63.3, 66.7}}, label: 'Your timer, 25:00'
+                  Image, 0x10ed62a00, {{86.0, -94.7}, {16.7, 16.7}}, identifier: 'clock.fill', label: 'Clock'
+                  StaticText, 0x10ed62b20, {{62.7, -72.6}, {63.3, 26.3}}, label: '25:00'
+                  StaticText, 0x10ed62c40, {{65.2, -42.3}, {58.3, 14.3}}, label: 'Your timer'
+                Other, 0x10ed62d60, {{175.8, -94.3}, {38.3, 66.2}}, label: 'Breaks, 1'
+                  Image, 0x10ed62e80, {{184.3, -94.3}, {21.3, 16.3}}, identifier: 'cup.and.saucer', label: 'cup.and.saucer'
+                  StaticText, 0x10ed62fa0, {{187.8, -72.8}, {14.3, 26.3}}, label: '1'
+                  StaticText, 0x10ed630c0, {{175.8, -42.5}, {38.3, 14.3}}, label: 'Breaks'
+                Other, 0x10ed631e0, {{269.5, -95.7}, {52.3, 68.7}}, label: 'Reported, 1'
+                  Image, 0x10ed63300, {{289.0, -95.7}, {14.3, 18.7}}, identifier: 'hand.raised', label: 'Block'
+                  StaticText, 0x10ed63420, {{288.5, -71.6}, {14.3, 26.3}}, label: '1'
+                  StaticText, 0x10ed63540, {{269.5, -41.3}, {52.3, 14.3}}, label: 'Reported'
+                StaticText, 0x10ed63660, {{48.0, -3.0}, {238.0, 14.3}}, label: '100% of planned timer time · 12s on break'
+                Image, 0x10ed63780, {{49.7, 28.0}, {8.0, 11.7}}, identifier: 'lock', label: 'Lock'
+                StaticText, 0x10ed638a0, {{68.3, 27.4}, {125.7, 14.3}}, label: 'Your private check-in'
+                StaticText, 0x10ed639c0, {{68.3, 44.7}, {102.7, 18.0}}, label: 'Made progress'
+                Button, 0x10ed63ae0, {{48.0, 78.7}, {294.0, 22.3}}, label: 'About these numbers'
+                  StaticText, 0x10ed63c00, {{48.0, 78.7}, {294.0, 22.3}}, label: 'About these numbers'
+                  Image, 0x10ed63d20, {{334.3, 84.0}, {7.0, 12.0}}, identifier: 'collapsed'
+                StaticText, 0x10ed63e40, {{48.0, 173.0}, {108.0, 13.3}}, label: 'MAKE IT YOURS'
+                Image, 0x10ed63f60, {{48.0, 220.7}, {64.0, 31.3}}
+                StaticText, 0x10ed64080, {{128.0, 216.5}, {63.7, 20.3}}, label: 'Teal rug'
+                StaticText, 0x10ed641a0, {{128.0, 241.9}, {141.0, 14.3}}, label: 'You have 15 coins saved.'
+                Button, 0x10ed642c0, {{48.0, 286.3}, {294.0, 55.0}}, identifier: 'room.buySuggested', label: 'Add to my room · 10 coins'
+                StaticText, 0x10ed643e0, {{48.0, 410.4}, {133.0, 13.3}}, label: 'SESSION FOCUS XP'
+                StaticText, 0x10ed64500, {{48.0, 431.7}, {280.7, 20.3}}, identifier: 'study.focusXP', label: '+120 Focus XP earned this session'
+                StaticText, 0x10ed64620, {{48.0, 468.4}, {182.7, 13.3}}, label: 'CURRENT WORLD PROGRESS'
+                StaticText, 0x10ed64740, {{114.0, 501.4}, {94.0, 20.3}}, identifier: 'study.world.destination', label: 'Next study destination: Library Hub'
+                StaticText, 0x10ed649b0, {{114.0, 525.7}, {117.7, 14.3}}, identifier: 'study.world.progress', label: 'Level 1 · 34% to next'
+                StaticText, 0x10ed64ad0, {{48.0, 577.7}, {278.0, 14.3}}, label: 'Your next completed session will contribute here.'
+                Button, 0x10ed64bf0, {{24.0, 640.0}, {342.0, 55.0}}, identifier: 'study.done', label: 'Return to your room'
+                  Image, 0x10ed64d10, {{40.0, 656.0}, {20.0, 20.0}}
+                  StaticText, 0x10ed64e30, {{68.0, 657.0}, {138.7, 18.0}}, label: 'Return to your room'
+                  Image, 0x10ed64f50, {{333.7, 660.3}, {14.3, 11.7}}, identifier: 'arrow.right', label: 'Right'
+                Button, 0x10ed65070, {{24.0, 702.0}, {342.0, 55.0}}, label: 'View world'
+                  Image, 0x10ed65190, {{144.7, 720.3}, {15.7, 15.0}}, identifier: 'map', label: 'Show Map'
+                  StaticText, 0x10ed652b0, {{24.0, 702.0}, {342.0, 52.0}}, label: 'View world'
+              Other, 0x10ed655d0, {{357.0, 47.3}, {30.0, 749.3}}, label: 'Vertical scroll bar, 2 pages', value: 100%
+                Other, 0x10ed656f0, {{384.0, 376.0}, {3.0, 417.7}}
+              Other, 0x10ed65810, {{357.0, 47.3}, {30.0, 749.3}}, label: 'Vertical scroll bar, 2 pages', value: 100%
+                Other, 0x10ed65930, {{384.0, 376.0}, {3.0, 417.7}}
+Path to element:
+ →Application, 0x10ea5d2e0, pid: 72466, label: 'LockedIN'
+Query chain:
+ →Find: Target Application 'com.lockedin.app'
+  Output: {
+    Application, 0x10ea5d990, pid: 72466, label: 'LockedIN'
+  }
+)

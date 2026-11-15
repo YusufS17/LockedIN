@@ -20,8 +20,8 @@ final class SystemAccessibilityTests: XCTestCase {
             settings.activate()
             let toggle = settings.switches["Reduce Motion"].firstMatch
             XCTAssertTrue(toggle.waitForExistence(timeout: 15), "Restore the original simulator Motion setting")
-            if (toggle.value as? String == "1") != originalReduceMotion { toggle.tap() }
-            XCTAssertEqual(toggle.value as? String, originalReduceMotion ? "1" : "0")
+            if (toggle.value as? String == "1") != originalReduceMotion { tapMotionControl(toggle) }
+            waitForMotionValue(originalReduceMotion, toggle: toggle)
         }
         app.terminate()
         app.launchArguments = ["-ui-test-suite", suite, "-ui-test-reset", "-ui-test-cleanup"]
@@ -40,12 +40,35 @@ final class SystemAccessibilityTests: XCTestCase {
         XCTFail("Cannot navigate Settings to \(label)")
     }
 
+    private func tapMotionControl(_ toggle: XCUIElement) {
+        // Settings can expose the entire labelled row as the switch element.
+        // Its centre is empty row space; target the visible trailing control.
+        let horizontalOffset = toggle.frame.width > 100 ? 0.9 : 0.5
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: horizontalOffset, dy: 0.5)).tap()
+    }
+
+    private func waitForMotionValue(_ reduced: Bool, toggle: XCUIElement) {
+        // Settings can publish its new accessibility value after the tap returns.
+        // Observe one tap's result; never toggle again to make an assertion pass.
+        let expected = reduced ? "1" : "0"
+        let updated = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "value == %@", expected), object: toggle)
+        let outcome = XCTWaiter.wait(for: [updated], timeout: 10)
+        if outcome != .completed {
+            let screenshot = XCTAttachment(screenshot: settings.screenshot())
+            screenshot.name = "system-motion-switch-did-not-update"
+            screenshot.lifetime = .keepAlways
+            add(screenshot)
+        }
+        XCTAssertEqual(outcome, .completed, "Reduce Motion switch did not become \(expected) after a single tap")
+    }
+
     private func setMotion(_ reduced: Bool) {
         settings.activate()
         let toggle = settings.switches["Reduce Motion"].firstMatch
         XCTAssertTrue(toggle.waitForExistence(timeout: 15))
-        if (toggle.value as? String == "1") != reduced { toggle.tap() }
-        XCTAssertEqual(toggle.value as? String, reduced ? "1" : "0")
+        if (toggle.value as? String == "1") != reduced { tapMotionControl(toggle) }
+        waitForMotionValue(reduced, toggle: toggle)
         app.activate()
         let mode = app.staticTexts["qa.motion.mode"]
         XCTAssertTrue(mode.waitForExistence(timeout: 15))
