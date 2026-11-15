@@ -104,3 +104,8 @@ Implementation/evidence milestone `1c1c7b9` committed and successfully pushed to
 ## Git backup — 2026-11-15
 
 Implementation/evidence milestone `ae1d4d7` committed and successfully pushed to existing `origin/main` (`417e96e..ae1d4d7`), without force or deployment. Subsequent handoff-only commit records that confirmed backup. Working tree was clean after milestone; no agents/build/test clients remain running. App launched with ordinary preferences; system Motion setting restored by passing test.
+
+
+## Design backup — 2026-11-15
+
+Generated concepts/prompts/requirements (`4f276a7`) and exact supplied screenshot baseline (`8aa4177`) successfully pushed to existing origin/main (`2db400c..8aa4177`). No app code, deployment or saved-user-data change. Subsequent handoff note records this confirmed backup.
