@@ -100,3 +100,8 @@ The user explicitly activated a goal to complete and verify the offline loop. Ad
 ## Git backup — 2026-11-14
 
 Implementation/evidence milestone `1c1c7b9` committed and successfully pushed to existing `origin/main` (`88d7140..1c1c7b9`). This includes the three previously local recovery milestones. No force push or deployment. Subsequent handoff-only commit records this successful backup. No agents/build/test clients remain running; simulator fixture cleanup after timeout remains unconfirmed.
+
+
+## Git backup — 2026-11-15
+
+Implementation/evidence milestone `ae1d4d7` committed and successfully pushed to existing `origin/main` (`417e96e..ae1d4d7`), without force or deployment. Subsequent handoff-only commit records that confirmed backup. Working tree was clean after milestone; no agents/build/test clients remain running. App launched with ordinary preferences; system Motion setting restored by passing test.
