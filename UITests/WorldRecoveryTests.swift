@@ -38,12 +38,15 @@ final class WorldRecoveryTests: XCTestCase {
             app.launchArguments = ["-smoke-room", "home", "-ui-test-suite", suite, "-ui-test-reduce-motion"]
             if seed { app.launchArguments += ["-ui-test-reset", "-ui-test-avatar-corrupt"] }
             app.launch()
-            XCTAssertTrue(app.buttons["Edit avatar"].waitForExistence(timeout: 30))
+            XCTAssertTrue(app.tabBars.buttons["Profile"].waitForExistence(timeout: 30))
+            app.tabBars.buttons["Profile"].tap()
+            XCTAssertTrue(app.buttons["Edit avatar"].waitForExistence(timeout: 15))
             app.buttons["Edit avatar"].tap()
             XCTAssertTrue(app.staticTexts["avatar.recovery"].waitForExistence(timeout: 15))
             XCTAssertFalse(app.buttons["Save avatar"].exists)
             capture("avatar-preserved-\(seed ? "initial" : "relaunch")")
             app.buttons["avatar.close"].tap()
+            app.tabBars.buttons["Room"].tap()
             XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
             app.terminate()
         }
@@ -67,11 +70,13 @@ final class WorldRecoveryTests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 30))
         XCTAssertTrue(app.staticTexts["Hey, Saved student."].exists)
+        app.tabBars.buttons["Profile"].tap()
         app.buttons["Edit avatar"].tap()
         XCTAssertTrue(app.staticTexts["avatar.recovery"].waitForExistence(timeout: 15))
         XCTAssertFalse(app.buttons["Save avatar"].exists)
         capture("onboarding-avatar-preserved-after-relaunch")
         app.buttons["avatar.close"].tap()
+        app.tabBars.buttons["Room"].tap()
         XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
     }
 

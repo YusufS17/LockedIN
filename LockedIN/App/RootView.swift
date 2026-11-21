@@ -5,7 +5,7 @@ import SwiftUI
 // First-launch routing gate.
 // Reads @AppStorage(PersistenceKeys.onboarding) to decide which experience to show:
 //   - false (first launch / onboarding not completed) → OnboardingHostView
-//   - true  (returning user)                          → HomeView
+//   - true  (returning user)                          → ApartmentAppShell
 //
 // @AppStorage lives HERE (in the View), NOT on AppStore.
 // @Observable classes cannot hold @AppStorage property wrappers (RESEARCH.md Pitfall 8).
@@ -33,13 +33,13 @@ struct RootView: View {
         } else if let screen = Self.smokeScreen {
             SmokeRoomScreen(screen: screen)   // Debug-only isolated render and interaction harness
         } else if hasCompletedOnboarding {
-            HomeView()
+            ApartmentAppShell()
         } else {
             OnboardingHostView()
         }
         #else
         if hasCompletedOnboarding {
-            HomeView()
+            ApartmentAppShell()
         } else {
             OnboardingHostView()
         }
@@ -86,7 +86,11 @@ private struct SmokeRoomScreen: View {
     var body: some View {
         switch screen {
         case "home":
-            HomeView()
+            ApartmentAppShell()
+        case "friends":
+            ApartmentAppShell(initialTab: .friends)
+        case "profile":
+            ApartmentAppShell(initialTab: .profile)
         case "avatar":
             CharacterCustomizerView(initial: appStore.userCharacter, initialName: appStore.displayName, onSave: { _, _ in })
         case "group":
@@ -95,11 +99,16 @@ private struct SmokeRoomScreen: View {
             SoloRoomView()
         case "live":
             LiveSessionView(
-                config: .preset,
+                config: .solo,
+                participants: SessionParticipant.makeSolo(userCharacter: appStore.userStudyCharacter, userName: "You"),
+                onFinish: { _ in }, onCancel: {})
+        case "live-group":
+            LiveSessionView(
+                config: .groupRoom,
                 participants: SessionParticipant.makeRoster(
                     userCharacter: appStore.userStudyCharacter,
                     userName: "You",
-                    config: .preset),
+                    config: .groupRoom),
                 onFinish: { _ in }, onCancel: {})
         case "builder":
             PersonalRoomBuilderView()

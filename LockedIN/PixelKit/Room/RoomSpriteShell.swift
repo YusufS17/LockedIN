@@ -29,9 +29,9 @@ enum DayPhase: String, CaseIterable {
                     PixelRGBA(r: 156, g: 205, b: 240),
                     PixelRGBA(r: 205, g: 231, b: 248)]
         case .evening:
-            return [PixelRGBA(r: 122, g: 93, b: 158),
-                    PixelRGBA(r: 201, g: 123, b: 110),
-                    PixelRGBA(r: 255, g: 179, b: 107)]
+            return [PixelRGBA(r: 24, g: 39, b: 65),
+                    PixelRGBA(r: 42, g: 64, b: 91),
+                    PixelRGBA(r: 122, g: 104, b: 111)]
         case .night:
             return [PixelRGBA(r: 27, g: 36, b: 64),
                     PixelRGBA(r: 42, g: 53, b: 96),
@@ -120,6 +120,12 @@ enum RoomSpriteShell {
                     if ((m % 48) + 48) % 48 < 2 { ch = "l" }
                 }
                 g[x, y] = ch
+                // Short grain runs follow each board's long axis. Contrast is
+                // deliberately low, leaving faces and furniture easy to read.
+                let grain = ((x - 2 * y + band * 11) % 64 + 64) % 64
+                if ch != "l", kMod == 5 || kMod == 6, (18...33).contains(grain) {
+                    g[x, y] = band % 3 == 0 ? "h" : "q"
+                }
             }
         }
 
@@ -143,6 +149,17 @@ enum RoomSpriteShell {
                 g[x, y] = ch
             }
             g[x, top] = "t"                       // hard wall-top edge line
+            // Timber cornice and recessed lower panelling share the wall's
+            // projected slope instead of introducing front-facing decoration.
+            g[x, top + 1] = "U"
+            for y in (top + 2)...(top + 4) { g[x, y] = "T" }
+            g[x, top + 5] = "R"
+            for y in (edge - 18)..<(edge - 4) {
+                g[x, y] = x < cx ? "P" : "p"
+                if x % 24 == 0 || x % 24 == 1 { g[x, y] = "R" }
+            }
+            g[x, edge - 19] = "U"
+            g[x, edge - 18] = "T"
             g[x, edge - 3] = "k"                  // skirting top line
             g[x, edge - 2] = "s"; g[x, edge - 1] = "s"
         }
@@ -152,6 +169,14 @@ enum RoomSpriteShell {
         let cornerEdge = floorY(atX: cx)
         for y in (cornerEdge - wallHeight)..<(cornerEdge - 3) {
             g[cx, y] = "t"
+        }
+        // The corner post and cutaway edges give the apartment structural depth.
+        for x in [floorLeft.x, floorLeft.x + 1, cx - 1, cx + 1,
+                  floorRight.x - 1, floorRight.x] {
+            let edge = floorY(atX: x)
+            for y in (edge - wallHeight + 1)..<(edge - 3) {
+                g[x, y] = x == cx - 1 || x == floorLeft.x ? "U" : "T"
+            }
         }
 
         // Hand-stamped floor knots — sparse irregular detail the loops can't give.
@@ -173,25 +198,39 @@ enum RoomSpriteShell {
         }
         // Close face tones and softer joints make wood read as a surface, while
         // the dark outside rim still grounds the room's isometric silhouette.
-        let woodBase = PixelRGBA(r: 151, g: 105, b: 72)
-        let woodLight = PixelRGBA(r: 160, g: 115, b: 80)
-        let woodDark = PixelRGBA(r: 110, g: 70, b: 41)
-        let woodLine = PixelRGBA(r: 125, g: 84, b: 53)
-        let wallLit = PixelRGBA(r: 239, g: 227, b: 204)    // #EFE3CC
-        let wallShade = PixelRGBA(r: 228, g: 213, b: 184)  // #E4D5B8
-        let skirt = PixelRGBA(r: 201, g: 161, b: 107)      // #C9A16B
+        let woodBase = PixelRGBA(r: 137, g: 87, b: 55)
+        let woodLight = PixelRGBA(r: 153, g: 102, b: 65)
+        let woodDark = PixelRGBA(r: 78, g: 47, b: 32)
+        let woodLine = PixelRGBA(r: 111, g: 68, b: 43)
+        let afterDark = phase == .evening || phase == .night
+        let wallLit = afterDark ? PixelRGBA(r: 49, g: 66, b: 70) : PixelRGBA(r: 229, g: 218, b: 196)
+        let wallShade = afterDark ? PixelRGBA(r: 35, g: 46, b: 51) : PixelRGBA(r: 213, g: 201, b: 177)
+        let skirt = PixelRGBA(r: 124, g: 78, b: 46)
+        // Preserve named wallpaper choices under night lighting rather than
+        // collapsing all purchased colours into the default petrol architecture.
+        func wall(_ base: PixelRGBA) -> PixelRGBA {
+            let colour = wallTint.map { DayPhase.mix(base, $0, afterDark ? 0.55 : 0.35) } ?? base
+            return afterDark ? colour : phase.ambient(colour)
+        }
 
         return PixelPalette([
             "f": tone(woodBase, floorTint),
             "g": tone(woodLight, floorTint),
             "d": tone(woodDark, floorTint),
             "l": tone(woodLine, floorTint),
-            "w": tone(wallLit, wallTint),
-            "v": tone(wallShade, wallTint),
-            "c": tone(wallShade.darkened(0.07), wallTint),
-            "t": tone(wallShade.darkened(0.18), wallTint),
-            "s": tone(skirt, wallTint),
-            "k": tone(skirt.darkened(0.22), wallTint),
+            "h": tone(woodLight.lightened(0.04), floorTint),
+            "q": tone(woodBase.darkened(0.07), floorTint),
+            "w": wall(wallLit),
+            "v": wall(wallShade),
+            "c": wall(wallShade.darkened(0.12)),
+            "t": PixelRGBA(r: 27, g: 29, b: 30),
+            "P": wall(wallLit.darkened(0.18)),
+            "p": wall(wallShade.darkened(0.18)),
+            "T": phase.ambient(PixelRGBA(r: 104, g: 64, b: 40)),
+            "U": phase.ambient(PixelRGBA(r: 163, g: 111, b: 65)),
+            "R": PixelRGBA(r: 45, g: 33, b: 28),
+            "s": phase.ambient(skirt),
+            "k": phase.ambient(skirt.darkened(0.22)),
         ])
     }
 
@@ -201,7 +240,7 @@ enum RoomSpriteShell {
     static func image(floorTint: Color?, wallTint: Color?, phase: DayPhase) -> UIImage {
         let f = floorTint.map(PixelRGBA.init)
         let w = wallTint.map(PixelRGBA.init)
-        let key = "room-shell-wideboards|\(f?.keyFragment ?? "def")|\(w?.keyFragment ?? "def")|\(phase.rawValue)"
+        let key = "room-shell-apartment1|\(f?.keyFragment ?? "def")|\(w?.keyFragment ?? "def")|\(phase.rawValue)"
         return SpriteBakery.shared.image(key: key) {
             PixelRenderer.bake(
                 grid: baseGrid,

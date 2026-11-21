@@ -2,14 +2,13 @@
 
 Last updated: 2026-11-21
 
-## Current work — native Pixel Apartment onboarding/creator, 2026-11-21
+## Current work — Pixel Apartment main-screen milestone, 2026-11-21
 
-- Implemented first [native redesign milestone](.planning/PIXEL_APARTMENT_IMPLEMENTATION.md): Welcome → creator → name → arrival, top progress only, dark apartment UI and fitted room previews. No skip/gallery/dots in production flow.
-- Creator has numbered skins/yellow+cream new-user starter, M/F presentation, free hair/face/colour/glasses, Randomize and future wardrobe sections last. Existing clothing/accessories, ownership and protected identities are preserved; no coin checkout.
-- Three builders and independent cross-reviews completed. Model checks passed twice; app/UI builds passed. Six initial journeys passed427.247s; final exact-centre normal/AX rechecks passed154.665s. Actual renders inspected and saved in [evidence](docs/verification/pixel-apartment-2026-11-21/README.md).
-- First refinement missed a Welcome tap; recorded event/hierarchy retained. Explicit inner-label hit area added/reviewed; final single-tap checks passed. Cause is not conclusively proven. Current character tailoring is modest; final A character/room art remains unfinished.
-- Recovered work saved in checkpoint `5db37c4`. No agents/build/test clients running. Fixture cleanup passed; app relaunched using ordinary preferences, no data reset. Final commit/remote backup status below.
-- Next: Room/Friends/Profile navigation and concise setup, then immersive focus and richer runtime layers. Full VoiceOver/device, real multiplayer and native shielding remain separate gates.
+- Built native Room/Friends/Profile, room-led dark Home, atmospheric layered city, richer actual evening architecture/materials, concise setup and immersive focus with compact controls. Earlier onboarding/creator requirements remain implemented. Existing identity/inventory/session/reward models preserved.
+- Three builders and cross-reviews finished. Production-model checks and all four app/UI builds passed. Bounded UI run600s produced zero passing cases: startup/first launch hung; no final interaction acceptance claimed. Logs and actual renders in [evidence](docs/verification/pixel-apartment-main-2026-11-21/README.md).
+- Direct Room/group/solo renders inspected. Solo exposed a real scene containment bug; corrected nested backdrop/viewport bounds, rebuilt, final render confirms status bar/timer/dock/desk layering/In focus visible. Test fixture teardown was not confirmed for interrupted automation; ordinary app data was not erased.
+- Full A artwork still unfinished: taller portrait interior, character proportions/hair/faces and richer editable furnishing layers remain next. Do not substitute this material/navigation milestone for final reference-fidelity acceptance.
+- No agents/build/test clients running. Saving local milestone and recording backup status below; next concrete work is final art layers and targeted tab/session interaction acceptance.
 
 ## Product direction
 

@@ -21,14 +21,14 @@ private struct WoodRamp {
     let shade: PixelRGBA
     let line: PixelRGBA
 
-    static let standard = WoodRamp(top: PixelRGBA(r: 169, g: 120, b: 79),
-                                   base: PixelRGBA(r: 139, g: 94, b: 60),
-                                   shade: PixelRGBA(r: 110, g: 70, b: 41),
-                                   line: PixelRGBA(r: 89, g: 55, b: 31))
-    static let dark = WoodRamp(top: PixelRGBA(r: 139, g: 94, b: 60),
-                               base: PixelRGBA(r: 110, g: 70, b: 41),
-                               shade: PixelRGBA(r: 89, g: 55, b: 31),
-                               line: PixelRGBA(r: 69, g: 40, b: 18))
+    static let standard = WoodRamp(top: PixelRGBA(r: 181, g: 130, b: 78),
+                                   base: PixelRGBA(r: 140, g: 88, b: 48),
+                                   shade: PixelRGBA(r: 94, g: 55, b: 31),
+                                   line: PixelRGBA(r: 59, g: 37, b: 27))
+    static let dark = WoodRamp(top: PixelRGBA(r: 145, g: 96, b: 57),
+                               base: PixelRGBA(r: 106, g: 64, b: 38),
+                               shade: PixelRGBA(r: 73, g: 43, b: 29),
+                               line: PixelRGBA(r: 45, g: 30, b: 24))
     static let birch = WoodRamp(top: PixelRGBA(r: 220, g: 194, b: 155),
                                 base: PixelRGBA(r: 196, g: 162, b: 114),
                                 shade: PixelRGBA(r: 163, g: 130, b: 83),

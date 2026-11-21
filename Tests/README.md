@@ -183,3 +183,17 @@ outfits remain intact. Existing wardrobe/discard tests use stable numbered-skin 
 
 Current runtime acceptance and screenshots: `docs/verification/pixel-apartment-2026-11-21/`.
 Dark UI and modest tailoring do not close the final character/room-art fidelity gate.
+
+## Pixel Apartment main-screen routes
+
+Completed onboarding and Debug `-smoke-room home` now mount the native
+Room/Friends/Profile shell. Avatar checks select Profile before Edit avatar;
+decorating selects Room; simulated club checks select Friends. This does not
+change saved-session ownership. `testApartmentTabsKeepStudyEntryAndSeparateProfile`
+captures all three tabs and asserts the social availability disclosure.
+
+Focus at standard text is a viewport rather than a ScrollView. At accessibility
+sizes, the room/details remain scrollable. Session capability information is
+reachable through `study.details`, while participant goals remain in
+`study.participants` for demo clubs. The compact restoration/reward journey and
+eight-person area journey remain the primary interaction regressions.

@@ -34,6 +34,9 @@ final class OfflineStudyLoopTests: XCTestCase {
     }
 
     private func tap(_ identifier: String) {
+        if identifier == "Edit avatar" { app.tabBars.buttons["Profile"].tap() }
+        if identifier == "Decorate" { app.tabBars.buttons["Room"].tap() }
+        if identifier == "study.club" { app.tabBars.buttons["Friends"].tap() }
         let button = app.buttons[identifier].firstMatch
         XCTAssertTrue(button.waitForExistence(timeout: 15), "Missing button: \(identifier)")
         for _ in 0..<6 {
@@ -51,6 +54,10 @@ final class OfflineStudyLoopTests: XCTestCase {
         }
         XCTAssertTrue(button.isHittable)
         button.tap()
+        if identifier == "study.done" {
+            XCTAssertTrue(app.tabBars.buttons["Room"].waitForExistence(timeout: 15))
+            app.tabBars.buttons["Room"].tap()
+        }
     }
 
     private func capture(_ name: String) {
@@ -208,6 +215,21 @@ final class OfflineStudyLoopTests: XCTestCase {
         capture("07-restored-room")
     }
 
+    func testApartmentTabsKeepStudyEntryAndSeparateProfile() {
+        capture("apartment-room-tab")
+        XCTAssertFalse(app.buttons["Edit avatar"].exists)
+        app.tabBars.buttons["Friends"].tap()
+        XCTAssertTrue(app.staticTexts["Not connected yet"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.buttons["study.club"].exists)
+        capture("apartment-friends-tab")
+        app.tabBars.buttons["Profile"].tap()
+        XCTAssertTrue(app.buttons["Edit avatar"].waitForExistence(timeout: 15))
+        capture("apartment-profile-tab")
+        app.tabBars.buttons["Room"].tap()
+        XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.buttons["Decorate"].exists)
+    }
+
     func testAvatarAndDecoratingPersist() {
         tap("Edit avatar")
         tap("Skin")
@@ -263,6 +285,7 @@ final class OfflineStudyLoopTests: XCTestCase {
         XCTAssertTrue(app.buttons["avatar.skin.deep"].isSelected)
         tap("avatar.close")
         tap("avatar.discard")
+        app.tabBars.buttons["Room"].tap()
         XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 15))
         tap("Edit avatar")
         tap("Skin")
@@ -318,7 +341,7 @@ final class OfflineStudyLoopTests: XCTestCase {
 
     func testDemoClubRestorationAndResults() {
         tap("study.club")
-        XCTAssertTrue(app.staticTexts["Demo room · simulated companions"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts["Demo study club"].waitForExistence(timeout: 15))
         capture("club-01-setup")
         let goal = app.descendants(matching: .any).matching(identifier: "study.goal").firstMatch
         XCTAssertTrue(goal.waitForExistence(timeout: 15))
@@ -327,7 +350,7 @@ final class OfflineStudyLoopTests: XCTestCase {
         if app.buttons["Done"].exists { app.buttons["Done"].tap() }
         tap("study.begin")
         XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
-        XCTAssertTrue(app.staticTexts["Demo room · simulated companions"].exists)
+        XCTAssertTrue(app.buttons["study.participants"].label.contains("Simulated companions"))
         capture("club-02-focus")
         // Check the wider status text after the demo companion's actual timer transition.
         let deepFocus = app.descendants(matching: .any)
@@ -341,7 +364,7 @@ final class OfflineStudyLoopTests: XCTestCase {
         launch()
         tap("study.start")
         XCTAssertTrue(app.buttons["study.break"].waitForExistence(timeout: 15))
-        XCTAssertTrue(app.staticTexts["Demo room · simulated companions"].exists)
+        XCTAssertTrue(app.buttons["study.participants"].label.contains("Simulated companions"))
         XCTAssertEqual(app.buttons["study.break"].label, "Back to focus")
         capture("club-04-restored-break")
         tap("study.break")

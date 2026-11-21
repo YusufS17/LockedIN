@@ -16,6 +16,7 @@ struct LiveRoomScene: View {
     let room: PersonalRoom
     /// Index (into `participants`) of the user when on a break — drawn in the break corner.
     var breakingUserIndex: Int?
+    var immersive: Bool = false
 
     @State private var selectedArea = 0
 
@@ -29,8 +30,30 @@ struct LiveRoomScene: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            roomScene
-                .aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height, contentMode: .fit)
+            if immersive {
+                GeometryReader { geometry in
+                    ZStack {
+                        // The parent supplies the atmospheric background. A second
+                        // safe-area-ignoring backdrop here would expand the scene
+                        // into the timer/dock and system chrome.
+                        // Solo camera moves closer; multi-seat areas retain their
+                        // full width so every person and desk remains visible.
+                        let ratio = RoomLayout.imageSize.width / RoomLayout.imageSize.height
+                        let portrait = geometry.size.height > geometry.size.width
+                        let width = participants.count == 1 && portrait
+                            ? max(geometry.size.width * 1.22, geometry.size.height * ratio * 0.95)
+                            : min(geometry.size.width, geometry.size.height * 0.94 * ratio)
+                        roomScene
+                            .frame(width: width, height: width * RoomLayout.imageSize.height / RoomLayout.imageSize.width)
+                            .position(x: geometry.size.width / 2, y: geometry.size.height * 0.53)
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .clipped()
+                }
+            } else {
+                roomScene
+                    .aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height, contentMode: .fit)
+            }
             if areas.count > 1 { areaControls }
         }
         .onAppear { showUserArea() }
@@ -52,6 +75,7 @@ struct LiveRoomScene: View {
                             .foregroundStyle(selectedArea == area ? Theme.Colour.focusGreen : Theme.Colour.textSecondary)
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Area \(area + 1)").font(.system(size: 12, weight: .semibold))
+                                .foregroundStyle(Theme.Colour.textPrimary)
                             Text("\(areas[area].count) people\(areas[area].contains(where: { participants[$0].isUser }) ? " · You" : "")")
                                 .font(.system(size: 10))
                                 .foregroundStyle(Theme.Colour.textSecondary)
@@ -96,10 +120,10 @@ struct LiveRoomScene: View {
 
             ZStack {
                 // Fill behind the letterbox (canvas ~1.2:1 vs arbitrary containers).
-                Theme.Colour.background
+                Color.clear
 
                 Image(uiImage: RoomComposer.baseImage(room: room,
-                                                      phase: DayPhase.current(),
+                                                      phase: .evening,
                                                       includeSeating: false,
                                                       sharedStudy: participants.count > 1))
                     .interpolation(.none)
@@ -120,7 +144,7 @@ struct LiveRoomScene: View {
                 }
 
                 RoomAmbientLayer(
-                    size: s, room: room, reduceMotion: reduceMotion,
+                    size: s, room: room, reduceMotion: reduceMotion, phase: .evening,
                     lampAt: RoomCanvas.fraction(RoomCanvas.lampGlow(room: room, sharedStudy: participants.count > 1), in: s),
                     windowAt: RoomCanvas.fraction(RoomCanvas.windowGlow, in: s)
                 )
@@ -194,8 +218,8 @@ struct LiveRoomScene: View {
             // Put this label beside their body, away from every seated face.
             statusTag(.onBreak)
                 .fixedSize()
-                .position(x: ground.x + avatarSize * 0.62,
-                          y: ground.y - avatarSize * 0.30)
+                .position(x: participants.count == 1 ? ground.x : ground.x + avatarSize * 0.62,
+                          y: ground.y - avatarSize * (participants.count == 1 ? 1.04 : 0.30))
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(p.isUser ? "You" : p.displayName), on break")
@@ -224,7 +248,7 @@ struct LiveRoomScene: View {
         let avatarSize = Self.avatarCells * cell * seat.scale
         let ground = RoomLayout.project(seat.avatar, in: size)
         let y = ground.y + 2 * cell * seat.scale - avatarSize - 9
-        let halfWidth: CGFloat = 11
+        let halfWidth: CGFloat = participants.count == 1 ? 38 : 11
         let halfHeight: CGFloat = 11
         let gap: CGFloat = 3
         let roomLeft = (size.width - RoomLayout.imageSize.width * cell) / 2
@@ -271,11 +295,19 @@ struct LiveRoomScene: View {
     @ViewBuilder
     private func statusTag(_ status: AvatarStatus) -> some View {
         if status != .idle {
-            Image(systemName: status.symbolName ?? "circle.fill")
+            HStack(spacing: 4) {
+                Circle().fill(statusTint(status)).frame(width: 5, height: 5)
+                if participants.count == 1 {
+                    Text(status == .focused || status == .deepFocus ? "In focus" : status.label)
+                        .font(.system(size: 10, weight: .semibold))
+                } else {
+                    Image(systemName: status == .focused || status == .deepFocus ? "pencil" : (status.symbolName ?? "circle.fill"))
+                }
+            }
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(statusTint(status))
-                .frame(width: 22, height: 22)
-                .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 7))
+                .frame(width: participants.count == 1 ? 76 : 22, height: 22)
+                .background(Color(red: 0.055, green: 0.10, blue: 0.12), in: RoundedRectangle(cornerRadius: 7))
                 .overlay {
                     RoundedRectangle(cornerRadius: 7)
                         .strokeBorder(statusTint(status).opacity(0.5), lineWidth: 1)
@@ -287,10 +319,10 @@ struct LiveRoomScene: View {
 
     private func statusTint(_ status: AvatarStatus) -> Color {
         switch status {
-        case .focused: return Theme.Colour.focusGreen
-        case .deepFocus: return Theme.Colour.deepFocusBlue
+        case .focused: return Color(red: 0.57, green: 0.77, blue: 0.46)
+        case .deepFocus: return Color(red: 0.49, green: 0.69, blue: 0.91)
         case .onBreak, .finished: return Theme.Colour.accent
-        case .distracted: return Theme.Colour.forfeitRed
+        case .distracted: return Color(red: 0.96, green: 0.55, blue: 0.48)
         case .idle: return Theme.Colour.textSecondary
         }
     }

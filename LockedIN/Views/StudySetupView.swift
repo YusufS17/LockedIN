@@ -1,16 +1,16 @@
 import SwiftUI
 
-/// Shared setup keeps solo and demo-room commitments consistent.
+/// A concise plan before entering the room. Session rules and roster creation
+/// remain owned by the saved study flow.
 struct StudySetupView: View {
-    @Environment(AppStore.self) private var appStore
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @ScaledMetric(relativeTo: .title2) private var previewTitleSize = 24.0
     @Binding var config: RoomConfig
     @Binding var clubSize: Int
     var group = false
     let onStart: () -> Void
     let onClose: () -> Void
     @FocusState private var editing: Field?
+    @State private var showsDetails = false
     private enum Field { case subject, goal }
 
     private var ready: Bool {
@@ -18,76 +18,80 @@ struct StudySetupView: View {
         !config.goal.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    private var roster: [SessionParticipant] {
-        SessionParticipant.makeRoster(userCharacter: appStore.userStudyCharacter,
-                                      userName: appStore.displayName, config: config, count: clubSize)
-    }
-
     var body: some View {
         VStack(spacing: 0) {
-            StudioHeader(title: group ? "The study club" : "Make a little time",
-                         subtitle: group ? "Demo room · simulated companions" : "Your personal focus session", close: onClose)
+            HStack(spacing: 10) {
+                Button(action: onClose) {
+                    Image(systemName: "chevron.left").font(.headline)
+                        .frame(width: 44, height: 44).contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Back")
+                .accessibilityIdentifier("studio.back")
+                Text(group ? "Demo study club" : "Start a session")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityAddTraits(.isHeader)
+                Spacer(minLength: 0)
+            }.padding(.horizontal, 12).padding(.vertical, 8)
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
-                    if group { clubPreview } else { soloPreview }
-                    VStack(alignment: .leading, spacing: 14) {
-                        planHeading("01", "Give this session a purpose", "One subject. One achievable goal.")
-                        VStack(alignment: .leading, spacing: 8) {
-                            Label("SUBJECT", systemImage: "book.closed").font(.caption2.weight(.bold)).tracking(1)
-                            TextField("e.g. Biology", text: $config.subject)
-                                .accessibilityIdentifier("study.subject")
-                                .accessibilityLabel("Subject")
-                                .accessibilityHint("Up to 40 characters")
-                                .textInputAutocapitalization(.sentences)
-                                .focused($editing, equals: .subject)
-                                .submitLabel(.next)
-                                .onSubmit { editing = .goal }
-                                .onChange(of: config.subject) { _, text in config.subject = cleanStudyText(text, limit: 40) }
-                            Divider().overlay(Theme.Colour.cardBorder.opacity(0.4)).padding(.vertical, 8)
-                            Label("ONE SMALL GOAL", systemImage: "scope").font(.caption2.weight(.bold)).tracking(1)
-                            TextField("e.g. Finish my notes on chapter 4", text: $config.goal, axis: .vertical)
-                                .accessibilityIdentifier("study.goal")
-                                .accessibilityLabel("One small goal")
-                                .accessibilityHint("Up to 120 characters")
-                                .textInputAutocapitalization(.sentences)
-                                .lineLimit(2...3)
-                                .focused($editing, equals: .goal)
-                                .onChange(of: config.goal) { _, text in config.goal = cleanStudyText(text, limit: 120) }
-                        }
-                        .font(.subheadline)
-                        .padding(18)
-                        .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 18))
-                        .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Theme.Colour.cardBorder.opacity(0.6)))
+                    VStack(alignment: .leading, spacing: 8) {
+                        fieldHeading("Subject")
+                        TextField("e.g. Biology", text: $config.subject)
+                            .accessibilityIdentifier("study.subject")
+                            .accessibilityLabel("Subject")
+                            .accessibilityHint("Up to 40 characters")
+                            .textInputAutocapitalization(.sentences)
+                            .focused($editing, equals: .subject)
+                            .submitLabel(.next)
+                            .onSubmit { editing = .goal }
+                            .onChange(of: config.subject) { _, text in config.subject = cleanStudyText(text, limit: 40) }
+                            .modifier(FocusInputSurface())
                     }
-                    VStack(alignment: .leading, spacing: 12) {
-                        planHeading("02", "Choose your pace", "Time to settle in, with room for a break.")
-                        durationLayout {
+                    VStack(alignment: .leading, spacing: 8) {
+                        fieldHeading("One small goal")
+                        TextField("e.g. Finish my notes on chapter 4", text: $config.goal, axis: .vertical)
+                            .accessibilityIdentifier("study.goal")
+                            .accessibilityLabel("One small goal")
+                            .accessibilityHint("Up to 120 characters")
+                            .textInputAutocapitalization(.sentences)
+                            .lineLimit(2...3)
+                            .focused($editing, equals: .goal)
+                            .onChange(of: config.goal) { _, text in config.goal = cleanStudyText(text, limit: 120) }
+                            .modifier(FocusInputSurface())
+                    }
+                    VStack(alignment: .leading, spacing: 8) {
+                        fieldHeading("Duration")
+                        (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(spacing: 8)) : AnyLayout(HStackLayout(spacing: 10))) {
                             duration(25, "A little sprint")
                             duration(50, "Settle in")
                             duration(90, "Go deeper")
                         }
                     }
+                    if group { seats }
                     if !ready {
-                        Text("Add a subject and a small goal to start your session.")
-                            .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+                        Text("Add a subject and goal to begin.")
+                            .font(.caption).foregroundStyle(FocusApartmentStyle.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
-                    HStack(alignment: .top, spacing: 12) {
-                        Image(systemName: "leaf").font(.system(size: 20)).foregroundStyle(Theme.Colour.focusGreen)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Your session, at a glance").font(.subheadline.weight(.semibold))
-                            Text("\(config.focusMinutes) minutes · one flexible break\nA private check-in when you finish.")
-                                .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
-                        }
-                    }.modifier(StudioCard())
-                    Text(group ? "All companions and their study goals are simulated. Private invites and real multiplayer are still being built." : "This version offers a focus timer and self-reported breaks. It does not block other apps.")
-                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary).fixedSize(horizontal: false, vertical: true)
+                    Button { showsDetails = true } label: {
+                        Label("How focus works", systemImage: "info.circle")
+                            .font(.caption).frame(minHeight: 44).contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(FocusApartmentStyle.secondary)
                 }
-                .padding(.horizontal, 24).padding(.bottom, 24)
+                .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 20)
             }
             .scrollDismissesKeyboard(.interactively)
         }
-        .foregroundStyle(Theme.Colour.textPrimary)
-        .background(Theme.Colour.background.ignoresSafeArea())
+        .foregroundStyle(FocusApartmentStyle.ink)
+        .background {
+            ApartmentNightBackdrop().ignoresSafeArea()
+                .overlay(FocusApartmentStyle.background.opacity(0.60))
+        }
+        .preferredColorScheme(.dark)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Button {
                 editing = nil
@@ -98,15 +102,15 @@ struct StudySetupView: View {
                 HStack {
                     Text(group ? "Join & focus" : "Let’s focus")
                     Spacer()
-                    Text("\(config.focusMinutes) min").font(.subheadline.weight(.regular))
+                    Text("\(config.focusMinutes) min").fontWeight(.regular)
                     Image(systemName: "arrow.right")
                 }
             }
-            .buttonStyle(StudioButtonStyle(primary: true))
+            .buttonStyle(FocusApartmentButtonStyle(primary: true))
             .accessibilityIdentifier("study.begin")
             .disabled(!ready)
             .padding(.horizontal, 24).padding(.vertical, 12)
-            .background(Theme.Colour.background)
+            .background(FocusApartmentStyle.background)
         }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
@@ -114,101 +118,56 @@ struct StudySetupView: View {
                 Button("Done") { editing = nil }
             }
         }
-    }
-
-    private var durationLayout: AnyLayout {
-        dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(spacing: 10))
-            : AnyLayout(HStackLayout(spacing: 10))
-    }
-
-    private var previewLayout: AnyLayout {
-        dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
-            : AnyLayout(HStackLayout(spacing: 16))
-    }
-
-    private var soloPreview: some View {
-        previewLayout {
-            PixelAvatarView(appearance: appStore.userCharacter, status: .idle, size: 94)
-                .frame(width: 88, height: 110)
-                .background(Theme.Colour.surfaceMid.opacity(0.65), in: RoundedRectangle(cornerRadius: 14))
-                .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: 6) {
-                StudioEyebrow(text: "A room for you")
-                Text(dynamicTypeSize.isAccessibilitySize ? "Leave a little space to focus." : "Leave a little\nspace to focus.")
-                    .font(.system(size: previewTitleSize, weight: .bold, design: .rounded)).tracking(-0.5)
-                Text("Your outfit. Your room. Your pace.")
-                    .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
+        .sheet(isPresented: $showsDetails) {
+            NavigationStack {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        Text("Your timer continues outside the app. Breaks and interruptions are self-reported; other app use is not tracked or blocked.")
+                        Text("Take up to \(config.breakAllowance) planned break\(config.breakAllowance == 1 ? "" : "s"). Your goal check-in at the end stays private.")
+                        if group { Text("Companions and their study goals are simulated. This is a demo room, not live multiplayer.") }
+                    }.font(.body).padding(24)
+                }
+                .navigationTitle("How focus works").navigationBarTitleDisplayMode(.inline)
+                .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showsDetails = false } } }
+                .foregroundStyle(FocusApartmentStyle.ink)
+                .background(FocusApartmentStyle.background)
             }
-            Spacer(minLength: 0)
+            .preferredColorScheme(.dark)
         }
-        .padding(14)
-        .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 18))
-        .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Theme.Colour.cardBorder))
     }
 
-    private var clubPreview: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            previewLayout {
-                HStack(spacing: -10) {
-                    ForEach(Array(roster.prefix(4))) { person in
-                        SpriteAvatarView(character: person.character, status: .idle, size: 52, showStatusBadge: false)
-                            .frame(width: 42, height: 62)
-                    }
-                }
-                .accessibilityHidden(true)
-                Spacer(minLength: 0)
-                VStack(alignment: dynamicTypeSize.isAccessibilitySize ? .leading : .trailing, spacing: 5) {
-                    Text("Study, together.").font(.system(.headline, design: .rounded))
-                    Text("A cosy club to try out")
-                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
-                }
+    private func fieldHeading(_ text: String) -> some View {
+        Text(text).font(.subheadline.weight(.semibold)).accessibilityAddTraits(.isHeader)
+    }
+
+    private var seats: some View {
+        (dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 10)) : AnyLayout(HStackLayout(spacing: 12))) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\(clubSize) study seats").font(.subheadline.weight(.semibold))
+                    .accessibilityIdentifier("study.clubSize")
+                Text("You + \(clubSize - 1) simulated companions")
+                    .font(.caption).foregroundStyle(FocusApartmentStyle.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            Rectangle().fill(Theme.Colour.cardBorder.opacity(0.6)).frame(height: 1)
-            previewLayout {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("\(clubSize) study seats").font(.subheadline.weight(.semibold))
-                        .accessibilityIdentifier("study.clubSize")
-                    Text("You + \(clubSize - 1) demo companions")
-                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
-                }
-                Spacer(minLength: 0)
-                HStack(spacing: 10) {
-                    seatButton("minus", enabled: clubSize > 2, identifier: "study.clubSize.decrease", label: "Fewer study seats") { clubSize = max(2, clubSize - 1) }
-                    Text("\(clubSize)").font(.system(.headline, design: .monospaced, weight: .semibold)).frame(minWidth: 20)
-                        .accessibilityHidden(true)
-                    seatButton("plus", enabled: clubSize < 8, identifier: "study.clubSize.increase", label: "More study seats") { clubSize = min(8, clubSize + 1) }
-                }
+            if !dynamicTypeSize.isAccessibilitySize { Spacer(minLength: 0) }
+            HStack(spacing: 10) {
+                seatButton("minus", enabled: clubSize > 2, identifier: "study.clubSize.decrease", label: "Fewer study seats") { clubSize = max(2, clubSize - 1) }
+                Text("\(clubSize)").font(.headline.monospacedDigit()).frame(minWidth: 20).accessibilityHidden(true)
+                seatButton("plus", enabled: clubSize < 8, identifier: "study.clubSize.increase", label: "More study seats") { clubSize = min(8, clubSize + 1) }
             }
-            Text("Subjects and goals appear in the club. Your check-in afterwards stays private.")
-                .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
-        }.modifier(StudioCard())
+        }
     }
 
     private func seatButton(_ symbol: String, enabled: Bool, identifier: String, label: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Image(systemName: symbol).font(.system(size: 14, weight: .semibold))
+            Image(systemName: symbol).font(.subheadline.weight(.semibold))
                 .frame(width: 44, height: 44)
-                .background(Theme.Colour.surfaceMid.opacity(0.6), in: RoundedRectangle(cornerRadius: 12))
-                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Theme.Colour.cardBorder))
-        }.buttonStyle(.plain).disabled(!enabled).opacity(enabled ? 1 : 0.35)
-            .accessibilityLabel(label).accessibilityValue("\(clubSize) seats")
-            .accessibilityIdentifier(identifier)
-    }
-
-    private func planHeading(_ number: String, _ title: String, _ detail: String) -> some View {
-        HStack(spacing: 10) {
-            Text(number).font(.system(size: 11, weight: .bold, design: .monospaced))
-                .frame(width: 30, height: 30)
-                .background(Theme.Colour.surfaceMid, in: RoundedRectangle(cornerRadius: 9))
-                .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title).font(.system(.subheadline, design: .rounded, weight: .semibold))
-                    .accessibilityAddTraits(.isHeader)
-                Text(detail).font(.caption).foregroundStyle(Theme.Colour.textSecondary)
-            }
+                .background(FocusApartmentStyle.panel, in: RoundedRectangle(cornerRadius: 10))
+                .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(FocusApartmentStyle.border))
+                .contentShape(RoundedRectangle(cornerRadius: 10))
         }
+        .buttonStyle(.plain).disabled(!enabled).opacity(enabled ? 1 : 0.35)
+        .accessibilityLabel(label).accessibilityValue("\(clubSize) seats").accessibilityIdentifier(identifier)
     }
 
     private func cleanStudyText(_ text: String, limit: Int) -> String {
@@ -223,24 +182,57 @@ struct StudySetupView: View {
             config.focusMinutes = minutes
             config.quickDemo = false
         } label: {
-            VStack(spacing: 6) {
-                HStack {
-                    Spacer()
-                    Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                        .font(.system(size: 12)).foregroundStyle(selected ? Theme.Colour.testBadgeFg : Theme.Colour.cardBorder)
-                }.padding(.horizontal, 10)
-                Text("\(minutes)").font(.system(.title2, design: .rounded, weight: .semibold))
-                Text("minutes").font(.caption)
-                Text(caption).font(.caption2)
+            HStack(spacing: 6) {
+                Text("\(minutes)").font(.system(.title3, design: .rounded, weight: .bold))
+                Text("min").font(.caption)
             }
-            .frame(maxWidth: .infinity).padding(.top, 9).padding(.bottom, 14)
-            .foregroundStyle(Theme.Colour.textPrimary)
-            .background(selected ? Theme.Colour.accentSoft.opacity(0.45) : Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 14))
-            .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(selected ? Theme.Colour.testBadgeFg : Theme.Colour.cardBorder, lineWidth: selected ? 1.5 : 1))
+            .foregroundStyle(selected ? FocusApartmentStyle.buttonInk : FocusApartmentStyle.ink)
+            .frame(maxWidth: .infinity, minHeight: 60)
+            .background(selected ? FocusApartmentStyle.amber : FocusApartmentStyle.panel, in: RoundedRectangle(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(selected ? FocusApartmentStyle.amber : FocusApartmentStyle.border))
+            .contentShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(minutes) minutes, \(caption)")
         .accessibilityValue(selected ? "Selected" : "")
         .accessibilityAddTraits(selected ? .isSelected : [])
+        .accessibilityIdentifier("study.duration.\(minutes)")
+    }
+}
+
+private struct FocusInputSurface: ViewModifier {
+    func body(content: Content) -> some View {
+        content.font(.body).tint(FocusApartmentStyle.amber)
+            .padding(14).frame(maxWidth: .infinity, alignment: .leading)
+            .background(FocusApartmentStyle.panel, in: RoundedRectangle(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(FocusApartmentStyle.border))
+    }
+}
+
+/// Shared only by the setup and live-focus shell; room assets remain independent.
+enum FocusApartmentStyle {
+    static let background = Color(red: 0.075, green: 0.090, blue: 0.105)
+    static let panel = Color(red: 0.12, green: 0.14, blue: 0.16)
+    static let border = Color(red: 0.39, green: 0.36, blue: 0.31)
+    static let ink = Color(red: 0.98, green: 0.91, blue: 0.79)
+    static let secondary = Color(red: 0.71, green: 0.69, blue: 0.65)
+    static let amber = Color(red: 1.0, green: 0.66, blue: 0.23)
+    static let buttonInk = Color(red: 0.10, green: 0.085, blue: 0.07)
+}
+
+struct FocusApartmentButtonStyle: ButtonStyle {
+    var primary = false
+    @Environment(\.isEnabled) private var isEnabled
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+            .foregroundStyle(primary ? FocusApartmentStyle.buttonInk : FocusApartmentStyle.ink)
+            .padding(.horizontal, 16).padding(.vertical, 12)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, minHeight: 52)
+            .background(primary ? FocusApartmentStyle.amber : FocusApartmentStyle.panel.opacity(0.96), in: RoundedRectangle(cornerRadius: 13))
+            .overlay(RoundedRectangle(cornerRadius: 13).strokeBorder(primary ? FocusApartmentStyle.amber : FocusApartmentStyle.border))
+            .contentShape(RoundedRectangle(cornerRadius: 13))
+            .opacity(isEnabled ? (configuration.isPressed ? 0.8 : 1) : 0.4)
     }
 }

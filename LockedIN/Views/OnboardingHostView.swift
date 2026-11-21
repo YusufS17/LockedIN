@@ -155,35 +155,11 @@ struct OnboardingApartmentButtonStyle: ButtonStyle {
     }
 }
 
-/// Architectural depth behind the live room layers, without ornamental clouds or
-/// star particles. It deliberately remains still when Reduce Motion is enabled.
+/// Shared architectural night setting behind onboarding's editable room layers.
+/// Authored clouds, skyline and distant stars stay still for a quiet introduction.
 struct OnboardingApartmentBackdrop: View {
     var body: some View {
-        ZStack {
-            LinearGradient(colors: [OnboardingApartmentPalette.background,
-                                     Color(red: 0.13, green: 0.14, blue: 0.17),
-                                     Color(red: 0.19, green: 0.14, blue: 0.105)],
-                           startPoint: .top, endPoint: .bottomTrailing)
-            Canvas { context, size in
-                let width = size.width / 7
-                for column in 0..<7 {
-                    let roof = size.height * [0.48, 0.32, 0.43, 0.25, 0.39, 0.30, 0.45][column]
-                    let x = CGFloat(column) * width
-                    context.fill(Path(CGRect(x: x, y: roof, width: width - 4,
-                                             height: size.height - roof)),
-                                 with: .color(.black.opacity(0.12)))
-                    for row in 0..<8 where (column + row) % 3 != 0 {
-                        let rect = CGRect(x: x + width * 0.22,
-                                          y: roof + 20 + CGFloat(row) * 38,
-                                          width: width * 0.18, height: 12)
-                        context.fill(Path(rect), with: .color(OnboardingApartmentPalette.amber.opacity(0.055)))
-                    }
-                }
-            }
-        }
-        .ignoresSafeArea()
-        .accessibilityHidden(true)
-        .allowsHitTesting(false)
+        ApartmentNightBackdrop()
     }
 }
 

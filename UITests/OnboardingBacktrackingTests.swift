@@ -125,6 +125,7 @@ final class OnboardingBacktrackingTests: XCTestCase {
         XCTAssertTrue(app.buttons["study.start"].waitForExistence(timeout: 30))
         XCTAssertFalse(app.buttons["onboarding.continue"].exists)
         XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "River")).firstMatch.exists)
+        app.tabBars.buttons["Profile"].tap()
         tap("Edit avatar")
         XCTAssertTrue(app.buttons["avatar.skin.deep"].waitForExistence(timeout: 15))
         XCTAssertTrue(app.buttons["avatar.skin.deep"].isSelected)

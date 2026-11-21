@@ -1,10 +1,18 @@
 ---
-status: pixel_apartment_milestone1_verified
+status: pixel_apartment_main_rendered_interactions_pending
 last_updated: "2026-11-21"
-stopped_at: "Native onboarding/creator milestone verified; tabs and immersive room next"
+stopped_at: "Main-screen milestone rendered; final art and interaction acceptance remain"
 ---
 
 # Current handoff
+
+## Full Pixel Apartment continuation — 2026-11-21
+
+Resumed clean `44f40dc` and implemented native Room/Friends/Profile, layered night-city backdrop, richer architectural evening room art, concise setup and immersive focus. Existing saved identity/inventory/session/reward models remain unchanged. Three builders/cross-reviews completed; no agents/build/test clients running.
+
+Production-model checks and all four app/UI builds passed. Selected4 UI journeys but bounded600s runner timed out during first app launch; zero passes, interrupted teardown unconfirmed (namespaced fixture only). Direct Room/group/solo renders inspected. Actual solo render exposed missing dock/unsafe layout; fixed redundant safe-area-ignoring backdrop + explicit scene viewport. Final `focus-contained.png` confirms status bar above timer, visible dock, seated layers and In focus. [Evidence](../docs/verification/pixel-apartment-main-2026-11-21/README.md).
+
+Not final A art acceptance: current floating room/cast proportions/furniture remain earlier family despite material improvements. Next: taller portrait apartment architecture and original character refinement, then targeted tab/session interaction acceptance. No real friends/shielding. Local commit/remote status in PROGRESS. Visual fixture cleanup/ordinary launch recorded in evidence when complete; no app-data erasure.
 
 ## Final native milestone — 2026-11-21
 

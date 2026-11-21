@@ -55,7 +55,7 @@ struct StudySessionFlowView: View {
                 StudySetupView(config: $config, clubSize: $clubSize, group: group, onStart: start, onClose: { dismiss() })
             }
         }
-        .preferredColorScheme(.light)
+        .preferredColorScheme(.dark)
     }
 
     private func start() {

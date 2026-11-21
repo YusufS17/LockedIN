@@ -10,10 +10,10 @@ import SwiftUI
 
 // Shared wall-piece wood ramp (art-direction wood: base 8B5E3C ramp).
 private enum WallWood {
-    static let light = PixelRGBA(r: 0xA9, g: 0x78, b: 0x4F)
-    static let base  = PixelRGBA(r: 0x8B, g: 0x5E, b: 0x3C)
-    static let dark  = PixelRGBA(r: 0x6E, g: 0x46, b: 0x29)
-    static let line  = PixelRGBA(r: 0x59, g: 0x37, b: 0x1F)
+    static let light = PixelRGBA(r: 180, g: 129, b: 77)
+    static let base  = PixelRGBA(r: 137, g: 86, b: 47)
+    static let dark  = PixelRGBA(r: 92, g: 55, b: 33)
+    static let line  = PixelRGBA(r: 57, g: 37, b: 28)
 }
 
 /// Warm dark silhouette ring shared by all room bakes.
@@ -132,16 +132,26 @@ enum RoomWindowSprite {
         }
         // A distant neighbourhood at the horizon links this study nook to
         // the wider world. Interrupted heights read as rooftops at phone size.
-        for (left, width, height) in [(3, 5, 3), (9, 7, 5), (18, 5, 2),
-                                      (27, 6, 4), (35, 7, 2), (44, 5, 5)] {
+        for (left, width, height) in [(3, 5, 13), (10, 7, 18), (19, 5, 10),
+                                      (27, 6, 15), (35, 7, 20), (44, 5, 12)] {
             for x in left..<(left + width) {
-                for y in (35 - height)..<35 where g[x, y] == "H" || g[x, y] == "s" || g[x, y] == "a" {
+                for y in (35 - height)..<35 where "SHsa".contains(g[x,y]) {
                     g[x, y] = "B"
                 }
             }
+            // Roof ledges remain on the same projected pane, with small warm
+            // apartment windows rather than an uninterrupted horizon stripe.
+            for x in left..<(left + width) where g[x, 35-height] == "B" { g[x, 35-height] = "C" }
         }
-        for (x, y) in [(11, 32), (14, 33), (29, 33), (46, 31), (46, 33)] {
-            if g[x, y] == "B" { g[x, y] = "b" }
+        for x in 3...48 {
+            for y in 15...34 where g[x,y] == "B" {
+                if x % 3 == 1, y % 4 == 1 {
+                    g[x,y] = (x + y) % 5 == 0 ? "j" : "b"
+                }
+            }
+        }
+        for y in 30...31 {
+            for x in 3...48 where g[x,y] == "a" { g[x,y] = "H" }
         }
         if variant == 1 { g.stamp(vine, atX: 0, y: 0) }
         return g
@@ -167,13 +177,16 @@ enum RoomWindowSprite {
 
     /// Sky + accent come from the caller's day phase; no tint here.
     static func palette(variant: Int, sky: PixelRGBA, accent: PixelRGBA) -> PixelPalette {
-        PixelPalette([
+        let afterDark = Int(sky.r) + Int(sky.g) + Int(sky.b) < 320
+        return PixelPalette([
             "L": WallWood.light, "F": WallWood.base, "D": WallWood.dark, "E": WallWood.line,
             "s": sky,
             "S": sky.darkened(0.12),
             "H": DayPhase.mix(sky, accent, 0.22),
-            "B": sky.darkened(0.32),
-            "b": DayPhase.mix(accent, PixelRGBA(r: 255, g: 211, b: 139), 0.55),
+            "B": sky.darkened(0.44),
+            "C": sky.darkened(0.22),
+            "b": afterDark ? PixelRGBA(r: 247, g: 183, b: 89) : sky.lightened(0.12),
+            "j": afterDark ? PixelRGBA(r: 166, g: 112, b: 60) : sky.darkened(0.15),
             "a": accent,
             "g": sky.lightened(0.35),
             "v": PixelRGBA(r: 0x4A, g: 0x7C, b: 0x59),
@@ -183,7 +196,7 @@ enum RoomWindowSprite {
 
     @MainActor
     static func image(variant: Int, sky: PixelRGBA, accent: PixelRGBA, mirrored: Bool = false) -> UIImage {
-        let key = "room-window-horizon4|v\(variant)|\(sky.keyFragment)|\(accent.keyFragment)|\(mirrored ? "m" : "n")"
+        let key = "room-window-apartment1|v\(variant)|\(sky.keyFragment)|\(accent.keyFragment)|\(mirrored ? "m" : "n")"
         return SpriteBakery.shared.image(key: key) {
             var g = grid(variant: variant).isometricFace(rising: true)
             if mirrored { g = g.mirrored() }

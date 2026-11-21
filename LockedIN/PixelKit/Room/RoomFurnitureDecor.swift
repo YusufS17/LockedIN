@@ -14,11 +14,11 @@ import SwiftUI
 /// The decor set's shared material ramp. Wood matches the room mockups' ramp;
 /// glow/greens/terracotta are reused across pieces so the set reads as one world.
 private enum DecorTone {
-    static let woodLight = PixelRGBA(r: 169, g: 120, b: 79)    // #A9784F top faces
-    static let wood      = PixelRGBA(r: 139, g: 94,  b: 60)    // #8B5E3C fronts
-    static let woodDark  = PixelRGBA(r: 110, g: 70,  b: 41)    // #6E4629 side faces
-    static let woodLine  = PixelRGBA(r: 89,  g: 55,  b: 31)    // #59371F edge lines
-    static let shelfBack = PixelRGBA(r: 74,  g: 48,  b: 32)    // shelf interior shadow
+    static let woodLight = PixelRGBA(r: 181, g: 130, b: 78)  // warm top faces
+    static let wood      = PixelRGBA(r: 140, g: 88,  b: 48)  // walnut fronts
+    static let woodDark  = PixelRGBA(r: 94,  g: 55,  b: 31)  // shaded side faces
+    static let woodLine  = PixelRGBA(r: 59,  g: 37,  b: 27)  // joinery edges
+    static let shelfBack = PixelRGBA(r: 52,  g: 35,  b: 28)  // shelf interior shadow
 
     static let leafLight = PixelRGBA(r: 99,  g: 154, b: 111)   // #639A6F
     static let leaf      = PixelRGBA(r: 74,  g: 124, b: 89)    // #4A7C59

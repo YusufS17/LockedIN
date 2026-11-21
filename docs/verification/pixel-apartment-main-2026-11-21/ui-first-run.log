@@ -1,0 +1,91 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=DB03CCDF-9915-45BD-B3C0-3A68C136313C" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-41kfa2qa/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/OfflineStudyLoopTests/testApartmentTabsKeepStudyEntryAndSeparateProfile" "-only-testing:LockedINUITests/CompactOfflineBetaTests/testCompactStudyResultsAndUpgradeSurviveRelaunch" "-only-testing:LockedINUITests/OfflineStudyLoopTests/testHomeAndSetupAtLargestAccessibilitySize" "-only-testing:LockedINUITests/OfflineStudyLoopTests/testEightPersonClubAreasIntentAndRestoration"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-41kfa2qa/OfflineLoop.xcresult
+
+2026-11-21 13:48:09.733886+0000 LockedINUITests-Runner[22799:4374935] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-21 13:49:03.673.
+Test Suite 'LockedINUITests.xctest' started at 2026-11-21 13:49:03.764.
+Test Suite 'CompactOfflineBetaTests' started at 2026-11-21 13:49:03.765.
+Test Case '-[LockedINUITests.CompactOfflineBetaTests testCompactStudyResultsAndUpgradeSurviveRelaunch]' started.
+    t =     0.11s Start Test at 2026-11-21 13:49:03.871
+    t =    12.67s Set Up
+    t =    13.91s     Open com.lockedin.app
+    t =    13.92s         Launch com.lockedin.app
+    t =    78.92s             Setting up automation session
+    t =   139.24s             Wait for com.lockedin.app to idle
+    t =   146.31s     Unable to monitor animations
+    t =   146.38s     Unable to monitor event loop
+    t =   148.22s     Waiting 30.0s for "study.start" Button to exist
+    t =   149.36s         Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =   149.61s             Checking existence of `"study.start" Button`
+    t =   150.12s                 Requesting snapshot of accessibility hierarchy for app with pid 23075
+    t =   178.79s             Capturing element debug description
+    t =   178.86s         Checking existence of `"study.start" Button`
+    t =   178.89s             Requesting snapshot of accessibility hierarchy for app with pid 23075
+Test Case '-[LockedINUITests.CompactOfflineBetaTests testCompactStudyResultsAndUpgradeSurviveRelaunch]' exceeded execution time allowance of 3 minutes. The test may have hung; check Xcode's test report for additional diagnostics. If the test requires additional time, use -[XCTestCase executionTimeAllowance] or one of xcodebuild's command-line overrides.
+    t =   246.51s         Checking existence of `"study.start" Button` (retry 1)
+    t =   247.29s             Requesting snapshot of accessibility hierarchy for app with pid 23075
+Testing started
+In flight operation:   <DVTOperationGroup: 0x7fe6ab969560; state = AREfc>
+     <DVTOperationGroup: 0x7fe6ac429ce0; state = AREfc>
+         <DVTOperation: 0x7fe6ac389ca0; name = 'Remove Log If Needed', state = aReFc>
+         <DVTOperationGroup: 0x7fe6ab95b920; state = AREfc>
+             <DVTOperationGroup: 0x7fe6ab788d50; state = AREfc>
+                 <__DVTSwiftAsyncOperation: 0x7fe6ab8edce0; state = AReFc>
+                 <IDESchemeActionResultOperation: 0x7fe6ac37f9e0; state = Arefc>
+                 <__DVTSwiftAsyncOperation: 0x7fe6ab721640; state = AReFc>
+                 <__DVTSwiftAsyncOperation: 0x7fe6ac381020; state = AReFc>
+                 <DVTOperation: 0x7fe6ac426190; state = aReFc>
+                 <DVTOperationGroup: 0x7fe6ab4831d0; state = AREf!c, blocking { Blocking finish to clean up test session. }>
+                     <DVTOperation: 0x7fe6ac51cb50; state = aReFc>
+                     <XCTHOperationGroup: 0x7fe6ab46cda0>
+                         <XCTHOperationGroup: 0x7fe6aaa67690>
+                             <XCTHOperationGroup: 0x7fe6ac37e480>
+                                 <XCTHOperationGroup: 0x7fe6ab863390>{name = 'com.apple.dt.xctest.target-runner'}(Finishing blocked for reasons:
+  waiting for workers to materialize
+  )
+                                     <XCTHOperationGroup: 0x7fe6acc67f70>
+                                         <XCTHOperationGroup: 0x7fe6acc69830>
+                                             <IDERunOperation: 0x7fe6ace620d0; state = aReF!c, blocking { XCTHTestOperationCoordinator processing delay, Blocking finish to allow restarting of crashed test operations., Waiting for -runningDidFinish call. }>
+                                             worker: <IDERunOperationWorkerGroup: 0x7fe6ace61cc0, unfinished subworkers :
+					<_IDEInstalliPhoneSimulatorWorker: 0x7fe6ace61220 -- ExtensionIdentifier: Xcode.IDEiPhoneSimulatorSupport.DeviceService.Install>
+					<IDELaunchiPhoneSimulatorLauncher: 0x7fe6ace61820 -- ExtensionIdentifier: Xcode.IDEiPhoneSimulatorSupport.Launch>
+				 >
+
+                                             tracker: <IDEExecutionOperationTracker: 0x7fe6ab7931b0: Testing project LockedIN with scheme LockedIN
+	subtrackers=(
+    "<IDEExecutionRunnableTracker: 0x7fe6ace61fc0: subtrackers=none>"
+)>
+
+                             <XCTHOperation: 0x7fe6ab538320>
+                 <DVTOperation: 0x7fe6ab95b360; state = arefc>
+                 <DVTOperation: 0x7fe6ab95b5d0; state = arefc>
+                 <DVTOperation: 0x7fe6ac3813d0; state = aReFc>
+                 <__DVTSwiftAsyncOperation: 0x7fe6ab738e60; state = AReFc>
+             <_DVTAsyncBlockOperation: 0x7fe6ab969200; name = 'Download and merge code coverage profiles', state = Arefc>
+             <XCTHCoverageReportGenerationOperation: 0x7fe6ac5221b0>{name = 'Generate coverage report'}
+         <_IDETestingFinalizeLogsOperation: 0x7fe6ac428d90; name = 'Finalize test log', state = aref!c, blocking { waiting for test log to finish recording }>
+In flight operation:   <IDERunOperation: 0x7fe6ac978c20; state = aReF!c, blocking { Waiting for -runningDidFinish call. }>
+  worker: <IDERunOperationWorkerGroup: 0x7fe6aaf0fd50, unfinished subworkers :
+					<_IDEInstalliPhoneSimulatorWorker: 0x7fe6aabc98b0 -- ExtensionIdentifier: Xcode.IDEiPhoneSimulatorSupport.DeviceService.Install>
+					<IDELaunchiPhoneSimulatorLauncher: 0x7fe6ac975330 -- ExtensionIdentifier: Xcode.IDEiPhoneSimulatorSupport.Launch>
+				 >
+
+  tracker: <IDEExecutionOperationTracker: 0x7fe6acc6dee0: Launch application com.lockedin.app for UI testing.
+	subtrackers=(
+    "<IDEExecutionRunnableTracker: 0x7fe6ac960000: subtrackers=none>"
+)>
+
+<DVTOperationGroup: 0x7fe6ab969560; state = AREfc> created at:
+  0   -[DVTOperation init] (in DVTFoundation)
+  1   -[DVTOperationGroup init] (in DVTFoundation)
+  2   +[DVTOperationGroup operationGroupWithSuboperations:] (in DVTFoundation)
+  3   -[IDEScheme _groupAndImposeDependenciesForOrderedOperations:] (in IDEFoundation)
+  4   -[IDEScheme _executionOperationForSchemeOperationParameters:build:onlyBui
