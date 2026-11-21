@@ -114,3 +114,7 @@ Generated concepts/prompts/requirements (`4f276a7`) and exact supplied screensho
 ## Native milestone backup — 2026-11-21
 
 Recovery checkpoint `5db37c4` and verified milestone `1562455` successfully pushed to existing `origin/main` (`b17826b..1562455`), without force or deployment. Final handoff-only commit records the confirmed backup. Working tree clean after milestone; no build/test clients or agents running. App launched with ordinary preferences.
+
+## Main-screen milestone backup — 2026-11-21
+
+Implementation/evidence committed as `8399fc08e13cccd2703d982ac23382d6e211c22d` and actually pushed to existing `origin/main` (push advanced `44f40dc..8399fc0`). Ordinary app relaunched without fixture arguments as PID28023. No agents/build/test clients remain running. Final source and staged whitespace checks passed. Four app/UI builds and production-model checks passed; UI automation run600s yielded0passes. Actual final solo render confirms visible status bar/timer/dock, desk layering and In focus; final character/portrait-room art and new interaction acceptance remain next. This handoff note is saved in a subsequent documentation commit.
