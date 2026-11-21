@@ -34,7 +34,13 @@ final class OnboardingBacktrackingTests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 15), "Missing \(identifier)")
         for _ in 0..<6 where !button.isHittable { app.scrollViews.firstMatch.swipeUp() }
         XCTAssertTrue(button.isHittable)
-        button.tap()
+        XCTAssertTrue(button.isEnabled)
+        if identifier == "onboarding.continue" {
+            // A single exact-centre tap: no retry fallback after navigation misses.
+            button.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        } else {
+            button.tap()
+        }
     }
 
     private func revealHorizontal(_ button: XCUIElement, in rail: XCUIElement) {

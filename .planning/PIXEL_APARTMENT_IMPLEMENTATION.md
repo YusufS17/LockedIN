@@ -25,3 +25,7 @@ Backend/auth provisioning and real invites, durable membership/session/reconnect
 ## Team for milestone 1
 
 Onboarding builder: host/welcome/name/arrival + backtracking test. Creator builder: CharacterCustomizerView. Model/render builder: compatible appearance/palettes/caches + identity regressions. Lead: integration, phase control, old UI-test adaptation, evening scene override, legacy outfit fixture, serialized verification, render inspection and Git. Builders cross-review after implementation. Role entries describe this run; PROGRESS records actual live status.
+
+## Milestone1 checkpoint — 2026-11-21
+
+Native flow/creator implemented, reviewed, built and model-checked; six initial UI cases plus two final affected single-centre-tap normal/AX rechecks passed. Current render evidence in `docs/verification/pixel-apartment-2026-11-21/`. Earlier tap miss and hardening are documented. Final character/room reference fidelity remains milestone3, not a completed claim. Next is milestone2.

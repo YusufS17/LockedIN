@@ -4,10 +4,12 @@ Last updated: 2026-11-21
 
 ## Current work — native Pixel Apartment onboarding/creator, 2026-11-21
 
-- Resumed clean `b17826b`; [native implementation phases](.planning/PIXEL_APARTMENT_IMPLEMENTATION.md) saved. Current slice: shorter onboarding and creator before tabs/full-room art.
-- Three builders completed host/welcome/name/arrival, creator and compatible yellow/presentation model/render support. Independent cross-reviews completed without blocking source finding. Lead integrates fixtures/test updates and evening-room scene override.
-- Production study/identity checks passed twice, including the final cream-shirt starter. First app/UI build and six targeted runtime journeys passed; their screenshots are saved and inspected. Final rebuild/rechecks for the cream starter and AX Randomize reachability are pending after a server interruption. New renderer variation is modest tailoring, not the final character family.
-- Preserve existing avatars/clothing/progression and receipt UUIDs. No user data reset; no push in this continuation yet. Agents finished; recovered final build process is still running. Recovery checkpoint saved before further work.
+- Implemented first [native redesign milestone](.planning/PIXEL_APARTMENT_IMPLEMENTATION.md): Welcome → creator → name → arrival, top progress only, dark apartment UI and fitted room previews. No skip/gallery/dots in production flow.
+- Creator has numbered skins/yellow+cream new-user starter, M/F presentation, free hair/face/colour/glasses, Randomize and future wardrobe sections last. Existing clothing/accessories, ownership and protected identities are preserved; no coin checkout.
+- Three builders and independent cross-reviews completed. Model checks passed twice; app/UI builds passed. Six initial journeys passed427.247s; final exact-centre normal/AX rechecks passed154.665s. Actual renders inspected and saved in [evidence](docs/verification/pixel-apartment-2026-11-21/README.md).
+- First refinement missed a Welcome tap; recorded event/hierarchy retained. Explicit inner-label hit area added/reviewed; final single-tap checks passed. Cause is not conclusively proven. Current character tailoring is modest; final A character/room art remains unfinished.
+- Recovered work saved in checkpoint `5db37c4`. No agents/build/test clients running. Fixture cleanup passed; app relaunched using ordinary preferences, no data reset. Final commit/remote backup status below.
+- Next: Room/Friends/Profile navigation and concise setup, then immersive focus and richer runtime layers. Full VoiceOver/device, real multiplayer and native shielding remain separate gates.
 
 ## Product direction
 
@@ -32,12 +34,12 @@ This is a native SwiftUI iPhone app. Open `LockedIN.xcodeproj`, select LockedIN 
 
 | Check | Latest result |
 | --- | --- |
-| Debug iPhone Simulator build | Passed 2026-10-13, including final save/session/accessibility/actor-wallet changes and UI target |
+| Debug iPhone Simulator build | Passed 2026-11-21, native onboarding/creator and UI target |
 | Focus clock regression checks | Passed |
 | Reward rules regression checks | Passed |
 | Persistent reward checks, legacy save migration and reset | Passed |
 | Git whitespace check | Passed |
-| Production-model integration | Passed, including restoration, receipt replay and catalogue purchases |
+| Production-model integration | Passed 2026-11-21, including compatible identity changes, restoration, receipt replay and catalogue purchases |
 | App screenshots and interaction walkthrough | Earlier seven-case baseline plus six targeted refinement journeys have passing evidence; final3 affected + editor-only rechecks passed; actual renders inspected |
 
 Latest build and runtime blocker logs are saved in [Phase2 evidence](docs/verification/offline-beta-phase2-2026-10-13/README.md). Historical continuation screenshots remain available; no new passing runtime screenshots are claimed. Reproducible regression commands are in [Tests/README.md](Tests/README.md).

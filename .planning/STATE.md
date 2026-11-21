@@ -1,10 +1,18 @@
 ---
 status: phase2_partial_runtime_verified
-last_updated: "2026-11-15"
-stopped_at: "User selected A — Pixel Apartment; phone-size refinement next"
+last_updated: "2026-11-21"
+stopped_at: "Native onboarding/creator milestone verified; tabs and immersive room next"
 ---
 
 # Current handoff
+
+## Final native milestone — 2026-11-21
+
+Completed native Pixel Apartment onboarding/creator milestone after server recovery checkpoint `5db37c4`. Four beats/no skip-gallery-dots, accessible top progress, dark architectural setting, fitted evening layered room, numbered skins/new yellow+cream starter, M/F presentation, free identity features, Randomize, future wardrobe last. Existing names/looks/clothing/headphones/progression and session/reward UUIDs preserved. Modest tailoring and existing room/character renderer remain; final reference-fidelity art is not complete.
+
+Production model integration passed twice; app/UI builds passed. Six initial UI journeys passed427.247s: existing outfit/randomize/relaunch, draft/discard/name/backtracking/relaunch, partial named identity relaunch, maximum text, protected onboarding continuation and protected wardrobe. First final refinement missed a Welcome tap; event195,768 was inside button. Explicit full-width inner Text label hit area added, separately reviewed; exact-centre (no retry) normal and AX/Randomize final cases passed116.134s and38.531s. Keep first failure/cause uncertainty in evidence. [Logs/screenshots](../docs/verification/pixel-apartment-2026-11-21/README.md), final captures inspected.
+
+No agents/build/test clients running; all completed fixture cleanup assertions passed. App relaunched with ordinary preferences, no test flags or user data reset. Final source/evidence commit and push status below. Next concrete implementation: [milestone2](PIXEL_APARTMENT_IMPLEMENTATION.md) Room/Friends/Profile navigation and concise setup, then immersive focus and richer independent runtime layers. Full VoiceOver/device acceptance, real friends and native shielding remain open. Current redesign uses A direction, not alternative character workshop styles.
 
 ## Native onboarding/creator recovery — 2026-11-21
 

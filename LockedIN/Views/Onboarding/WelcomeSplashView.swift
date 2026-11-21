@@ -26,7 +26,12 @@ struct WelcomeSplashView: View {
             }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            Button("Create your character", action: onContinue)
+            Button(action: onContinue) {
+                // Keep label gaps interactive independently of style expansion.
+                Text("Create your character")
+                    .frame(maxWidth: .infinity)
+                    .contentShape(Rectangle())
+            }
                 .buttonStyle(OnboardingApartmentButtonStyle())
                 .accessibilityIdentifier("onboarding.continue")
                 .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 16)

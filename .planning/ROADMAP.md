@@ -1,6 +1,6 @@
 # Active roadmap: LockedIN
 
-Updated: 2026-10-15. Current status: [PROGRESS.md](../PROGRESS.md). Exact handoff: [STATE.md](STATE.md).
+Updated: 2026-11-21. Current status: [PROGRESS.md](../PROGRESS.md). Exact handoff: [STATE.md](STATE.md).
 
 This roadmap supersedes the June hackathon sequence, preserved in [archive/ROADMAP-2026-06-13.md](archive/ROADMAP-2026-06-13.md). Product rationale and baseline gaps remain in [PRODUCT_AUDIT.md](../docs/PRODUCT_AUDIT.md). No overall completion percentage is claimed.
 
@@ -14,7 +14,7 @@ Current engineering sequence and identified defects: [engineering audit and mile
 
 ## Next delivery sequence
 
-**Current visual priority:** the first substantial [character and interface redesign](VISUAL_REDESIGN.md) is implemented and phone-verified ([evidence](../docs/verification/VISUAL_REDESIGN.md)). Continue richer character/room craft and onboarding/accessibility consistency before further private-service implementation. The original mockups’ full quality bar remains open; functional test passes do not close it.
+**Current visual priority:** approved **A — Pixel Apartment** direction. [Native implementation phases](PIXEL_APARTMENT_IMPLEMENTATION.md) supersede the old visual baseline as the build target. Shorter onboarding and creator are implemented, built and have six passing initial runtime journeys; final starter/AX exact-centre rechecks passed and acceptance is recorded in [current evidence](../docs/verification/pixel-apartment-2026-11-21/README.md). Tabs, immersive focus and the richer character/room layers are next. Existing functional passes do not close final reference fidelity.
 
 1. **Friends-ready clubs — verified local milestone:** selectable2–8-person demo rooms, legible seating areas, per-person study goals, directional clothing and durable restoration. [Plan](CLUB_EXPANSION_PLAN.md) · [Evidence](../docs/verification/CLUB_EXPANSION.md). Five affected UI cases plus second-area check passed; final phone images inspected.
 2. **Real private session:** implement the authenticated service/adapter, durable admission and reconnect, preserve participant/reward identity, then verify two actual accounts/devices. Local contract fixtures cannot close this gate.

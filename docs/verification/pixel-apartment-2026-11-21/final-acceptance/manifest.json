@@ -1,0 +1,95 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "AF1D5805-AABF-4AFE-ADDF-5A2C900B2ACF.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-identity-restored_0_C27F1596-25DA-42B8-A921-DFA0830F5BA6.png",
+        "timestamp" : 1795221900.467
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "1FC5CD04-F630-4C6D-8377-67F2655A42E0.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-room-arrival_0_7DA30D95-517E-47DD-A4A5-9EC1A1B89670.png",
+        "timestamp" : 1795221872.618
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "FC731E0C-9EB7-4AC2-AC3E-27C87150C23F.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-creator-free-hair_0_88EBEB7B-CD86-4ADB-B5D9-E0A020522833.png",
+        "timestamp" : 1795221827.159
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "77708932-483C-4F44-BE09-4A06BDEE4CA8.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-creator-yellow-starter_0_14057434-9AB4-4576-886C-D8259D020D13.png",
+        "timestamp" : 1795221814.044
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "F4CE3685-F070-4E72-887C-9F6E4C8BA8A8.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-welcome_0_0CBA84D2-32A9-4524-B41A-AE6A7102ED57.png",
+        "timestamp" : 1795221808.827
+      }
+    ],
+    "testIdentifier" : "OnboardingBacktrackingTests/testCreatorDraftBacktrackingAndSavedIdentity()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OnboardingBacktrackingTests/testCreatorDraftBacktrackingAndSavedIdentity"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "1AB8928A-EAAA-4520-B5FB-2DE092A3D325.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-arrival-largest-text_0_E9594648-A859-4B65-AB13-23595B322E30.png",
+        "timestamp" : 1795221934.937
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "418BF865-E883-4A30-8F92-C8C5CEDD2C5F.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-creator-largest-text-scrolled-controls_0_842DB7F6-01C6-474C-97E3-A3EB525C014B.png",
+        "timestamp" : 1795221928.944
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "7BE76148-1178-4D4E-B8AB-81F4218C31DF.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-creator-largest-text_0_147D2DA5-3759-4A8D-B4D5-8C7696B78850.png",
+        "timestamp" : 1795221925.808
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "520DF6B8-901A-4527-A66D-6DD75D89553C.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-welcome-largest-text_0_24F13A65-A927-44F3-837B-A8B1BC226FF8.png",
+        "timestamp" : 1795221921.716
+      }
+    ],
+    "testIdentifier" : "OnboardingBacktrackingTests/testShortIntroductionAtLargestText()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OnboardingBacktrackingTests/testShortIntroductionAtLargestText"
+  }
+]

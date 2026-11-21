@@ -1,0 +1,19 @@
+Application, 0x10a82ae50, pid: 95943, label: 'LockedIN' <App element pid: 95943>
+  Window (Main), 0x10ad1b1c0, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4518340496.3>
+    Other, 0x10ad29720, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4519554368.4>
+      Other, 0x10ad29840, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4519480912.5>
+        Other, 0x10ad29480, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4516561104.6>
+          Other, 0x10ad295a0, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4517408192.7>
+            Other, 0x10ad29960, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4515441376.8>
+            Other, 0x10ab1e750, {{0.0, 0.0}, {390.0, 844.0}} <AX element pid: 95943, elementOrHash.elementID: 4515573616.9>
+            StaticText, 0x10ab1cc30, {{24.0, 95.0}, {168.3, 40.7}}, label: 'LockedIN' <AX element pid: 95943, elementOrHash.elementID: 4515574048.10>
+            StaticText, 0x10ab1eac0, {{24.0, 145.7}, {148.0, 67.7}}, label: 'Make time.
+Make room.' <AX element pid: 95943, elementOrHash.elementID: 4519558192.11>
+            StaticText, 0x10ab1ee20, {{24.0, 223.3}, {186.3, 20.3}}, label: 'Your own place to focus.' <AX element pid: 95943, elementOrHash.elementID: 4519384752.12>
+            Other, 0x10ad29a80, {{24.0, 346.0}, {342.0, 285.7}}, identifier: 'onboarding.roomPreview', label: 'Your furnished study room and custom avatar' <AX element pid: 95943, elementOrHash.elementID: 4516602912.13>
+              Image, 0x10ad29ba0, {{24.0, 346.0}, {342.0, 285.7}} <AX element pid: 95943, elementOrHash.elementID: 4515574480.16>
+              Other, 0x10ad29cc0, {{219.7, 503.0}, {63.3, 85.3}}, label: 'Avatar: Masculine presentation, Skin 1, Short Brown hair, Tee, Jeans, Sneakers, status: Idle' <AX element pid: 95943, elementOrHash.elementID: 4519571616.17>
+                Image, 0x10ad29de0, {{219.7, 503.0}, {63.3, 84.7}} <AX element pid: 95943, elementOrHash.elementID: 4519399792.19>
+            Button, 0x10ad29f00, {{24.0, 742.0}, {342.0, 52.0}}, identifier: 'onboarding.continue', label: 'Create your character' <AX element pid: 95943, elementOrHash.elementID: 4516577424.14>
+            ProgressIndicator, 0x10ad2a020, {{24.0, 59.0}, {342.0, 4.0}}, identifier: 'onboarding.progress', label: 'Introduction progress', value: Step 1 of 4 <AX element pid: 95943, elementOrHash.elementID: 4515575344.15>
+              ProgressIndicator, 0x10ad2a140, {{24.0, 49.0}, {342.0, 24.0}}, value: 25% <AX element pid: 95943, elementOrHash.elementID: 4519536752.18>

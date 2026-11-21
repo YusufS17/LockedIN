@@ -1,0 +1,246 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project LockedIN.xcodeproj -scheme LockedIN -configuration Debug -sdk iphonesimulator -derivedDataPath /tmp/LockedIN-codex-build -destination "platform=iOS Simulator,id=DB03CCDF-9915-45BD-B3C0-3A68C136313C" -destination-timeout 20 -parallel-testing-enabled NO -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 -resultBundlePath /var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-v535rory/OfflineLoop.xcresult CODE_SIGNING_ALLOWED=NO test-without-building "-only-testing:LockedINUITests/OnboardingBacktrackingTests/testCreatorDraftBacktrackingAndSavedIdentity" "-only-testing:LockedINUITests/OnboardingBacktrackingTests/testShortIntroductionAtLargestText"
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator26.2
+
+Writing result bundle at path:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-v535rory/OfflineLoop.xcresult
+
+2026-11-21 00:38:02.389593+0000 LockedINUITests-Runner[95883:4128084] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-11-21 00:38:05.928.
+Test Suite 'LockedINUITests.xctest' started at 2026-11-21 00:38:05.930.
+Test Suite 'OnboardingBacktrackingTests' started at 2026-11-21 00:38:05.931.
+Test Case '-[LockedINUITests.OnboardingBacktrackingTests testCreatorDraftBacktrackingAndSavedIdentity]' started.
+    t =     0.00s Start Test at 2026-11-21 00:38:05.935
+    t =     0.54s Set Up
+    t =     0.60s Open com.lockedin.app
+    t =     0.61s     Launch com.lockedin.app
+    t =    15.26s         Setting up automation session
+    t =    23.42s         Wait for com.lockedin.app to idle
+    t =    27.74s Waiting 20.0s for "onboarding.progress" ProgressIndicator to exist
+    t =    28.77s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.progress" ProgressIndicator`
+    t =    28.77s         Checking existence of `"onboarding.progress" ProgressIndicator`
+    t =    29.11s Checking existence of `"Skip introduction" Button`
+    t =    29.15s Checking existence of `"onboarding.avatar.maya" Button`
+    t =    29.18s Find the Target Application 'com.lockedin.app'
+    t =    30.22s Added attachment named 'apartment-welcome'
+    t =    30.23s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    31.28s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    31.28s         Checking existence of `"onboarding.continue" Button`
+    t =    31.34s Find the "onboarding.continue" Button
+    t =    31.46s Find the "onboarding.continue" Button
+    t =    31.57s Find the "onboarding.continue" Button
+    t =    31.66s Find the "onboarding.continue" Button
+    t =    31.75s Find the "onboarding.continue" Button
+    t =    31.85s Find the "onboarding.continue" Button
+    t =    31.92s Find the "onboarding.continue" Button
+    t =    31.99s Tap "onboarding.continue" Button
+    t =    31.99s     Wait for com.lockedin.app to idle
+    t =    32.01s     Find the "onboarding.continue" Button
+    t =    32.05s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    32.13s     Synthesize event
+    t =    32.50s     Wait for com.lockedin.app to idle
+    t =    32.52s Waiting 15.0s for "avatar.skin.yellow" Button to exist
+    t =    33.56s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    33.56s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    33.60s         Capturing element debug description
+    t =    34.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    34.52s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    34.55s         Capturing element debug description
+    t =    35.57s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    35.57s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    35.61s         Capturing element debug description
+    t =    36.54s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    36.54s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    36.58s         Capturing element debug description
+    t =    37.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    37.52s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    37.56s         Capturing element debug description
+    t =    38.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    38.52s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    38.57s         Capturing element debug description
+    t =    39.54s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    39.55s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    39.61s         Capturing element debug description
+    t =    40.53s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    40.53s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    40.61s         Capturing element debug description
+    t =    41.55s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    41.56s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    41.59s         Capturing element debug description
+    t =    42.53s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    42.53s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    42.57s         Capturing element debug description
+    t =    43.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    43.52s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    43.55s         Capturing element debug description
+    t =    44.53s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    44.53s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    44.57s         Capturing element debug description
+    t =    45.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    45.52s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    45.55s         Capturing element debug description
+    t =    46.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    46.52s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    46.55s         Capturing element debug description
+    t =    47.52s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    47.53s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    47.56s         Capturing element debug description
+    t =    47.56s     Checking existence of `"avatar.skin.yellow" Button`
+    t =    47.59s Collecting debug information to assist test failure triage
+    t =    47.60s     Requesting snapshot of accessibility hierarchy for app with pid 95943
+/Users/yusufsalih/Developer/LockedIN/UITests/OnboardingBacktrackingTests.swift:78: error: -[LockedINUITests.OnboardingBacktrackingTests testCreatorDraftBacktrackingAndSavedIdentity] : XCTAssertTrue failed
+    t =    49.07s Tear Down
+    t =    49.07s     Terminate com.lockedin.app:95943
+    t =    50.10s     Open com.lockedin.app
+    t =    50.11s         Launch com.lockedin.app
+    t =    50.98s             Setting up automation session
+    t =    55.25s             Wait for com.lockedin.app to idle
+    t =    57.30s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    58.32s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    58.33s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    58.41s     Terminate com.lockedin.app:96033
+Test Case '-[LockedINUITests.OnboardingBacktrackingTests testCreatorDraftBacktrackingAndSavedIdentity]' failed (59.658 seconds).
+Test Case '-[LockedINUITests.OnboardingBacktrackingTests testShortIntroductionAtLargestText]' started.
+    t =     0.00s Start Test at 2026-11-21 00:39:05.596
+    t =     0.20s Set Up
+    t =     0.22s Open com.lockedin.app
+    t =     0.22s     Launch com.lockedin.app
+    t =     0.82s         Setting up automation session
+    t =     4.54s         Wait for com.lockedin.app to idle
+    t =     8.99s Waiting 20.0s for "onboarding.progress" ProgressIndicator to exist
+    t =    10.01s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.progress" ProgressIndicator`
+    t =    10.01s         Checking existence of `"onboarding.progress" ProgressIndicator`
+    t =    10.18s Checking existence of `"Skip introduction" Button`
+    t =    10.23s Find the Target Application 'com.lockedin.app'
+    t =    10.74s Added attachment named 'apartment-welcome-largest-text'
+    t =    10.75s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    11.75s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    11.75s         Checking existence of `"onboarding.continue" Button`
+    t =    11.79s Find the "onboarding.continue" Button
+    t =    11.87s Find the "onboarding.continue" Button
+    t =    11.94s Find the "onboarding.continue" Button
+    t =    12.02s Find the "onboarding.continue" Button
+    t =    12.09s Find the "onboarding.continue" Button
+    t =    12.17s Find the "onboarding.continue" Button
+    t =    12.24s Find the "onboarding.continue" Button
+    t =    12.31s Tap "onboarding.continue" Button
+    t =    12.31s     Wait for com.lockedin.app to idle
+    t =    12.33s     Find the "onboarding.continue" Button
+    t =    12.37s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    12.44s     Synthesize event
+    t =    12.81s     Wait for com.lockedin.app to idle
+    t =    13.35s Waiting 15.0s for "avatar.skin.yellow" Button to exist
+    t =    14.36s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.skin.yellow" Button`
+    t =    14.36s         Checking existence of `"avatar.skin.yellow" Button`
+    t =    14.52s Find the Target Application 'com.lockedin.app'
+    t =    14.89s Added attachment named 'apartment-creator-largest-text'
+    t =    14.90s Find the "avatar.randomize" Button
+    t =    15.01s Find the "avatar.randomize" Button
+    t =    15.07s Find the "avatar.continue" Button
+    t =    15.15s Swipe up ScrollView (First Match)
+    t =    15.15s     Wait for com.lockedin.app to idle
+    t =    15.16s     Find the ScrollView (First Match)
+    t =    15.21s     Check for interrupting elements affecting ScrollView
+    t =    15.29s     Synthesize event
+    t =    15.82s     Wait for com.lockedin.app to idle
+    t =    16.30s Find the "avatar.randomize" Button
+    t =    16.40s Find the "avatar.randomize" Button
+    t =    16.47s Find the "avatar.continue" Button
+    t =    16.55s Find the "avatar.randomize" Button
+    t =    16.65s Find the "avatar.randomize" Button
+    t =    16.74s Find the "avatar.continue" Button
+    t =    16.83s Tap "avatar.randomize" Button
+    t =    16.84s     Wait for com.lockedin.app to idle
+    t =    16.85s     Find the "avatar.randomize" Button
+    t =    16.93s     Check for interrupting elements affecting "avatar.randomize" Button
+    t =    17.01s     Synthesize event
+    t =    17.34s     Wait for com.lockedin.app to idle
+    t =    17.36s Find the Target Application 'com.lockedin.app'
+    t =    18.08s Added attachment named 'apartment-creator-largest-text-scrolled-controls'
+    t =    18.09s Waiting 15.0s for "avatar.continue" Button to exist
+    t =    19.11s     Checking `Expect predicate `existsNoRetry == 1` for object "avatar.continue" Button`
+    t =    19.11s         Checking existence of `"avatar.continue" Button`
+    t =    19.24s Find the "avatar.continue" Button
+    t =    19.35s Find the "avatar.continue" Button
+    t =    19.43s Find the "avatar.continue" Button
+    t =    19.52s Find the "avatar.continue" Button
+    t =    19.64s Find the "avatar.continue" Button
+    t =    19.74s Find the "avatar.continue" Button
+    t =    19.82s Find the "avatar.continue" Button
+    t =    19.93s Tap "avatar.continue" Button
+    t =    19.93s     Wait for com.lockedin.app to idle
+    t =    19.96s     Find the "avatar.continue" Button
+    t =    20.00s     Check for interrupting elements affecting "avatar.continue" Button
+    t =    20.09s     Synthesize event
+    t =    20.44s     Wait for com.lockedin.app to idle
+    t =    20.59s Waiting 15.0s for "onboarding.name" TextField to exist
+    t =    21.60s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.name" TextField`
+    t =    21.60s         Checking existence of `"onboarding.name" TextField`
+    t =    21.66s Waiting 15.0s for "onboarding.continue" Button to exist
+    t =    22.70s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.continue" Button`
+    t =    22.70s         Checking existence of `"onboarding.continue" Button`
+    t =    22.81s Find the "onboarding.continue" Button
+    t =    22.88s Find the "onboarding.continue" Button
+    t =    22.94s Find the "onboarding.continue" Button
+    t =    23.01s Find the "onboarding.continue" Button
+    t =    23.08s Find the "onboarding.continue" Button
+    t =    23.15s Find the "onboarding.continue" Button
+    t =    23.22s Find the "onboarding.continue" Button
+    t =    23.30s Tap "onboarding.continue" Button
+    t =    23.30s     Wait for com.lockedin.app to idle
+    t =    23.31s     Find the "onboarding.continue" Button
+    t =    23.35s     Check for interrupting elements affecting "onboarding.continue" Button
+    t =    23.41s     Synthesize event
+    t =    23.74s     Wait for com.lockedin.app to idle
+    t =    23.83s Find the Target Application 'com.lockedin.app'
+    t =    24.44s Added attachment named 'apartment-arrival-largest-text'
+    t =    24.45s Waiting 15.0s for "onboarding.finish" Button to exist
+    t =    25.47s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.finish" Button`
+    t =    25.47s         Checking existence of `"onboarding.finish" Button`
+    t =    25.50s Find the "onboarding.finish" Button
+    t =    25.59s Find the "onboarding.finish" Button
+    t =    25.66s Find the "onboarding.finish" Button
+    t =    25.75s Find the "onboarding.finish" Button
+    t =    25.81s Find the "onboarding.finish" Button
+    t =    25.88s Find the "onboarding.finish" Button
+    t =    25.94s Find the "onboarding.finish" Button
+    t =    26.01s Tap "onboarding.finish" Button
+    t =    26.01s     Wait for com.lockedin.app to idle
+    t =    26.03s     Find the "onboarding.finish" Button
+    t =    26.08s     Check for interrupting elements affecting "onboarding.finish" Button
+    t =    26.17s     Synthesize event
+    t =    26.50s     Wait for com.lockedin.app to idle
+    t =    28.00s Waiting 30.0s for "study.start" Button to exist
+    t =    29.03s     Checking `Expect predicate `existsNoRetry == 1` for object "study.start" Button`
+    t =    29.03s         Checking existence of `"study.start" Button`
+    t =    29.17s Tear Down
+    t =    29.17s     Terminate com.lockedin.app:96057
+    t =    30.19s     Open com.lockedin.app
+    t =    30.20s         Launch com.lockedin.app
+    t =    30.85s             Setting up automation session
+    t =    35.06s             Wait for com.lockedin.app to idle
+    t =    36.95s     Waiting 15.0s for "ui-test.cleaned" StaticText to exist
+    t =    37.96s         Checking `Expect predicate `existsNoRetry == 1` for object "ui-test.cleaned" StaticText`
+    t =    37.96s             Checking existence of `"ui-test.cleaned" StaticText`
+    t =    38.03s     Terminate com.lockedin.app:96296
+Test Case '-[LockedINUITests.OnboardingBacktrackingTests testShortIntroductionAtLargestText]' passed (39.137 seconds).
+Test Suite 'OnboardingBacktrackingTests' failed at 2026-11-21 00:39:44.733.
+	 Executed 2 tests, with 1 failure (0 unexpected) in 98.795 (98.802) seconds
+Test Suite 'LockedINUITests.xctest' failed at 2026-11-21 00:39:44.735.
+	 Executed 2 tests, with 1 failure (0 unexpected) in 98.795 (98.805) seconds
+Test Suite 'Selected tests' failed at 2026-11-21 00:39:44.739.
+	 Executed 2 tests, with 1 failure (0 unexpected) in 98.795 (98.811) seconds
+2026-11-21 00:40:47.904 xcodebuild[95747:4126798] [MT] IDETestOperationsObserverDebug: 199.296 elapsed -- Testing started completed.
+2026-11-21 00:40:47.904 xcodebuild[95747:4126798] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-21 00:40:47.904 xcodebuild[95747:4126798] [MT] IDETestOperationsObserverDebug: 199.296 sec, +199.296 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/np/6b4kn9lx3vz8_1jgw6tmw10r0000gn/T/LockedIN-ui-checks-v535rory/OfflineLoop.xcresult
+
+** TEST EXECUTE FAILED **
+
+Testing started
