@@ -1,116 +1,67 @@
 import SwiftUI
 
-// First-run welcome with a live, layered personal-room preview.
-
+/// The first beat gives the actual layered room the space previously taken by
+/// intro cards and a large padlock. Standard text fits without a scrolling page.
 struct WelcomeSplashView: View {
-
     let onContinue: () -> Void
-    let onSkip: () -> Void
-
-    @ReducedMotionPreference private var reduceMotion
-    @State private var heroVisible = false
+    @Environment(AppStore.self) private var appStore
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         ZStack {
-            Theme.Colour.background.ignoresSafeArea()
-            OnboardingBackdrop()
-
-            ScrollView {
-                VStack(spacing: 24) {
+            OnboardingApartmentBackdrop()
+            if dynamicTypeSize.isAccessibilitySize {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        heading
+                        room.aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height,
+                                         contentMode: .fit)
+                    }.padding(24)
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 12) {
                     heading
-                    heroScene
-                        .opacity(heroVisible ? 1 : 0)
-                        .offset(y: heroVisible ? 0 : 12)
-                    Text("A little focus. A place that grows with you.")
-                        .font(.body)
-                        .foregroundStyle(Theme.Colour.textSecondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(24)
-            }
-            .safeAreaInset(edge: .bottom) {
-                VStack(spacing: 12) {
-                    Button("Let's go", action: onContinue)
-                        .buttonStyle(StudioButtonStyle(primary: true))
-                        .accessibilityIdentifier("onboarding.continue")
-                    Button("Skip introduction", action: onSkip)
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.Colour.textSecondary)
-                        .frame(minHeight: 44)
-                        .accessibilityIdentifier("onboarding.skip")
-                    PageDots(count: 6, active: 0)
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 16)
-                .background(Theme.Colour.background)
+                    room.frame(maxHeight: .infinity)
+                }.padding(.horizontal, 24).padding(.top, 20).padding(.bottom, 8)
             }
         }
-        .task {
-            guard !Task.isCancelled else { return }
-            if !reduceMotion {
-                do { try await Task.sleep(for: .seconds(0.15)) }
-                catch { return }
-            }
-            guard !Task.isCancelled else { return }
-            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.6)) {
-                heroVisible = true
-            }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Button("Create your character", action: onContinue)
+                .buttonStyle(OnboardingApartmentButtonStyle())
+                .accessibilityIdentifier("onboarding.continue")
+                .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 16)
+                .background(OnboardingApartmentPalette.background.opacity(0.97))
         }
     }
-
-    // MARK: - Heading
 
     private var heading: some View {
-        VStack(spacing: Theme.Spacing.xs) {
-            Text("Welcome to")
-                .font(.system(.title2, design: .rounded, weight: .bold))
-                .foregroundStyle(Theme.Colour.textSecondary)
+        VStack(alignment: .leading, spacing: 10) {
             Text("LockedIN")
-                .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                .foregroundStyle(Theme.Colour.textPrimary)
-
-            VStack(spacing: 2) {
-                Text("Study together.")
-                Text("Stay accountable.")
-                Text("Build your world.")
-            }
-            .font(.body)
-            .foregroundStyle(Theme.Colour.textSecondary)
-            .padding(.top, Theme.Spacing.sm)
+                .font(.system(.largeTitle, design: .monospaced, weight: .bold))
+                .foregroundStyle(OnboardingApartmentPalette.ink)
+                .accessibilityAddTraits(.isHeader)
+            Text("Make time.\nMake room.")
+                .font(.system(.title, design: .rounded, weight: .semibold))
+                .foregroundStyle(OnboardingApartmentPalette.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Text("Your own place to focus.")
+                .font(.body).foregroundStyle(OnboardingApartmentPalette.muted)
         }
-        .frame(maxWidth: .infinity)
-        .multilineTextAlignment(.center)
     }
 
-    // MARK: - Hero scene: glowing padlock over the room
-
-    private var heroScene: some View {
-        VStack(spacing: Theme.Spacing.md) {
-            // Glowing pixel padlock — the brand mark.
-            ZStack {
-                Circle()
-                    .fill(
-                        RadialGradient(
-                            colors: [Theme.Colour.sparkle.opacity(0.55),
-                                     Theme.Colour.sparkle.opacity(0.12),
-                                     .clear],
-                            center: .center, startRadius: 6, endRadius: 62
-                        )
-                    )
-                    .frame(width: 124, height: 124)
-                PixelIconView(icon: .lock, size: 64, tint: Theme.Colour.appShell)
-            }
-
-            PersonalRoomScene(room: .seeded, character: CharacterCatalog.first)
-                .frame(height: 240)
-                .background(Theme.Colour.surface, in: RoundedRectangle(cornerRadius: 20))
-                .overlay(RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
+    private var room: some View {
+        GeometryReader { geo in
+            let ratio = RoomLayout.imageSize.width / RoomLayout.imageSize.height
+            let width = min(geo.size.width, geo.size.height * ratio)
+            PersonalRoomScene(room: appStore.world.state.personalRoom,
+                              character: appStore.userStudyCharacter, phase: .evening)
+                .frame(width: width, height: width / ratio)
+                .position(x: geo.size.width / 2, y: geo.size.height / 2)
         }
+        .accessibilityIdentifier("onboarding.roomPreview")
     }
 }
 
 #Preview("Welcome splash") {
-    WelcomeSplashView(onContinue: {}, onSkip: {})
-        .environment(AppStore())
+    WelcomeSplashView(onContinue: {}).environment(AppStore())
 }

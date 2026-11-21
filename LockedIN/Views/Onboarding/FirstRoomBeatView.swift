@@ -1,131 +1,80 @@
 import SwiftUI
 
-// First-room arrival connects the saved identity to earned room upgrades.
-
+/// A full, fitted view of the saved room. Furniture and avatar remain separately
+/// rendered layers; the onboarding composition does not clip its room to a card.
 struct FirstRoomBeatView: View {
-
-    // MARK: - Init
-
     let appearance: CharacterAppearance
     let displayName: String
     let onExplore: () -> Void
 
-    // MARK: - State
+    @Environment(AppStore.self) private var appStore
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @ReducedMotionPreference private var reduceMotion
-    @State private var avatarVisible = false
-
-    // MARK: - Body
+    private var character: StudyCharacter {
+        StudyCharacter(id: "you", name: displayName, spriteAsset: "char_you", fallback: appearance)
+    }
 
     var body: some View {
         ZStack {
-            Theme.Colour.background.ignoresSafeArea()
-
-            ScrollView {
-                VStack(spacing: 28) {
-                    headingSection
-                    roomCard
-                    Text("Finish focus sessions to earn coins, then make this space your own.")
-                        .font(.body)
-                        .foregroundStyle(Theme.Colour.textSecondary)
-                        .multilineTextAlignment(.center)
+            OnboardingApartmentBackdrop()
+            if dynamicTypeSize.isAccessibilitySize {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        heading
+                        room.aspectRatio(RoomLayout.imageSize.width / RoomLayout.imageSize.height,
+                                         contentMode: .fit)
+                        detail
+                    }.padding(24)
                 }
-                .padding(24)
-            }
-            .safeAreaInset(edge: .bottom) {
-                bottomSection
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 16)
-                    .background(Theme.Colour.background)
-            }
-        }
-        .preferredColorScheme(.light)
-        .task {
-            guard !Task.isCancelled else { return }
-            if !reduceMotion {
-                do { try await Task.sleep(for: .seconds(0.3)) }
-                catch { return }
-            }
-            guard !Task.isCancelled else { return }
-            withAnimation(reduceMotion ? nil : .easeIn(duration: 0.4)) {
-                avatarVisible = true
+            } else {
+                VStack(alignment: .leading, spacing: 16) {
+                    heading
+                    room.frame(maxHeight: .infinity)
+                    detail
+                }.padding(.horizontal, 24).padding(.top, 16).padding(.bottom, 12)
             }
         }
-    }
-
-    // MARK: - Heading
-
-    private var headingSection: some View {
-        VStack(spacing: Theme.Spacing.sm) {
-            Text("Welcome home, \(displayName)")
-                .font(.system(.title, design: .rounded, weight: .bold))
-                .foregroundStyle(Theme.Colour.textPrimary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-
-            VStack(spacing: Theme.Spacing.xs) {
-                Text("Your space.")
-                    .font(.body)
-                    .foregroundStyle(Theme.Colour.textSecondary)
-                Text("Your focus.")
-                    .font(.body)
-                    .foregroundStyle(Theme.Colour.textSecondary)
-                Text("Your journey.")
-                    .font(.body)
-                    .foregroundStyle(Theme.Colour.textSecondary)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-
-    // MARK: - Room Card
-
-    private var roomCard: some View {
-        ZStack {
-            // IsometricRoomView as the card background
-            IsometricRoomView()
-                .frame(height: 240)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
-
-            // Avatar stands on the open front floor beside the desk (mockup 04).
-            GeometryReader { geo in
-                let cell = RoomLayout.scale(in: geo.size)
-                let feet = RoomLayout.project(RoomLayout.heroStand, in: geo.size)
-                let h = 44 * cell
-                AvatarView(appearance: appearance, status: .idle, size: h)
-                    .position(x: feet.x, y: feet.y - h / 2)
-                    .opacity(avatarVisible ? 1 : 0)
-            }
-            .frame(height: 240)
-        }
-        .background(Theme.Colour.surface)
-        .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.lg))
-        .overlay(
-            RoundedRectangle(cornerRadius: Theme.Radius.lg)
-                .strokeBorder(Theme.Colour.cardBorder, lineWidth: 1)
-        )
-        .shadow(color: Theme.Colour.textSecondary.opacity(0.10), radius: 8, x: 0, y: 4)
-    }
-
-    // MARK: - Bottom Section
-
-    private var bottomSection: some View {
-        VStack(spacing: Theme.Spacing.md) {
-            PageDots(count: 6, active: 5)
-
-            Button("Explore my room", action: onExplore)
-                .buttonStyle(StudioButtonStyle(primary: true))
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Button("Enter your room", action: onExplore)
+                .buttonStyle(OnboardingApartmentButtonStyle())
                 .accessibilityIdentifier("onboarding.finish")
+                .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 16)
+                .background(OnboardingApartmentPalette.background.opacity(0.97))
         }
+        .preferredColorScheme(.dark)
+    }
+
+    private var heading: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Your room is ready, \(displayName).")
+                .font(.system(.title, design: .rounded, weight: .bold))
+                .foregroundStyle(OnboardingApartmentPalette.ink)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+            Text("Make yourself at home.")
+                .font(.body).foregroundStyle(OnboardingApartmentPalette.muted)
+        }
+    }
+
+    private var detail: some View {
+        Text("Study here. Make it yours.")
+            .font(.body).foregroundStyle(OnboardingApartmentPalette.muted)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var room: some View {
+        GeometryReader { geo in
+            let ratio = RoomLayout.imageSize.width / RoomLayout.imageSize.height
+            let width = min(geo.size.width, geo.size.height * ratio)
+            PersonalRoomScene(room: appStore.world.state.personalRoom, character: character, phase: .evening)
+                .frame(width: width, height: width / ratio)
+                .position(x: geo.size.width / 2, y: geo.size.height / 2)
+        }
+        .accessibilityIdentifier("onboarding.arrivalRoom")
     }
 }
 
-// MARK: - Preview
-
-#Preview("First Room Beat") {
-    FirstRoomBeatView(
-        appearance: .default,
-        displayName: "Alex",
-        onExplore: {}
-    )
+#Preview("Room arrival") {
+    FirstRoomBeatView(appearance: .default, displayName: "Alex", onExplore: {})
+        .environment(AppStore())
 }

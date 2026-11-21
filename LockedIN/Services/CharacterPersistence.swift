@@ -61,7 +61,7 @@ enum CharacterPersistence {
 
     private static func supportedAppearance(_ data: Data) -> CharacterAppearance? {
         let required: Set<String> = ["skinTone", "hairStyle", "hairColour", "outfitStyle", "accentColour"]
-        let supported = required.union(["faceStyle", "topStyle", "bottomStyle", "shoeStyle", "accessory"])
+        let supported = required.union(["faceStyle", "topStyle", "bottomStyle", "shoeStyle", "accessory", "presentation"])
         guard let fields = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
               required.isSubset(of: Set(fields.keys)), Set(fields.keys).isSubset(of: supported),
               fields.values.allSatisfy({ $0 is String }) else { return nil }

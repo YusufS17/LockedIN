@@ -1,13 +1,13 @@
 # LockedIN progress
 
-Last updated: 2026-11-15
+Last updated: 2026-11-21
 
-## Current work — Pixel Apartment direction selected, 2026-11-15
+## Current work — native Pixel Apartment onboarding/creator, 2026-11-21
 
-- User explicitly selected **A — Pixel Apartment**. Updated art direction, user direction and concept packet; B and separate character-workshop alternatives are not selected.
-- Working target: richly furnished evening pixel apartments, amber light, compact creator, Room/Friends/Profile tabs and immersive focus with correct seated layering. Detailed prior corrections still apply; preserve all existing identities/progression/receipt UUIDs.
-- No app edits or running agents/build/image jobs in this preference-recording milestone. Documentation whitespace check passed.
-- Next concrete deliverable: phone-size creator and focus refinements using A's depicted character style, then native onboarding/creator/navigation implementation per saved phases. Concept PNG remains reference, not an interactive implementation.
+- Resumed clean `b17826b`; [native implementation phases](.planning/PIXEL_APARTMENT_IMPLEMENTATION.md) saved. Current slice: shorter onboarding and creator before tabs/full-room art.
+- Three builders completed host/welcome/name/arrival, creator and compatible yellow/presentation model/render support. Independent cross-reviews completed without blocking source finding. Lead integrates fixtures/test updates and evening-room scene override.
+- Production study/identity checks passed twice, including the final cream-shirt starter. First app/UI build and six targeted runtime journeys passed; their screenshots are saved and inspected. Final rebuild/rechecks for the cream starter and AX Randomize reachability are pending after a server interruption. New renderer variation is modest tailoring, not the final character family.
+- Preserve existing avatars/clothing/progression and receipt UUIDs. No user data reset; no push in this continuation yet. Agents finished; recovered final build process is still running. Recovery checkpoint saved before further work.
 
 ## Product direction
 

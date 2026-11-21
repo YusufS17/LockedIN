@@ -34,6 +34,25 @@ struct StudySessionChecks {
         assert(CharacterPersistence.load(defaults: defaults)?.displayName == "Fixture")
         // Damaged/future identity must retain exact original payload and separate name.
         let validIdentity = defaults.data(forKey: PersistenceKeys.character)!
+        // Pre-presentation saves retain their exact skin, independent clothes and
+        // established silhouette. New creator defaults never replace old identities.
+        var oldFields = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
+        oldFields.removeValue(forKey: "presentation")
+        defaults.set(try JSONSerialization.data(withJSONObject: oldFields), forKey: PersistenceKeys.character)
+        let oldIdentity = CharacterPersistence.load(defaults: defaults)!
+        assert(oldIdentity.appearance == appearance && oldIdentity.appearance.presentation == .masculine)
+        assert(oldIdentity.displayName == "Fixture")
+        assert(CharacterAppearance.default.skinTone == .medium)
+        assert(CharacterAppearance.starter.skinTone == .yellow && CharacterAppearance.starter.presentation == .masculine)
+        var feminine = appearance
+        feminine.skinTone = .yellow
+        feminine.presentation = .feminine
+        assert(CharacterPersistence.save(appearance: feminine, displayName: "New fixture", defaults: defaults))
+        let newIdentity = CharacterPersistence.load(defaults: defaults)!
+        assert(newIdentity.appearance == feminine && newIdentity.displayName == "New fixture")
+        assert(newIdentity.appearance.topStyle == .jacket && newIdentity.appearance.bottomStyle == .skirt && newIdentity.appearance.shoeStyle == .boots)
+        assert(newIdentity.appearance.hairStyle == appearance.hairStyle && newIdentity.appearance.hairColour == appearance.hairColour)
+        assert(CharacterPersistence.save(appearance: appearance, displayName: "Fixture", defaults: defaults))
         defaults.removeObject(forKey: PersistenceKeys.character)
         assert(CharacterPersistence.savedDisplayName(defaults: defaults) == "Fixture")
         assert(CharacterPersistence.save(appearance: appearance, displayName: "Fixture", defaults: defaults))
@@ -41,9 +60,12 @@ struct StudySessionChecks {
         futureFields["futureAccessory"] = "cape"
         var unknownEnum = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
         unknownEnum["hairStyle"] = "future-style"
+        var unknownPresentation = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
+        unknownPresentation["presentation"] = "future-presentation"
         let unsafeIdentities: [Any] = [Data([0xFF]), "wrong storage type", Data("{}".utf8),
             try JSONSerialization.data(withJSONObject: futureFields),
-            try JSONSerialization.data(withJSONObject: unknownEnum)]
+            try JSONSerialization.data(withJSONObject: unknownEnum),
+            try JSONSerialization.data(withJSONObject: unknownPresentation)]
         for raw in unsafeIdentities {
             defaults.set(raw, forKey: PersistenceKeys.character)
             assert(CharacterPersistence.load(defaults: defaults) == nil)
@@ -53,10 +75,11 @@ struct StudySessionChecks {
             assert(CharacterPersistence.savedDisplayName(defaults: defaults) == "Fixture")
         }
         var legacyFields = try JSONSerialization.jsonObject(with: validIdentity) as! [String: Any]
-        for key in ["faceStyle", "topStyle", "bottomStyle", "shoeStyle", "accessory"] { legacyFields.removeValue(forKey: key) }
+        for key in ["faceStyle", "topStyle", "bottomStyle", "shoeStyle", "accessory", "presentation"] { legacyFields.removeValue(forKey: key) }
         defaults.set(try JSONSerialization.data(withJSONObject: legacyFields), forKey: PersistenceKeys.character)
         let legacy = CharacterPersistence.load(defaults: defaults)!
         assert(legacy.appearance.topStyle == CharacterAppearance.wardrobe(for: appearance.outfitStyle).top)
+        assert(legacy.appearance.presentation == .masculine)
         assert(legacy.displayName == "Fixture")
         assert(CharacterPersistence.save(appearance: appearance, displayName: "Fixture", defaults: defaults))
         defaults.set(42, forKey: PersistenceKeys.displayName)

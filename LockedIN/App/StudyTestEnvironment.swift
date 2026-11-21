@@ -27,6 +27,14 @@ enum StudyTestEnvironment {
                 defaults.set(Data([0xFF, 0xFE]), forKey: PersistenceKeys.character)
                 defaults.set("Saved student", forKey: PersistenceKeys.displayName)
             }
+            if args.contains("-ui-test-avatar-existing-outfit"), !args.contains("-ui-test-avatar-corrupt") {
+                var appearance = CharacterAppearance.default
+                appearance.topStyle = .jacket
+                appearance.bottomStyle = .skirt
+                appearance.shoeStyle = .boots
+                appearance.accessory = .headphones
+                CharacterPersistence.save(appearance: appearance, displayName: "Saved student", defaults: defaults)
+            }
             if args.contains("-ui-test-world-corrupt") {
                 defaults.set(Data([0xFF, 0xFE]), forKey: WorldPersistence.persistenceKey)
             }

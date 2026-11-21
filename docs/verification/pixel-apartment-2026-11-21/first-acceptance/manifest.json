@@ -1,0 +1,164 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "097CF127-7503-4FAB-908E-A20CFC195C8F.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "existing-outfit-restored-in-new-creator_0_DBF448D6-EFA4-4048-A3BE-7B4C81C05711.png",
+        "timestamp" : 1795220778.313
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "1EBB147C-2A89-4C2B-A047-3EE9FDFE372E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "existing-outfit-preserved-after-randomize_0_3B1367D7-4B31-4A22-BA42-BC04A00E70D7.png",
+        "timestamp" : 1795220756.98
+      }
+    ],
+    "testIdentifier" : "OfflineStudyLoopTests/testExistingGarmentsSurviveCreatorEditsAndRandomize()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OfflineStudyLoopTests/testExistingGarmentsSurviveCreatorEditsAndRandomize"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "404D1CFC-87C6-43E0-9FA0-B11864B5493E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-identity-restored_0_EF4D3C04-A70C-48E4-98C9-C3263CD715F2.png",
+        "timestamp" : 1795220905.339
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "355520A9-D5CC-4E79-8161-804F68CF076E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-room-arrival_0_65D2423B-98F7-4A22-AE6E-93E20AC65D79.png",
+        "timestamp" : 1795220872.835
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "1695BD32-CD54-4600-A8B6-571892C380B3.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-creator-free-hair_0_301053B8-1C91-46C4-965C-3E47CF52D6CA.png",
+        "timestamp" : 1795220827.116
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "A25A314C-BCA5-42A6-8367-F5BE4340DC73.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-welcome_0_A11852D9-3FC8-4DA5-A5C4-BAA0DAD54BAF.png",
+        "timestamp" : 1795220810.764
+      }
+    ],
+    "testIdentifier" : "OnboardingBacktrackingTests/testCreatorDraftBacktrackingAndSavedIdentity()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OnboardingBacktrackingTests/testCreatorDraftBacktrackingAndSavedIdentity"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "54041BF5-3BB5-49F5-8110-F6419046F38F.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-partial-introduction-identity-restored_0_77789FCA-5E63-40FF-A2A6-78031A2F1487.png",
+        "timestamp" : 1795220960.876
+      }
+    ],
+    "testIdentifier" : "OnboardingBacktrackingTests/testNamedIdentityBeforeArrivalKeepsItsLookAfterRelaunch()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OnboardingBacktrackingTests/testNamedIdentityBeforeArrivalKeepsItsLookAfterRelaunch"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "93780ECB-3D1E-418E-843D-CCF87B6B5324.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-arrival-largest-text_0_D08676A7-CF66-4E2A-8BCD-FD3DBCEA412E.png",
+        "timestamp" : 1795220993.754
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "40A08858-B3C3-4891-A729-25C814DF2839.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-creator-largest-text_0_4CE4E9C0-A22D-4851-9A73-6B6EF09EF039.png",
+        "timestamp" : 1795220987.49
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "4417BBD9-312F-40F9-B81F-482657394E13.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "apartment-welcome-largest-text_0_929CE218-0E6D-4B64-99A6-B67BFA90ADB7.png",
+        "timestamp" : 1795220983.415
+      }
+    ],
+    "testIdentifier" : "OnboardingBacktrackingTests/testShortIntroductionAtLargestText()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/OnboardingBacktrackingTests/testShortIntroductionAtLargestText"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "DFA7FA60-B262-4B93-B1D3-2D66F4DC38D0.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-avatar-preserved-after-relaunch_0_B2835210-7FB8-4348-A52C-62B95BF9CB71.png",
+        "timestamp" : 1795221039.487
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "12E3A035-7015-43F4-ABF5-848845245297.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "onboarding-avatar-recovery_0_B3097C17-1317-48CB-B7B1-8652F12DBE27.png",
+        "timestamp" : 1795221018.73
+      }
+    ],
+    "testIdentifier" : "WorldRecoveryTests/testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/WorldRecoveryTests/testIncompleteOnboardingCanContinueWithoutReplacingUnreadableAvatar"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "76D6BAFD-0D7C-44D6-B13F-E5950CD04055.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "avatar-preserved-relaunch_0_2CC28019-83BE-4EE6-B017-7E5B09571C57.png",
+        "timestamp" : 1795221081.409
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "DB03CCDF-9915-45BD-B3C0-3A68C136313C",
+        "deviceName" : "iPhone 16e",
+        "exportedFileName" : "7DDEFBBC-F209-4F20-B1B7-63E35F3FC549.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "avatar-preserved-initial_0_3DAAA536-5DCE-4EED-B515-F36DE4151588.png",
+        "timestamp" : 1795221063.929
+      }
+    ],
+    "testIdentifier" : "WorldRecoveryTests/testUnreadableAvatarCannotBeOverwrittenAfterRelaunch()",
+    "testIdentifierURL" : "test://com.apple.xcode/LockedIN/LockedINUITests/WorldRecoveryTests/testUnreadableAvatarCannotBeOverwrittenAfterRelaunch"
+  }
+]

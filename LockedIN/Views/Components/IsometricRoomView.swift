@@ -16,6 +16,8 @@ import SwiftUI
 
 struct IsometricRoomView: View {
     var room: PersonalRoom = .seeded
+    /// A scene may hold an authored lighting mood; ordinary rooms follow the clock.
+    var phase: DayPhase? = nil
 
     @ReducedMotionPreference private var reduceMotion
 
@@ -26,7 +28,7 @@ struct IsometricRoomView: View {
                 // Transparent outside the room silhouette so editor/home panels
                 // supply their own surface without a mismatched rectangular patch.
                 Image(uiImage: RoomComposer.baseImage(room: room,
-                                                      phase: DayPhase.current(),
+                                                      phase: phase ?? DayPhase.current(),
                                                       includeSeating: true))
                     .interpolation(.none)
                     .resizable()
@@ -34,7 +36,7 @@ struct IsometricRoomView: View {
                     .frame(width: s.width, height: s.height)
 
                 RoomAmbientLayer(
-                    size: s, room: room, reduceMotion: reduceMotion,
+                    size: s, room: room, reduceMotion: reduceMotion, phase: phase,
                     lampAt: RoomCanvas.fraction(RoomCanvas.lampGlow(room: room), in: s),
                     windowAt: RoomCanvas.fraction(RoomCanvas.windowGlow, in: s)
                 )
@@ -74,6 +76,7 @@ struct RoomAmbientLayer: View {
     let size: CGSize
     let room: PersonalRoom
     let reduceMotion: Bool
+    var phase: DayPhase? = nil
     /// Centre of the warm lamp glow, in fractions.
     var lampAt: CGPoint = CGPoint(x: 0.60, y: 0.55)
     /// Centre of the window light pool, in fractions.
@@ -83,8 +86,8 @@ struct RoomAmbientLayer: View {
         let w = size.width, h = size.height
         // Effects scale with the fitted artwork, including tall/narrow containers.
         let roomWidth = RoomLayout.scale(in: size) * CGFloat(RoomSpriteShell.canvas.cols)
-        let phase = DayPhase.current()
-        let evening = phase == .evening || phase == .night
+        let currentPhase = phase ?? DayPhase.current()
+        let evening = currentPhase == .evening || currentPhase == .night
         // Catalogue lamp tint changes its wooden pole; the authored bulb stays amber.
         let lampTint = Color(red: 1, green: 0.79, blue: 0.39)
         let silhouette = RoomSpriteShell.image(floorTint: nil, wallTint: nil, phase: .day)

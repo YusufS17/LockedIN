@@ -258,11 +258,16 @@ enum AvatarSpriteV3 {
         let left = [18,16,14,13,12,12,12,12,12,12,12,12,13,13,13,14,14,15,15,15,16,16,17]
         let right = [29,31,33,34,35,35,35,35,35,35,35,35,35,35,34,34,34,33,33,33,32,32,31]
         for y in 26...48 {
-            bar(y, left[y-26], right[y-26], "O")
-            for x in left[y-26]...min(left[y-26]+2, right[y-26]) { g[x,y] = "c" }
+            // A small tailoring change, independent of hair, skin and garment choice.
+            // The established masculine silhouette remains pixel-for-pixel unchanged.
+            let inset = a.presentation == .feminine && (28...34).contains(y) ? 1 : 0
+            let garmentLeft = left[y-26] + inset
+            let garmentRight = right[y-26] - inset
+            bar(y, garmentLeft, garmentRight, "O")
+            for x in garmentLeft...min(garmentLeft+2, garmentRight) { g[x,y] = "c" }
             // The side plane narrows at the chest and widens near the waist.
             // Separate sleeves below make the torso read as cloth with volume.
-            if y > 28 { bar(y, y < 36 ? 32 : 30, right[y-26], "o") }
+            if y > 28 { bar(y, y < 36 ? 32 : 30, garmentRight, "o") }
         }
         // Sleeve seams curve into the underarm; cuffs have a different material.
         for y in 31...41 { g[18,y] = "o"; g[30,y] = "o" }
@@ -326,6 +331,12 @@ enum AvatarSpriteV3 {
             g[28,34] = "c"; g[30,34] = "c"
             bar(44,20,22,"o"); g[20,43] = "o"
             bar(46,28,30,"c")
+        }
+        if a.presentation == .feminine {
+            // Taper only garment edges, preserving the independent hands and limbs.
+            for y in 43...48 {
+                for x in Array(12...18) + Array(30...35) where "Ooc".contains(g[x,y]) { g[x,y] = "." }
+            }
         }
         // Offset legs and shoe toes establish the same turn as the torso.
         for y in 49...57 {

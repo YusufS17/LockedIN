@@ -61,7 +61,7 @@ struct PixelAvatarView: View {
 
     private static func cacheKey(appearance a: CharacterAppearance, status: AvatarStatus, pose: AvatarPose) -> String {
         // Style axes shape the grid; colour axes shape the palette. Both must key the bake.
-        "av3-tailored3|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.topStyle).\(a.bottomStyle).\(a.shoeStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
+        "av3-tailored4|\(a.presentation).\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.topStyle).\(a.bottomStyle).\(a.shoeStyle).\(a.accentColour).\(a.accessory)|\(pose)|\(status)"
     }
 }
 

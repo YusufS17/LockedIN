@@ -1,423 +1,352 @@
 import SwiftUI
 
-// MARK: - CharacterCustomizerView — the avatar creator / wardrobe (mockup 02 layout)
-//
-// A live-preview character editor: a category icon rail down the left (skin, hair,
-// hair colour, face, top, bottoms, shoes, outfit colour, accessory), a large preview
-// on a pedestal, and a swatch grid for the active category. Randomise (dice) rolls a
-// fresh look from free + owned options. Premium cosmetics (headphones, cap, beanie,
-// pink/auburn hair, afro) cost LockedIN coins — tapping a locked option buys it if
-// affordable (cosmetic-only, never pay-to-win).
-//
-// Reusable: an onboarding beat (onBack returns to the gallery) and "Edit character"
-// from the world (onBack nil → dismisses). Naming lives at the reveal beat / profile,
-// not here — `initialName` passes through onSave unchanged.
-
+/// Native character creator. Available features edit independent runtime layers;
+/// future wardrobe features never replace an existing saved outfit or accessory.
 struct CharacterCustomizerView: View {
-
     @Environment(AppStore.self) private var appStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ReducedMotionPreference private var reduceMotion
 
     let initial: CharacterAppearance
     var initialName: String = ""
     var onBack: (() -> Void)? = nil
+    var isOnboarding = false
     var onSave: (CharacterAppearance, String) -> Void
 
     @State private var appearance: CharacterAppearance
-    @State private var category: Category = .hair
-    @State private var toast: String?
+    @State private var category: Category = .skin
     @State private var showsDiscardConfirmation = false
 
     init(initial: CharacterAppearance,
          initialName: String = "",
          onBack: (() -> Void)? = nil,
+         isOnboarding: Bool = false,
          onSave: @escaping (CharacterAppearance, String) -> Void) {
         self.initial = initial
         self.initialName = initialName
         self.onBack = onBack
+        self.isOnboarding = isOnboarding
         self.onSave = onSave
         _appearance = State(initialValue: initial)
     }
 
-    private var coins: Int { appStore.world.state.progression.coins }
-
-    // MARK: - Categories
-
     private enum Category: String, CaseIterable, Identifiable {
-        case skin, hair, hairColour, face, top, bottoms, shoes, accent, accessory
+        case skin, face, hair, hairColour, accent, accessory, comingSoon
         var id: String { rawValue }
-
-        var icon: PixelIcon {
-            switch self {
-            case .skin:       return .hand
-            case .hair:       return .comb
-            case .hairColour: return .droplet
-            case .face:       return .smiley
-            case .top:        return .shirt
-            case .bottoms:    return .trousers
-            case .shoes:      return .shoe
-            case .accent:     return .palette
-            case .accessory:  return .cap
-            }
-        }
-
         var title: String {
             switch self {
-            case .skin:       return "Skin"
-            case .hair:       return "Hair"
+            case .skin: return "Skin"
+            case .face: return "Face"
+            case .hair: return "Hair"
             case .hairColour: return "Hair colour"
-            case .face:       return "Face"
-            case .top:        return "Top"
-            case .bottoms:    return "Bottoms"
-            case .shoes:      return "Shoes"
-            case .accent:     return "Outfit colour"
-            case .accessory:  return "Accessory"
+            case .accent: return "Colour"
+            case .accessory: return "Glasses"
+            case .comingSoon: return "Coming soon"
             }
         }
     }
-
-    // MARK: - Body
 
     var body: some View {
-        if let issue = CharacterPersistence.recoveryIssue(defaults: appStore.defaults) {
-            VStack(spacing: 24) {
-                StudioHeader(title: "Saved avatar", subtitle: "Your original is preserved", closeIdentifier: "avatar.close", compactAtAccessibility: true, close: requestClose)
-                ScrollView {
-                    Text(issue).font(.body).padding(24)
-                        .accessibilityIdentifier("avatar.recovery")
+        Group {
+            if let issue = CharacterPersistence.recoveryIssue(defaults: appStore.defaults) {
+                VStack(spacing: 0) {
+                    header(title: "Saved avatar")
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("Your original is preserved").font(.headline)
+                            Text(issue).fixedSize(horizontal: false, vertical: true)
+                                .accessibilityIdentifier("avatar.recovery")
+                        }.padding(24)
+                    }
                 }
+            } else {
+                editor
             }
-            .background(Theme.Colour.background)
-        } else {
-            editorBody
         }
+        .foregroundStyle(CreatorPalette.ink)
+        .background(CreatorPalette.background.ignoresSafeArea())
+        .preferredColorScheme(.dark)
     }
 
-    private var editorBody: some View {
-        VStack(spacing: 0) {
-            StudioHeader(title: "Your wardrobe", subtitle: "A character that feels like you", closeIdentifier: "avatar.close", compactAtAccessibility: true, close: requestClose)
-            if !dynamicTypeSize.isAccessibilitySize {
-                preview.padding(.horizontal, 24).padding(.bottom, 14)
-            }
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 16) {
-                    if dynamicTypeSize.isAccessibilitySize { preview }
-                    if dynamicTypeSize.isAccessibilitySize {
-                        VStack(alignment: .leading, spacing: 10) {
-                            StudioSectionHeading(title: "Find your look", detail: "Mix every piece independently.")
-                            shuffleButton
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                    } else {
-                        HStack(alignment: .center) {
-                            StudioSectionHeading(title: "Find your look", detail: "Mix every piece independently.")
-                            Spacer()
-                            shuffleButton
+    private var editor: some View {
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                header(title: isOnboarding ? "Create your character" : "Your character")
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 12) {
+                        presentationSelector
+                        preview(height: dynamicTypeSize.isAccessibilitySize ? 240 : max(112, min(280, geometry.size.height - 440)))
+                        categoryRail
+                        swatchArea
+                        Button(action: randomize) {
+                            Text("Randomize").font(.subheadline.weight(.semibold)).underline()
+                                .frame(minHeight: 44).padding(.horizontal, 16)
+                                .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("avatar.randomize")
+                        .accessibilityLabel("Randomize appearance")
                     }
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(Category.allCases) { c in
-                                Button { category = c } label: {
-                                    HStack(spacing: 7) {
-                                        PixelIconView(icon: c.icon, size: 17)
-                                        Text(c.title).font(.caption.weight(.semibold))
-                                    }
-                                    .padding(.horizontal, 12).frame(minHeight: 44)
-                                    .modifier(StudioSelectionTile(selected: category == c))
-                                }
-                                .buttonStyle(.plain)
-                                .accessibilityLabel(c.title)
-                                .accessibilityAddTraits(category == c ? .isSelected : [])
-                                .accessibilityIdentifier("avatar.category.\(c.rawValue)")
-                            }
-                        }
-                    }
-                    .accessibilityIdentifier("avatar.categories")
-                    swatchArea
-                    Text("Owned looks are free to try. Tap a priced look to unlock it with earned coins.")
-                        .font(.caption).foregroundStyle(Theme.Colour.textSecondary)
-                        .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20).padding(.bottom, 12)
                 }
-                .padding(.horizontal, 24).padding(.bottom, 24)
             }
         }
-        .foregroundStyle(Theme.Colour.textPrimary)
-        .background(Theme.Colour.background.ignoresSafeArea())
-        .safeAreaInset(edge: .bottom, spacing: 0) { saveBar.background(Theme.Colour.background) }
-        .overlay(alignment: .bottom) { if let toast { toastView(toast) } }
-        .task(id: toast) {
-            guard toast != nil else { return }
-            do { try await Task.sleep(for: .seconds(3)) } catch { return }
-            withAnimation { toast = nil }
-        }
+        .safeAreaInset(edge: .bottom, spacing: 0) { saveBar }
         .interactiveDismissDisabled(appearance != initial)
-        .alert("Discard your outfit changes?", isPresented: $showsDiscardConfirmation) {
+        .alert("Discard your character changes?", isPresented: $showsDiscardConfirmation) {
             Button("Discard changes", role: .destructive) { close() }
                 .accessibilityIdentifier("avatar.discard")
             Button("Keep editing", role: .cancel) {}
                 .accessibilityIdentifier("avatar.keepEditing")
         } message: {
-            Text("Your saved outfit will stay as it was. Any unlocked items stay owned.")
+            Text("Your saved character will stay as it was.")
         }
     }
 
-    private var shuffleButton: some View {
-        Button(action: randomise) {
-            Label("Shuffle", systemImage: "dice")
-                .font(.caption.weight(.semibold)).padding(12)
-        }
-        .background(Theme.Colour.surface, in: Capsule())
-        .accessibilityLabel("Randomise appearance")
-    }
-
-    private var preview: some View {
-        VStack(spacing: 0) {
-            HStack {
-                StudioEyebrow(text: "Dressing room")
-                Spacer()
-                StudioCoinBalance(coins: coins)
-            }.padding(.horizontal, 16).padding(.top, 12)
-            ZStack(alignment: .bottom) {
-                WardrobeStage().frame(height: 152)
-                PixelAvatarView(appearance: appearance, status: .idle, size: 150)
-                    .padding(.bottom, 10)
+    private func header(title: String) -> some View {
+        HStack(spacing: 10) {
+            Button(action: requestClose) {
+                Image(systemName: "chevron.left").font(.headline)
+                    .frame(width: 44, height: 44).contentShape(Rectangle())
             }
-            HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(initialName.isEmpty ? "Your study companion" : initialName)
-                        .font(.system(.subheadline, design: .rounded, weight: .bold))
-                    Text("\(appearance.topStyle.displayName) · \(appearance.bottomStyle.displayName) · \(appearance.shoeStyle.displayName)")
-                        .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
+            .buttonStyle(.plain)
+            .accessibilityLabel("Back")
+            .accessibilityIdentifier("avatar.close")
+            Text(title).font(.system(.title3, design: .rounded, weight: .bold))
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 12).padding(.vertical, 6)
+    }
+
+    private var presentationSelector: some View {
+        HStack(spacing: 0) {
+            presentationButton("M", selected: appearance.presentation == .masculine) {
+                appearance.presentation = .masculine
+            }
+            .accessibilityLabel("Masculine presentation")
+            .accessibilityIdentifier("avatar.presentation.masculine")
+            presentationButton("F", selected: appearance.presentation == .feminine) {
+                appearance.presentation = .feminine
+            }
+            .accessibilityLabel("Feminine presentation")
+            .accessibilityIdentifier("avatar.presentation.feminine")
+        }
+        .background(CreatorPalette.panel, in: Capsule())
+        .overlay(Capsule().strokeBorder(CreatorPalette.border))
+        .fixedSize(horizontal: !dynamicTypeSize.isAccessibilitySize, vertical: false)
+    }
+
+    private func presentationButton(_ title: String, selected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title).font(.subheadline.weight(.bold))
+                .foregroundStyle(selected ? CreatorPalette.buttonInk : CreatorPalette.ink)
+                .frame(minWidth: 72, minHeight: 44)
+                .frame(maxWidth: dynamicTypeSize.isAccessibilitySize ? .infinity : nil)
+                .background(selected ? CreatorPalette.amber : .clear, in: Capsule())
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? .isSelected : [])
+    }
+
+    private func preview(height: CGFloat) -> some View {
+        ZStack(alignment: .bottom) {
+            CreatorApartmentStage()
+            PixelAvatarView(appearance: appearance, status: .idle, size: min(240, height * 0.94))
+                .padding(.bottom, 6)
+        }
+        .frame(height: height)
+        .frame(maxWidth: .infinity)
+        .background(CreatorPalette.panel)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(CreatorPalette.border.opacity(0.7)))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Avatar: \(appearance.description), \(appearance.accessory.displayName)")
+        .accessibilityIdentifier("avatar.preview")
+    }
+
+    private var categoryRail: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 4) {
+                ForEach(Category.allCases) { item in
+                    Button { category = item } label: {
+                        Text(item.title).font(.caption.weight(.semibold))
+                            .foregroundStyle(category == item ? CreatorPalette.buttonInk : CreatorPalette.ink)
+                            .padding(.horizontal, 12).frame(minHeight: 44)
+                            .background(category == item ? CreatorPalette.amber : .clear,
+                                        in: RoundedRectangle(cornerRadius: 9))
+                            .contentShape(RoundedRectangle(cornerRadius: 9))
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(category == item ? .isSelected : [])
+                    .accessibilityIdentifier("avatar.category.\(item.rawValue)")
                 }
-                Spacer()
-                Image(systemName: "person.crop.square").foregroundStyle(Theme.Colour.testBadgeFg)
             }
-            .padding(.horizontal, 16).padding(.vertical, 10)
-            .background(Theme.Colour.surface)
         }
-        .background(Theme.Colour.surfaceMid.opacity(0.5))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Theme.Colour.cardBorder))
-    }
-
-    // MARK: - Swatch area
-
-    private var swatchColumns: [GridItem] {
-        [GridItem(.adaptive(minimum: dynamicTypeSize.isAccessibilitySize ? 140 : 86), spacing: 12)]
+        .accessibilityIdentifier("avatar.categories")
     }
 
     private var swatchArea: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                StudioEyebrow(text: category.title)
-                Spacer()
-                Text("Choose a look").font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
-            }
-            LazyVGrid(columns: swatchColumns, spacing: 12) { swatches }
-        }.frame(maxWidth: .infinity, alignment: .leading)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top, spacing: 12) { swatches }
+                .padding(.horizontal, 4).padding(.vertical, 4)
+        }
+        .frame(minHeight: 84, alignment: .top)
+        .accessibilityIdentifier("avatar.options")
     }
 
     @ViewBuilder
     private var swatches: some View {
         switch category {
         case .skin:
-            ForEach(SkinTone.allCases, id: \.self) { t in
-                swatchChip(colour: t.colour, selected: appearance.skinTone == t,
-                           id: CosmeticCatalog.id(skin: t), label: t.displayName) { appearance.skinTone = t }
-            }
-        case .hair:
-            ForEach(HairStyle.allCases, id: \.self) { h in
-                var a = appearance; a.hairStyle = h
-                return avatarChip(preview: a, selected: appearance.hairStyle == h,
-                                  id: CosmeticCatalog.id(hairStyle: h), label: h.displayName) { appearance.hairStyle = h }
-            }
-        case .hairColour:
-            ForEach(HairColour.allCases, id: \.self) { c in
-                swatchChip(colour: c.colour, selected: appearance.hairColour == c,
-                           id: CosmeticCatalog.id(hairColour: c), label: c.displayName) { appearance.hairColour = c }
+            ForEach(Array([SkinTone.yellow, .light, .medium, .dark, .deep].enumerated()), id: \.element) { index, tone in
+                Button { choose { appearance.skinTone = tone } } label: {
+                    Text("\(index + 1)").font(.subheadline.weight(.bold))
+                        .foregroundStyle(tone == .dark || tone == .deep ? CreatorPalette.ink : CreatorPalette.buttonInk)
+                        .frame(width: 48, height: 48)
+                        .background(tone.colour, in: Circle())
+                        .overlay(Circle().strokeBorder(CreatorPalette.ink.opacity(0.4)))
+                        .padding(4)
+                        .overlay(Circle().strokeBorder(appearance.skinTone == tone ? CreatorPalette.amber : .clear, lineWidth: 2))
+                        .contentShape(Circle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Skin \(index + 1)")
+                .accessibilityAddTraits(appearance.skinTone == tone ? .isSelected : [])
+                .accessibilityIdentifier("avatar.skin.\(tone.rawValue)")
             }
         case .face:
-            ForEach(FaceStyle.allCases, id: \.self) { f in
-                var a = appearance; a.faceStyle = f
-                return avatarChip(preview: a, selected: appearance.faceStyle == f,
-                                  id: nil, label: f.displayName) { appearance.faceStyle = f }
+            ForEach(FaceStyle.allCases, id: \.self) { face in
+                var option = appearance
+                let _ = option.faceStyle = face
+                avatarChip(option, selected: appearance.faceStyle == face, label: face.displayName,
+                           identifier: "avatar.face.\(face.rawValue)") { appearance.faceStyle = face }
             }
-        case .top:
-            ForEach(TopStyle.allCases, id: \.self) { t in
-                var a = appearance; a.topStyle = t
-                return avatarChip(preview: a, selected: appearance.topStyle == t,
-                                  id: nil, label: t.displayName) { appearance.topStyle = t }
+        case .hair:
+            ForEach(HairStyle.allCases, id: \.self) { hair in
+                var option = appearance
+                let _ = option.hairStyle = hair
+                avatarChip(option, selected: appearance.hairStyle == hair, label: hair.displayName,
+                           identifier: "avatar.hair.\(hair.rawValue)") { appearance.hairStyle = hair }
             }
-        case .bottoms:
-            ForEach(BottomStyle.allCases, id: \.self) { b in
-                var a = appearance; a.bottomStyle = b
-                return avatarChip(preview: a, selected: appearance.bottomStyle == b,
-                                  id: nil, label: b.displayName) { appearance.bottomStyle = b }
-            }
-        case .shoes:
-            ForEach(ShoeStyle.allCases, id: \.self) { s in
-                var a = appearance; a.shoeStyle = s
-                return avatarChip(preview: a, selected: appearance.shoeStyle == s,
-                                  id: nil, label: s.displayName) { appearance.shoeStyle = s }
+        case .hairColour:
+            ForEach(HairColour.allCases, id: \.self) { colour in
+                colourChip(colour.colour, selected: appearance.hairColour == colour, label: colour.displayName,
+                           identifier: "avatar.hairColour.\(colour.rawValue)") { appearance.hairColour = colour }
             }
         case .accent:
-            ForEach(AccentColour.allCases, id: \.self) { a in
-                swatchChip(colour: a.colour, selected: appearance.accentColour == a,
-                           id: CosmeticCatalog.id(accent: a), label: a.displayName) { appearance.accentColour = a }
+            ForEach(AccentColour.allCases, id: \.self) { colour in
+                colourChip(colour.colour, selected: appearance.accentColour == colour, label: colour.displayName,
+                           identifier: "avatar.accent.\(colour.rawValue)") { appearance.accentColour = colour }
             }
         case .accessory:
-            ForEach(Accessory.allCases, id: \.self) { acc in
-                var a = appearance; a.accessory = acc
-                return avatarChip(preview: a, selected: appearance.accessory == acc,
-                                  id: CosmeticCatalog.id(accessory: acc), label: acc.displayName) { appearance.accessory = acc }
+            ForEach([Accessory.none, .glasses], id: \.self) { accessory in
+                var option = appearance
+                let _ = option.accessory = accessory
+                avatarChip(option, selected: appearance.accessory == accessory, label: accessory.displayName,
+                           identifier: "avatar.accessory.\(accessory.rawValue)") { appearance.accessory = accessory }
             }
-        }
-    }
-
-    // MARK: - Chips
-
-    private func swatchChip(colour: Color, selected: Bool, id: String?, label: String,
-                            apply: @escaping () -> Void) -> some View {
-        let locked = id.map { !appStore.world.owns($0) } ?? false
-        return Button { choose(id, apply) } label: {
-            VStack(spacing: 8) {
-                ZStack(alignment: .topTrailing) {
-                    Circle().fill(colour).frame(width: 42, height: 42)
-                        .overlay(Circle().strokeBorder(Theme.Colour.cardBorder, lineWidth: 1))
-                    if locked, let id { priceTag(CosmeticCatalog.cost(for: id)) }
-                }.frame(height: 62)
-                Text(label).font(.caption.weight(.medium)).multilineTextAlignment(.center)
-                inventoryState(selected: selected, locked: locked, id: id)
-            }
-            .frame(maxWidth: .infinity).padding(.vertical, 10)
-            .foregroundStyle(Theme.Colour.textPrimary)
-            .modifier(StudioSelectionTile(selected: selected))
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("\(label)\(selected ? ", selected" : "")")
-        .accessibilityAddTraits(selected ? .isSelected : [])
-        .accessibilityHint(locked ? "Unlock for \(id.map { CosmeticCatalog.cost(for: $0) } ?? 0) earned coins" : "Try on this look")
-    }
-
-    private func avatarChip(preview: CharacterAppearance, selected: Bool, id: String?, label: String,
-                            apply: @escaping () -> Void) -> some View {
-        let locked = id.map { !appStore.world.owns($0) } ?? false
-        return Button { choose(id, apply) } label: {
-            VStack(spacing: 8) {
-                ZStack(alignment: .topTrailing) {
-                    itemPreview(preview).frame(height: 86).padding(.horizontal, 8)
-                    if locked, let id { priceTag(CosmeticCatalog.cost(for: id)) }
+        case .comingSoon:
+            ForEach([("Tops", "tshirt"), ("Bottoms", "figure.stand"), ("Shoes", "shoe"), ("Headphones", "headphones"), ("Hats", "graduationcap")], id: \.0) { title, symbol in
+                VStack(spacing: 8) {
+                    Image(systemName: symbol).font(.title3)
+                    Text(title).font(.caption)
+                    Text("Coming soon").font(.caption2)
                 }
-                Text(label).font(.caption.weight(.medium)).multilineTextAlignment(.center)
-                inventoryState(selected: selected, locked: locked, id: id)
+                .foregroundStyle(CreatorPalette.secondary)
+                .frame(minWidth: 88, minHeight: 84)
+                .padding(.horizontal, 8)
+                .background(CreatorPalette.panel, in: RoundedRectangle(cornerRadius: 10))
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("\(title), coming soon")
             }
-            .frame(maxWidth: .infinity).padding(.vertical, 10)
-            .foregroundStyle(Theme.Colour.textPrimary)
-            .modifier(StudioSelectionTile(selected: selected))
+        }
+    }
+
+    private func colourChip(_ colour: Color, selected: Bool, label: String, identifier: String,
+                            action: @escaping () -> Void) -> some View {
+        Button { choose(action) } label: {
+            VStack(spacing: 6) {
+                Circle().fill(colour).frame(width: 44, height: 44)
+                    .overlay(Circle().strokeBorder(CreatorPalette.ink.opacity(0.3)))
+                Text(label).font(.caption2).fixedSize(horizontal: false, vertical: true)
+            }
+            .frame(minWidth: 54, minHeight: 74).padding(.horizontal, 4)
+            .background(selected ? CreatorPalette.amber.opacity(0.12) : .clear, in: RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(selected ? CreatorPalette.amber : .clear, lineWidth: 2))
+            .contentShape(RoundedRectangle(cornerRadius: 10))
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("\(label)\(selected ? ", selected" : "")")
+        .accessibilityLabel(label)
         .accessibilityAddTraits(selected ? .isSelected : [])
-        .accessibilityHint(locked ? "Unlock for \(id.map { CosmeticCatalog.cost(for: $0) } ?? 0) earned coins" : "Try on this look")
+        .accessibilityIdentifier(identifier)
     }
 
-    private func inventoryState(selected: Bool, locked: Bool, id: String?) -> some View {
-        HStack(spacing: 3) {
-            if selected { Image(systemName: "checkmark") }
-            else if locked { Image(systemName: "lock.fill") }
-            Text(selected ? "Wearing" : locked ? "\(id.map { CosmeticCatalog.cost(for: $0) } ?? 0) coins" : "Owned")
+    private func avatarChip(_ option: CharacterAppearance, selected: Bool, label: String, identifier: String,
+                            action: @escaping () -> Void) -> some View {
+        Button { choose(action) } label: {
+            VStack(spacing: 5) {
+                itemPreview(option).frame(width: 58, height: 48)
+                Text(label).font(.caption2).fixedSize(horizontal: false, vertical: true)
+            }
+            .frame(minWidth: 68, minHeight: 76).padding(.horizontal, 4)
+            .background(CreatorPalette.panel, in: RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(selected ? CreatorPalette.amber : CreatorPalette.border, lineWidth: selected ? 2 : 1))
+            .contentShape(RoundedRectangle(cornerRadius: 10))
         }
-        .font(.caption2.weight(.medium))
-        .foregroundStyle(selected ? Theme.Colour.testBadgeFg : Theme.Colour.textSecondary)
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+        .accessibilityAddTraits(selected ? .isSelected : [])
+        .accessibilityIdentifier(identifier)
     }
 
-    /// Show the feature being chosen at a useful scale, using the real sprite.
-    private func itemPreview(_ a: CharacterAppearance) -> some View {
-        let crop: (x: Int, y: Int, width: Int, height: Int)
-        switch category {
-        case .hair, .face, .accessory: crop = (6, 0, 36, 30)
-        case .top: crop = (9, 23, 30, 27)
-        case .bottoms: crop = (12, 45, 24, 18)
-        case .shoes: crop = (12, 54, 26, 10)
-        default: crop = (0, 0, 48, 64)
-        }
-        let key = "wardrobe-detail|\(category.rawValue)|\(a.skinTone).\(a.hairStyle).\(a.hairColour).\(a.faceStyle).\(a.topStyle).\(a.bottomStyle).\(a.shoeStyle).\(a.accentColour).\(a.accessory)"
+    private func itemPreview(_ option: CharacterAppearance) -> some View {
+        let key = "creator-detail|\(option.presentation)|\(option.skinTone).\(option.hairStyle).\(option.hairColour).\(option.faceStyle).\(option.topStyle).\(option.bottomStyle).\(option.shoeStyle).\(option.accentColour).\(option.accessory)"
         let image = SpriteBakery.shared.image(key: key) {
-            let grid = AvatarSpriteV3.grid(appearance: a)
-                .subgrid(x: crop.x, y: crop.y, cols: crop.width, rows: crop.height)
-            return PixelRenderer.bake(grid: grid, palette: .avatarV3(a), rules: .avatarV3,
+            let grid = AvatarSpriteV3.grid(appearance: option).subgrid(x: 6, y: 0, cols: 36, rows: 30)
+            return PixelRenderer.bake(grid: grid, palette: .avatarV3(option), rules: .avatarV3,
                                       outline: PixelRGBA(r: 31, g: 23, b: 20))
         }
-        return Image(uiImage: image).interpolation(.none).resizable().scaledToFit()
-            .padding(8).accessibilityHidden(true)
+        return Image(uiImage: image).interpolation(.none).resizable().scaledToFit().accessibilityHidden(true)
     }
-
-    private func priceTag(_ cost: Int) -> some View {
-        HStack(spacing: 2) {
-            PixelIconView(icon: .coin, size: 8, tint: Theme.Colour.textOnAccent)
-            Text("\(cost)").font(.system(size: 9, weight: .heavy)).foregroundStyle(Theme.Colour.textOnAccent)
-        }
-        .padding(.horizontal, 4).padding(.vertical, 2)
-        .background(PixelPanelShape(unit: 1).fill(Theme.Colour.accent))
-        .offset(x: 4, y: -4)
-    }
-
-    // MARK: - Save bar
 
     private var saveBar: some View {
-        VStack(spacing: 9) {
-            Button("Save avatar") { save() }
-                .buttonStyle(StudioButtonStyle(primary: true))
-                .accessibilityIdentifier("avatar.save")
-            if !dynamicTypeSize.isAccessibilitySize {
-                Text("Save to keep your outfit. Unlocked items stay owned.")
-                    .font(.caption2).foregroundStyle(Theme.Colour.textSecondary)
+        Button(action: save) {
+            Text(isOnboarding ? "Continue" : "Save avatar")
+                .font(.system(.headline, design: .rounded, weight: .bold))
+                .foregroundStyle(CreatorPalette.buttonInk)
+                .frame(maxWidth: .infinity, minHeight: 52)
+                .padding(.horizontal, 16).padding(.vertical, 2)
+                .background(CreatorPalette.amber, in: RoundedRectangle(cornerRadius: 12))
+                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(CreatorPalette.ink.opacity(0.5)))
+                .contentShape(RoundedRectangle(cornerRadius: 12))
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier(isOnboarding ? "avatar.continue" : "avatar.save")
+        .padding(.horizontal, 20).padding(.vertical, 12)
+        .background(CreatorPalette.background)
+    }
+
+    private func choose(_ action: () -> Void) {
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.15)) { action() }
+    }
+
+    private func randomize() {
+        // Only available axes change. Existing garments and future accessories are
+        // intentionally retained rather than silently replaced by starter options.
+        choose {
+            appearance.skinTone = SkinTone.allCases.randomElement() ?? appearance.skinTone
+            appearance.faceStyle = FaceStyle.allCases.randomElement() ?? appearance.faceStyle
+            appearance.hairStyle = HairStyle.allCases.randomElement() ?? appearance.hairStyle
+            appearance.hairColour = HairColour.allCases.randomElement() ?? appearance.hairColour
+            appearance.accentColour = AccentColour.allCases.randomElement() ?? appearance.accentColour
+            if appearance.accessory == .none || appearance.accessory == .glasses {
+                appearance.accessory = [Accessory.none, .glasses].randomElement() ?? appearance.accessory
             }
         }
-        .padding(.horizontal, 24).padding(.vertical, 12)
-    }
-
-    private func toastView(_ text: String) -> some View {
-        Text(text)
-            .font(Theme.TypeScale.captionBold).foregroundStyle(Theme.Colour.buttonText)
-            .padding(.horizontal, Theme.Spacing.md).padding(.vertical, Theme.Spacing.sm)
-            .background(PixelPanelShape(unit: 2).fill(Theme.Colour.buttonFill))
-            .multilineTextAlignment(.center)
-            .accessibilityIdentifier("avatar.feedback")
-            .padding(.horizontal, 24)
-            .padding(.bottom, 96)
-            .transition(.move(edge: .bottom).combined(with: .opacity))
-    }
-
-    // MARK: - Actions
-
-    /// Select a cosmetic — free items (nil id) apply immediately; premium ones buy if affordable.
-    private func choose(_ id: String?, _ apply: @escaping () -> Void) {
-        guard let id else {
-            withAnimation(.easeInOut(duration: 0.15)) { apply() }
-            return
-        }
-        if appStore.world.owns(id) {
-            withAnimation(.easeInOut(duration: 0.15)) { apply() }
-        } else if appStore.world.purchase(id) {
-            withAnimation(.easeInOut(duration: 0.15)) { apply() }
-            flash("Unlocked! ✨")
-        } else {
-            flash("Need \(max(0, CosmeticCatalog.cost(for: id) - coins)) more coins. You have \(coins).")
-        }
-    }
-
-    private func randomise() {
-        var rng = SystemRandomNumberGenerator()
-        let rolled = CharacterAppearance.randomised(owned: appStore.world.state.ownedCosmetics,
-                                                    using: &rng)
-        withAnimation(.easeInOut(duration: 0.2)) { appearance = rolled }
-    }
-
-    private func flash(_ message: String) {
-        withAnimation { toast = message }
-
     }
 
     private func requestClose() {
@@ -435,38 +364,68 @@ struct CharacterCustomizerView: View {
     }
 }
 
-/// A quiet dressing-room backdrop; the avatar remains a live, editable sprite.
-private struct WardrobeStage: View {
+private enum CreatorPalette {
+    static let background = Color(red: 0.075, green: 0.090, blue: 0.105)
+    static let panel = Color(red: 0.12, green: 0.14, blue: 0.16)
+    static let border = Color(red: 0.29, green: 0.28, blue: 0.27)
+    static let ink = Color(red: 0.98, green: 0.91, blue: 0.79)
+    static let secondary = Color(red: 0.70, green: 0.68, blue: 0.63)
+    static let amber = Color(red: 1.0, green: 0.66, blue: 0.23)
+    static let buttonInk = Color(red: 0.10, green: 0.085, blue: 0.07)
+}
+
+/// A small native dressing-room set behind the independently rendered avatar.
+private struct CreatorApartmentStage: View {
     var body: some View {
-        GeometryReader { geo in
-            let w = geo.size.width
-            let h = geo.size.height
+        GeometryReader { geometry in
+            let width = geometry.size.width
+            let height = geometry.size.height
             ZStack {
-                RoundedRectangle(cornerRadius: 80)
-                    .fill(Theme.Colour.surface.opacity(0.65))
-                    .frame(width: w * 0.55, height: h * 0.94)
-                    .overlay(RoundedRectangle(cornerRadius: 80)
-                        .strokeBorder(Theme.Colour.cardBorder.opacity(0.65), lineWidth: 1))
-                    .position(x: w / 2, y: h * 0.47)
+                LinearGradient(colors: [CreatorPalette.panel, CreatorPalette.background], startPoint: .top, endPoint: .bottom)
+                Rectangle().fill(Color(red: 0.28, green: 0.19, blue: 0.14))
+                    .frame(height: height * 0.18).frame(maxHeight: .infinity, alignment: .bottom)
                 Path { path in
-                    path.move(to: CGPoint(x: w * 0.19, y: h * 0.84))
-                    path.addLine(to: CGPoint(x: w * 0.5, y: h * 0.67))
-                    path.addLine(to: CGPoint(x: w * 0.81, y: h * 0.84))
-                    path.addLine(to: CGPoint(x: w * 0.5, y: h))
-                    path.closeSubpath()
-                }
-                .fill(Theme.Colour.accentSoft.opacity(0.6))
-                .overlay(alignment: .bottom) {
-                    Rectangle().fill(Theme.Colour.cardBorder.opacity(0.6))
-                        .frame(width: w * 0.26, height: 2).padding(.bottom, 12)
-                }
+                    for row in 0..<4 {
+                        let y = height * (0.82 + Double(row) * 0.055)
+                        path.move(to: CGPoint(x: 0, y: y))
+                        path.addLine(to: CGPoint(x: width, y: y))
+                    }
+                    for column in 0..<7 {
+                        let x = width * Double(column) / 6
+                        path.move(to: CGPoint(x: width * 0.5 + (x - width * 0.5) * 0.65, y: height * 0.82))
+                        path.addLine(to: CGPoint(x: x, y: height))
+                    }
+                }.stroke(Color.black.opacity(0.28), lineWidth: 1)
+                Ellipse().fill(CreatorPalette.amber.opacity(0.10))
+                    .frame(width: width * 0.54, height: height * 0.15)
+                    .position(x: width * 0.5, y: height * 0.91)
+                VStack(spacing: 0) {
+                    Rectangle().fill(Color(red: 0.44, green: 0.29, blue: 0.18)).frame(width: width * 0.20, height: 4)
+                    HStack(alignment: .top, spacing: 3) {
+                        Rectangle().fill(Color(red: 0.24, green: 0.29, blue: 0.31)).frame(width: width * 0.045, height: height * 0.19)
+                        Rectangle().fill(Color(red: 0.40, green: 0.32, blue: 0.23)).frame(width: width * 0.055, height: height * 0.24)
+                        Rectangle().fill(Color(red: 0.24, green: 0.31, blue: 0.25)).frame(width: width * 0.05, height: height * 0.20)
+                    }.padding(.top, 6)
+                }.position(x: width * 0.14, y: height * 0.61)
+                RoundedRectangle(cornerRadius: 2).fill(Color(red: 0.27, green: 0.33, blue: 0.35))
+                    .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(Color(red: 0.48, green: 0.31, blue: 0.19), lineWidth: 5))
+                    .frame(width: width * 0.13, height: height * 0.43)
+                    .rotationEffect(.degrees(8)).position(x: width * 0.85, y: height * 0.65)
+                Path { path in
+                    path.move(to: CGPoint(x: width * 0.81, y: 0))
+                    path.addLine(to: CGPoint(x: width * 0.81, y: height * 0.24))
+                }.stroke(CreatorPalette.border, lineWidth: 2)
+                Image(systemName: "lightbulb.fill").font(.system(size: 15))
+                    .foregroundStyle(CreatorPalette.amber)
+                    .shadow(color: CreatorPalette.amber.opacity(0.8), radius: 18)
+                    .position(x: width * 0.81, y: height * 0.26)
             }
         }
         .accessibilityHidden(true)
     }
 }
 
-#Preview("Customizer") {
+#Preview("Character creator") {
     CharacterCustomizerView(initial: .default, initialName: "You", onSave: { _, _ in })
         .environment(AppStore())
 }

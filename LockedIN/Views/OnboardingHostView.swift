@@ -1,159 +1,189 @@
 import SwiftUI
 
-// MARK: - OnboardingHostView — first-run beats (mockup 6-beat flow)
-//
-// Chains the code-drawn onboarding beats, matching mockups 05 → 06 → 01 → 02 → 03 → 04:
-//   1. WelcomeSplashView     — "Welcome to LockedIN" hero splash
-//   2. ValuePropsView        — numbered value-prop cards
-//   3. CharacterGalleryView  — choose a base study avatar
-//   4. CharacterCustomizerView — fully customise the look (wardrobe axes)
-//   5. AvatarRevealView      — "You're all set!" + name your avatar
-//   6. FirstRoomBeatView     — arrive in your first room
-// A "N OF 6" step badge occupies a reserved header (except inside the customizer, which has
-// its own chrome). Identity persists at the reveal beat; the completion flag flips
-// on "Explore room", so RootView routes to Home next launch.
-//
-// @AppStorage lives here in the View (never on the @Observable AppStore — Pitfall 8).
-
+/// A short introduction with one continuous progress indicator. Avatar edits are
+/// staged in AppStore until naming, while unsupported identities remain protected.
 struct OnboardingHostView: View {
-
     @Environment(AppStore.self) private var appStore
     @ReducedMotionPreference private var reduceMotion
     @AppStorage(PersistenceKeys.onboarding) private var hasCompletedOnboarding = false
 
-    enum Beat: Int { case splash = 0, valueProps, gallery, customizer, reveal, firstRoom }
-    @State private var beat: Beat = .splash
-    @State private var hasChosenBase = false
+    private enum Beat: Int { case welcome, creator, name, arrival }
+    @State private var beat: Beat = .welcome
+    @State private var preparedIdentity = false
+    @State private var draftName = ""
 
     var body: some View {
-        if let issue = CharacterPersistence.recoveryIssue(defaults: appStore.defaults) {
+        Group {
+            if let issue = CharacterPersistence.recoveryIssue(defaults: appStore.defaults) {
+                recovery(issue)
+            } else {
+                introduction
+            }
+        }
+        .preferredColorScheme(.dark)
+        .onAppear {
+            guard !preparedIdentity else { return }
+            preparedIdentity = true
+            draftName = appStore.displayName
+            // Never replace an existing supported or protected identity with a starter.
+            if CharacterPersistence.load(defaults: appStore.defaults) == nil,
+               CharacterPersistence.recoveryIssue(defaults: appStore.defaults) == nil {
+                appStore.userCharacter = .starter
+            }
+        }
+    }
+
+    private var introduction: some View {
+        ZStack {
+            OnboardingApartmentBackdrop()
+            switch beat {
+            case .welcome:
+                WelcomeSplashView(onContinue: { go(.creator) })
+                    .transition(beatTransition)
+            case .creator:
+                CharacterCustomizerView(
+                    initial: appStore.userCharacter,
+                    initialName: draftName,
+                    onBack: { go(.welcome) },
+                    isOnboarding: true,
+                    onSave: { appearance, _ in
+                        appStore.userCharacter = appearance
+                        go(.name)
+                    }
+                )
+                .transition(beatTransition)
+            case .name:
+                AvatarRevealView(
+                    appearance: appStore.userCharacter,
+                    initialName: draftName,
+                    onNameChange: { draftName = $0 },
+                    onConfirm: { name in
+                        guard CharacterPersistence.save(appearance: appStore.userCharacter,
+                                                        displayName: name,
+                                                        defaults: appStore.defaults) else { return }
+                        draftName = name
+                        appStore.displayName = name
+                        go(.arrival)
+                    }
+                )
+                .transition(beatTransition)
+            case .arrival:
+                FirstRoomBeatView(appearance: appStore.userCharacter,
+                                  displayName: appStore.displayName,
+                                  onExplore: complete)
+                    .transition(beatTransition)
+            }
+        }
+        .safeAreaInset(edge: .top, spacing: 0) { progressHeader }
+    }
+
+    private var progressHeader: some View {
+        HStack(spacing: 14) {
+            if beat == .name || beat == .arrival {
+                Button {
+                    go(beat == .name ? .creator : .name)
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.body.weight(.semibold))
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(OnboardingApartmentPalette.ink)
+                .accessibilityLabel("Previous onboarding step")
+                .accessibilityIdentifier("onboarding.back")
+            }
+            ProgressView(value: Double(beat.rawValue + 1), total: 4)
+                .tint(OnboardingApartmentPalette.amber)
+                .accessibilityLabel("Introduction progress")
+                .accessibilityValue("Step \(beat.rawValue + 1) of 4")
+                .accessibilityIdentifier("onboarding.progress")
+        }
+        .padding(.horizontal, 24)
+        .frame(minHeight: beat == .name || beat == .arrival ? 48 : 28)
+        .background(OnboardingApartmentPalette.background)
+    }
+
+    private func recovery(_ issue: String) -> some View {
+        ZStack {
+            OnboardingApartmentBackdrop()
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    Text("Your saved avatar is preserved")
-                        .font(.title2.bold())
-                    Text(issue)
-                        .accessibilityIdentifier("onboarding.avatarRecovery")
+                    Text("Your saved avatar is preserved").font(.title2.bold())
+                    Text(issue).accessibilityIdentifier("onboarding.avatarRecovery")
                     Text("You can enter your room with a temporary avatar preview. Your original saved look and name stay untouched, and avatar editing stays paused.")
                         .fixedSize(horizontal: false, vertical: true)
-                    Button("Continue with a temporary preview") {
-                        // Complete only the introduction. Never replace the protected identity.
-                        complete()
-                    }
-                    .buttonStyle(StudioButtonStyle(primary: true))
-                    .accessibilityIdentifier("onboarding.avatarRecovery.continue")
+                    Button("Continue with a temporary preview", action: complete)
+                        .buttonStyle(OnboardingApartmentButtonStyle())
+                        .accessibilityIdentifier("onboarding.avatarRecovery.continue")
                 }
                 .padding(24)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .foregroundStyle(Theme.Colour.textPrimary)
-            .background(Theme.Colour.background.ignoresSafeArea())
-        } else {
-            onboardingBody
         }
+        .foregroundStyle(OnboardingApartmentPalette.ink)
     }
 
-    private var onboardingBody: some View {
-        ZStack(alignment: .topTrailing) {
-            Theme.Colour.background.ignoresSafeArea()
-
-            switch beat {
-            case .splash:
-                WelcomeSplashView(onContinue: { go(.valueProps) }, onSkip: { go(.gallery) })
-                    .transition(beatTransition)
-
-            case .valueProps:
-                ValuePropsView(onContinue: { go(.gallery) }, onSkip: { go(.gallery) })
-                    .transition(beatTransition)
-
-            case .gallery:
-                CharacterGalleryView(
-                    preserveCurrentLook: hasChosenBase || CharacterPersistence.load(defaults: appStore.defaults) != nil,
-                    onContinue: {
-                        hasChosenBase = true
-                        go(.customizer)
-                    }
-                )
-                    .transition(beatTransition)
-
-            case .customizer:
-                CharacterCustomizerView(
-                    initial: appStore.userCharacter,
-                    initialName: appStore.displayName,
-                    onBack: { go(.gallery) },
-                    onSave: { appearance, _ in
-                        appStore.userCharacter = appearance
-                        go(.reveal)
-                    }
-                )
-                .transition(beatTransition)
-
-            case .reveal:
-                AvatarRevealView(
-                    appearance: appStore.userCharacter,
-                    initialName: appStore.displayName,
-                    onConfirm: { name in
-                        guard CharacterPersistence.save(appearance: appStore.userCharacter,
-                                                  displayName: name, defaults: appStore.defaults) else { return }
-                        appStore.displayName = name
-                        go(.firstRoom)
-                    }
-                )
-                .transition(beatTransition)
-
-            case .firstRoom:
-                FirstRoomBeatView(
-                    appearance: appStore.userCharacter,
-                    displayName: appStore.displayName,
-                    onExplore: { complete() }
-                )
-                .transition(beatTransition)
-            }
-
-        }
-        .safeAreaInset(edge: .top, spacing: 0) {
-            if beat != .customizer {
-                HStack {
-                    if beat != .splash {
-                        Button {
-                            if let previous = Beat(rawValue: beat.rawValue - 1) { go(previous) }
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 16, weight: .semibold))
-                                .frame(width: 44, height: 44)
-                        }
-                        .foregroundStyle(Theme.Colour.textPrimary)
-                        .accessibilityLabel("Previous onboarding step")
-                        .accessibilityIdentifier("onboarding.back")
-                    } else {
-                        PixelIconView(icon: .lock, size: 24, tint: Theme.Colour.textPrimary)
-                            .frame(width: 44, height: 44)
-                            .accessibilityHidden(true)
-                    }
-                    Spacer()
-                    StepBadge(current: beat.rawValue + 1, total: 6)
-                        .accessibilityLabel("Step \(beat.rawValue + 1) of 6")
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 8)
-                .background(Theme.Colour.background)
-            }
-        }
-        .statusBarHidden(true)
-    }
-
+    private func complete() { hasCompletedOnboarding = true }
     private func go(_ next: Beat) {
-        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.35)) { beat = next }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) { beat = next }
     }
+    private var beatTransition: AnyTransition { .opacity }
+}
 
-    private func complete() {
-        hasCompletedOnboarding = true
+/// Local first-run palette. Existing app screens retain their current theme until
+/// their corresponding Pixel Apartment implementation slice is integrated.
+enum OnboardingApartmentPalette {
+    static let background = Color(red: 0.075, green: 0.086, blue: 0.106)
+    static let surface = Color(red: 0.125, green: 0.133, blue: 0.149)
+    static let ink = Color(red: 0.97, green: 0.925, blue: 0.83)
+    static let muted = Color(red: 0.70, green: 0.68, blue: 0.63)
+    static let amber = Color(red: 1.0, green: 0.69, blue: 0.29)
+}
+
+struct OnboardingApartmentButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(.headline, design: .rounded, weight: .semibold))
+            .foregroundStyle(OnboardingApartmentPalette.background)
+            .padding(.horizontal, 18).padding(.vertical, 14)
+            .frame(maxWidth: .infinity, minHeight: 52)
+            .contentShape(RoundedRectangle(cornerRadius: 14))
+            .background(OnboardingApartmentPalette.amber, in: RoundedRectangle(cornerRadius: 14))
+            .opacity(isEnabled ? (configuration.isPressed ? 0.85 : 1) : 0.45)
     }
+}
 
-    private var beatTransition: AnyTransition {
-        reduceMotion ? .opacity : .asymmetric(
-            insertion: .move(edge: .trailing).combined(with: .opacity),
-            removal: .move(edge: .leading).combined(with: .opacity)
-        )
+/// Architectural depth behind the live room layers, without ornamental clouds or
+/// star particles. It deliberately remains still when Reduce Motion is enabled.
+struct OnboardingApartmentBackdrop: View {
+    var body: some View {
+        ZStack {
+            LinearGradient(colors: [OnboardingApartmentPalette.background,
+                                     Color(red: 0.13, green: 0.14, blue: 0.17),
+                                     Color(red: 0.19, green: 0.14, blue: 0.105)],
+                           startPoint: .top, endPoint: .bottomTrailing)
+            Canvas { context, size in
+                let width = size.width / 7
+                for column in 0..<7 {
+                    let roof = size.height * [0.48, 0.32, 0.43, 0.25, 0.39, 0.30, 0.45][column]
+                    let x = CGFloat(column) * width
+                    context.fill(Path(CGRect(x: x, y: roof, width: width - 4,
+                                             height: size.height - roof)),
+                                 with: .color(.black.opacity(0.12)))
+                    for row in 0..<8 where (column + row) % 3 != 0 {
+                        let rect = CGRect(x: x + width * 0.22,
+                                          y: roof + 20 + CGFloat(row) * 38,
+                                          width: width * 0.18, height: 12)
+                        context.fill(Path(rect), with: .color(OnboardingApartmentPalette.amber.opacity(0.055)))
+                    }
+                }
+            }
+        }
+        .ignoresSafeArea()
+        .accessibilityHidden(true)
+        .allowsHitTesting(false)
     }
 }
 

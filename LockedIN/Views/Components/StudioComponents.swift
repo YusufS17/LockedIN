@@ -69,10 +69,11 @@ struct StudioHeader: View {
 struct PersonalRoomScene: View {
     let room: PersonalRoom
     let character: StudyCharacter
+    var phase: DayPhase? = nil
 
     var body: some View {
         ZStack {
-            IsometricRoomView(room: room)
+            IsometricRoomView(room: room, phase: phase)
             GeometryReader { geo in
                 let cell = RoomLayout.scale(in: geo.size)
                 let feet = RoomLayout.project(RoomLayout.heroStand, in: geo.size)

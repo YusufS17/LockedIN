@@ -14,6 +14,7 @@ import SwiftUI
 
 struct CharacterAppearance: Codable, Equatable {
     var skinTone:    SkinTone
+    var presentation: AvatarPresentation = .masculine
     var hairStyle:   HairStyle
     var hairColour:  HairColour
     var faceStyle:   FaceStyle   = .neutral
@@ -34,8 +35,10 @@ struct CharacterAppearance: Codable, Equatable {
     /// Legacy-signature initialiser — all existing call sites (presets, catalog,
     /// customizer previews) construct through here and get mapped wardrobe axes.
     init(skinTone: SkinTone, hairStyle: HairStyle, hairColour: HairColour,
-         outfitStyle: OutfitStyle, accentColour: AccentColour, accessory: Accessory = .none) {
+         outfitStyle: OutfitStyle, accentColour: AccentColour, accessory: Accessory = .none,
+         presentation: AvatarPresentation = .masculine) {
         self.skinTone = skinTone
+        self.presentation = presentation
         self.hairStyle = hairStyle
         self.hairColour = hairColour
         self.outfitStyle = outfitStyle
@@ -48,8 +51,10 @@ struct CharacterAppearance: Codable, Equatable {
     /// Full-axis initialiser for the v3 customizer.
     init(skinTone: SkinTone, hairStyle: HairStyle, hairColour: HairColour,
          faceStyle: FaceStyle, topStyle: TopStyle, bottomStyle: BottomStyle,
-         shoeStyle: ShoeStyle, accentColour: AccentColour, accessory: Accessory) {
+         shoeStyle: ShoeStyle, accentColour: AccentColour, accessory: Accessory,
+         presentation: AvatarPresentation = .masculine) {
         self.skinTone = skinTone
+        self.presentation = presentation
         self.hairStyle = hairStyle
         self.hairColour = hairColour
         self.faceStyle = faceStyle
@@ -79,10 +84,17 @@ struct CharacterAppearance: Codable, Equatable {
         }
     }
 
-    // Default character — always valid; shown when user skips onboarding (D-27).
+    // Established fallback character. New onboarding uses the separate starter below.
     static let `default` = CharacterAppearance(
         skinTone: .medium, hairStyle: .short, hairColour: .brown,
         outfitStyle: .casual, accentColour: .amber, accessory: .none
+    )
+
+    /// New creator entry only. Existing saves and fallback avatars retain `.default`.
+    static let starter = CharacterAppearance(
+        skinTone: .yellow, hairStyle: .short, hairColour: .brown,
+        outfitStyle: .casual, accentColour: .cream, accessory: .none,
+        presentation: .masculine
     )
 
     // Static seeded appearances for bots (RESEARCH.md Open Question Q3 — resolved)
@@ -147,7 +159,8 @@ extension CharacterAppearance {
             topStyle: try c.decodeIfPresent(TopStyle.self, forKey: .topStyle) ?? mapped.top,
             bottomStyle: try c.decodeIfPresent(BottomStyle.self, forKey: .bottomStyle) ?? mapped.bottom,
             shoeStyle: try c.decodeIfPresent(ShoeStyle.self, forKey: .shoeStyle) ?? mapped.shoes,
-            accentColour: accent, accessory: acc
+            accentColour: accent, accessory: acc,
+            presentation: try c.decodeIfPresent(AvatarPresentation.self, forKey: .presentation) ?? .masculine
         )
         // Preserve the exact stored legacy value (init derived it from topStyle).
         self.outfitStyle = outfit
@@ -163,14 +176,29 @@ extension CharacterAppearance {
 extension CharacterAppearance {
     /// Human-readable description for VoiceOver (AvatarView accessibilityLabel).
     var description: String {
-        "\(skinTone.displayName) skin, \(hairStyle.displayName) \(hairColour.displayName) hair, \(topStyle.displayName), \(bottomStyle.displayName), \(shoeStyle.displayName)"
+        "\(presentation.displayName) presentation, Skin \(skinTone.displayName), \(hairStyle.displayName) \(hairColour.displayName) hair, \(topStyle.displayName), \(bottomStyle.displayName), \(shoeStyle.displayName)"
     }
 }
 
 // MARK: - Option Enums
 
 enum SkinTone: String, Codable, CaseIterable {
-    case light, medium, dark, deep
+    case light, medium, dark, deep, yellow
+    /// Match creator numbering while preserving the established save identifiers.
+    var displayName: String {
+        switch self {
+        case .yellow: return "1"
+        case .light: return "2"
+        case .medium: return "3"
+        case .dark: return "4"
+        case .deep: return "5"
+        }
+    }
+}
+
+/// Independent styling axis; selecting it never changes skin, hair or wardrobe.
+enum AvatarPresentation: String, Codable, CaseIterable {
+    case masculine, feminine
     var displayName: String { rawValue.capitalized }
 }
 
@@ -246,6 +274,7 @@ extension SkinTone {
         case .medium: return Theme.Colour.skinMedium
         case .dark:   return Theme.Colour.skinDark
         case .deep:   return Theme.Colour.skinDeep
+        case .yellow: return Color(red: 0.98, green: 0.79, blue: 0.24)
         }
     }
 }

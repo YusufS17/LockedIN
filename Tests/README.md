@@ -94,7 +94,7 @@ python3 Tests/run-ui-checks.py --device <existing-compact-simulator-UUID> --time
 python3 Tests/run-ui-checks.py --device <existing-simulator-UUID> --timeout 600 --test-timeout 300 --only-testing LockedINUITests/SystemAccessibilityTests
 ```
 
-Onboarding checks customise a base, return to the gallery, preserve the same-base outfit, cancel/confirm replacement, exercise editor discard protection and verify saved identity after relaunch. Compact acceptance requires a phone width of 390 points or less (the existing iPhone16e reports390×844); it walks study/break/restoration/goal/results/reward replay/purchase and saved decorating. These cases use disposable preferences and injected clock advance, with screenshot attachments for visual inspection. They do not establish real-time study or physical-device soak.
+Onboarding checks now exercise Welcome → creator → name → arrival, preserve committed appearance/name through backtracking, exercise discard protection, restore a named identity before arrival completes, and verify ordinary/largest-text routes. The previous gallery/same-base flow is superseded by the selected Pixel Apartment redesign. Compact acceptance requires a phone width of 390 points or less (the existing iPhone16e reports390×844); it walks study/break/restoration/goal/results/reward replay/purchase and saved decorating. These cases use disposable preferences and injected clock advance, with screenshot attachments for visual inspection. They do not establish real-time study or physical-device soak.
 
 The system accessibility case uses the actual Simulator Settings UI to toggle Reduce Motion and checks the app’s real environment response; teardown restores the original switch value. It also requests XCTest’s visible-element sufficient-description audit. It does not verify VoiceOver spoken order/navigation or comprehensive accessibility. If interrupted before teardown, confirm and restore the original Motion setting manually; never reset app data. These new runtime cases are pending until actual passing evidence is recorded.
 
@@ -162,3 +162,24 @@ a newly selected destination; it does not establish multiplayer history.
 
 Current session earnings and current world progress are deliberately separate on
 the results screen. Existing receipts have no historical destination record.
+
+
+## Pixel Apartment creator and compatible identities — 2026-11-21
+
+`bash Tests/run-study-session-checks.sh` includes legacy missing-presentation decode,
+new yellow/feminine identity roundtrip with independent clothes/name, unknown future
+presentation preservation and existing session/reward replay checks. The old raw
+skin IDs remain stable; numbered display labels are presentation only. `.starter`
+is separate from `.default` so existing appearances are not reset.
+
+After build-for-testing, run `LockedINUITests/OnboardingBacktrackingTests` for the
+short flow, committed/uncommitted draft handling, name backtracking, partial
+onboarding relaunch and maximum text. Use
+`LockedINUITests/OfflineStudyLoopTests/testExistingGarmentsSurviveCreatorEditsAndRandomize`
+for jacket/skirt/boots/headphones and M/F preservation through edits/Randomize/save/
+relaunch. Its Debug `-ui-test-avatar-existing-outfit` seed requires both a namespaced
+suite and reset. Future clothing choices are not editable in this slice; saved
+outfits remain intact. Existing wardrobe/discard tests use stable numbered-skin IDs.
+
+Current runtime acceptance and screenshots: `docs/verification/pixel-apartment-2026-11-21/`.
+Dark UI and modest tailoring do not close the final character/room-art fidelity gate.

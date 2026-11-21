@@ -1,152 +1,78 @@
 import SwiftUI
 
-// Preview and name the chosen outfit before saving identity.
-
+/// A concise naming beat. A callback preserves an unfinished name when returning
+/// to the creator; only the host's confirm action writes the saved identity.
 struct AvatarRevealView: View {
-
     let appearance: CharacterAppearance
     var initialName: String = ""
+    var onNameChange: ((String) -> Void)? = nil
     let onConfirm: (String) -> Void
 
-    @ReducedMotionPreference private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var name = ""
-    @State private var burst = false
-    @State private var avatarVisible = false
     @FocusState private var nameFocused: Bool
-
-    private var trimmedName: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
 
     var body: some View {
         ZStack {
-            Theme.Colour.background.ignoresSafeArea()
-            OnboardingBackdrop()
-
+            OnboardingApartmentBackdrop()
             ScrollView {
                 VStack(spacing: 24) {
-                    heading
-                    pedestal
-                    nameCard
-                }
-                .padding(24)
+                    Text("What should we call you?")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .foregroundStyle(OnboardingApartmentPalette.ink)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityAddTraits(.isHeader)
+                    AvatarView(appearance: appearance, status: .idle,
+                               size: dynamicTypeSize.isAccessibilitySize ? 110 : 140)
+                        .padding(24)
+                        .frame(maxWidth: .infinity)
+                        .background(OnboardingApartmentPalette.surface, in: RoundedRectangle(cornerRadius: 24))
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Your name").font(.subheadline.weight(.semibold))
+                            .foregroundStyle(OnboardingApartmentPalette.muted)
+                        TextField("Enter your name", text: $name)
+                            .font(.system(.title3, design: .rounded, weight: .semibold))
+                            .foregroundStyle(OnboardingApartmentPalette.ink)
+                            .textFieldStyle(.plain)
+                            .focused($nameFocused)
+                            .textInputAutocapitalization(.words)
+                            .submitLabel(.done)
+                            .onSubmit(confirm)
+                            .accessibilityLabel("Your name")
+                            .accessibilityIdentifier("onboarding.name")
+                            .padding(16)
+                            .background(OnboardingApartmentPalette.surface,
+                                        in: RoundedRectangle(cornerRadius: 14))
+                            .overlay(RoundedRectangle(cornerRadius: 14)
+                                .strokeBorder(OnboardingApartmentPalette.muted.opacity(0.35)))
+                    }
+                }.padding(24)
             }
             .scrollDismissesKeyboard(.interactively)
-            .safeAreaInset(edge: .bottom) {
-                VStack(spacing: 12) {
-                    PageDots(count: 6, active: 4)
-                    Button("Meet your room") { confirm() }
-                        .buttonStyle(StudioButtonStyle(primary: true))
-                        .accessibilityIdentifier("onboarding.continue")
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 16)
-                .background(Theme.Colour.background)
-            }
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Button("Continue to your room", action: confirm)
+                .buttonStyle(OnboardingApartmentButtonStyle())
+                .accessibilityIdentifier("onboarding.continue")
+                .padding(.horizontal, 24).padding(.vertical, 16)
+                .background(OnboardingApartmentPalette.background.opacity(0.97))
         }
         .onAppear { name = initialName }
-        .task {
-            guard !Task.isCancelled else { return }
-            if !reduceMotion {
-                do { try await Task.sleep(for: .seconds(0.1)) }
-                catch { return }
-            }
-            withAnimation(reduceMotion ? nil : .spring(duration: 0.5, bounce: 0.35)) {
-                avatarVisible = true
-            }
-            guard !reduceMotion else { return }
-            do { try await Task.sleep(for: .seconds(0.25)) }
-            catch { return }
-            guard !Task.isCancelled else { return }
-            burst = true
+        .onChange(of: name) { _, new in
+            let bounded = String(new.prefix(24))
+            if name != bounded { name = bounded }
+            onNameChange?(bounded)
         }
-
-    }
-
-    // MARK: - Heading
-
-    private var heading: some View {
-        VStack(spacing: Theme.Spacing.sm) {
-            Text("You're all set!")
-                .font(.system(.title, design: .rounded, weight: .bold))
-                .foregroundStyle(Theme.Colour.textPrimary)
-            Text("Your avatar is ready\nto start studying.")
-                .font(.body)
-                .foregroundStyle(Theme.Colour.textSecondary)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
-    }
-
-    // MARK: - Pedestal
-
-    private var pedestal: some View {
-        ZStack {
-            // Radial sunburst glow
-            Circle()
-                .fill(
-                    RadialGradient(
-                        colors: [Theme.Colour.sparkle.opacity(0.50),
-                                 Theme.Colour.sparkle.opacity(0.10),
-                                 .clear],
-                        center: .center, startRadius: 20, endRadius: 130
-                    )
-                )
-                .frame(width: 260, height: 260)
-
-            // Gold floor pedestal
-            Ellipse()
-                .fill(Theme.Colour.accentSoft.opacity(0.65))
-                .frame(width: 170, height: 44)
-                .overlay(Ellipse().stroke(Theme.Colour.accent.opacity(0.5), lineWidth: 2))
-                .offset(y: 82)
-
-            SparkleBurst(trigger: burst, count: 12, radius: 96)
-
-            AvatarView(appearance: appearance, status: .idle, size: 150)
-                .scaleEffect(avatarVisible ? 1 : 0.4)
-                .opacity(avatarVisible ? 1 : 0)
-                .offset(y: 8)
-        }
-        .frame(height: 240)
-    }
-
-    // MARK: - Name card
-
-    private var nameCard: some View {
-        VStack(spacing: Theme.Spacing.sm) {
-            Text("Name your avatar")
-                .font(.system(.caption, design: .rounded, weight: .semibold))
-                .foregroundStyle(Theme.Colour.textPrimary)
-
-            TextField("Enter name…", text: $name)
-                .font(.system(.headline, design: .rounded, weight: .semibold))
-                .foregroundStyle(Theme.Colour.textPrimary)
-                .textFieldStyle(.plain)
-                .multilineTextAlignment(.center)
-                .focused($nameFocused)
-                .accessibilityIdentifier("onboarding.name")
-                .submitLabel(.done)
-                .onSubmit { confirm() }
-                .onChange(of: name) { _, new in
-                    if new.count > 24 { name = String(new.prefix(24)) }
-                }
-                .padding(Theme.Spacing.md)
-                .background(PixelPanelShape(unit: 3).fill(Theme.Colour.background))
-                .overlay(PixelPanelShape(unit: 3).stroke(Theme.Colour.cardBorder, lineWidth: 1.5))
-
-            PixelSpeechBubble(text: "Your name in study rooms", icon: .users)
-                .scaleEffect(0.9)
-        }
-        .padding(Theme.Spacing.md)
-        .background(PixelPanelShape(unit: 4).fill(Theme.Colour.surface))
-        .overlay(PixelPanelShape(unit: 4).stroke(Theme.Colour.cardBorder, lineWidth: 1.5))
     }
 
     private func confirm() {
-        onConfirm(trimmedName.isEmpty ? "You" : trimmedName)
+        nameFocused = false
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        onConfirm(trimmed.isEmpty ? "You" : trimmed)
     }
 }
 
-#Preview("Avatar reveal") {
-    AvatarRevealView(appearance: .default, initialName: "", onConfirm: { _ in })
-        .environment(AppStore())
+#Preview("Avatar name") {
+    AvatarRevealView(appearance: .default, onConfirm: { _ in })
 }

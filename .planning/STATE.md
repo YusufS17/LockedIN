@@ -6,6 +6,12 @@ stopped_at: "User selected A — Pixel Apartment; phone-size refinement next"
 
 # Current handoff
 
+## Native onboarding/creator recovery — 2026-11-21
+
+Server interruption during final build. All accumulated implementation/evidence preserved in recovery checkpoint before further changes. Current slice implemented: four-beat dark onboarding, numbered/yellow starter, M/F presentation, free creator features, preserved existing outfits, safe identity migration and evening-layered room previews. Three builder/cross-reviews complete. Model integration passed twice; initial app/UI build passed; six targeted UI cases passed427.247s total (source run log and exported screenshots under `docs/verification/pixel-apartment-2026-11-21/`).
+
+Final changes after first6 passes: new-user shirt cream to separate yellow skin, added normal starter capture and AX Randomize reachability assertions. Final model checks passed. Final xcodebuild survived server restart (PID94472 at recovery); check `/tmp/LockedIN-nov21-final-build.log` before repeating. Once done, run normal draft and largest-text onboarding cases against final build, export/inspect, update notes and commit/push. No app data reset or networking. No agents/test clients active at recovery; only build. Full new character/room fidelity, tabs and immersive focus remain following milestones.
+
 ## Visual direction selected — 2026-11-15
 
 User explicitly selected **A — Pixel Apartment** as the best direction. [Art direction](../docs/design/ART_DIRECTION.md) and [concept packet](../docs/design/concepts/visual-reset-2026-11-15/README.md) updated. Use A's depicted character style as baseline; no separate workshop-family selection is inferred. Prior corrections remain requirements. Next: refine creator and immersive focus at actual phone aspect ratio, then build saved phases preserving identity/progression/session UUIDs/receipts and separate runtime art layers. No app edits, agents/build/image jobs running in this preference-recording milestone. Documentation check only.
