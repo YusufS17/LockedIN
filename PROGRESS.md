@@ -110,3 +110,8 @@ Implementation/evidence milestone `ae1d4d7` committed and successfully pushed to
 ## Design backup — 2026-11-15
 
 Generated concepts/prompts/requirements (`4f276a7`) and exact supplied screenshot baseline (`8aa4177`) successfully pushed to existing origin/main (`2db400c..8aa4177`). No app code, deployment or saved-user-data change. Subsequent handoff note records this confirmed backup.
+
+
+## Native milestone backup — 2026-11-21
+
+Recovery checkpoint `5db37c4` and verified milestone `1562455` successfully pushed to existing `origin/main` (`b17826b..1562455`), without force or deployment. Final handoff-only commit records the confirmed backup. Working tree clean after milestone; no build/test clients or agents running. App launched with ordinary preferences.
